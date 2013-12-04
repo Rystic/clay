@@ -1,0 +1,91 @@
+package city.effects;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.List;
+
+import models.CityModel;
+
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
+
+import screens.AbstractScreen;
+import city.entities.GolemEntity;
+
+public class GolemEffect extends AbstractEffect
+{
+	public GolemEffect(AbstractScreen homeScreen_)
+	{
+		super(homeScreen_);
+		_golemList = ((CityModel) homeScreen_.getModel()).getGolems();
+	}
+
+	@Override
+	public void init()
+	{
+		try
+		{
+			_golemTexture = TextureLoader.getTexture(
+					"PNG",
+					new FileInputStream(new File("art/golem.png")));
+			_manaTexture = TextureLoader.getTexture("PNG", new FileInputStream(
+					new File("art/manaClump.png")));
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void executeEffect()
+	{
+		for (GolemEntity golem : _golemList)
+		{
+			if (!golem.isVisible()) continue;
+			float val = (float) (golem.getMana() / 100);
+			GL11.glColor3f(val,val,val);
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, _golemTexture.getTextureID());
+			double x = golem.getX();
+			double y = golem.getY();
+			// if (!golem.getVisible())
+			// continue;
+
+			GL11.glBegin(GL11.GL_POLYGON);
+			GL11.glTexCoord2f(0, 0);
+			GL11.glVertex2d(x, y + GOLEM_DEFAULT_HEIGHT);
+			GL11.glTexCoord2f(.60f, 0);
+			GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, y + GOLEM_DEFAULT_HEIGHT);
+			GL11.glTexCoord2f(.60f, .60f);
+			GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, y);
+			GL11.glTexCoord2f(0, .60f);
+			GL11.glVertex2d(x, y);
+			GL11.glEnd();
+			if (!golem.getCopyOfHeldItems().isEmpty())
+			{
+				GL11.glBindTexture(
+						GL11.GL_TEXTURE_2D,
+						_manaTexture.getTextureID());
+				GL11.glBegin(GL11.GL_POLYGON);
+				GL11.glTexCoord2f(0, 0);
+				GL11.glVertex2d(x, y + GOLEM_DEFAULT_HEIGHT);
+				GL11.glTexCoord2f(.60f, 0);
+				GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, y
+						+ GOLEM_DEFAULT_HEIGHT);
+				GL11.glTexCoord2f(.60f, .60f);
+				GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, y);
+				GL11.glTexCoord2f(0, .60f);
+				GL11.glVertex2d(x, y);
+				GL11.glEnd();
+			}
+		}
+	}
+
+	private final static int GOLEM_DEFAULT_WIDTH = 20;
+	private final static int GOLEM_DEFAULT_HEIGHT = 20;
+
+	private Texture _golemTexture;
+	private Texture _manaTexture;
+
+	private List<GolemEntity> _golemList;
+}

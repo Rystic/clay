@@ -1,0 +1,1 @@
+Make sure buildings that get overwritten have their task removed from the BehaviorProcess task queue.

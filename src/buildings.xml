@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Buildings>
+	<Building BuildingName="Clay Block" BuildingTag="clay-block"
+		BuildingDescription="Clay Blocks can be molded into other buildings."
+		BuildTime="0" BuildingRequirements="base,none" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
+		isNatural="false" isPassable="true" isScalable="false" isStorage="false"
+		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
+		VerticalScaleOnly="false" WorkingGolemsEnterBuilding="false"
+		tickStart="-1">
+		<State StateName="state-default" Graphic="base,bigClayBlock.png"></State>
+		<State StateName="state-adjacent:natural-clay" Graphic="base,bigManaClay.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Dirt Block" BuildingTag="dirt-block"
+		BuildingDescription="It's dirt. Dirt is boring." BuildTime="0"
+		BuildingRequirements="base,none" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost="0"
+		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
+		isNatural="true" isPassable="false" isScalable="false" isStorage="false"
+		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
+		VerticalScaleOnly="false" WorkingGolemsEnterBuilding="false"
+		tickStart="-1">
+		<State StateName="state-default" Graphic="base,bigDirt.png"></State>
+		<State StateName="state-none-above" Graphic="base,bigGrass.png"></State>
+		<State StateName="state-unnatural-above" Graphic="base,bigPackedDirt.png"></State>
+		<State StateName="state-unnatural-left" Graphic="base,bigPackedDirtLeftOnly.png"></State>
+		<State StateName="state-unnatural-right" Graphic="base,bigPackedDirtRightOnly.png"></State>
+		<State StateName="state-unnatural-left,state-unnatural-right" Graphic="base,bigPackedDirtLeftRight.png"></State>
+		<State StateName="state-unnatural-above,state-unnatural-left"
+			Graphic="base,bigPackedDirtLeftTop.png"></State>
+		<State StateName="state-unnatural-above,state-unnatural-right"
+			Graphic="base,bigPackedDirtRightTop.png"></State>
+		<State
+			StateName="state-unnatural-above,state-unnatural-left,state-unnatural-right,"
+			Graphic="base,bigPackedDirtAll.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Natural Clay" BuildingTag="natural-clay"
+		BuildingDescription="Natural clay reduces the mana cost of any adjacent buildings to 0."
+		BuildTime="0" BuildingRequirements="base,none" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost="0"
+		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
+		isNatural="true" isPassable="false" isScalable="false" isStorage="false"
+		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
+		VerticalScaleOnly="false" WorkingGolemsEnterBuilding="false"
+		tickStart="-1">
+		<State StateName="state-default" Graphic="base,bigClay.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="House" BuildingTag="house"
+		BuildingDescription="Houses provide a place for golems to repair themselves."
+		BuildTime="125" BuildingRequirements="base,clay-block"
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		LesserManaCumulativeCost=".1" isClaimable="false" isHouse="true"
+		isNatural="false" isPassable="true" isScalable="false" isStorage="false"
+		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
+		VerticalScaleOnly="false" WorkingGolemsEnterBuilding="false"
+		tickStart="-1">
+		<State StateName="state-default" Graphic="base,bigHouse.png"></State>
+		<State StateName="state-adjacent:natural-clay" Graphic="base,bigHouseMana.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Crucible" BuildingTag="crucible"
+		BuildingDescription="Crucibles are used to siphon mana from the ground, as well as collect natural clay."
+		BuildTime="25" BuildingRequirements="base,clay-block" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
+		isNatural="false" isPassable="true" isScalable="false" isStorage="false"
+		isSupport="false" GlobalGolemanityChange="0" StorageCapacity="0"
+		VerticalScaleOnly="false" WorkingGolemsEnterBuilding="false"
+		tickStart="300">
+		<State StateName="state-default" Graphic="base,bigManaFarm2.png"></State>
+		<State StateName="state-adjacent:natural-clay" Graphic="base,bigManaFarmMana.png"></State>
+		<State StateName="state-tick-finished" Graphic="base,bigManaFarmMature.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete code="item:saturated-clay:harvest-mana"
+			reset="no-held-items"></TickComplete>
+	</Building>
+	<Building BuildingName="Storage" BuildingTag="storage"
+		BuildingDescription="Storages hold items." BuildTime="10"
+		BuildingRequirements="base,clay-block" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
+		isNatural="false" isPassable="true" isScalable="false" isStorage="true"
+		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="40"
+		VerticalScaleOnly="false" WorkingGolemsEnterBuilding="false"
+		tickStart="-1">
+		<State StateName="state-default" Graphic="base,bigStorage.png"></State>
+		<State StateName="state-storage-full" Graphic="base,bigStorageFull.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Ramp" BuildingTag="ramp"
+		BuildingDescription="Ramps can be used to ascend floors." BuildTime="10"
+		BuildingRequirements="base,clay-block" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
+		isNatural="false" isPassable="true" isScalable="true" isStorage="false"
+		isSupport="false" GlobalGolemanityChange="0" StorageCapacity="0"
+		VerticalScaleOnly="false" WorkingGolemsEnterBuilding="false"
+		tickStart="-1">
+		<State StateName="state-default" Graphic="base,rampRight.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Obelisk" BuildingTag="obelisk"
+		BuildingDescription="Obelisks are used to dissipate mana among your golems."
+		BuildTime="25" BuildingRequirements="base,clay-block,n,clay-block"
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		LesserManaCumulativeCost=".2" isClaimable="false" isHouse="false"
+		isNatural="false" isPassable="true" isScalable="false" isStorage="false"
+		isSupport="false" GlobalGolemanityChange="0" StorageCapacity="0"
+		VerticalScaleOnly="false" WorkingGolemsEnterBuilding="false"
+		tickStart="-1">
+		<State StateName="state-default" Graphic="base,bigObeliskBase.png,n,bigObeliskTip.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Ladder" BuildingTag="ladder"
+		BuildingDescription="Ladders are used for vertical movement, but come at a high cost."
+		BuildTime="40" BuildingRequirements="base,clay-block" GreaterManaCost=".1"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
+		isNatural="false" isPassable="true" isScalable="true" isStorage="false"
+		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
+		VerticalScaleOnly="true" WorkingGolemsEnterBuilding="false" tickStart="-1">
+		<State StateName="state-default" Graphic="base,bigLadder.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Sculptors' Studio" BuildingTag="sculptors-studio"
+		BuildingDescription="Sculptors' Studios are used to create more golems."
+		BuildTime="125" BuildingRequirements="base,clay-block"
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
+		LesserManaCumulativeCost=".4" isClaimable="false" isHouse="true"
+		isNatural="false" isPassable="true" isScalable="false" isStorage="false"
+		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
+		VerticalScaleOnly="false" WorkingGolemsEnterBuilding="false"
+		tickStart="-1">
+		<State StateName="state-default" Graphic="base,bigStudio.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Chute" BuildingTag="chute"
+		BuildingDescription="Chutes are used for descending. They're cheaper than ladders, but only go down."
+		BuildTime="40" BuildingRequirements="base,clay-block,s,clay-block"
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost="1.0"
+		LesserManaCumulativeCost="1.0" isClaimable="false" isHouse="false"
+		isNatural="false" isPassable="true" isScalable="true" isStorage="false"
+		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
+		VerticalScaleOnly="true" WorkingGolemsEnterBuilding="false" tickStart="-1">
+		<State StateName="state-default" Graphic="base,bigChute.png,s,bigChuteBottom.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Deep Home" BuildingTag="deep-home"
+		BuildingDescription="Deep Homes generate mana so long as they're buried under other blocks."
+		BuildTime="125" BuildingRequirements="base,house" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		LesserManaCumulativeCost=".2" isClaimable="false" isHouse="true"
+		isNatural="false" isPassable="true" isScalable="false" isStorage="false"
+		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
+		VerticalScaleOnly="false" WorkingGolemsEnterBuilding="false"
+		tickStart="-1">
+		<State StateName="state-default" Graphic="base,bigDeepHomeBuried0.png"></State>
+		<State StateName="state-buried:4" Graphic="base,bigDeepHomeBuried1.png"></State>
+		<State StateName="state-buried:8" Graphic="base,bigDeepHomeBuried2.png"></State>
+		<State StateName="state-buried:12" Graphic="base,bigDeepHomeBuried3.png"></State>
+		<State StateName="state-adjacent:natural-clay,state-buried:2"  Graphic="base,bigDeepHomeBuried1.png"></State>
+		<State StateName="state-adjacent:natural-clay,state-buried:4"  Graphic="base,bigDeepHomeBuried2.png"></State>
+		<State StateName="state-adjacent:natural-clay,state-buried:6"  Graphic="base,bigDeepHomeBuried3.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+</Buildings>

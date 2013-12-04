@@ -1,0 +1,43 @@
+**Graphic States:
+state-none-above      -- signifies there is empty space above the building.
+state-unnatural-above -- signifies there is a player-made building above the building.
+state-unnatural-left -- signifies there is a player-made building to the left of the building.
+state-unnatural-right -- signifies there is a player-made building to the right of the building.
+state-unnatural-below -- signifies there is a player-made building below the building.
+state-adjacent:<block> -- triggered if <block> is within one tile of the base.
+state-tick-finished -- triggered when the tick on the entity reaches 0.
+state-storage-full -- triggered if the heldItems on the entity is greater than or equal to the allowed storage size.
+
+
+
+**Tick Complete:
+item:<item>:<behavior> -- adds <item> to the entity's inventory, as well as a follow up <behavior> to queue.
+
+
+
+**Reset:
+no-held-items-- signals that the tick should restart if the entity is holding no item.
+
+
+
+**Behavior Commands:
+claim:building-tag - Tells the golem to find a building and declare it in use.
+seek:abstract-entity - Tells the golem to seek the given parameter on the map.
+seek-generic-building:building-tag - Tells the golem to seek a building of the given type on the map.
+seek-storage - Tells the golem to find a storage building with available space.
+build:building-entity - Tells the golem to start construction on the given parameter.
+take-item:item-tag:abstract-entity - Takes the given item from the from the abstract entity and gives it to the executing entity.
+store-item:item-tag - Takes the item from the executing entity and puts it in the building the executing entity is on.
+store-all - Takes all items from the executing entity and puts them in the building the executing entity is on.
+hide - Hides the golem until a show command, the behavior finishes, or the behavior fails.
+show - Reveals a golem made invisible with 'hide'
+create-golem:abstract-entity - creates a golem at the given entity.
+
+
+**Behavior Weight:
+closest-to-point - higher weight for being closer to the given point.
+
+
+
+**Require:
+storage - checks if a storage is available on the map.
