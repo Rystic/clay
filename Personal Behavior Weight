@@ -1,0 +1,17 @@
+Personal Behavior Weight.
+
+How is it calculated?
+
+--> If a golem is holding an item, then the priority task is to put that item away. However, tasks that *require* the held item will still be calculated, and take priority over storing the item.
+
+--> Should a claimed building need to claim an item for a task, it will check the claiming golem's inventory first. This ensures that if a task is chosen because of an item a golem is holding, that the held item will be consumed.
+
+--> Behaviors that result in a negative weight are *not* candidates for being chosen. A negative weight indicates the behavior is invalid.
+
+--> Personal tasks are seperated into 'wants' and 'needs'. Needs are special because instead of weight, they are considered valid if all their conditions are met. Likewise, needs take priority over personal tasks *and* city tasks; if a need is triggered, then the golem is removed from consideration when assigning tasks. Needs are calculated every cycle.
+
+--> Storing an item is considered a need, and any task it might lead into will be marked as a need, as well.
+
+--> Every time a golem does a city task, a counter goes up that increases the chance of it adding a personal task to the task pool. When a non-need personal task is executed, the counter resets to 0.
+
+--> If there are no pending city tasks, golems will always add their best personal task to the task pool. This still resets their internal personal task counter.
