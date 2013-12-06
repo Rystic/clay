@@ -183,7 +183,7 @@ public class GenericBehavior
 		if (executingEntity_.isTickComplete())
 		{
 			entity.constructionComplete();
-			executingEntity_.instructionComplete();
+			return true;
 		}
 		else
 			executingEntity_.setTickAndRate(entity.getBuildTime(), 1);
