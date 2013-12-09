@@ -25,6 +25,7 @@ build:building-entity - Tells the golem to start construction on the given param
 claim-building:building-tag - Tells the golem to find a building and declare it in use.
 claim-items:item-tag,item-tag...item-tag - Tells the golem to claim the selected items, and bring them to the claimed building.
 create-golem:abstract-entity - creates a golem at the given entity.
+consume-claimed - consumes all claimed items the entity is holding.
 hide - Hides the golem until a show command, the behavior finishes, or the behavior fails.
 seek:abstract-entity - Tells the golem to seek the given parameter on the map.
 seek-generic-building:building-tag - Tells the golem to seek a building of the given type on the map.

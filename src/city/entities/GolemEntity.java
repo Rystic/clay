@@ -61,6 +61,8 @@ public class GolemEntity extends AbstractEntity
 			_currentBehavior.complete();
 			_currentBehavior = null;
 			_visible = true;
+			if (_claimedBuilding != null)
+				_claimedBuilding.release();
 		}
 	}
 
@@ -69,6 +71,8 @@ public class GolemEntity extends AbstractEntity
 		_currentBehavior.failed(this, reason_);
 		_currentBehavior = null;
 		_visible = true;
+		if (_claimedBuilding != null)
+			_claimedBuilding.release();
 	}
 
 	public boolean isActive()
@@ -175,7 +179,7 @@ public class GolemEntity extends AbstractEntity
 	{
 		_claimedBuilding = claimedBuilding_;
 	}
-	
+
 	public BuildingEntity getClaimedBuilding()
 	{
 		return _claimedBuilding;

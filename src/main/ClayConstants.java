@@ -20,6 +20,7 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_CLAIM_BUILDING = "claim-building";
 	public static final String BEHAVIOR_COMMAND_CLAIM_ITEMS = "claim-items";
 	public static final String BEHAVIOR_COMMAND_CREATE_GOLEM = "create-golem";
+	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED = "consume-claimed";
 	public static final String BEHAVIOR_COMMAND_HIDE = "hide";
 	public static final String BEHAVIOR_COMMAND_SEEK = "seek";
 	public static final String BEHAVIOR_COMMAND_SEEK_CLAIMED_ITEMS = "seek-claimed-items";
@@ -80,7 +81,7 @@ public class ClayConstants
 	public static final int SEARCH_GENERIC_BUILDING = 1; // Expects a single BuildingEntity [1]
 	public static final int SEARCH_STORAGE = 2; // Expects nothing.
 	public static final int SEARCH_GENERIC_BUILDING_GOAL_ONLY = 3; // Expects a single BuildingEntity [1]
-	public static final int SEARCH_CLAIMED_ITEMS = 4; // Expects nothing.
+	public static final int SEARCH_CLAIMED_ITEM = 4; // Expects nothing.
 	public static final int SEARCH_ITEM_GOAL_ONLY = 5; // Expects an Item.
 	
 }

@@ -66,6 +66,9 @@ public class GenericBehavior
 					commandAndParams,
 					params_);
 
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CONSUME_CLAIMED))
+			complete = _consumeClaimed(executingEntity_, model, commandAndParams);
+
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CREATE_GOLEM))
 			complete = _createGolem(executingEntity_, model, commandAndParams);
 
@@ -165,6 +168,7 @@ public class GenericBehavior
 		for (int i = 1; i < commandParams_.length; i++)
 		{
 			Item searchItem = new Item(ItemData.getItem(commandParams_[i]));
+			if (claimedBuilding.claimHeldItem(searchItem)) continue;
 			Queue<Point> path = SearchUtil.searchIt(
 					claimedBuilding,
 					claimedBuilding.getHomeScreen(),
@@ -183,6 +187,13 @@ public class GenericBehavior
 			Item item = holdingBuilding.getItem(searchItem);
 			claimedBuilding.claimItem(item);
 		}
+		return true;
+	}
+
+	private boolean _consumeClaimed(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
+	{
+		BuildingEntity claimedBuilding = executingEntity_.getClaimedBuilding();
+		claimedBuilding.consumeClaimed();
 		return true;
 	}
 
@@ -270,7 +281,7 @@ public class GenericBehavior
 			Queue<Point> path = SearchUtil.searchIt(
 					executingEntity_,
 					executingEntity_.getHomeScreen(),
-					ClayConstants.SEARCH_CLAIMED_ITEMS);
+					ClayConstants.SEARCH_CLAIMED_ITEM, item);
 			if (path.isEmpty())
 				executingEntity_
 						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);

@@ -77,20 +77,13 @@ public class SearchUtil
 				}
 				else if (searchType == ClayConstants.SEARCH_ITEM_GOAL_ONLY)
 				{
-					isGoal = tile.isHolding((Item)params_[1]);
+					isGoal = tile.isHolding((Item) params_[1]);
 				}
-				else if (searchType == ClayConstants.SEARCH_CLAIMED_ITEMS)
+				else if (searchType == ClayConstants.SEARCH_CLAIMED_ITEM)
 				{
-					BuildingEntity claimedBuilding = ((GolemEntity)entity_).getClaimedBuilding();
-					isGoal = false;;
-					for (Item item : claimedBuilding.getCopyOfHeldItems())
-					{
-						if (tile.isHolding(item))
-						{
-							isGoal = true;
-							break;
-						}
-					}
+					BuildingEntity claimedBuilding = ((GolemEntity) entity_)
+							.getClaimedBuilding();
+					isGoal = tile.isHolding((Item) params_[1]) && !tile.equals(claimedBuilding);
 				}
 
 				if (isGoal)
@@ -175,7 +168,8 @@ public class SearchUtil
 
 		List<Point> bestPath = new ArrayList<Point>();
 
-		if (searchType == ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY || searchType == ClayConstants.SEARCH_ITEM_GOAL_ONLY)
+		if (searchType == ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY
+				|| searchType == ClayConstants.SEARCH_ITEM_GOAL_ONLY)
 		{
 			resultQueue.add(finalGoal);
 			return resultQueue;

@@ -47,7 +47,8 @@ public class BuildingEntity extends AbstractEntity implements
 	@Override
 	public void calculateTexture()
 	{
-		if (_tickTime == 0) _tickReset = _building.tickReset(this);
+		if (_tickTime == 0)
+			_tickReset = _building.tickReset(this);
 		_texture = _building.getTexture(
 				_building.calculateTexture(this),
 				_position);
@@ -109,7 +110,7 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return _built;
 	}
-	
+
 	public boolean isHouse()
 	{
 		return _building.isHouse();
@@ -156,12 +157,12 @@ public class BuildingEntity extends AbstractEntity implements
 		_tickReset = false;
 		calculateTexture();
 	}
-	
+
 	public void setClaimingGolem(GolemEntity claimingGolem_)
 	{
 		_claimingGolem = claimingGolem_;
 	}
-	
+
 	public Item getItem(Item item_)
 	{
 		for (Item item : _heldItems)
@@ -174,12 +175,42 @@ public class BuildingEntity extends AbstractEntity implements
 		return null;
 	}
 	
+	public void consumeClaimed()
+	{
+		consume(_claimedItems);
+		_claimedItems.clear();
+	}
+
+	public void release()
+	{
+		for (Item item : _claimedItems)
+		{
+			item.release();
+		}
+		_claimedItems.clear();
+		_claimingGolem = null;
+	}
+
 	public void claimItem(Item item_)
 	{
 		item_.setClaimingBuilding(this);
+		item_.setItemIdentifier(_claimedItems.size());
 		_claimedItems.add(item_);
 	}
-	
+
+	public boolean claimHeldItem(Item item_)
+	{
+		for (Item item : _heldItems)
+		{
+			if (item.equals(item_))
+			{
+				claimItem(item);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public List<Item> getClaimedItems()
 	{
 		return _claimedItems;
@@ -204,13 +235,13 @@ public class BuildingEntity extends AbstractEntity implements
 	private final GenericBuilding _building;
 
 	private final Point _point;
-	
+
 	private Texture _texture;
 
 	private GolemEntity _claimingGolem;
 
 	private List<Item> _claimedItems;
-	
+
 	private String _position;
 
 	private int _buildTime;

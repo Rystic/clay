@@ -9,8 +9,15 @@ public class Item
 	{
 		_item = item_;
 		_claimingBuilding = null;
+		_itemIdentifier = NO_IDENTIFIER;
 	}
-
+	
+	public void release()
+	{
+		_claimingBuilding = null;
+		_itemIdentifier = NO_IDENTIFIER;
+	}
+	
 	public String getTag()
 	{
 		return _item.getItemTag();
@@ -26,6 +33,16 @@ public class Item
 		_claimingBuilding = claimingBuilding_;
 	}
 
+	public long getItemIdentifier()
+	{
+		return _itemIdentifier;
+	}
+
+	public void setItemIdentifier(long itemIdentifier_)
+	{
+		_itemIdentifier = itemIdentifier_;
+	}
+	
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -41,10 +58,18 @@ public class Item
 		else if (!_claimingBuilding.equals(otherItem.getClaimingBuilding()))
 			return false;
 
+		if (_itemIdentifier != otherItem.getItemIdentifier())
+			return false;
+		
 		return getTag().equals((otherItem.getTag()));
 	}
+
+	
+	private static final long NO_IDENTIFIER = -1;
 
 	private GenericItem _item;
 
 	private BuildingEntity _claimingBuilding;
+
+	private long _itemIdentifier;
 }
