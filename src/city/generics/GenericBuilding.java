@@ -217,7 +217,7 @@ public final class GenericBuilding
 				}
 			}
 			tiles_[p_.x + xDiff][p_.y + yDiff] = new BuildingEntity(this,
-					new Point(p_.x * ClayConstants.TILE_X, p_.y
+					new Point((p_.x + xDiff) * ClayConstants.TILE_X, (p_.y + yDiff)
 							* ClayConstants.TILE_Y), homeScreen_, key);
 			newBuildings.add(tiles_[p_.x + xDiff][p_.y + yDiff]);
 		}
