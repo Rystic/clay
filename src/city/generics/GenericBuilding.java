@@ -514,6 +514,7 @@ public final class GenericBuilding
 	private final Map<String, Map<String, Texture>> _stateMap = new HashMap<String, Map<String, Texture>>();
 
 	private final Map<String, String> _validPlacementMap = new HashMap<String, String>();
+	private final Map<String, Boolean> _scalabilityMap = new HashMap<String, String>();
 
 	private final List<String> _stateOrder;
 
