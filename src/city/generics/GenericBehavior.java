@@ -44,114 +44,36 @@ public class GenericBehavior
 		String[] commandAndParams = currentCommand_.split(":");
 		String com = commandAndParams[0];
 		boolean complete = false;
-		if (commandAndParams[0].equals(ClayConstants.BEHAVIOR_COMMAND_SEEK))
-		{
-			AbstractEntity entity = (AbstractEntity) params_[Integer
-					.parseInt(commandAndParams[1])];
-			if (executingEntity_.getPoint().equals(entity.getPoint()))
-				executingEntity_.instructionComplete();
-			else
-			{
-				Queue<Point> path = SearchUtil.searchIt(
-						executingEntity_,
-						executingEntity_.getHomeScreen(),
-						ClayConstants.SEARCH_ENTITY,
-						entity);
-				if (path.isEmpty())
-					executingEntity_
-							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
-				else
-					executingEntity_.addMoveInstructions(path);
-			}
-		}
-		if (commandAndParams[0]
-				.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_GENERIC_BUILDING))
-		{
-			String tag = (String) params_[Integer.parseInt(commandAndParams[1])];
-			BuildingEntity entityAtPoint = model.getTileValue(
-					executingEntity_.getGridX(),
-					executingEntity_.getGridY());
-			if (entityAtPoint != null
-					&& entityAtPoint.getBuildingTag().equals(tag))
-			{
-				executingEntity_.instructionComplete();
-			}
-			else
-			{
-				Queue<Point> path = SearchUtil.searchIt(
-						executingEntity_,
-						executingEntity_.getHomeScreen(),
-						ClayConstants.SEARCH_GENERIC_BUILDING,
-						tag);
-				if (path.isEmpty())
-					executingEntity_
-							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
-				else
-					executingEntity_.addMoveInstructions(path);
-			}
-		}
-		else if (commandAndParams[0]
-				.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_STORAGE))
-		{
-			BuildingEntity currentBuilding = executingEntity_.getModel()
-					.getTileValue(
-							executingEntity_.getGridX(),
-							executingEntity_.getGridY());
-			if (currentBuilding != null && currentBuilding.isStorageAvailable())
-				executingEntity_.instructionComplete();
-			else
-			{
-				Queue<Point> path = SearchUtil.searchIt(
-						executingEntity_,
-						executingEntity_.getHomeScreen(),
-						ClayConstants.SEARCH_STORAGE);
-				if (path.isEmpty())
-					executingEntity_
-							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
-				else
-					executingEntity_.addMoveInstructions(path);
-			}
-		}
-		if (commandAndParams[0]
-				.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_BUILDING))
-		{
-			String tag = (String) params_[Integer.parseInt(commandAndParams[1])];
-			BuildingEntity entityAtPoint = model.getTileValue(
-					executingEntity_.getGridX(),
-					executingEntity_.getGridY());
-			if (entityAtPoint != null
-					&& entityAtPoint.getBuildingTag().equals(tag))
-			{
-				executingEntity_.instructionComplete();
-			}
-			else
-			{
-				Queue<Point> path = SearchUtil.searchIt(
-						executingEntity_,
-						executingEntity_.getHomeScreen(),
-						ClayConstants.SEARCH_GENERIC_BUILDING,
-						tag);
-				if (path.isEmpty())
-					executingEntity_
-							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
-				else
-					executingEntity_.addMoveInstructions(path);
-			}
-		}
-
-		else if (commandAndParams[0]
-				.equals(ClayConstants.BEHAVIOR_COMMAND_BUILD))
+		
+		if (com.equals(ClayConstants.BEHAVIOR_COMMAND_BUILD))
 			complete = _build(
 					executingEntity_,
 					model,
 					commandAndParams,
 					params_);
 
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_BUILDING))
+			complete = _claimBuilding(executingEntity_, model, commandAndParams);
+
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CREATE_GOLEM))
 			complete = _createGolem(executingEntity_, model, commandAndParams);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_HIDE))
 			complete = _hide(executingEntity_, model, commandAndParams);
+
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK))
+			complete = _seek(executingEntity_, model, commandAndParams, params_);
+		
+		else if (com
+				.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_GENERIC_BUILDING))
+			complete = _seekGenericBuilding(
+					executingEntity_,
+					model,
+					commandAndParams,
+					params_);
+
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_STORAGE))
+			complete = _seekStorage(executingEntity_, model, commandAndParams);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SHOW))
 			complete = _show(executingEntity_, model, commandAndParams);
@@ -190,6 +112,11 @@ public class GenericBehavior
 		return false;
 	}
 
+	private boolean _claimBuilding(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
+	{
+		return true;
+	}
+
 	private boolean _createGolem(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
 	{
 		model_.addGolem(executingEntity_.getX(), executingEntity_.getY());
@@ -200,6 +127,77 @@ public class GenericBehavior
 	{
 		executingEntity_.setVisible(false);
 		return true;
+	}
+
+	public boolean _seek(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
+	{
+		AbstractEntity entity = (AbstractEntity) params_[Integer
+				.parseInt(commandParams_[1])];
+		if (executingEntity_.getPoint().equals(entity.getPoint()))
+			return true;
+		else
+		{
+			Queue<Point> path = SearchUtil.searchIt(
+					executingEntity_,
+					executingEntity_.getHomeScreen(),
+					ClayConstants.SEARCH_ENTITY,
+					entity);
+			if (path.isEmpty())
+				executingEntity_
+						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+			else
+				executingEntity_.addMoveInstructions(path);
+		}
+		return false;
+	}
+
+	public boolean _seekGenericBuilding(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
+	{
+		String tag = (String) params_[Integer.parseInt(commandParams_[1])];
+		BuildingEntity entityAtPoint = model_.getTileValue(
+				executingEntity_.getGridX(),
+				executingEntity_.getGridY());
+		if (entityAtPoint != null && entityAtPoint.getBuildingTag().equals(tag))
+		{
+			return true;
+		}
+		else
+		{
+			Queue<Point> path = SearchUtil.searchIt(
+					executingEntity_,
+					executingEntity_.getHomeScreen(),
+					ClayConstants.SEARCH_GENERIC_BUILDING,
+					tag);
+			if (path.isEmpty())
+				executingEntity_
+						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+			else
+				executingEntity_.addMoveInstructions(path);
+		}
+		return false;
+	}
+
+	public boolean _seekStorage(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
+	{
+		BuildingEntity currentBuilding = executingEntity_.getModel()
+				.getTileValue(
+						executingEntity_.getGridX(),
+						executingEntity_.getGridY());
+		if (currentBuilding != null && currentBuilding.isStorageAvailable())
+			return true;
+		else
+		{
+			Queue<Point> path = SearchUtil.searchIt(
+					executingEntity_,
+					executingEntity_.getHomeScreen(),
+					ClayConstants.SEARCH_STORAGE);
+			if (path.isEmpty())
+				executingEntity_
+						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+			else
+				executingEntity_.addMoveInstructions(path);
+		}
+		return false;
 	}
 
 	private boolean _show(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
