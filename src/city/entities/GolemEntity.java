@@ -7,10 +7,10 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import models.CityModel;
 import screens.AbstractScreen;
-import city.ai.Behavior;
-import city.ai.BehaviorTriple;
 import city.ai.GolemBehaviorProcess;
 import city.ai.GolemBrain;
+import city.ai.objects.Behavior;
+import city.ai.util.BehaviorTriple;
 
 public class GolemEntity extends AbstractEntity
 {
@@ -27,17 +27,6 @@ public class GolemEntity extends AbstractEntity
 
 	public void calculateBehavior()
 	{
-		if (_currentBehavior == null)
-		{// TODO don't spin on this
-			BehaviorTriple behavior = GolemBrain.think(this);
-			if (behavior != null)
-			{
-				GolemBehaviorProcess process = ((GolemBehaviorProcess) _homeScreen
-						.getProcess(GolemBehaviorProcess.class));
-				setBehavior(behavior.getBehavior());
-				process.setBehaviorInProgess(behavior.getBehavior());
-			}
-		}
 		if (!_moveInstructions.isEmpty())
 		{
 			updatePosition();
@@ -185,6 +174,11 @@ public class GolemEntity extends AbstractEntity
 	public void setClaimedBuilding(BuildingEntity claimedBuilding_)
 	{
 		_claimedBuilding = claimedBuilding_;
+	}
+	
+	public BuildingEntity getClaimedBuilding()
+	{
+		return _claimedBuilding;
 	}
 
 	@Override

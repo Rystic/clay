@@ -1,6 +1,8 @@
 package city.entities;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
@@ -8,6 +10,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import screens.AbstractScreen;
 import xml.BuildingData;
+import city.ai.objects.Item;
 import city.generics.GenericBuilding;
 import city.processes.BuildingTickProcess;
 import city.util.MapUpdateEvent;
@@ -22,7 +25,7 @@ public class BuildingEntity extends AbstractEntity implements
 		_building = building_;
 		EventBus.subscribe(MapUpdateEvent.class, this);
 		_point = point_;
-		_inUse = false;
+		_claimedItems = new ArrayList<Item>();
 		_model = homeScreen_.getModel();
 		_position = position_;
 		_buildTime = _building.getBuildTime();
@@ -89,7 +92,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public boolean isInUse()
 	{
-		return _inUse;
+		return _claimingGolem != null;
 	}
 
 	public boolean isValid()
@@ -116,11 +119,6 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return _building.isStorage()
 				&& _building.getStorageCapacity() > _heldItems.size();
-	}
-
-	public void setInUse(boolean inUse_)
-	{
-		_inUse = inUse_;
 	}
 
 	public void constructionComplete()
@@ -158,6 +156,34 @@ public class BuildingEntity extends AbstractEntity implements
 		_tickReset = false;
 		calculateTexture();
 	}
+	
+	public void setClaimingGolem(GolemEntity claimingGolem_)
+	{
+		_claimingGolem = claimingGolem_;
+	}
+	
+	public Item getItem(Item item_)
+	{
+		for (Item item : _heldItems)
+		{
+			if (item.equals(item_))
+			{
+				return item;
+			}
+		}
+		return null;
+	}
+	
+	public void claimItem(Item item_)
+	{
+		item_.setClaimingBuilding(this);
+		_claimedItems.add(item_);
+	}
+	
+	public List<Item> getClaimedItems()
+	{
+		return _claimedItems;
+	}
 
 	@Override
 	public boolean equals(Object o)
@@ -178,15 +204,18 @@ public class BuildingEntity extends AbstractEntity implements
 	private final GenericBuilding _building;
 
 	private final Point _point;
-
+	
 	private Texture _texture;
 
+	private GolemEntity _claimingGolem;
+
+	private List<Item> _claimedItems;
+	
 	private String _position;
 
 	private int _buildTime;
 	private int _tickTime;
 
-	private boolean _inUse;
 	private boolean _built;
 	private boolean _tickReset;
 

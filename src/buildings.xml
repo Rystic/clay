@@ -28,7 +28,8 @@
 		<State StateName="state-unnatural-above" Graphic="base,bigPackedDirt.png"></State>
 		<State StateName="state-unnatural-left" Graphic="base,bigPackedDirtLeftOnly.png"></State>
 		<State StateName="state-unnatural-right" Graphic="base,bigPackedDirtRightOnly.png"></State>
-		<State StateName="state-unnatural-left,state-unnatural-right" Graphic="base,bigPackedDirtLeftRight.png"></State>
+		<State StateName="state-unnatural-left,state-unnatural-right"
+			Graphic="base,bigPackedDirtLeftRight.png"></State>
 		<State StateName="state-unnatural-above,state-unnatural-left"
 			Graphic="base,bigPackedDirtLeftTop.png"></State>
 		<State StateName="state-unnatural-above,state-unnatural-right"
@@ -117,10 +118,11 @@
 		isNatural="false" isPassable="true" isScalable="false" isStorage="false"
 		isSupport="false" GlobalGolemanityChange="0" StorageCapacity="0"
 		VerticalScaleOnly="false" WorkingGolemsEnterBuilding="false"
-		tickStart="-1">
+		tickStart="150">
 		<State StateName="state-default" Graphic="base,bigObeliskBase.png,n,bigObeliskTip.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
-		<TickComplete></TickComplete>
+		<TickComplete code="behavior:power-obelisk"
+			reset="no-held-items"></TickComplete>
 	</Building>
 	<Building BuildingName="Ladder" BuildingTag="ladder"
 		BuildingDescription="Ladders are used for vertical movement, but come at a high cost."
@@ -172,9 +174,12 @@
 		<State StateName="state-buried:4" Graphic="base,bigDeepHomeBuried1.png"></State>
 		<State StateName="state-buried:8" Graphic="base,bigDeepHomeBuried2.png"></State>
 		<State StateName="state-buried:12" Graphic="base,bigDeepHomeBuried3.png"></State>
-		<State StateName="state-adjacent:natural-clay,state-buried:2"  Graphic="base,bigDeepHomeBuried1.png"></State>
-		<State StateName="state-adjacent:natural-clay,state-buried:4"  Graphic="base,bigDeepHomeBuried2.png"></State>
-		<State StateName="state-adjacent:natural-clay,state-buried:6"  Graphic="base,bigDeepHomeBuried3.png"></State>
+		<State StateName="state-adjacent:natural-clay,state-buried:2"
+			Graphic="base,bigDeepHomeBuried1.png"></State>
+		<State StateName="state-adjacent:natural-clay,state-buried:4"
+			Graphic="base,bigDeepHomeBuried2.png"></State>
+		<State StateName="state-adjacent:natural-clay,state-buried:6"
+			Graphic="base,bigDeepHomeBuried3.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>

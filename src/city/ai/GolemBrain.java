@@ -6,6 +6,9 @@ import java.util.List;
 import main.ClayConstants;
 import screens.CityScreen;
 import xml.BehaviorData;
+import city.ai.objects.Behavior;
+import city.ai.objects.Item;
+import city.ai.util.BehaviorTriple;
 import city.entities.BuildingEntity;
 import city.entities.GolemEntity;
 

@@ -1,9 +1,10 @@
-package city.ai;
+package city.ai.objects;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import models.CityModel;
+import city.ai.GolemBehaviorProcess;
 import city.entities.GolemEntity;
 import city.generics.GenericBehavior;
 

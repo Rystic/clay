@@ -10,7 +10,9 @@
 		require="storage"
 		code="seek:0,take-item:saturated-clay:0,seek-storage,store-item:saturated-clay"></Behavior>
 
-
+	<Behavior BehaviorName="Power Obelisk" BehaviorTag="power-obelisk"
+		weight="closest-to-point" personalTask="false" limit="-1" golemCost=""
+		require="" code="claim-building:0,claim-items:saturated-clay,seek-claimed-items"></Behavior>
 
 	<Behavior BehaviorName="Store Items" BehaviorTag="store-items"
 		weight="" personalTask="true" limit="-1" golemCost="" require="storage"

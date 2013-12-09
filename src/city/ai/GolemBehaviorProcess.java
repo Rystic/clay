@@ -11,6 +11,8 @@ import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
 
 import screens.AbstractScreen;
+import city.ai.objects.Behavior;
+import city.ai.util.BehaviorTriple;
 import city.entities.GolemEntity;
 import city.processes.AbstractProcess;
 import city.util.MapUpdateEvent;

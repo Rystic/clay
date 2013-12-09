@@ -21,9 +21,9 @@ import screens.AbstractScreen;
 import xml.BehaviorData;
 import xml.BuildingData;
 import xml.ItemData;
-import city.ai.Behavior;
 import city.ai.GolemBehaviorProcess;
-import city.ai.Item;
+import city.ai.objects.Behavior;
+import city.ai.objects.Item;
 import city.entities.BuildingEntity;
 
 public final class GenericBuilding
@@ -331,7 +331,9 @@ public final class GenericBuilding
 					int depth = 0;
 					while (depth < neededDepth)
 					{
-						if (model.getTileValue(building_.getGridX(), building_.getGridY() + depth) == null)
+						if (model.getTileValue(
+								building_.getGridX(),
+								building_.getGridY() + depth) == null)
 							break;
 						depth++;
 					}
@@ -361,6 +363,13 @@ public final class GenericBuilding
 						.getHomeScreen().getProcess(GolemBehaviorProcess.class));
 				behaviorProcess.queueBehavior(new Behavior(BehaviorData
 						.getTask(commandAndParams[2]), building_));
+			}
+			if (commandAndParams[0].equals("behavior"))
+			{
+				GolemBehaviorProcess behaviorProcess = ((GolemBehaviorProcess) building_
+						.getHomeScreen().getProcess(GolemBehaviorProcess.class));
+				behaviorProcess.queueBehavior(new Behavior(BehaviorData
+						.getTask(commandAndParams[1]), building_));
 			}
 		}
 	}

@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import city.ai.Item;
+import city.ai.objects.Item;
 import main.ClayConstants;
 import models.AbstractModel;
 import screens.AbstractScreen;

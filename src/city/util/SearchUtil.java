@@ -14,8 +14,10 @@ import java.util.concurrent.ArrayBlockingQueue;
 import main.ClayConstants;
 import screens.AbstractScreen;
 import screens.CityScreen;
+import city.ai.objects.Item;
 import city.entities.AbstractEntity;
 import city.entities.BuildingEntity;
+import city.entities.GolemEntity;
 
 public class SearchUtil
 {
@@ -56,23 +58,41 @@ public class SearchUtil
 				if (!tiles_[current.x][current.y].isPassable())
 					continue;
 				boolean isGoal = false;
-				
+
 				BuildingEntity tile = tiles_[current.x][current.y];
-				
+
 				if (searchType == ClayConstants.SEARCH_ENTITY)
 				{
-					isGoal =tile.equals(params_[1]);
+					isGoal = tile.equals(params_[1]);
 				}
-				else if (searchType == ClayConstants.SEARCH_GENERIC_BUILDING)
+				else if (searchType == ClayConstants.SEARCH_GENERIC_BUILDING
+						|| searchType == ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY)
 				{
-					isGoal = tile.getBuildingTag()
-							.equals(params_[1]) && !tile.isInUse();
+					isGoal = tile.getBuildingTag().equals(params_[1])
+							&& !tile.isInUse();
 				}
 				else if (searchType == ClayConstants.SEARCH_STORAGE)
 				{
 					isGoal = tile.isStorageAvailable();
 				}
-				
+				else if (searchType == ClayConstants.SEARCH_ITEM_GOAL_ONLY)
+				{
+					isGoal = tile.isHolding((Item)params_[1]);
+				}
+				else if (searchType == ClayConstants.SEARCH_CLAIMED_ITEMS)
+				{
+					BuildingEntity claimedBuilding = ((GolemEntity)entity_).getClaimedBuilding();
+					isGoal = false;;
+					for (Item item : claimedBuilding.getCopyOfHeldItems())
+					{
+						if (tile.isHolding(item))
+						{
+							isGoal = true;
+							break;
+						}
+					}
+				}
+
 				if (isGoal)
 				{
 					goalPoints.add(current);
@@ -139,7 +159,7 @@ public class SearchUtil
 
 		int finalWeight = -1;
 		Point finalGoal = null;
-		//TODO set in-use
+		// TODO set in-use
 		for (Point path : goalPoints)
 		{
 			int goalWeight = nodeWeight.get(path);
@@ -152,7 +172,15 @@ public class SearchUtil
 		Queue<Point> resultQueue = new ArrayBlockingQueue<Point>(256);
 		if (finalGoal == null)
 			return resultQueue;
+
 		List<Point> bestPath = new ArrayList<Point>();
+
+		if (searchType == ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY || searchType == ClayConstants.SEARCH_ITEM_GOAL_ONLY)
+		{
+			resultQueue.add(finalGoal);
+			return resultQueue;
+		}
+
 		for (; finalGoal != null; finalGoal = cameFrom.get(finalGoal))
 		{
 			bestPath.add(new Point(finalGoal.x * TILE_X, finalGoal.y * TILE_Y));

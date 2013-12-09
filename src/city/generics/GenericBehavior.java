@@ -12,7 +12,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import xml.ItemData;
-import city.ai.Item;
+import city.ai.objects.Item;
 import city.entities.AbstractEntity;
 import city.entities.BuildingEntity;
 import city.entities.GolemEntity;
@@ -44,7 +44,7 @@ public class GenericBehavior
 		String[] commandAndParams = currentCommand_.split(":");
 		String com = commandAndParams[0];
 		boolean complete = false;
-		
+
 		if (com.equals(ClayConstants.BEHAVIOR_COMMAND_BUILD))
 			complete = _build(
 					executingEntity_,
@@ -53,7 +53,18 @@ public class GenericBehavior
 					params_);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_BUILDING))
-			complete = _claimBuilding(executingEntity_, model, commandAndParams);
+			complete = _claimBuilding(
+					executingEntity_,
+					model,
+					commandAndParams,
+					params_);
+
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_ITEMS))
+			complete = _claimItems(
+					executingEntity_,
+					model,
+					commandAndParams,
+					params_);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CREATE_GOLEM))
 			complete = _createGolem(executingEntity_, model, commandAndParams);
@@ -63,7 +74,14 @@ public class GenericBehavior
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK))
 			complete = _seek(executingEntity_, model, commandAndParams, params_);
-		
+
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_CLAIMED_ITEMS))
+			complete = _seekClaimedItems(
+					executingEntity_,
+					model,
+					commandAndParams,
+					params_);
+
 		else if (com
 				.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_GENERIC_BUILDING))
 			complete = _seekGenericBuilding(
@@ -112,8 +130,59 @@ public class GenericBehavior
 		return false;
 	}
 
-	private boolean _claimBuilding(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
+	private boolean _claimBuilding(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
 	{
+		String tag = (String) ((BuildingEntity)params_[Integer.parseInt(commandParams_[1])]).getBuildingTag();
+		Queue<Point> path = SearchUtil.searchIt(
+				executingEntity_,
+				executingEntity_.getHomeScreen(),
+				ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY,
+				tag);
+		if (path.isEmpty())
+		{
+			executingEntity_
+					.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+			return false;
+		}
+		Point point = path.poll();
+		BuildingEntity claimableBuilding = model_
+				.getTileValue(point.x, point.y);
+		executingEntity_.setClaimedBuilding(claimableBuilding);
+		claimableBuilding.setClaimingGolem(executingEntity_);
+
+		return true;
+	}
+
+	private boolean _claimItems(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
+	{
+		BuildingEntity claimedBuilding = executingEntity_.getClaimedBuilding();
+		if (claimedBuilding == null)
+		{
+			executingEntity_
+					.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+			return false;
+		}
+		for (int i = 1; i < commandParams_.length; i++)
+		{
+			Item searchItem = new Item(ItemData.getItem(commandParams_[i]));
+			Queue<Point> path = SearchUtil.searchIt(
+					claimedBuilding,
+					claimedBuilding.getHomeScreen(),
+					ClayConstants.SEARCH_ITEM_GOAL_ONLY,
+					searchItem);
+			if (path.isEmpty())
+			{
+				executingEntity_
+						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS);
+				return false;
+			}
+			Point buildingPoint = path.poll();
+			BuildingEntity holdingBuilding = model_.getTileValue(
+					(int) buildingPoint.getX(),
+					(int) buildingPoint.getY());
+			Item item = holdingBuilding.getItem(searchItem);
+			claimedBuilding.claimItem(item);
+		}
 		return true;
 	}
 
@@ -129,7 +198,7 @@ public class GenericBehavior
 		return true;
 	}
 
-	public boolean _seek(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
+	private boolean _seek(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
 	{
 		AbstractEntity entity = (AbstractEntity) params_[Integer
 				.parseInt(commandParams_[1])];
@@ -151,7 +220,68 @@ public class GenericBehavior
 		return false;
 	}
 
-	public boolean _seekGenericBuilding(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
+	private boolean _seekClaimedItems(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
+	{
+		BuildingEntity claimedBuilding = executingEntity_.getClaimedBuilding();
+		if (claimedBuilding == null)
+		{
+			executingEntity_
+					.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+			return false;
+		}
+		for (Item item : claimedBuilding.getClaimedItems())
+		{
+			if (claimedBuilding.isHolding(item))
+				continue;
+
+			if (executingEntity_.isHolding(item))
+			{
+				if (executingEntity_.getPoint().equals(
+						claimedBuilding.getPoint()))
+				{
+					executingEntity_.consume(item);
+					claimedBuilding.generate(item);
+					continue;
+				}
+				Queue<Point> path = SearchUtil.searchIt(
+						executingEntity_,
+						executingEntity_.getHomeScreen(),
+						ClayConstants.SEARCH_ENTITY,
+						claimedBuilding);
+				if (path.isEmpty())
+					executingEntity_
+							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+				else
+					executingEntity_.addMoveInstructions(path);
+				return false;
+			}
+
+			BuildingEntity entityAtPoint = model_.getTileValue(
+					executingEntity_.getGridX(),
+					executingEntity_.getGridY());
+
+			if (entityAtPoint.isHolding(item))
+			{
+				entityAtPoint.consume(item);
+				executingEntity_.generate(item);
+				return false;
+			}
+
+			Queue<Point> path = SearchUtil.searchIt(
+					executingEntity_,
+					executingEntity_.getHomeScreen(),
+					ClayConstants.SEARCH_CLAIMED_ITEMS);
+			if (path.isEmpty())
+				executingEntity_
+						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+			else
+				executingEntity_.addMoveInstructions(path);
+			return false;
+		}
+		return true;
+	}
+
+	private boolean _seekGenericBuilding(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
 	{
 		String tag = (String) params_[Integer.parseInt(commandParams_[1])];
 		BuildingEntity entityAtPoint = model_.getTileValue(
@@ -177,7 +307,7 @@ public class GenericBehavior
 		return false;
 	}
 
-	public boolean _seekStorage(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
+	private boolean _seekStorage(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
 	{
 		BuildingEntity currentBuilding = executingEntity_.getModel()
 				.getTileValue(

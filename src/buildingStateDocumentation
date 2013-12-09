@@ -21,17 +21,18 @@ no-held-items-- signals that the tick should restart if the entity is holding no
 
 
 **Behavior Commands:
-claim:building-tag - Tells the golem to find a building and declare it in use.
+build:building-entity - Tells the golem to start construction on the given parameter.
+claim-building:building-tag - Tells the golem to find a building and declare it in use.
+claim-items:item-tag,item-tag...item-tag - Tells the golem to claim the selected items, and bring them to the claimed building.
+create-golem:abstract-entity - creates a golem at the given entity.
+hide - Hides the golem until a show command, the behavior finishes, or the behavior fails.
 seek:abstract-entity - Tells the golem to seek the given parameter on the map.
 seek-generic-building:building-tag - Tells the golem to seek a building of the given type on the map.
 seek-storage - Tells the golem to find a storage building with available space.
-build:building-entity - Tells the golem to start construction on the given parameter.
-take-item:item-tag:abstract-entity - Takes the given item from the from the abstract entity and gives it to the executing entity.
-store-item:item-tag - Takes the item from the executing entity and puts it in the building the executing entity is on.
-store-all - Takes all items from the executing entity and puts them in the building the executing entity is on.
-hide - Hides the golem until a show command, the behavior finishes, or the behavior fails.
 show - Reveals a golem made invisible with 'hide'
-create-golem:abstract-entity - creates a golem at the given entity.
+store-all - Takes all items from the executing entity and puts them in the building the executing entity is on.
+store-item:item-tag - Takes the item from the executing entity and puts it in the building the executing entity is on.
+take-item:item-tag:abstract-entity - Takes the given item from the from the abstract entity and gives it to the executing entity.
 
 
 **Behavior Weight:
