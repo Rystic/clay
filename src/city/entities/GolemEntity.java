@@ -28,20 +28,24 @@ public class GolemEntity extends AbstractEntity
 		{
 			Random random = new Random();
 			double decimalModifier = random.nextDouble();
-			if (decimalModifier > _golem.getMoveVariation())
-				_maxSpeed += decimalModifier - _golem.getMoveVariation();
+			if (_golem.getMoveVariation()  < 1)
+			{
+				if (decimalModifier > _golem.getMoveVariation())
+					_maxSpeed += decimalModifier - _golem.getMoveVariation();
+				else _maxSpeed += decimalModifier;
+			}
 			else if (_golem.getMoveVariation() == 1)
 			{
 				_maxSpeed += decimalModifier;
 			}
 			else
 			{
-			_maxSpeed += random.nextInt((int) (_golem.getMoveVariation() - 1))
-					+ decimalModifier;
+				_maxSpeed += random
+						.nextInt((int) (_golem.getMoveVariation() - 1))
+						+ decimalModifier;
 			}
-			
+
 		}
-		System.out.println("move speed " + _maxSpeed);
 		_visible = true;
 	}
 
