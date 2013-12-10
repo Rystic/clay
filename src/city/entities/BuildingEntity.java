@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.ClayConstants;
 import models.CityModel;
 
 import org.bushe.swing.event.EventBus;
@@ -25,7 +26,6 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		super(point_, homeScreen_);
 		_building = building_;
-		EventBus.subscribe(MapUpdateEvent.class, this);
 		_point = point_;
 		_claimedItems = new ArrayList<Item>();
 		_model = homeScreen_.getModel();
@@ -37,6 +37,7 @@ public class BuildingEntity extends AbstractEntity implements
 				_building.calculateTexture(this),
 				_position);
 		_tickTime = _building.getTickStart();
+		EventBus.subscribe(MapUpdateEvent.class, this);
 	}
 
 	@Override
@@ -138,7 +139,7 @@ public class BuildingEntity extends AbstractEntity implements
 		if (_tickTime > 0)
 		{
 			_tickTime--;
-			if (_tickTime == 0)
+			if (_tickTime == 0 && _position.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
 				_building.tickFinished(this);
 		}
 	}
