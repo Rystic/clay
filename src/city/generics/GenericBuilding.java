@@ -37,25 +37,35 @@ public final class GenericBuilding
 		_buildingIdentifier = identifier_;
 		_buildingDescription = eElement.getAttribute("BuildingDescription");
 
-		_buildTime = GenericUtil.parseInteger(eElement.getAttribute("BuildTime"));
-		_tickStart = GenericUtil.parseInteger(eElement.getAttribute("tickStart"));
+		_buildTime = GenericUtil.parseInteger(eElement
+				.getAttribute("BuildTime"));
+		_tickStart = GenericUtil.parseInteger(eElement
+				.getAttribute("tickStart"));
 		_storageCapacity = GenericUtil.parseInteger(eElement
 				.getAttribute("StorageCapacity"));
 
-		_lesserManaCost = GenericUtil.parseDouble(eElement.getAttribute("LesserManaCost"));
+		_lesserManaCost = GenericUtil.parseDouble(eElement
+				.getAttribute("LesserManaCost"));
 		_lesserManaCumulativeCost = GenericUtil.parseDouble(eElement
 				.getAttribute("LesserManaCumulativeCost"));
-		_greaterManaCost = GenericUtil.parseDouble(eElement.getAttribute("GreaterManaCost"));
+		_greaterManaCost = GenericUtil.parseDouble(eElement
+				.getAttribute("GreaterManaCost"));
 		_greaterManaCumulativeCost = GenericUtil.parseDouble(eElement
 				.getAttribute("GreaterManaCumulativeCost"));
 
-		_isClaimable = GenericUtil.parseBoolean(eElement.getAttribute("isClaimable"));
+		_isClaimable = GenericUtil.parseBoolean(eElement
+				.getAttribute("isClaimable"));
 		_isHouse = GenericUtil.parseBoolean(eElement.getAttribute("isHouse"));
-		_isNatural = GenericUtil.parseBoolean(eElement.getAttribute("isNatural"));
-		_isPassable = GenericUtil.parseBoolean(eElement.getAttribute("isPassable"));
-		_isScalable = GenericUtil.parseBoolean(eElement.getAttribute("isScalable"));
-		_isStorage = GenericUtil.parseBoolean(eElement.getAttribute("isStorage"));
-		_isSupport = GenericUtil.parseBoolean(eElement.getAttribute("isSupport"));
+		_isNatural = GenericUtil.parseBoolean(eElement
+				.getAttribute("isNatural"));
+		_isPassable = GenericUtil.parseBoolean(eElement
+				.getAttribute("isPassable"));
+		_isScalable = GenericUtil.parseBoolean(eElement
+				.getAttribute("isScalable"));
+		_isStorage = GenericUtil.parseBoolean(eElement
+				.getAttribute("isStorage"));
+		_isSupport = GenericUtil.parseBoolean(eElement
+				.getAttribute("isSupport"));
 
 		parseBuildingRequirements(eElement.getAttribute("BuildingRequirements"));
 
@@ -160,7 +170,8 @@ public final class GenericBuilding
 		return valid;
 	}
 
-	public void placeBuilding(Point p_, BuildingEntity[][] tiles_, AbstractScreen homeScreen_) throws Exception
+	public void placeBuilding(Point p_, BuildingEntity[][] tiles_, AbstractScreen homeScreen_)
+			throws Exception
 	{
 		List<BuildingEntity> newBuildings = new ArrayList<BuildingEntity>();
 		for (String key : _validPlacementMap.keySet())
@@ -169,9 +180,10 @@ public final class GenericBuilding
 			int yDiff = 0;
 			if (!key.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
 			{
-				if ((key.contains("n") && key.contains("s")) || (key.contains("e") && key.contains("w")))
-					throw new Exception("Invalid build instructions (cannot instuct N and S together, or E and W together).");
-				System.out.println(key);
+				if ((key.contains("n") && key.contains("s"))
+						|| (key.contains("e") && key.contains("w")))
+					throw new Exception(
+							"Invalid build instructions (cannot instuct N and S together, or E and W together).");
 				for (int j = 0; j < key.length(); j++)
 				{
 					if (key.charAt(j) == 'n')
@@ -184,9 +196,12 @@ public final class GenericBuilding
 						xDiff--;
 				}
 			}
+			if (tiles_[p_.x + xDiff][p_.y + yDiff] != null)
+				tiles_[p_.x + xDiff][p_.y + yDiff].deleteBuilding();
 			tiles_[p_.x + xDiff][p_.y + yDiff] = new BuildingEntity(this,
-					new Point((p_.x + xDiff) * ClayConstants.TILE_X, (p_.y + yDiff)
-							* ClayConstants.TILE_Y), homeScreen_, key);
+					new Point((p_.x + xDiff) * ClayConstants.TILE_X,
+							(p_.y + yDiff) * ClayConstants.TILE_Y),
+					homeScreen_, key);
 			newBuildings.add(tiles_[p_.x + xDiff][p_.y + yDiff]);
 		}
 		if (_buildTime > 0)
@@ -196,7 +211,15 @@ public final class GenericBuilding
 			for (BuildingEntity entity : newBuildings)
 			{
 				behaviorProcess.queueBehavior(new Behavior(BehaviorData
-						.getTask("construct-building"), tiles_[p_.x][p_.y], entity));
+						.getTask("construct-building"), tiles_[p_.x][p_.y],
+						entity));
+			}
+		}
+		if (newBuildings.size() > 1)
+		{
+			for (BuildingEntity entity : newBuildings)
+			{
+				entity.setAllTiles(newBuildings);;
 			}
 		}
 	}

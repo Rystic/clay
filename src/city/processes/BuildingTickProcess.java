@@ -36,6 +36,11 @@ public class BuildingTickProcess extends AbstractProcess
 		_buildings.add(entity_);
 	}
 
+	public void unregister(BuildingEntity entity_)
+	{
+		_buildings.remove(entity_);
+	}
+
 	private List<BuildingEntity> _buildings;
 
 }

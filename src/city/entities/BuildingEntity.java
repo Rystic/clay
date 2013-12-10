@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.CityModel;
+
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
 import org.newdawn.slick.opengl.Texture;
@@ -174,7 +176,7 @@ public class BuildingEntity extends AbstractEntity implements
 		}
 		return null;
 	}
-	
+
 	public void consumeClaimed()
 	{
 		consume(_claimedItems);
@@ -216,6 +218,30 @@ public class BuildingEntity extends AbstractEntity implements
 		return _claimedItems;
 	}
 
+	public void setAllTiles(List<BuildingEntity> allBuildingTiles_)
+	{
+		_allBuildingTiles = allBuildingTiles_;
+	}
+
+	public void deleteBuilding()
+	{
+		BuildingTickProcess process = (BuildingTickProcess) _homeScreen
+				.getProcess(BuildingTickProcess.class);
+		CityModel model = (CityModel)_homeScreen.getModel();
+		if (_allBuildingTiles == null)
+		{
+			_allBuildingTiles = new ArrayList<BuildingEntity>();
+			_allBuildingTiles.add(this);
+		}
+
+		for (BuildingEntity building : _allBuildingTiles)
+		{
+			building.release();
+			process.unregister(building);
+			model.clearTile(building.getGridX(), building.getGridY());
+		}
+	}
+
 	@Override
 	public boolean equals(Object o)
 	{
@@ -233,6 +259,8 @@ public class BuildingEntity extends AbstractEntity implements
 	}
 
 	private final GenericBuilding _building;
+
+	private List<BuildingEntity> _allBuildingTiles;
 
 	private final Point _point;
 

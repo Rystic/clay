@@ -58,9 +58,9 @@ public class ClayTerrainGenerator
 		for (int y = 0; y < _yCells; y++)
 		{
 			tiles_[x_][y] = y < height_ ? new BuildingEntity(
-					BuildingData.getBuildingByTag("dirt-block"), new Point(x_
-							* ClayConstants.TILE_X, y * ClayConstants.TILE_Y),
-					_homeScreen, "base") : null;
+					BuildingData.getBuildingByTag("dirt-block"),
+					new Point(x_ * ClayConstants.TILE_X, y
+							* ClayConstants.TILE_Y), _homeScreen, "base") : null;
 		}
 	}
 
@@ -126,8 +126,8 @@ public class ClayTerrainGenerator
 			{
 				tiles_[x_][y_] = new BuildingEntity(
 						BuildingData.getBuildingByTag("natural-clay"),
-						new Point(x_
-								* ClayConstants.TILE_X, y_ * ClayConstants.TILE_Y), _homeScreen,
+						new Point(x_ * ClayConstants.TILE_X, y_
+								* ClayConstants.TILE_Y), _homeScreen,
 						ClayConstants.DEFAULT_BUILDING_POSITION);
 				if (iterations_ > 0)
 				{
@@ -143,7 +143,9 @@ public class ClayTerrainGenerator
 	private AbstractScreen _homeScreen;
 	private Random _random = new Random();
 
-	private int _xCells = ClayConstants.DEFAULT_MAP_WIDTH / ClayConstants.TILE_X;
-	private int _yCells = ClayConstants.DEFAULT_MAP_HEIGHT / ClayConstants.TILE_Y;
+	private int _xCells = ClayConstants.DEFAULT_MAP_WIDTH
+			/ ClayConstants.TILE_X;
+	private int _yCells = ClayConstants.DEFAULT_MAP_HEIGHT
+			/ ClayConstants.TILE_Y;
 
 }

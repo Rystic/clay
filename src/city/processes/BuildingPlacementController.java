@@ -61,9 +61,8 @@ public class BuildingPlacementController extends AbstractProcess
 				// ClayMain._manaProcess.reduceLesserMana(2);
 				try
 				{
-				building.placeBuilding(location, _tileValues, _homeScreen);
-				}
-				catch (Exception e_)
+					building.placeBuilding(location, _tileValues, _homeScreen);
+				} catch (Exception e_)
 				{
 					e_.printStackTrace();
 					return;

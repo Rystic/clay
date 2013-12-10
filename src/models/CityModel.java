@@ -1,5 +1,6 @@
 package models;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -52,7 +53,8 @@ public class CityModel extends AbstractModel
 
 	public void addGolem(GenericGolem golem_, double x_, double y_)
 	{
-		_newGolemList.add(new GolemEntity(golem_, (int) x_, (int) y_, _homeScreen));
+		_newGolemList.add(new GolemEntity(golem_, (int) x_, (int) y_,
+				_homeScreen));
 	}
 
 	public Map<Integer, List<BuildingEntity>> getBuildingMap()
@@ -78,6 +80,16 @@ public class CityModel extends AbstractModel
 		if (x_ > _xTileCount || y_ > _yTileCount || x_ < 0 || y_ < 0)
 			return null;
 		return _tileValues[x_][y_];
+	}
+
+	public void clearTile(int x_, int y_)
+	{
+		if (x_ > _xTileCount || y_ > _yTileCount || x_ < 0 || y_ < 0)
+			return;
+		_tileValues[x_][y_] = new BuildingEntity(
+				BuildingData.getBuildingByTag("clay-block"), new Point(y_
+						* ClayConstants.TILE_X, x_ * ClayConstants.TILE_Y),
+				_homeScreen, "base");
 	}
 
 	public BuildingEntity[][] getTileValues()
@@ -141,7 +153,8 @@ public class CityModel extends AbstractModel
 
 	// Interface
 	private int _selectedBuilding;
-	private int _adjustedX = ClayConstants.DEFAULT_MAP_WIDTH - ClayConstants.DEFAULT_INTERFACE_WIDTH;
+	private int _adjustedX = ClayConstants.DEFAULT_MAP_WIDTH
+			- ClayConstants.DEFAULT_INTERFACE_WIDTH;
 	private Set<AbstractButton> _interfaceOptions;
 	private boolean _interfaceToggle;
 
