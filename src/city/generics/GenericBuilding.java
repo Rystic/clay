@@ -195,7 +195,7 @@ public final class GenericBuilding
 		return valid;
 	}
 
-	public void placeBuilding(Point p_, BuildingEntity[][] tiles_, AbstractScreen homeScreen_)
+	public void placeBuilding(Point p_, BuildingEntity[][] tiles_, AbstractScreen homeScreen_) throws Exception
 	{
 		List<BuildingEntity> newBuildings = new ArrayList<BuildingEntity>();
 		for (String key : _validPlacementMap.keySet())
@@ -204,6 +204,9 @@ public final class GenericBuilding
 			int yDiff = 0;
 			if (!key.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
 			{
+				if ((key.contains("n") && key.contains("s")) || (key.contains("e") && key.contains("w")))
+					throw new Exception("Invalid build instructions (cannot instuct N and S together, or E and W together).");
+				System.out.println(key);
 				for (int j = 0; j < key.length(); j++)
 				{
 					if (key.charAt(j) == 'n')

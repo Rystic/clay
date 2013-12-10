@@ -59,7 +59,15 @@ public class BuildingPlacementController extends AbstractProcess
 				// TODO add check not to reduce mana if same building exists on
 				// that spot.
 				// ClayMain._manaProcess.reduceLesserMana(2);
+				try
+				{
 				building.placeBuilding(location, _tileValues, _homeScreen);
+				}
+				catch (Exception e_)
+				{
+					e_.printStackTrace();
+					return;
+				}
 				List<BuildingEntity> buildingList = buildingMap.get(building
 						.getBuildingIdentifier());
 				if (buildingList == null)

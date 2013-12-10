@@ -21,7 +21,7 @@ no-held-items-- signals that the tick should restart if the entity is holding no
 
 
 **Behavior Commands:
-build:building-entity - Tells the golem to start construction on the given parameter.
+build:building-entity,building-entity - Tells the golem to move to the first parameter, and start construction on the second parameter.
 claim-building:building-tag - Tells the golem to find a building and declare it in use.
 claim-items:item-tag,item-tag...item-tag - Tells the golem to claim the selected items, and bring them to the claimed building.
 create-golem:abstract-entity - creates a golem at the given entity.
