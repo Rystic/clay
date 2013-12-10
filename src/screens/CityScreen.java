@@ -6,6 +6,7 @@ import java.util.Random;
 import main.ClayConstants;
 import models.CityModel;
 import xml.BuildingData;
+import xml.GolemData;
 import city.ai.GolemBehaviorProcess;
 import city.effects.AbstractEffect;
 import city.effects.ArchitectureEffect;
@@ -79,7 +80,7 @@ public class CityScreen extends AbstractScreen
 				break;
 			placementY += ClayConstants.TILE_Y;
 		}
-		_model.addGolem(placementX, placementY);
+		_model.addGolem(GolemData.getGolem(ClayConstants.GOLEM_CLAY),placementX, placementY);
 	}
 	
 	@Override

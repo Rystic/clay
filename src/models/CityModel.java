@@ -14,6 +14,7 @@ import city.components.AbstractButton;
 import city.entities.BuildingEntity;
 import city.entities.GolemEntity;
 import city.generics.GenericBuilding;
+import city.generics.GenericGolem;
 
 public class CityModel extends AbstractModel
 {
@@ -49,9 +50,9 @@ public class CityModel extends AbstractModel
 		return _golemList.size();
 	}
 
-	public void addGolem(double x_, double y_)
+	public void addGolem(GenericGolem golem_, double x_, double y_)
 	{
-		_newGolemList.add(new GolemEntity((int) x_, (int) y_, _homeScreen));
+		_newGolemList.add(new GolemEntity(golem_, (int) x_, (int) y_, _homeScreen));
 	}
 
 	public Map<Integer, List<BuildingEntity>> getBuildingMap()

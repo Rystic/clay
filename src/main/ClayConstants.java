@@ -14,6 +14,11 @@ public class ClayConstants
 	
 	
 	
+	// Golem types
+	public static final String GOLEM_CLAY = "clay-golem";
+	
+	
+	
 	//--Behavior Constants--
 	// Behavior Commands
 	public static final String BEHAVIOR_COMMAND_BUILD = "build";

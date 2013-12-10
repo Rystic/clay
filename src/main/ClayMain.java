@@ -9,6 +9,7 @@ import screens.AbstractScreen;
 import screens.CityScreen;
 import xml.BehaviorData;
 import xml.BuildingData;
+import xml.GolemData;
 import xml.ItemData;
 import city.effects.AbstractEffect;
 import city.processes.AbstractProcess;
@@ -38,6 +39,7 @@ public class ClayMain implements Runnable
 		BuildingData.init();
 		BehaviorData.init();
 		ItemData.init();
+		GolemData.init();
 		_screen = new CityScreen();
 		
 		while (!Display.isCloseRequested())

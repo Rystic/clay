@@ -3,25 +3,45 @@ package city.entities;
 import java.awt.Point;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import models.CityModel;
 import screens.AbstractScreen;
-import city.ai.GolemBehaviorProcess;
-import city.ai.GolemBrain;
 import city.ai.objects.Behavior;
-import city.ai.util.BehaviorTriple;
+import city.generics.GenericGolem;
 
 public class GolemEntity extends AbstractEntity
 {
-	public GolemEntity(int x_, int y_, AbstractScreen homeScreen_)
+	public GolemEntity(GenericGolem golem_, int x_, int y_,
+			AbstractScreen homeScreen_)
 	{
 		super(new Point(x_, y_), homeScreen_);
 		_model = (CityModel) homeScreen_.getModel();
+		_golem = golem_;
 		_moveInstructions = new ArrayBlockingQueue<Point>(256);
 		_claimedBuilding = null;
-		_mana = 100;
-		_clay = 100;
+		_mana = _golem.getStartingMana();
+		_clay = _golem.getStartingClay();
+		_maxSpeed = _golem.getMoveSpeed();
+		if (_golem.getMoveVariation() > 0)
+		{
+			Random random = new Random();
+			double decimalModifier = random.nextDouble();
+			if (decimalModifier > _golem.getMoveVariation())
+				_maxSpeed += decimalModifier - _golem.getMoveVariation();
+			else if (_golem.getMoveVariation() == 1)
+			{
+				_maxSpeed += decimalModifier;
+			}
+			else
+			{
+			_maxSpeed += random.nextInt((int) (_golem.getMoveVariation() - 1))
+					+ decimalModifier;
+			}
+			
+		}
+		System.out.println("move speed " + _maxSpeed);
 		_visible = true;
 	}
 
@@ -98,8 +118,7 @@ public class GolemEntity extends AbstractEntity
 		if (!_heldItems.isEmpty())
 			moveSpeed /= 1.25;
 
-		adjustMana(MANA_LOST_ON_MOVEMENT);
-
+		adjustMana(-_golem.getManaLostOnMovement());
 		if (xDestination > _location.x)
 		{
 			_location.x += moveSpeed;
@@ -191,7 +210,7 @@ public class GolemEntity extends AbstractEntity
 		return (CityModel) _model;
 	}
 
-	private static final double MANA_LOST_ON_MOVEMENT = -.001;
+	private GenericGolem _golem;
 
 	private CityModel _model;
 	private Behavior _currentBehavior;
@@ -203,7 +222,7 @@ public class GolemEntity extends AbstractEntity
 
 	private double _mana;
 	private double _clay;
-	private double _maxSpeed = 3;
+	private double _maxSpeed;
 
 	private int _tickCount;
 	private int _tickCountRate;

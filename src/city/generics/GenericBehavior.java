@@ -11,6 +11,7 @@ import models.CityModel;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import xml.GolemData;
 import xml.ItemData;
 import city.ai.objects.Item;
 import city.entities.AbstractEntity;
@@ -70,7 +71,7 @@ public class GenericBehavior
 			complete = _consumeClaimed(executingEntity_, model, commandAndParams);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CREATE_GOLEM))
-			complete = _createGolem(executingEntity_, model, commandAndParams);
+			complete = _createClayGolem(executingEntity_, model, commandAndParams);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_HIDE))
 			complete = _hide(executingEntity_, model, commandAndParams);
@@ -197,9 +198,9 @@ public class GenericBehavior
 		return true;
 	}
 
-	private boolean _createGolem(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
+	private boolean _createClayGolem(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
 	{
-		model_.addGolem(executingEntity_.getX(), executingEntity_.getY());
+		model_.addGolem(GolemData.getGolem(ClayConstants.GOLEM_CLAY), executingEntity_.getX(), executingEntity_.getY());
 		return true;
 	}
 

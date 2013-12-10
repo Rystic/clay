@@ -25,6 +25,7 @@ import city.ai.GolemBehaviorProcess;
 import city.ai.objects.Behavior;
 import city.ai.objects.Item;
 import city.entities.BuildingEntity;
+import city.generics.util.GenericUtil;
 
 public final class GenericBuilding
 {
@@ -36,25 +37,25 @@ public final class GenericBuilding
 		_buildingIdentifier = identifier_;
 		_buildingDescription = eElement.getAttribute("BuildingDescription");
 
-		_buildTime = parseInteger(eElement.getAttribute("BuildTime"));
-		_tickStart = parseInteger(eElement.getAttribute("tickStart"));
-		_storageCapacity = parseInteger(eElement
+		_buildTime = GenericUtil.parseInteger(eElement.getAttribute("BuildTime"));
+		_tickStart = GenericUtil.parseInteger(eElement.getAttribute("tickStart"));
+		_storageCapacity = GenericUtil.parseInteger(eElement
 				.getAttribute("StorageCapacity"));
 
-		_lesserManaCost = parseDouble(eElement.getAttribute("LesserManaCost"));
-		_lesserManaCumulativeCost = parseDouble(eElement
+		_lesserManaCost = GenericUtil.parseDouble(eElement.getAttribute("LesserManaCost"));
+		_lesserManaCumulativeCost = GenericUtil.parseDouble(eElement
 				.getAttribute("LesserManaCumulativeCost"));
-		_greaterManaCost = parseDouble(eElement.getAttribute("GreaterManaCost"));
-		_greaterManaCumulativeCost = parseDouble(eElement
+		_greaterManaCost = GenericUtil.parseDouble(eElement.getAttribute("GreaterManaCost"));
+		_greaterManaCumulativeCost = GenericUtil.parseDouble(eElement
 				.getAttribute("GreaterManaCumulativeCost"));
 
-		_isClaimable = parseBoolean(eElement.getAttribute("isClaimable"));
-		_isHouse = parseBoolean(eElement.getAttribute("isHouse"));
-		_isNatural = parseBoolean(eElement.getAttribute("isNatural"));
-		_isPassable = parseBoolean(eElement.getAttribute("isPassable"));
-		_isScalable = parseBoolean(eElement.getAttribute("isScalable"));
-		_isStorage = parseBoolean(eElement.getAttribute("isStorage"));
-		_isSupport = parseBoolean(eElement.getAttribute("isSupport"));
+		_isClaimable = GenericUtil.parseBoolean(eElement.getAttribute("isClaimable"));
+		_isHouse = GenericUtil.parseBoolean(eElement.getAttribute("isHouse"));
+		_isNatural = GenericUtil.parseBoolean(eElement.getAttribute("isNatural"));
+		_isPassable = GenericUtil.parseBoolean(eElement.getAttribute("isPassable"));
+		_isScalable = GenericUtil.parseBoolean(eElement.getAttribute("isScalable"));
+		_isStorage = GenericUtil.parseBoolean(eElement.getAttribute("isStorage"));
+		_isSupport = GenericUtil.parseBoolean(eElement.getAttribute("isSupport"));
 
 		parseBuildingRequirements(eElement.getAttribute("BuildingRequirements"));
 
@@ -84,42 +85,6 @@ public final class GenericBuilding
 				_tickResetCode = subChild.getAttribute("reset");
 			}
 		}
-	}
-
-	private static boolean parseBoolean(String value_)
-	{
-		try
-		{
-			return Boolean.parseBoolean(value_);
-		} catch (Exception e_)
-		{
-			e_.printStackTrace();
-		}
-		return DEFAULT_BOOL_VALUE;
-	}
-
-	private static int parseInteger(String value_)
-	{
-		try
-		{
-			return Integer.parseInt(value_);
-		} catch (Exception e_)
-		{
-			e_.printStackTrace();
-		}
-		return DEFAULT_INTEGER_VALUE;
-	}
-
-	private static double parseDouble(String value_)
-	{
-		try
-		{
-			return Double.parseDouble(value_);
-		} catch (Exception e_)
-		{
-			e_.printStackTrace();
-		}
-		return DEFAULT_DOUBLE_VALUE;
 	}
 
 	private static Texture parseTexture(String value_)
@@ -509,10 +474,6 @@ public final class GenericBuilding
 	{
 		return _buildingIdentifier;
 	}
-
-	private static final boolean DEFAULT_BOOL_VALUE = false;
-	private static final int DEFAULT_INTEGER_VALUE = 0;
-	private static final double DEFAULT_DOUBLE_VALUE = 0D;
 
 	private final Map<String, Map<String, Texture>> _stateMap = new HashMap<String, Map<String, Texture>>();
 
