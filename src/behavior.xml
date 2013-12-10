@@ -3,7 +3,7 @@
 
 	<Behavior BehaviorName="Construct Building" BehaviorTag="construct-building"
 		weight="closest-to-point" personalTask="false" limit="-1" golemCost="clay:1"
-		require="" code="seek:0,build:0"></Behavior>
+		require="" code="seek:0,build:1"></Behavior>
 
 	<Behavior BehaviorName="Harvest Mana" BehaviorTag="harvest-mana"
 		weight="closest-to-point" personalTask="false" limit="-1" golemCost=""

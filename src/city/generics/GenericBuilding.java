@@ -228,7 +228,7 @@ public final class GenericBuilding
 			for (BuildingEntity entity : newBuildings)
 			{
 				behaviorProcess.queueBehavior(new Behavior(BehaviorData
-						.getTask("construct-building"), entity));
+						.getTask("construct-building"), tiles_[p_.x][p_.y], entity));
 			}
 		}
 	}
@@ -514,7 +514,7 @@ public final class GenericBuilding
 	private final Map<String, Map<String, Texture>> _stateMap = new HashMap<String, Map<String, Texture>>();
 
 	private final Map<String, String> _validPlacementMap = new HashMap<String, String>();
-	private final Map<String, Boolean> _scalabilityMap = new HashMap<String, String>();
+	private final Map<String, Boolean> _scalabilityMap = new HashMap<String, Boolean>();
 
 	private final List<String> _stateOrder;
 
