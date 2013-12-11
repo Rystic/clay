@@ -183,7 +183,7 @@ public final class GenericBuilding
 				if ((key.contains("n") && key.contains("s"))
 						|| (key.contains("e") && key.contains("w")))
 					throw new Exception(
-							"Invalid build instructions (cannot instuct N and S together, or E and W together).");
+							"Invalid build instructions (cannot instruct N and S together, or E and W together).");
 				for (int j = 0; j < key.length(); j++)
 				{
 					if (key.charAt(j) == 'n')
