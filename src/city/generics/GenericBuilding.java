@@ -123,7 +123,7 @@ public final class GenericBuilding
 		}
 	}
 
-	public boolean isValidLocation(Point p_, BuildingEntity[][] tiles_)
+	public boolean isValidLocation(Point p_, BuildingEntity[][] tiles_, boolean isSupport_)
 	{
 		if (tiles_[p_.x][p_.y - 1] == null
 				|| !tiles_[p_.x][p_.y - 1].isSupportBlock())
@@ -146,6 +146,44 @@ public final class GenericBuilding
 						xDiff++;
 					else if (key.charAt(j) == 'w')
 						xDiff--;
+				}
+			}
+			if (!isSupport_)
+			{
+				if (key.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
+				{
+					if (p_.y < tiles_[0].length)
+					{
+						if (tiles_[p_.x][p_.y + 1] != null)
+						{
+							valid = _validPlacementMap.keySet().contains("n");
+						}
+					}
+				}
+				else
+				{
+					if (tiles_[p_.x + xDiff][p_.y + yDiff + 1] != null)
+					{
+						StringBuilder nBuilder = new StringBuilder("n");
+						StringBuilder ewBuilder = new StringBuilder();
+						for (char c : key.toCharArray())
+						{
+							if (c == 'n')
+								nBuilder.append("n");
+							else
+								ewBuilder.append(c);
+						}
+						StringBuilder newBuilder = new StringBuilder(nBuilder)
+								.append(ewBuilder);
+						StringBuilder ewBuidler = new StringBuilder(ewBuilder)
+								.append(nBuilder);
+						valid = _validPlacementMap.keySet().contains(
+								newBuilder.toString())
+								|| _validPlacementMap.keySet().contains(
+										ewBuidler.toString());
+						if (!valid)
+							return valid;
+					}
 				}
 			}
 			if (yDiff == 0)
@@ -219,7 +257,8 @@ public final class GenericBuilding
 		{
 			for (BuildingEntity entity : newBuildings)
 			{
-				entity.setAllTiles(newBuildings);;
+				entity.setAllTiles(newBuildings);
+				;
 			}
 		}
 	}

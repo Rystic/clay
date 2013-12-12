@@ -54,7 +54,7 @@ public class BuildingPlacementController extends AbstractProcess
 				else
 					return;
 			}
-			if (building.isValidLocation(location, _tileValues))
+			if (building.isValidLocation(location, _tileValues, building.isSupport()))
 			{
 				// TODO add check not to reduce mana if same building exists on
 				// that spot.
