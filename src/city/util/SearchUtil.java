@@ -204,7 +204,7 @@ public class SearchUtil
 			return false;
 		if (!tiles_[p_.x][p_.y].isBuilt())
 			return false;
-		if (!tiles_[p_.x][p_.y].isScalable())
+		if (!tiles_[p_.x][p_.y].isDiagonalScalable())
 			return false;
 		if (tiles_[p_.x + direction_][p_.y] == null)
 			return false;
@@ -224,7 +224,7 @@ public class SearchUtil
 			return false;
 		if (!tiles_[p_.x + direction_][p_.y - 1].isBuilt())
 			return false;
-		if (tiles_[p_.x + direction_][p_.y - 1].isScalable())
+		if (tiles_[p_.x + direction_][p_.y - 1].isDiagonalScalable())
 			return true;
 		return false;
 	}
@@ -237,7 +237,7 @@ public class SearchUtil
 				return false;
 			if (!tiles_[p_.x][p_.y].isBuilt())
 				return false;
-			if (!tiles_[p_.x][p_.y].isScalable())
+			if (!tiles_[p_.x][p_.y].isUpwardScalable())
 				return false;
 			if (!tiles_[p_.x][p_.y].isSupportBlock())
 				return false;
@@ -249,11 +249,11 @@ public class SearchUtil
 		}
 		else
 		{
-			if (tiles_[p_.x][p_.y + direction_] == null)
+			if (tiles_[p_.x][p_.y] == null)
 				return false;
-			if (!tiles_[p_.x][p_.y + direction_].isBuilt())
+			if (!tiles_[p_.x][p_.y].isBuilt())
 				return false;
-			if (tiles_[p_.x][p_.y + direction_].isScalable())
+			if (tiles_[p_.x][p_.y].isDownwardScalable())
 				return true;
 		}
 		return false;

@@ -60,14 +60,13 @@ public final class GenericBuilding
 				.getAttribute("isNatural"));
 		_isPassable = GenericUtil.parseBoolean(eElement
 				.getAttribute("isPassable"));
-		_isScalable = GenericUtil.parseBoolean(eElement
-				.getAttribute("isScalable"));
 		_isStorage = GenericUtil.parseBoolean(eElement
 				.getAttribute("isStorage"));
 		_isSupport = GenericUtil.parseBoolean(eElement
 				.getAttribute("isSupport"));
 
 		parseBuildingRequirements(eElement.getAttribute("BuildingRequirements"));
+		parseScalability(eElement.getAttribute("Scalability"));
 
 		_stateOrder = new ArrayList<String>();
 		NodeList children = node_.getChildNodes();
@@ -120,6 +119,15 @@ public final class GenericBuilding
 					.put(
 							require[i],
 							require[i + 1].equals(ClayConstants.EMPTY_TILE) ? null : require[i + 1]);
+		}
+	}
+
+	private void parseScalability(String requirementList_)
+	{
+		String[] require = requirementList_.split(",");
+		for (int i = 0; i < require.length; i += 2)
+		{
+			_scalabilityMap.put(require[i], require[i + 1]);
 		}
 	}
 
@@ -426,6 +434,22 @@ public final class GenericBuilding
 	{
 		return _stateMap.get(textureKey_).get(position_);
 	}
+	
+	public boolean getScalableDownards(String position_)
+	{
+		return _scalabilityMap.get(position_).contains("s");
+	}
+	
+	public boolean getScalableUpwards(String position_)
+	{
+		return _scalabilityMap.get(position_).contains("n");
+	}
+	
+	public boolean getScalableDiagonal(String position_)
+	{
+		String val = _scalabilityMap.get(position_);
+		return val.contains("e") || val.contains("w");
+	}
 
 	public String getBuildingName()
 	{
@@ -497,11 +521,6 @@ public final class GenericBuilding
 		return _isPassable;
 	}
 
-	public boolean isScalable()
-	{
-		return _isScalable;
-	}
-
 	public boolean isStorage()
 	{
 		return _isStorage;
@@ -540,7 +559,7 @@ public final class GenericBuilding
 	private final Map<String, Map<String, Texture>> _stateMap = new HashMap<String, Map<String, Texture>>();
 
 	private final Map<String, String> _validPlacementMap = new HashMap<String, String>();
-	private final Map<String, Boolean> _scalabilityMap = new HashMap<String, Boolean>();
+	private final Map<String, String> _scalabilityMap = new HashMap<String, String>();
 
 	private final List<String> _stateOrder;
 
@@ -564,7 +583,6 @@ public final class GenericBuilding
 	private final boolean _isHouse;
 	private final boolean _isNatural;
 	private final boolean _isPassable;
-	private final boolean _isScalable;
 	private final boolean _isStorage;
 	private final boolean _isSupport;
 

@@ -15,10 +15,6 @@ public class SelectBuildingButton extends AbstractButton
 	{
 		super(x_, y_, width_, height_);
 		_building = building_;
-		if (_building == null)
-		{
-			System.out.println("WHAT");
-		}
 	}
 	
 	@Override
