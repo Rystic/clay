@@ -66,7 +66,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 						else
 							behaviorScores.add(new BehaviorTriple(golem,
 									behavior, behavior
-											.calculateBehaviorWeight(golem)));
+											.calculateBehaviorWeight(golem) + behavior.getAddedWeight()));
 					}
 				}
 			}
@@ -90,6 +90,10 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		if (behaviorScores.isEmpty())
 		{
 			_noAvailableGolemsBehaviorList.addAll(toBeAssigned);
+			for (Behavior behavior : toBeAssigned)
+			{
+				behavior.increaseAddedWeight(5);
+			}
 		}
 		else
 		{

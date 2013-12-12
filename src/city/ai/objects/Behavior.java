@@ -107,6 +107,16 @@ public class Behavior
 		return _behavior.isPersonalTask();
 	}
 	
+	public void increaseAddedWeight(int addedWeight_)
+	{
+		_addedWeight += addedWeight_;
+	}
+	
+	public int getAddedWeight()
+	{
+		return _addedWeight;
+	}
+	
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -120,6 +130,8 @@ public class Behavior
 	private List<GolemEntity> _invalidEntities;
 
 	private GolemBehaviorProcess _behaviorProcess;
+	
+	private int _addedWeight;
 	
 	private Object[] _params;
 

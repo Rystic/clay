@@ -21,7 +21,7 @@
 
 	<Behavior BehaviorName="Repair" BehaviorTag="repair"
 		weight="" personalTask="true" limit="1" golemCost="clay:-2,mana:-1"
-		require="" code="claim-building:0,claim-items:saturated-clay,seek-claimed-items,consume-claimed,hide,tick:125,show,add-clay:20"></Behavior>
+		require="" code="claim-building:0,claim-items:saturated-clay,seek-claimed-items,hide,consume-claimed,tick:125,show,add-clay:20"></Behavior>
 
 	<Behavior BehaviorName="Build Clay Golem" BehaviorTag="build-clay-golem"
 		weight="" personalTask="true" limit="1" golemCost="clay:-2,mana:-1"
