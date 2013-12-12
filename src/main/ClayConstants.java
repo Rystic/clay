@@ -21,6 +21,8 @@ public class ClayConstants
 	
 	//--Behavior Constants--
 	// Behavior Commands
+	public static final String BEHAVIOR_COMMAND_ADD_CLAY = "add-clay";
+	public static final String BEHAVIOR_COMMAND_ADD_MANA = "add-mana";
 	public static final String BEHAVIOR_COMMAND_BUILD = "build";
 	public static final String BEHAVIOR_COMMAND_CLAIM_BUILDING = "claim-building";
 	public static final String BEHAVIOR_COMMAND_CLAIM_ITEMS = "claim-items";
@@ -40,6 +42,8 @@ public class ClayConstants
 	// Golem Brain Behavior
 	public static final String PERSONAL_BEHAVIOR_BUILD_CLAY_GOLEM = "build-clay-golem";
 	public static final String PERSONAL_BEHAVIOR_STORE_ITEMS = "store-items";
+	public static final String PERSONAL_BEHAVIOR_REPAIR = "repair";
+	public static final String PERSONAL_BEHAVIOR_POWER_OBELISK = "power-obelisk";
 
 	// Behavior Requirements
 	public static final String BEHAVIOR_REQUIRE_STORAGE = "storage";

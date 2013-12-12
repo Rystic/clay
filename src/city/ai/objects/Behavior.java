@@ -68,8 +68,9 @@ public class Behavior
 		return _behavior.calculateBehaviorWeight(golem_, _params);
 	}
 	
-	public void complete()
+	public void complete(GolemEntity golem_)
 	{
+		_behavior.calculateGolemCost(golem_);
 		if (_behaviorProcess == null) return;
 		_behaviorProcess.behaviorComplete(this);
 	}

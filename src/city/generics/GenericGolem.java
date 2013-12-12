@@ -20,6 +20,8 @@ public class GenericGolem
 		_maximumMana = GenericUtil.parseDouble(eElement.getAttribute("MaximumMana"));
 		_maximumClay = GenericUtil.parseDouble(eElement.getAttribute("MaximumClay"));
 		_manaLostOnMovement = GenericUtil.parseDouble(eElement.getAttribute("ManaLostOnMovement"));
+		_lowManaThreshold = GenericUtil.parseDouble(eElement.getAttribute("LowManaThreshold"));
+		_lowClayThreshold = GenericUtil.parseDouble(eElement.getAttribute("LowClayThreshold"));
 	}
 
 	public String getGolemName()
@@ -72,6 +74,16 @@ public class GenericGolem
 		return _manaLostOnMovement;
 	}
 	
+	public double getLowManaThreshold()
+	{
+		return _lowManaThreshold;
+	}
+
+	public double getLowClayThreshold()
+	{
+		return _lowClayThreshold;
+	}
+	
 	private final String _golemName;
 	private final String _golemTag;
 	
@@ -83,5 +95,7 @@ public class GenericGolem
 	private final double _maximumMana;
 	private final double _maximumClay;
 	private final double _manaLostOnMovement;
+	private final double _lowManaThreshold;
+	private final double _lowClayThreshold;
 	
 }

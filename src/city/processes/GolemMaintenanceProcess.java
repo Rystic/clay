@@ -27,7 +27,7 @@ public class GolemMaintenanceProcess extends AbstractProcess
 			_model.setMana(0);
 			for (GolemEntity golem : _golemList)
 			{
-				//golem.increaseMana(manaDividend);
+				golem.adjustMana(manaDividend);
 			}
 		}
 		if (_newGolemList.size() > 0)

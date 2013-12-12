@@ -46,7 +46,13 @@ public class GenericBehavior
 		String com = commandAndParams[0];
 		boolean complete = false;
 
-		if (com.equals(ClayConstants.BEHAVIOR_COMMAND_BUILD))
+		if (com.equals(ClayConstants.BEHAVIOR_COMMAND_ADD_CLAY))
+			complete = _addClay(executingEntity_, model, commandAndParams);
+
+		if (com.equals(ClayConstants.BEHAVIOR_COMMAND_ADD_MANA))
+			complete = _addMana(executingEntity_, model, commandAndParams);
+		
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_BUILD))
 			complete = _build(
 					executingEntity_,
 					model,
@@ -68,10 +74,16 @@ public class GenericBehavior
 					params_);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CONSUME_CLAIMED))
-			complete = _consumeClaimed(executingEntity_, model, commandAndParams);
+			complete = _consumeClaimed(
+					executingEntity_,
+					model,
+					commandAndParams);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CREATE_GOLEM))
-			complete = _createClayGolem(executingEntity_, model, commandAndParams);
+			complete = _createClayGolem(
+					executingEntity_,
+					model,
+					commandAndParams);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_HIDE))
 			complete = _hide(executingEntity_, model, commandAndParams);
@@ -119,6 +131,18 @@ public class GenericBehavior
 		if (complete)
 			executingEntity_.instructionComplete();
 	}
+	
+	private boolean _addClay(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
+	{
+		executingEntity_.adjustClay(Double.parseDouble(commandParams_[1]));
+		return true;
+	}
+	
+	private boolean _addMana(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
+	{
+		model_.addMana(Integer.parseInt(commandParams_[1]));
+		return true;
+	}
 
 	private boolean _build(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
 	{
@@ -136,7 +160,7 @@ public class GenericBehavior
 
 	private boolean _claimBuilding(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
 	{
-		String tag = (String) ((BuildingEntity)params_[Integer.parseInt(commandParams_[1])]).getBuildingTag();
+		String tag = (String) params_[Integer.parseInt(commandParams_[1])];
 		Queue<Point> path = SearchUtil.searchIt(
 				executingEntity_,
 				executingEntity_.getHomeScreen(),
@@ -169,7 +193,8 @@ public class GenericBehavior
 		for (int i = 1; i < commandParams_.length; i++)
 		{
 			Item searchItem = new Item(ItemData.getItem(commandParams_[i]));
-			if (claimedBuilding.claimHeldItem(searchItem)) continue;
+			if (claimedBuilding.claimHeldItem(searchItem))
+				continue;
 			Queue<Point> path = SearchUtil.searchIt(
 					claimedBuilding,
 					claimedBuilding.getHomeScreen(),
@@ -200,7 +225,10 @@ public class GenericBehavior
 
 	private boolean _createClayGolem(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
 	{
-		model_.addGolem(GolemData.getGolem(ClayConstants.GOLEM_CLAY), executingEntity_.getX(), executingEntity_.getY());
+		model_.addGolem(
+				GolemData.getGolem(ClayConstants.GOLEM_CLAY),
+				executingEntity_.getX(),
+				executingEntity_.getY());
 		return true;
 	}
 
@@ -282,7 +310,8 @@ public class GenericBehavior
 			Queue<Point> path = SearchUtil.searchIt(
 					executingEntity_,
 					executingEntity_.getHomeScreen(),
-					ClayConstants.SEARCH_CLAIMED_ITEM, item);
+					ClayConstants.SEARCH_CLAIMED_ITEM,
+					item);
 			if (path.isEmpty())
 				executingEntity_
 						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
@@ -457,7 +486,16 @@ public class GenericBehavior
 
 	public void calculateGolemCost(GolemEntity golem_)
 	{
+		if (_golemCost.isEmpty()) return;
 		String[] golemCost = _golemCost.split(",");
+		for (String cost : golemCost)
+		{
+			String[] params = cost.split(":");
+			String attribute = params[0];
+			Double val = Double.parseDouble(params[1]);
+			if (attribute.equals("clay")) golem_.adjustClay(val);
+			else if (attribute.equals("mana")) golem_.adjustMana(val);
+		}
 	}
 
 	public int getLimit()

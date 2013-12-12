@@ -206,9 +206,11 @@ public final class GenericBuilding
 			GenericBuilding building = BuildingData
 					.getBuildingByTag(_validPlacementMap.get(key));
 			if (building == null
-					|| (tiles_[p_.x + xDiff][p_.y + yDiff] != null && tiles_[p_.x
-							+ xDiff][p_.y + yDiff].getIdentifier() == building
-							.getBuildingIdentifier()))
+					|| (tiles_[p_.x + xDiff][p_.y + yDiff] != null
+							&& tiles_[p_.x + xDiff][p_.y + yDiff]
+									.getIdentifier() == building
+									.getBuildingIdentifier() && tiles_[p_.x
+							+ xDiff][p_.y + yDiff].isBuilt()))
 				continue;
 			valid = false;
 			break;

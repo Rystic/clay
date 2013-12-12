@@ -43,8 +43,9 @@ public class GolemEffect extends AbstractEffect
 		for (GolemEntity golem : _golemList)
 		{
 			if (!golem.isVisible()) continue;
-			float val = (float) (golem.getMana() / 100);
-			GL11.glColor3f(val,val,val);
+			float manaVal = (float) (golem.getMana() / 100);
+			float clayVal = (float) (golem.getClay() / 100);
+			GL11.glColor3f(manaVal,manaVal,clayVal);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, _golemTexture.getTextureID());
 			double x = golem.getX();
 			double y = golem.getY();

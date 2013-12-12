@@ -2,24 +2,30 @@
 <Behaviors>
 
 	<Behavior BehaviorName="Construct Building" BehaviorTag="construct-building"
-		weight="closest-to-point" personalTask="false" limit="-1" golemCost="clay:1"
+		weight="closest-to-point" personalTask="false" limit="-1" golemCost="clay:-2"
 		require="" code="seek:0,build:1"></Behavior>
 
 	<Behavior BehaviorName="Harvest Mana" BehaviorTag="harvest-mana"
-		weight="closest-to-point" personalTask="false" limit="-1" golemCost=""
+		weight="closest-to-point" personalTask="false" limit="-1" golemCost="mana:-1"
 		require="storage"
 		code="seek:0,take-item:saturated-clay:0,seek-storage,store-item:saturated-clay"></Behavior>
 
-	<Behavior BehaviorName="Power Obelisk" BehaviorTag="power-obelisk"
-		weight="closest-to-point" personalTask="false" limit="-1" golemCost=""
-		require="" code="claim-building:0,claim-items:saturated-clay:saturated-clay:saturated-clay,seek-claimed-items,consume-claimed"></Behavior>
 
 	<Behavior BehaviorName="Store Items" BehaviorTag="store-items"
 		weight="" personalTask="true" limit="-1" golemCost="" require="storage"
 		code="seek-storage,store-all"></Behavior>
 
+	<Behavior BehaviorName="Power Obelisk" BehaviorTag="power-obelisk"
+		weight="closest-to-point" personalTask="false" limit="-1" golemCost="clay:-2,mana:-1"
+		require="" code="claim-building:0,claim-items:saturated-clay,seek-claimed-items,consume-claimed,tick:50,add-mana:20"></Behavior>
+
+	<Behavior BehaviorName="Repair" BehaviorTag="repair"
+		weight="" personalTask="true" limit="1" golemCost="clay:-2,mana:-1"
+		require="" code="claim-building:0,claim-items:saturated-clay,seek-claimed-items,consume-claimed,hide,tick:125,show,add-clay:20"></Behavior>
+
 	<Behavior BehaviorName="Build Clay Golem" BehaviorTag="build-clay-golem"
 		weight="" personalTask="true" limit="1" golemCost="clay:-2,mana:-1"
-		require="" code="seek-generic-building:0,hide,tick:75,show,create-golem"></Behavior>
+		require="" code="claim-building:0,claim-items:saturated-clay:saturated-clay,seek-claimed-items,consume-claimed,hide,tick:75,show,create-golem"></Behavior>
+
 
 </Behaviors>

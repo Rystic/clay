@@ -83,11 +83,14 @@ public class GolemEntity extends AbstractEntity
 		_commands.remove(0);
 		if (_commands.isEmpty())
 		{
-			_currentBehavior.complete();
+			_currentBehavior.complete(this);
 			_currentBehavior = null;
 			_visible = true;
 			if (_claimedBuilding != null)
+			{
 				_claimedBuilding.release();
+				_claimedBuilding = null;
+			}
 		}
 	}
 
@@ -97,7 +100,10 @@ public class GolemEntity extends AbstractEntity
 		_currentBehavior = null;
 		_visible = true;
 		if (_claimedBuilding != null)
+		{
 			_claimedBuilding.release();
+			_claimedBuilding = null;
+		}
 	}
 
 	public boolean isActive()
@@ -121,7 +127,13 @@ public class GolemEntity extends AbstractEntity
 
 		double moveSpeed = _maxSpeed;
 		if (!_heldItems.isEmpty())
+		{
 			moveSpeed /= 1.25;
+			if (_golem.getMaximumClay() < 200)
+				_clay -= .01;
+			else
+				_clay -= .001;
+		}
 
 		adjustMana(-_golem.getManaLostOnMovement());
 		if (xDestination > _location.x)
@@ -179,6 +191,11 @@ public class GolemEntity extends AbstractEntity
 		return _mana;
 	}
 
+	public boolean isLowMana()
+	{
+		return _golem.getLowManaThreshold() >= _mana;
+	}
+
 	public void adjustClay(double value_)
 	{
 		_clay += value_;
@@ -187,6 +204,11 @@ public class GolemEntity extends AbstractEntity
 	public double getClay()
 	{
 		return _clay;
+	}
+
+	public boolean isLowClay()
+	{
+		return _golem.getLowClayThreshold() >= _clay;
 	}
 
 	public void setVisible(boolean visible_)

@@ -87,8 +87,8 @@ public class CityModel extends AbstractModel
 		if (x_ > _xTileCount || y_ > _yTileCount || x_ < 0 || y_ < 0)
 			return;
 		_tileValues[x_][y_] = new BuildingEntity(
-				BuildingData.getBuildingByTag("clay-block"), new Point(y_
-						* ClayConstants.TILE_X, x_ * ClayConstants.TILE_Y),
+				BuildingData.getBuildingByTag("clay-block"), new Point(x_
+						* ClayConstants.TILE_X, y_ * ClayConstants.TILE_Y),
 				_homeScreen, "base");
 	}
 
