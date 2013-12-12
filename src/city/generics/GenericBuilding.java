@@ -158,39 +158,39 @@ public final class GenericBuilding
 			}
 			if (!isSupport_)
 			{
-				if (key.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
+				if (p_.y < tiles_[0].length - 1)
 				{
-					if (p_.y < tiles_[0].length)
+					if (key.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
 					{
 						if (tiles_[p_.x][p_.y + 1] != null)
 						{
 							valid = _validPlacementMap.keySet().contains("n");
 						}
 					}
-				}
-				else
-				{
-					if (tiles_[p_.x + xDiff][p_.y + yDiff + 1] != null)
+					else
 					{
-						StringBuilder nBuilder = new StringBuilder("n");
-						StringBuilder ewBuilder = new StringBuilder();
-						for (char c : key.toCharArray())
+						if (tiles_[p_.x + xDiff][p_.y + yDiff + 1] != null)
 						{
-							if (c == 'n')
-								nBuilder.append("n");
-							else
-								ewBuilder.append(c);
+							StringBuilder nBuilder = new StringBuilder("n");
+							StringBuilder ewBuilder = new StringBuilder();
+							for (char c : key.toCharArray())
+							{
+								if (c == 'n')
+									nBuilder.append("n");
+								else
+									ewBuilder.append(c);
+							}
+							StringBuilder newBuilder = new StringBuilder(
+									nBuilder).append(ewBuilder);
+							StringBuilder ewBuidler = new StringBuilder(
+									ewBuilder).append(nBuilder);
+							valid = _validPlacementMap.keySet().contains(
+									newBuilder.toString())
+									|| _validPlacementMap.keySet().contains(
+											ewBuidler.toString());
+							if (!valid)
+								return valid;
 						}
-						StringBuilder newBuilder = new StringBuilder(nBuilder)
-								.append(ewBuilder);
-						StringBuilder ewBuidler = new StringBuilder(ewBuilder)
-								.append(nBuilder);
-						valid = _validPlacementMap.keySet().contains(
-								newBuilder.toString())
-								|| _validPlacementMap.keySet().contains(
-										ewBuidler.toString());
-						if (!valid)
-							return valid;
 					}
 				}
 			}
@@ -434,17 +434,17 @@ public final class GenericBuilding
 	{
 		return _stateMap.get(textureKey_).get(position_);
 	}
-	
+
 	public boolean getScalableDownards(String position_)
 	{
 		return _scalabilityMap.get(position_).contains("s");
 	}
-	
+
 	public boolean getScalableUpwards(String position_)
 	{
 		return _scalabilityMap.get(position_).contains("n");
 	}
-	
+
 	public boolean getScalableDiagonal(String position_)
 	{
 		String val = _scalabilityMap.get(position_);

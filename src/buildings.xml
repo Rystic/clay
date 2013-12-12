@@ -144,7 +144,7 @@
 		BuildTime="40" BuildingRequirements="base,clay-block,s,clay-block"
 		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost="1.0"
 		LesserManaCumulativeCost="1.0" isClaimable="false" isHouse="false"
-		isNatural="false" isPassable="true" Scalability="base,s,s,n" isStorage="false"
+		isNatural="false" isPassable="true" Scalability="base,-,s,ns" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
 		 WorkingGolemsEnterBuilding="false" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigChute.png,s,bigChuteBottom.png"></State>
@@ -159,16 +159,16 @@
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
 		WorkingGolemsEnterBuilding="false" tickStart="-1">
-		<State StateName="state-default" Graphic="base,bigDeepHomeBuried0.png"></State>
-		<State StateName="state-buried:4" Graphic="base,bigDeepHomeBuried1.png"></State>
-		<State StateName="state-buried:8" Graphic="base,bigDeepHomeBuried2.png"></State>
-		<State StateName="state-buried:12" Graphic="base,bigDeepHomeBuried3.png"></State>
+		<State StateName="state-default" Graphic="base,bigDeepHome1.png"></State>
+		<State StateName="state-buried:4" Graphic="base,bigDeepHome2.png"></State>
+		<State StateName="state-buried:8" Graphic="base,bigDeepHome3.png"></State>
+		<State StateName="state-buried:12" Graphic="base,bigDeepHome4.png"></State>
 		<State StateName="state-adjacent:natural-clay,state-buried:2"
-			Graphic="base,bigDeepHomeBuried1.png"></State>
+			Graphic="base,bigDeepHome2.png"></State>
 		<State StateName="state-adjacent:natural-clay,state-buried:4"
-			Graphic="base,bigDeepHomeBuried2.png"></State>
+			Graphic="base,bigDeepHome3.png"></State>
 		<State StateName="state-adjacent:natural-clay,state-buried:6"
-			Graphic="base,bigDeepHomeBuried3.png"></State>
+			Graphic="base,bigDeepHome4.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>

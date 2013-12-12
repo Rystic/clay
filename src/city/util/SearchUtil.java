@@ -83,7 +83,8 @@ public class SearchUtil
 				{
 					BuildingEntity claimedBuilding = ((GolemEntity) entity_)
 							.getClaimedBuilding();
-					isGoal = tile.isHolding((Item) params_[1]) && !tile.equals(claimedBuilding);
+					isGoal = tile.isHolding((Item) params_[1])
+							&& !tile.equals(claimedBuilding);
 				}
 
 				if (isGoal)
@@ -241,6 +242,8 @@ public class SearchUtil
 				return false;
 			if (!tiles_[p_.x][p_.y].isSupportBlock())
 				return false;
+			if (p_.y + direction_ > tiles_[0].length - 1)
+				return false;
 			if (tiles_[p_.x][p_.y + direction_] == null)
 				return true;
 			if (!tiles_[p_.x][p_.y + direction_].isPassable())
@@ -249,11 +252,11 @@ public class SearchUtil
 		}
 		else
 		{
-			if (tiles_[p_.x][p_.y] == null)
+			if (tiles_[p_.x][p_.y + direction_] == null)
 				return false;
-			if (!tiles_[p_.x][p_.y].isBuilt())
+			if (!tiles_[p_.x][p_.y + direction_].isBuilt())
 				return false;
-			if (tiles_[p_.x][p_.y].isDownwardScalable())
+			if (tiles_[p_.x][p_.y + direction_].isDownwardScalable())
 				return true;
 		}
 		return false;
