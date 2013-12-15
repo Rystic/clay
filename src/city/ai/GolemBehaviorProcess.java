@@ -16,6 +16,7 @@ import city.ai.util.BehaviorTriple;
 import city.entities.GolemEntity;
 import city.processes.AbstractProcess;
 import city.util.MapUpdateEvent;
+import data.BehaviorData;
 
 public class GolemBehaviorProcess extends AbstractProcess implements
 		EventSubscriber<MapUpdateEvent>
@@ -66,7 +67,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 						else
 							behaviorScores.add(new BehaviorTriple(golem,
 									behavior, behavior
-											.calculateBehaviorWeight(golem) + behavior.getAddedWeight()));
+											.calculateBehaviorWeight(golem)
+											+ behavior.getAddedWeight()));
 					}
 				}
 			}
@@ -75,15 +77,31 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		{
 			if (golem.isActive())
 				continue;
-			Random random = new Random();
-			int addPersonalTask = random.nextInt(100);
-			if (addPersonalTask > 20)
+
+			BehaviorTriple golemNeededBehavior = GolemBrain
+					.calculateBestBehavior(
+							golem,
+							BehaviorData.getNeededBehaviors());
+			if (golemNeededBehavior != null)
 			{
-				BehaviorTriple golemBehavior = GolemBrain.think(golem);
-				if (golemBehavior != null)
+				golemNeededBehavior._behavior.setBehaviorProcess(this);
+				behaviorScores.add(golemNeededBehavior);
+			}
+			else
+			{
+				int addPersonalTask = _random.nextInt(100);
+				Object o = BehaviorData.getWantedBehaviors();
+				if (addPersonalTask > golem.getPersonalBehaviorChance())
 				{
-					golemBehavior._behavior.setBehaviorProcess(this);
-					behaviorScores.add(golemBehavior);
+					BehaviorTriple golemWantedBehavior = GolemBrain
+							.calculateBestBehavior(
+									golem,
+									BehaviorData.getWantedBehaviors());
+					if (golemWantedBehavior != null)
+					{
+						golemWantedBehavior._behavior.setBehaviorProcess(this);
+						behaviorScores.add(golemWantedBehavior);
+					}
 				}
 			}
 		}
@@ -235,6 +253,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		_unassignedBehaviorList.addAll(_unreachableBehaviorList);
 		_unreachableBehaviorList.clear();
 	}
+
+	private Random _random = new Random();
 
 	private List<GolemEntity> _golemList;
 

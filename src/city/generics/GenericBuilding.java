@@ -18,14 +18,14 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import screens.AbstractScreen;
-import xml.BehaviorData;
-import xml.BuildingData;
-import xml.ItemData;
 import city.ai.GolemBehaviorProcess;
 import city.ai.objects.Behavior;
 import city.ai.objects.Item;
 import city.entities.BuildingEntity;
 import city.generics.util.GenericUtil;
+import data.BehaviorData;
+import data.BuildingData;
+import data.ItemData;
 
 public final class GenericBuilding
 {
@@ -37,11 +37,11 @@ public final class GenericBuilding
 		_buildingIdentifier = identifier_;
 		_buildingDescription = eElement.getAttribute("BuildingDescription");
 
-		_buildTime = GenericUtil.parseInteger(eElement
+		_buildTime = GenericUtil.parseInt(eElement
 				.getAttribute("BuildTime"));
-		_tickStart = GenericUtil.parseInteger(eElement
+		_tickStart = GenericUtil.parseInt(eElement
 				.getAttribute("tickStart"));
-		_storageCapacity = GenericUtil.parseInteger(eElement
+		_storageCapacity = GenericUtil.parseInt(eElement
 				.getAttribute("StorageCapacity"));
 
 		_lesserManaCost = GenericUtil.parseDouble(eElement
@@ -259,7 +259,7 @@ public final class GenericBuilding
 			for (BuildingEntity entity : newBuildings)
 			{
 				behaviorProcess.queueBehavior(new Behavior(BehaviorData
-						.getTask("construct-building"), tiles_[p_.x][p_.y],
+						.getBehavior("construct-building"), tiles_[p_.x][p_.y],
 						entity));
 			}
 		}
@@ -402,14 +402,14 @@ public final class GenericBuilding
 				GolemBehaviorProcess behaviorProcess = ((GolemBehaviorProcess) building_
 						.getHomeScreen().getProcess(GolemBehaviorProcess.class));
 				behaviorProcess.queueBehavior(new Behavior(BehaviorData
-						.getTask(commandAndParams[2]), building_));
+						.getBehavior(commandAndParams[2]), building_));
 			}
 			if (commandAndParams[0].equals("behavior"))
 			{
 				GolemBehaviorProcess behaviorProcess = ((GolemBehaviorProcess) building_
 						.getHomeScreen().getProcess(GolemBehaviorProcess.class));
 				behaviorProcess.queueBehavior(new Behavior(BehaviorData
-						.getTask(commandAndParams[1]), building_));
+						.getBehavior(commandAndParams[1]), building_));
 			}
 		}
 	}

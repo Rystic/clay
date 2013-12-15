@@ -49,7 +49,11 @@ public class ClayConstants
 	public static final String BEHAVIOR_REQUIRE_STORAGE = "storage";
 
 	// Behavior Weight Conditions
+	public static final String WC_CAN_BUILD_GOLEM = "can-build-golem";
 	public static final String WC_CLOSEST_TO_PINT = "closest-to-point";
+	public static final String WC_HOLDING_ITEM = "holding-item";
+	public static final String WC_LOW_CLAY = "low-clay";
+	public static final String WC_LOW_MANA = "low-mana";
 
 	// Behavior passed/failed
 	public static final int BEHAVIOR_PASSED = -1;

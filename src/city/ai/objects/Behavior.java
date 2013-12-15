@@ -5,6 +5,8 @@ import java.util.List;
 
 import models.CityModel;
 import city.ai.GolemBehaviorProcess;
+import city.ai.calculators.BehaviorInstructionCalculator;
+import city.ai.calculators.BehaviorWeightCalculator;
 import city.entities.GolemEntity;
 import city.generics.GenericBehavior;
 
@@ -29,7 +31,7 @@ public class Behavior
 
 	public void executeBehavior(GolemEntity executingEntity_, String currentCommand_)
 	{
-		_behavior.executeBehavior(executingEntity_, currentCommand_, _params);
+		BehaviorInstructionCalculator.executeBehavior(executingEntity_, currentCommand_, _params);
 	}
 	
 	public void setBehaviorProcess(GolemBehaviorProcess behaviorProcess_)
@@ -65,7 +67,7 @@ public class Behavior
 			if (count >= _behavior.getLimit())
 				return Integer.MIN_VALUE;
 		}
-		return _behavior.calculateBehaviorWeight(golem_, _params);
+		return BehaviorWeightCalculator.calculate(golem_, _behavior.getWeightConditions(), _params);
 	}
 	
 	public void complete(GolemEntity golem_)
@@ -104,7 +106,7 @@ public class Behavior
 	
 	public boolean isPersonalTask()
 	{
-		return _behavior.isPersonalTask();
+		return _behavior.isPersonalBehavior();
 	}
 	
 	public void increaseAddedWeight(int addedWeight_)

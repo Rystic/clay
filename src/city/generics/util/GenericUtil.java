@@ -14,7 +14,7 @@ public class GenericUtil
 		return DEFAULT_BOOL_VALUE;
 	}
 
-	public static int parseInteger(String value_)
+	public static int parseInt(String value_)
 	{
 		try
 		{

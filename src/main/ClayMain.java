@@ -7,12 +7,12 @@ import org.lwjgl.opengl.GL11;
 
 import screens.AbstractScreen;
 import screens.CityScreen;
-import xml.BehaviorData;
-import xml.BuildingData;
-import xml.GolemData;
-import xml.ItemData;
 import city.effects.AbstractEffect;
 import city.processes.AbstractProcess;
+import data.BehaviorData;
+import data.BuildingData;
+import data.GolemData;
+import data.ItemData;
 
 public class ClayMain implements Runnable
 {
@@ -27,7 +27,7 @@ public class ClayMain implements Runnable
 	{
 		try
 		{
-			DisplayMode[] modes = Display.getAvailableDisplayModes();
+			//DisplayMode[] modes = Display.getAvailableDisplayModes();
 			Display.setDisplayMode(new DisplayMode(ClayConstants.DEFAULT_MAP_WIDTH + ClayConstants.DEFAULT_INTERFACE_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT));
 			Display.setFullscreen(false);
 			Display.create();

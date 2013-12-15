@@ -9,9 +9,9 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import screens.AbstractScreen;
-import xml.BuildingData;
 import city.components.AbstractButton;
 import city.components.SelectBuildingButton;
+import data.BuildingData;
 
 public class CityInterfaceController extends AbstractProcess
 {

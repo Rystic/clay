@@ -1,4 +1,4 @@
-package xml;
+package data;
 
 import java.io.File;
 import java.util.HashMap;
@@ -11,13 +11,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import city.generics.GenericBehavior;
+import city.generics.GenericGolem;
 
-public class BehaviorData
+public class GolemData
 {
 	public static void init()
 	{
-		File fXmlFile = new File("src/behavior.xml");
+		File fXmlFile = new File("src/golems.xml");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		try
@@ -25,14 +25,14 @@ public class BehaviorData
 			dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
 			doc.getDocumentElement().normalize();
-			NodeList nList = doc.getElementsByTagName("Behavior");
+			NodeList nList = doc.getElementsByTagName("Golem");
 			for (int i = 0; i < nList.getLength(); i++)
 			{
 				Node nNode = nList.item(i);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE)
 				{
-					GenericBehavior task = new GenericBehavior(nNode);
-					_tagToTask.put(task.getBehaviorTag(), task);
+					GenericGolem golem = new GenericGolem(nNode);
+					_tagToGolem.put(golem.getGolemTag(), golem);
 				}
 			}
 		} catch (Exception e)
@@ -41,10 +41,10 @@ public class BehaviorData
 		}
 	}
 	
-	public static GenericBehavior getTask(String tag_)
+	public static GenericGolem getGolem(String tag_)
 	{
-		return _tagToTask.get(tag_);
+		return _tagToGolem.get(tag_);
 	}
 	
-	public static Map<String, GenericBehavior> _tagToTask = new HashMap<String, GenericBehavior>();
+	public static Map<String, GenericGolem> _tagToGolem = new HashMap<String, GenericGolem>();
 }

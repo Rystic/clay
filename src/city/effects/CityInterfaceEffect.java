@@ -12,11 +12,11 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
 import screens.AbstractScreen;
-import xml.BuildingData;
 import city.components.AbstractButton;
 import city.components.SelectBuildingButton;
 import city.generics.GenericBuilding;
 import city.util.TextUtil;
+import data.BuildingData;
 
 public class CityInterfaceEffect extends AbstractEffect
 {

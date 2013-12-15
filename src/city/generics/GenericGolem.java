@@ -12,68 +12,80 @@ public class GenericGolem
 		Element eElement = (Element) node_;
 		_golemName = eElement.getAttribute("GolemName");
 		_golemTag = eElement.getAttribute("GolemTag");
-		_moveSpeed = GenericUtil.parseDouble(eElement.getAttribute("MoveSpeed"));
-		_moveVariation = GenericUtil.parseDouble(eElement.getAttribute("MoveVariation"));
-		_startingMana = GenericUtil.parseDouble(eElement.getAttribute("StartingMana"));
-		_startingClay = GenericUtil.parseDouble(eElement.getAttribute("StartingClay"));
-		_startingClayMaximum = GenericUtil.parseDouble(eElement.getAttribute("StartingClayMaximum"));
-		_maximumMana = GenericUtil.parseDouble(eElement.getAttribute("MaximumMana"));
-		_maximumClay = GenericUtil.parseDouble(eElement.getAttribute("MaximumClay"));
-		_manaLostOnMovement = GenericUtil.parseDouble(eElement.getAttribute("ManaLostOnMovement"));
-		_lowManaThreshold = GenericUtil.parseDouble(eElement.getAttribute("LowManaThreshold"));
-		_lowClayThreshold = GenericUtil.parseDouble(eElement.getAttribute("LowClayThreshold"));
+		_moveSpeed = GenericUtil
+				.parseDouble(eElement.getAttribute("MoveSpeed"));
+		_moveVariation = GenericUtil.parseDouble(eElement
+				.getAttribute("MoveVariation"));
+		_startingMana = GenericUtil.parseDouble(eElement
+				.getAttribute("StartingMana"));
+		_startingClay = GenericUtil.parseDouble(eElement
+				.getAttribute("StartingClay"));
+		_startingClayMaximum = GenericUtil.parseDouble(eElement
+				.getAttribute("StartingClayMaximum"));
+		_maximumMana = GenericUtil.parseDouble(eElement
+				.getAttribute("MaximumMana"));
+		_maximumClay = GenericUtil.parseDouble(eElement
+				.getAttribute("MaximumClay"));
+		_manaLostOnMovement = GenericUtil.parseDouble(eElement
+				.getAttribute("ManaLostOnMovement"));
+		_lowManaThreshold = GenericUtil.parseDouble(eElement
+				.getAttribute("LowManaThreshold"));
+		_lowClayThreshold = GenericUtil.parseDouble(eElement
+				.getAttribute("LowClayThreshold"));
+		_personalBehaviorChance = GenericUtil.parseInt(eElement
+				.getAttribute("PersonalBehaviorChance"));
 	}
 
 	public String getGolemName()
 	{
 		return _golemName;
 	}
-	
+
 	public String getGolemTag()
 	{
 		return _golemTag;
 	}
-	
+
 	public double getMoveSpeed()
 	{
 		return _moveSpeed;
 	}
-	
+
 	public double getMoveVariation()
 	{
 		return _moveVariation;
 	}
-	
+
 	public double getStartingMana()
 	{
 		return _startingMana;
 	}
-	
+
 	public double getStartingClay()
 	{
 		return _startingClay;
 	}
-	
+
 	public double getStartingClayMaximum()
 	{
 		return _startingClayMaximum;
 	}
-	
+
 	public double getMaximumMana()
 	{
 		return _maximumMana;
 	}
-	
+
 	public double getMaximumClay()
 	{
 		return _maximumClay;
 	}
-	
+
 	public double getManaLostOnMovement()
 	{
 		return _manaLostOnMovement;
 	}
-	
+
 	public double getLowManaThreshold()
 	{
 		return _lowManaThreshold;
@@ -84,9 +96,14 @@ public class GenericGolem
 		return _lowClayThreshold;
 	}
 	
+	public int getPersonalBehaviorChance()
+	{
+		return _personalBehaviorChance;
+	}
+
 	private final String _golemName;
 	private final String _golemTag;
-	
+
 	private final double _moveSpeed;
 	private final double _moveVariation;
 	private final double _startingMana;
@@ -97,5 +114,7 @@ public class GenericGolem
 	private final double _manaLostOnMovement;
 	private final double _lowManaThreshold;
 	private final double _lowClayThreshold;
-	
+
+	private final int _personalBehaviorChance;
+
 }

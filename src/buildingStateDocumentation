@@ -39,7 +39,9 @@ take-item:item-tag:abstract-entity - Takes the given item from the from the abst
 
 **Behavior Weight:
 closest-to-point - higher weight for being closer to the given point.
-
+low-mana - higher weight if mana is low.
+low-clay - higher weight if clay is low.
+can-build-golem - higher weight if there's a slot open to create a golem.
 
 
 **Require:

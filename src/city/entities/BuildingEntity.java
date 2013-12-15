@@ -12,11 +12,11 @@ import org.bushe.swing.event.EventSubscriber;
 import org.newdawn.slick.opengl.Texture;
 
 import screens.AbstractScreen;
-import xml.BuildingData;
 import city.ai.objects.Item;
 import city.generics.GenericBuilding;
 import city.processes.BuildingTickProcess;
 import city.util.MapUpdateEvent;
+import data.BuildingData;
 
 public class BuildingEntity extends AbstractEntity implements
 		EventSubscriber<MapUpdateEvent>

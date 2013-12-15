@@ -52,6 +52,8 @@ public class GolemEntity extends AbstractEntity
 
 	public void calculateBehavior()
 	{
+		_mana -= .001;
+		_clay -= .001;
 		if (!_moveInstructions.isEmpty())
 		{
 			updatePosition();
@@ -221,6 +223,11 @@ public class GolemEntity extends AbstractEntity
 		return _visible;
 	}
 
+	public int getPersonalBehaviorChance()
+	{
+		return _golem.getPersonalBehaviorChance();
+	}
+	
 	public void setClaimedBuilding(BuildingEntity claimedBuilding_)
 	{
 		_claimedBuilding = claimedBuilding_;
