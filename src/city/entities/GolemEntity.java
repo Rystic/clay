@@ -181,7 +181,6 @@ public class GolemEntity extends AbstractEntity
 		{
 			if (_moveInstructions.contains(p))
 			{
-				System.out.println("recalculate!");
 				recalculate = true;
 				break;
 			}
