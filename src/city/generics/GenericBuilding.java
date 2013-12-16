@@ -11,6 +11,7 @@ import java.util.Map;
 import main.ClayConstants;
 import models.CityModel;
 
+import org.bushe.swing.event.EventBus;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.w3c.dom.Element;
@@ -23,6 +24,7 @@ import city.ai.objects.Behavior;
 import city.ai.objects.Item;
 import city.entities.BuildingEntity;
 import city.generics.util.GenericUtil;
+import city.util.MapUpdateEvent;
 import data.BehaviorData;
 import data.BuildingData;
 import data.ItemData;
@@ -37,10 +39,8 @@ public final class GenericBuilding
 		_buildingIdentifier = identifier_;
 		_buildingDescription = eElement.getAttribute("BuildingDescription");
 
-		_buildTime = GenericUtil.parseInt(eElement
-				.getAttribute("BuildTime"));
-		_tickStart = GenericUtil.parseInt(eElement
-				.getAttribute("tickStart"));
+		_buildTime = GenericUtil.parseInt(eElement.getAttribute("BuildTime"));
+		_tickStart = GenericUtil.parseInt(eElement.getAttribute("tickStart"));
 		_storageCapacity = GenericUtil.parseInt(eElement
 				.getAttribute("StorageCapacity"));
 
@@ -205,6 +205,14 @@ public final class GenericBuilding
 			}
 			GenericBuilding building = BuildingData
 					.getBuildingByTag(_validPlacementMap.get(key));
+
+			if (tiles_[p_.x + xDiff][p_.y + yDiff] != null
+					&& tiles_[p_.x + xDiff][p_.y + yDiff].getIdentifier() == _buildingIdentifier)
+			{
+				valid = false;
+				break;
+			}
+
 			if (building == null
 					|| (tiles_[p_.x + xDiff][p_.y + yDiff] != null
 							&& tiles_[p_.x + xDiff][p_.y + yDiff]
@@ -263,14 +271,18 @@ public final class GenericBuilding
 						entity));
 			}
 		}
+		List<Point> points = new ArrayList<Point>();
 		if (newBuildings.size() > 1)
 		{
 			for (BuildingEntity entity : newBuildings)
 			{
 				entity.setAllTiles(newBuildings);
-				;
+				points.add(entity.getPoint());
 			}
 		}
+		else
+			points.add(new Point(newBuildings.get(0).getPoint()));
+		EventBus.publish(new MapUpdateEvent(homeScreen_, points));
 	}
 
 	int text = 0;

@@ -172,6 +172,24 @@ public class GolemEntity extends AbstractEntity
 			_moveInstructions.poll();
 	}
 
+	public void recalculatePathIfNecessary(List<Point> points_)
+	{
+		if (_moveInstructions.isEmpty())
+			return;
+		boolean recalculate = false;
+		for (Point p : points_)
+		{
+			if (_moveInstructions.contains(p))
+			{
+				System.out.println("recalculate!");
+				recalculate = true;
+				break;
+			}
+		}
+		if (recalculate)
+			_moveInstructions.clear();
+	}
+
 	public void setTickAndRate(int tick_, int tickRate_)
 	{
 		_tickCount = tick_;
@@ -227,7 +245,7 @@ public class GolemEntity extends AbstractEntity
 	{
 		return _golem.getPersonalBehaviorChance();
 	}
-	
+
 	public void setClaimedBuilding(BuildingEntity claimedBuilding_)
 	{
 		_claimedBuilding = claimedBuilding_;

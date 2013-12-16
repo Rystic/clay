@@ -252,6 +252,13 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		_clearInvalid = true;
 		_unassignedBehaviorList.addAll(_unreachableBehaviorList);
 		_unreachableBehaviorList.clear();
+		if (event_.getPoints() != null)
+		{
+			for (GolemEntity golem : _golemList)
+			{
+				golem.recalculatePathIfNecessary(event_.getPoints());
+			}
+		}
 	}
 
 	private Random _random = new Random();

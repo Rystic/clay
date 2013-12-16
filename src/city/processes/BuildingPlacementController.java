@@ -44,21 +44,18 @@ public class BuildingPlacementController extends AbstractProcess
 			GenericBuilding building = BuildingData.getBuildingById(_model
 					.getSelectedBuilding());
 			Point location = new Point(x_, y_);
-			if (_tileValues[x_][y_] != null)
-			{
-				if (buildingMap.get(_tileValues[x_][y_].getIdentifier()) != null)
-				{
-					buildingMap.get(_tileValues[x_][y_].getIdentifier())
-							.remove(_tileValues[x_][y_]);
-				}
-				else
-					return;
-			}
 			if (building.isValidLocation(location, _tileValues, building.isSupport()))
 			{
-				// TODO add check not to reduce mana if same building exists on
-				// that spot.
-				// ClayMain._manaProcess.reduceLesserMana(2);
+				if (_tileValues[x_][y_] != null)
+				{
+					if (buildingMap.get(_tileValues[x_][y_].getIdentifier()) != null)
+					{
+						buildingMap.get(_tileValues[x_][y_].getIdentifier())
+						.remove(_tileValues[x_][y_]);
+					}
+					else
+						return;
+				}
 				try
 				{
 					building.placeBuilding(location, _tileValues, _homeScreen);
@@ -78,7 +75,6 @@ public class BuildingPlacementController extends AbstractProcess
 				}
 				buildingList.add(_tileValues[x_][y_]);
 			}
-			EventBus.publish(new MapUpdateEvent(_homeScreen));
 		}
 	}
 
