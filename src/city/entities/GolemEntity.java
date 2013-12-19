@@ -1,6 +1,7 @@
 package city.entities;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
@@ -20,6 +21,7 @@ public class GolemEntity extends AbstractEntity
 		_model = (CityModel) homeScreen_.getModel();
 		_golem = golem_;
 		_moveInstructions = new ArrayBlockingQueue<Point>(256);
+		_failedPersonalBehaviors = new ArrayList<String>();
 		_claimedBuilding = null;
 		_mana = _golem.getStartingMana();
 		_clay = _golem.getStartingClay();
@@ -99,6 +101,7 @@ public class GolemEntity extends AbstractEntity
 	public void behaviorFailed(int reason_)
 	{
 		_currentBehavior.failed(this, reason_);
+		if (_currentBehavior.isPersonalTask()) _failedPersonalBehaviors.add(_currentBehavior.getBehavior().getBehaviorTag());
 		_currentBehavior = null;
 		_visible = true;
 		if (_claimedBuilding != null)
@@ -106,6 +109,11 @@ public class GolemEntity extends AbstractEntity
 			_claimedBuilding.release();
 			_claimedBuilding = null;
 		}
+	}
+	
+	public void clearFailedBehaviors()
+	{
+		_failedPersonalBehaviors.clear();
 	}
 
 	public boolean isActive()
@@ -262,6 +270,8 @@ public class GolemEntity extends AbstractEntity
 	}
 
 	private GenericGolem _golem;
+	
+	private List<String> _failedPersonalBehaviors;
 
 	private CityModel _model;
 	private Behavior _currentBehavior;

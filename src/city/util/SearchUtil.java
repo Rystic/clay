@@ -21,7 +21,7 @@ import city.entities.GolemEntity;
 
 public class SearchUtil
 {
-	public static Queue<Point> searchIt(AbstractEntity entity_, AbstractScreen abstractScreen, Object... params_)
+	public static Queue<Point> search(AbstractEntity entity_, AbstractScreen abstractScreen, Object... params_)
 	{
 		Set<Point> closedSet = new HashSet<Point>();
 		Queue<Point> openQueue = new ArrayBlockingQueue<Point>(256);
@@ -85,6 +85,10 @@ public class SearchUtil
 							.getClaimedBuilding();
 					isGoal = tile.isHolding((Item) params_[1])
 							&& !tile.equals(claimedBuilding);
+				}
+				else if (searchType == ClayConstants.SEARCH_HOUSE)
+				{
+					isGoal = tile.isHouse() && tile.isBuilt();
 				}
 
 				if (isGoal)

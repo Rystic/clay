@@ -109,6 +109,11 @@ public class Behavior
 		return _behavior.isPersonalBehavior();
 	}
 	
+	public String getRequired()
+	{
+		return _behavior.getRequired();
+	}
+	
 	public void increaseAddedWeight(int addedWeight_)
 	{
 		_addedWeight += addedWeight_;

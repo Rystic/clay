@@ -24,7 +24,7 @@ public class BehaviorWeightCalculator
 			{
 				AbstractEntity entity = (AbstractEntity) params_[0];
 
-				Queue<Point> path = SearchUtil.searchIt(
+				Queue<Point> path = SearchUtil.search(
 						golem_,
 						golem_.getHomeScreen(),
 						ClayConstants.SEARCH_ENTITY,

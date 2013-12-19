@@ -90,7 +90,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			else
 			{
 				int addPersonalTask = _random.nextInt(100);
-				Object o = BehaviorData.getWantedBehaviors();
 				if (addPersonalTask > golem.getPersonalBehaviorChance())
 				{
 					BehaviorTriple golemWantedBehavior = GolemBrain
@@ -125,6 +124,11 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				if (!invalidGolems.contains(triple._golem)
 						&& !invalidBehaviors.contains(triple._behavior))
 				{
+					String required = triple._behavior.getRequired();
+					if (required != null && !required.isEmpty())
+					{
+						
+					}
 					triple._golem.setBehavior(triple._behavior);
 					setBehaviorInProgess(triple._behavior);
 					invalidGolems.add(triple._golem);
@@ -249,16 +253,16 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	public void onEvent(MapUpdateEvent event_)
 	{
 		// TODO make sure it's the home screen
-		_clearInvalid = true;
-		_unassignedBehaviorList.addAll(_unreachableBehaviorList);
-		_unreachableBehaviorList.clear();
-		if (event_.getPoints() != null)
-		{
-			for (GolemEntity golem : _golemList)
+			_clearInvalid = true;
+			_unassignedBehaviorList.addAll(_unreachableBehaviorList);
+			_unreachableBehaviorList.clear();
+			if (event_.getPoints() != null)
 			{
-				golem.recalculatePathIfNecessary(event_.getPoints());
+				for (GolemEntity golem : _golemList)
+				{
+					golem.recalculatePathIfNecessary(event_.getPoints());
+				}
 			}
-		}
 	}
 
 	private Random _random = new Random();

@@ -138,7 +138,7 @@ public class BehaviorInstructionCalculator
 	private static boolean _claimBuilding(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
 	{
 		String tag = (String) params_[Integer.parseInt(commandParams_[1])];
-		Queue<Point> path = SearchUtil.searchIt(
+		Queue<Point> path = SearchUtil.search(
 				executingEntity_,
 				executingEntity_.getHomeScreen(),
 				ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY,
@@ -172,7 +172,7 @@ public class BehaviorInstructionCalculator
 			Item searchItem = new Item(ItemData.getItem(commandParams_[i]));
 			if (claimedBuilding.claimHeldItem(searchItem))
 				continue;
-			Queue<Point> path = SearchUtil.searchIt(
+			Queue<Point> path = SearchUtil.search(
 					claimedBuilding,
 					claimedBuilding.getHomeScreen(),
 					ClayConstants.SEARCH_ITEM_GOAL_ONLY,
@@ -223,7 +223,7 @@ public class BehaviorInstructionCalculator
 			return true;
 		else
 		{
-			Queue<Point> path = SearchUtil.searchIt(
+			Queue<Point> path = SearchUtil.search(
 					executingEntity_,
 					executingEntity_.getHomeScreen(),
 					ClayConstants.SEARCH_ENTITY,
@@ -260,7 +260,7 @@ public class BehaviorInstructionCalculator
 					claimedBuilding.generate(item);
 					continue;
 				}
-				Queue<Point> path = SearchUtil.searchIt(
+				Queue<Point> path = SearchUtil.search(
 						executingEntity_,
 						executingEntity_.getHomeScreen(),
 						ClayConstants.SEARCH_ENTITY,
@@ -284,7 +284,7 @@ public class BehaviorInstructionCalculator
 				return false;
 			}
 
-			Queue<Point> path = SearchUtil.searchIt(
+			Queue<Point> path = SearchUtil.search(
 					executingEntity_,
 					executingEntity_.getHomeScreen(),
 					ClayConstants.SEARCH_CLAIMED_ITEM,
@@ -311,7 +311,7 @@ public class BehaviorInstructionCalculator
 		}
 		else
 		{
-			Queue<Point> path = SearchUtil.searchIt(
+			Queue<Point> path = SearchUtil.search(
 					executingEntity_,
 					executingEntity_.getHomeScreen(),
 					ClayConstants.SEARCH_GENERIC_BUILDING,
@@ -335,7 +335,7 @@ public class BehaviorInstructionCalculator
 			return true;
 		else
 		{
-			Queue<Point> path = SearchUtil.searchIt(
+			Queue<Point> path = SearchUtil.search(
 					executingEntity_,
 					executingEntity_.getHomeScreen(),
 					ClayConstants.SEARCH_STORAGE);

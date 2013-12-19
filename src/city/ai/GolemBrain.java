@@ -18,17 +18,21 @@ public class GolemBrain
 
 	public static BehaviorTriple calculateBestBehavior(GolemEntity golem_, List<GenericBehavior> behaviors_)
 	{
-		//TODO don't spin on this
+		// TODO don't spin on this
 		Behavior bestBehavior = null;
 		int bestWeight = Integer.MIN_VALUE;
 		for (GenericBehavior neededBehavior : behaviors_)
 		{
-			int weight = BehaviorWeightCalculator.calculate(golem_, neededBehavior.getWeightConditions(), null);
+			int weight = BehaviorWeightCalculator.calculate(
+					golem_,
+					neededBehavior.getWeightConditions(),
+					null);
 			if (weight != Integer.MIN_VALUE)
 			{
 				if (weight > bestWeight)
 				{
-					bestBehavior = new Behavior(neededBehavior, neededBehavior.getDefaultParams());
+					bestBehavior = new Behavior(neededBehavior,
+							neededBehavior.getDefaultParams());
 					bestWeight = weight;
 				}
 			}

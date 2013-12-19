@@ -47,6 +47,8 @@ public class ClayConstants
 
 	// Behavior Requirements
 	public static final String BEHAVIOR_REQUIRE_STORAGE = "storage";
+	public static final String BEHAVIOR_REQUIRE_HOUSE = "house";
+	public static final String BEHAVIOR_REQUIRE_ITEM_EXISTS = "exists";
 
 	// Behavior Weight Conditions
 	public static final String WC_CAN_BUILD_GOLEM = "can-build-golem";
@@ -96,5 +98,6 @@ public class ClayConstants
 	public static final int SEARCH_GENERIC_BUILDING_GOAL_ONLY = 3; // Expects a single BuildingEntity [1]
 	public static final int SEARCH_CLAIMED_ITEM = 4; // Expects nothing.
 	public static final int SEARCH_ITEM_GOAL_ONLY = 5; // Expects an Item.
+	public static final int SEARCH_HOUSE = 6; // Expects nothing.
 	
 }
