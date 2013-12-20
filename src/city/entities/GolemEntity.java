@@ -81,6 +81,7 @@ public class GolemEntity extends AbstractEntity
 
 	public void instructionComplete()
 	{
+		if (_currentBehavior == null) return;
 		_tickComplete = false;
 		_tickCount = 0;
 		_tickCountRate = 0;
@@ -100,9 +101,14 @@ public class GolemEntity extends AbstractEntity
 
 	public void behaviorFailed(int reason_)
 	{
-		_currentBehavior.failed(this, reason_);
-		if (_currentBehavior.isPersonalTask()) _failedPersonalBehaviors.add(_currentBehavior.getBehavior().getBehaviorTag());
-		_currentBehavior = null;
+		if (_currentBehavior != null)
+		{
+			_currentBehavior.failed(this, reason_);
+			if (_currentBehavior.isPersonalTask())
+				_failedPersonalBehaviors.add(_currentBehavior.getBehavior()
+						.getBehaviorTag());
+			_currentBehavior = null;
+		}
 		_visible = true;
 		if (_claimedBuilding != null)
 		{
@@ -110,7 +116,7 @@ public class GolemEntity extends AbstractEntity
 			_claimedBuilding = null;
 		}
 	}
-	
+
 	public void clearFailedBehaviors()
 	{
 		_failedPersonalBehaviors.clear();
@@ -270,7 +276,7 @@ public class GolemEntity extends AbstractEntity
 	}
 
 	private GenericGolem _golem;
-	
+
 	private List<String> _failedPersonalBehaviors;
 
 	private CityModel _model;

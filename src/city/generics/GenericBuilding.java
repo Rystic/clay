@@ -282,7 +282,9 @@ public final class GenericBuilding
 		}
 		else
 			points.add(new Point(newBuildings.get(0).getPoint()));
-		EventBus.publish(new MapUpdateEvent(homeScreen_, points));
+		Map<Integer, Object> map = new HashMap<Integer, Object>();
+		map.put(ClayConstants.EVENT_MAP_UPDATE, points);
+		EventBus.publish(new MapUpdateEvent(homeScreen_, map));
 	}
 
 	int text = 0;
@@ -415,8 +417,12 @@ public final class GenericBuilding
 						.getHomeScreen().getProcess(GolemBehaviorProcess.class));
 				behaviorProcess.queueBehavior(new Behavior(BehaviorData
 						.getBehavior(commandAndParams[2]), building_));
+				Map<Integer, Object> map = new HashMap<Integer, Object>();
+				map.put(ClayConstants.EVENT_ITEM_UPDATE, true);
+				EventBus.publish(new MapUpdateEvent(building_.getHomeScreen(),
+						map));
 			}
-			if (commandAndParams[0].equals("behavior"))
+			if (commandAndParams[0].equals(ClayConstants.TICK_CODE_BEHAVIOR))
 			{
 				GolemBehaviorProcess behaviorProcess = ((GolemBehaviorProcess) building_
 						.getHomeScreen().getProcess(GolemBehaviorProcess.class));

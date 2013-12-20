@@ -109,6 +109,42 @@ public class BehaviorInstructionCalculator
 			executingEntity_.instructionComplete();
 	}
 
+	public static int executeRequired(GolemEntity executingEntity_, String currentCommand_, Object[] params_)
+	{
+		CityModel model = (CityModel) executingEntity_.getModel();
+		String[] commandAndParams = currentCommand_.split(":");
+		String com = commandAndParams[0];
+		int passed = ClayConstants.BEHAVIOR_PASSED;
+		if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_BUILDING))
+
+		{
+			if (!_claimBuilding(
+					executingEntity_,
+					model,
+					commandAndParams,
+					params_))
+			{
+				passed = ClayConstants.BEHAVIOR_FAILED_NO_PATH;
+			}
+		}
+
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_ITEMS))
+		{
+			if (!_claimItems(executingEntity_, model, commandAndParams, params_))
+			{
+				passed = ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS;
+			}
+		}
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_STORAGE_EXISTS))
+		{
+			if (!_storageExists(executingEntity_, model, commandAndParams, params_))
+			{
+				passed = ClayConstants.BEHAVIOR_FAILED_NO_STORAGE;
+			}
+		}
+		return passed;
+	}
+
 	private static boolean _addClay(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
 	{
 		executingEntity_.adjustClay(Double.parseDouble(commandParams_[1]));
@@ -354,6 +390,17 @@ public class BehaviorInstructionCalculator
 		return true;
 	}
 
+	private static boolean _storageExists(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
+	{
+		AbstractEntity entity = (AbstractEntity) params_[Integer
+				.parseInt(commandParams_[1])];
+		Queue<Point> path = SearchUtil.search(
+				entity,
+				entity.getHomeScreen(),
+				ClayConstants.SEARCH_STORAGE);
+		return path.size() > 0;
+	}
+
 	private static boolean _storeAll(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
 	{
 		BuildingEntity storage = executingEntity_.getModel().getTileValue(
@@ -373,9 +420,9 @@ public class BehaviorInstructionCalculator
 		return true;
 	}
 
-	private static boolean _storeItem(GolemEntity executingEntity_, CityModel model_, String[] params)
+	private static boolean _storeItem(GolemEntity executingEntity_, CityModel model_, String[] params_)
 	{
-		Item item = new Item(ItemData.getItem(params[1]));
+		Item item = new Item(ItemData.getItem(params_[1]));
 		BuildingEntity storage = executingEntity_.getModel().getTileValue(
 				executingEntity_.getGridX(),
 				executingEntity_.getGridY());
@@ -412,9 +459,9 @@ public class BehaviorInstructionCalculator
 		return false;
 	}
 
-	private static boolean _tick(GolemEntity executingEntity_, CityModel model_, String[] params)
+	private static boolean _tick(GolemEntity executingEntity_, CityModel model_, String[] params_)
 	{
-		Integer tick = Integer.parseInt(params[1]);
+		Integer tick = Integer.parseInt(params_[1]);
 		if (executingEntity_.isTickComplete())
 			return true;
 		else

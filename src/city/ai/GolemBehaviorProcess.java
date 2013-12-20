@@ -1,8 +1,10 @@
 package city.ai;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import main.ClayConstants;
 import models.CityModel;
@@ -25,13 +27,12 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	{
 		super(homeScreen_);
 		_golemList = ((CityModel) homeScreen_.getModel()).getGolems();
-		_unassignedBehaviorList = new ArrayList<Behavior>();
-		_inProgressBehaviorList = new ArrayList<Behavior>();
-		_unreachableBehaviorList = new ArrayList<Behavior>();
-		_noMaterialsBehaviorList = new ArrayList<Behavior>();
-		_noAvailableGolemsBehaviorList = new ArrayList<Behavior>();
-		_noStorageAvailable = new ArrayList<Behavior>();
-		_model = (CityModel) homeScreen_.getModel();
+		_unassignedBehaviorList = new HashSet<Behavior>();
+		_inProgressBehaviorList = new HashSet<Behavior>();
+		_unreachableBehaviorList = new HashSet<Behavior>();
+		_noMaterialsBehaviorList = new HashSet<Behavior>();
+		_noAvailableGolemsBehaviorList = new HashSet<Behavior>();
+		_noStorageAvailable = new HashSet<Behavior>();
 		EventBus.subscribe(MapUpdateEvent.class, this);
 	}
 
@@ -48,13 +49,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			{
 				if (_clearInvalid)
 					behavior.clearInvalidEntities();
-				int required = behavior.requiredConditionsSatisfied(_model);
-				if (required != ClayConstants.BEHAVIOR_PASSED)
-				{
-					if (required == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
-						_noStorageAvailable.add(behavior);
-				}
-				else if (behavior.allGolemsInvalid(_golemList))
+				if (behavior.allGolemsInvalid(_golemList))
 					_unreachableBehaviorList.add(behavior);
 				else
 				{
@@ -62,13 +57,9 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 					{
 						if (golem.isActive() || behavior.isInvalid(golem))
 							continue;
-						if (behavior.allGolemsInvalid(_golemList))
-							_unreachableBehaviorList.add(behavior);
-						else
-							behaviorScores.add(new BehaviorTriple(golem,
-									behavior, behavior
-											.calculateBehaviorWeight(golem)
-											+ behavior.getAddedWeight()));
+						behaviorScores.add(new BehaviorTriple(golem, behavior,
+								behavior.calculateBehaviorWeight(golem)
+										+ behavior.getAddedWeight()));
 					}
 				}
 			}
@@ -124,15 +115,17 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				if (!invalidGolems.contains(triple._golem)
 						&& !invalidBehaviors.contains(triple._behavior))
 				{
-					String required = triple._behavior.getRequired();
-					if (required != null && !required.isEmpty())
+					int requiredComplete = triple._behavior
+							.calculateRequired(triple._golem);
+					if (requiredComplete == ClayConstants.BEHAVIOR_PASSED)
 					{
-						
+						triple._golem.setBehavior(triple._behavior);
+						setBehaviorInProgess(triple._behavior);
+						invalidGolems.add(triple._golem);
+						invalidBehaviors.add(triple._behavior);
 					}
-					triple._golem.setBehavior(triple._behavior);
-					setBehaviorInProgess(triple._behavior);
-					invalidGolems.add(triple._golem);
-					invalidBehaviors.add(triple._behavior);
+					else
+						handleFailedBehavior(triple._behavior, requiredComplete);
 				}
 			}
 			_clearInvalid = false;
@@ -142,7 +135,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		_unassignedBehaviorList.removeAll(_inProgressBehaviorList);
 		_unassignedBehaviorList.removeAll(_noMaterialsBehaviorList);
 		_unassignedBehaviorList.removeAll(_noAvailableGolemsBehaviorList);
-
+		//TODO add no storage list
 		for (GolemEntity golem : _golemList)
 		{
 			golem.calculateBehavior();
@@ -162,26 +155,29 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	public void behaviorFailed(Behavior behavior_, int reason_)
 	{
 		if (!behavior_.isPersonalTask())
-		{
-			_inProgressBehaviorList.remove(behavior_);
-			if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
-			{
-				_noMaterialsBehaviorList.add(behavior_);
-			}
-			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
-			{
-				if (behavior_.allGolemsInvalid(_golemList))
-					_unreachableBehaviorList.add(behavior_);
-				else
-					_unassignedBehaviorList.add(behavior_);
-			}
-			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
-			{
-				_noStorageAvailable.add(behavior_);
-			}
-		}
+			handleFailedBehavior(behavior_, reason_);
 		_unassignedBehaviorList.addAll(_noAvailableGolemsBehaviorList);
 		_noAvailableGolemsBehaviorList.clear();
+	}
+
+	private void handleFailedBehavior(Behavior behavior_, int reason_)
+	{
+		_inProgressBehaviorList.remove(behavior_);
+		if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
+		{
+			_noMaterialsBehaviorList.add(behavior_);
+		}
+		else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
+		{
+			if (behavior_.allGolemsInvalid(_golemList))
+				_unreachableBehaviorList.add(behavior_);
+			else
+				_unassignedBehaviorList.add(behavior_);
+		}
+		else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
+		{
+			_noStorageAvailable.add(behavior_);
+		}
 	}
 
 	public void queueBehavior(Behavior behavior_)
@@ -253,30 +249,33 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	public void onEvent(MapUpdateEvent event_)
 	{
 		// TODO make sure it's the home screen
-			_clearInvalid = true;
-			_unassignedBehaviorList.addAll(_unreachableBehaviorList);
-			_unreachableBehaviorList.clear();
-			if (event_.getPoints() != null)
+		_clearInvalid = true;
+		_unassignedBehaviorList.addAll(_unreachableBehaviorList);
+		_unreachableBehaviorList.clear();
+		if (event_.getPoints() != null)
+		{
+			for (GolemEntity golem : _golemList)
 			{
-				for (GolemEntity golem : _golemList)
-				{
-					golem.recalculatePathIfNecessary(event_.getPoints());
-				}
+				golem.recalculatePathIfNecessary(event_.getPoints());
 			}
+		}
+		if (event_.isItemUpdate())
+		{
+			_unassignedBehaviorList.addAll(_noMaterialsBehaviorList);
+			_noMaterialsBehaviorList.clear();
+		}
 	}
 
 	private Random _random = new Random();
 
 	private List<GolemEntity> _golemList;
 
-	private List<Behavior> _unassignedBehaviorList;
-	private List<Behavior> _inProgressBehaviorList;
-	private List<Behavior> _unreachableBehaviorList;
-	private List<Behavior> _noMaterialsBehaviorList;
-	private List<Behavior> _noAvailableGolemsBehaviorList;
-	private List<Behavior> _noStorageAvailable;
-
-	private CityModel _model;
+	private Set<Behavior> _unassignedBehaviorList;
+	private Set<Behavior> _inProgressBehaviorList;
+	private Set<Behavior> _unreachableBehaviorList;
+	private Set<Behavior> _noMaterialsBehaviorList;
+	private Set<Behavior> _noAvailableGolemsBehaviorList;
+	private Set<Behavior> _noStorageAvailable;
 
 	private boolean _clearInvalid;
 

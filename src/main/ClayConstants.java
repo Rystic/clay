@@ -34,6 +34,7 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_SEEK_GENERIC_BUILDING = "seek-generic-building";
 	public static final String BEHAVIOR_COMMAND_SEEK_STORAGE = "seek-storage";
 	public static final String BEHAVIOR_COMMAND_SHOW = "show";
+	public static final String BEHAVIOR_COMMAND_STORAGE_EXISTS = "storage-exists";
 	public static final String BEHAVIOR_COMMAND_STORE_ALL = "store-all";
 	public static final String BEHAVIOR_COMMAND_STORE_ITEM = "store-item";
 	public static final String BEHAVIOR_COMMAND_TAKE_ITEM = "take-item";
@@ -45,10 +46,6 @@ public class ClayConstants
 	public static final String PERSONAL_BEHAVIOR_REPAIR = "repair";
 	public static final String PERSONAL_BEHAVIOR_POWER_OBELISK = "power-obelisk";
 
-	// Behavior Requirements
-	public static final String BEHAVIOR_REQUIRE_STORAGE = "storage";
-	public static final String BEHAVIOR_REQUIRE_HOUSE = "house";
-	public static final String BEHAVIOR_REQUIRE_ITEM_EXISTS = "exists";
 
 	// Behavior Weight Conditions
 	public static final String WC_CAN_BUILD_GOLEM = "can-build-golem";
@@ -81,6 +78,7 @@ public class ClayConstants
 	
 	// Tick Results
 	public static final String TICK_CODE_PRODUCE_ITEM = "item";
+	public static final String TICK_CODE_BEHAVIOR = "behavior";
 	
 	// Tick Reset Conditions
 	public static final String TICK_RESET_NO_HELD_ITEMS = "no-held-items";
@@ -89,6 +87,11 @@ public class ClayConstants
 	public static final String DEFAULT_BUILDING_POSITION = "base";
 	public static final String EMPTY_TILE = "none";
 	
+	
+	
+	//--Event Constants--
+	public static final Integer EVENT_MAP_UPDATE = 0;
+	public static final Integer EVENT_ITEM_UPDATE = 1;
 	
 	
 	//--Search Conditions--

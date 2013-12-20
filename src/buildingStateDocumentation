@@ -45,6 +45,6 @@ can-build-golem - higher weight if there's a slot open to create a golem.
 
 
 **Require:
-storage - checks if a storage is available on the map.
+storage-exists - checks if a storage is available on the map.
 house - checks if there is an available house on the map.
 exists:item-tag - checks if the given item is available from the golem's location. Note: exists only looks for one item. Multiple exists will not work if they're all looking for the same item.

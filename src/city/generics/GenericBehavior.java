@@ -36,53 +36,6 @@ public class GenericBehavior
 		_defaultParams[0] = eElement.getAttribute("defaultParams");
 	}
 
-	public int calculateRequired(CityModel model_, Object[] params_)
-	{
-		String[] require = _require.split(",");
-		for (String requireCondition : require)
-		{
-			String[] commandAndParams = requireCondition.split(":");
-			if (commandAndParams[0]
-					.equals(ClayConstants.BEHAVIOR_REQUIRE_STORAGE))
-			{
-				AbstractEntity entity = (AbstractEntity) params_[0];
-				Queue<Point> queue = SearchUtil.search(
-						entity,
-						entity.getHomeScreen(),
-						ClayConstants.SEARCH_STORAGE);
-				if (queue.isEmpty())
-					return ClayConstants.BEHAVIOR_FAILED_NO_STORAGE;
-			}
-			if (commandAndParams[0]
-					.equals(ClayConstants.BEHAVIOR_REQUIRE_HOUSE))
-			{
-				AbstractEntity entity = (AbstractEntity) params_[0];
-				Queue<Point> queue = SearchUtil.search(
-						entity,
-						entity.getHomeScreen(),
-						ClayConstants.SEARCH_HOUSE);
-				if (queue.isEmpty())
-					return ClayConstants.BEHAVIOR_FAILED_NO_PATH;
-			}
-			if (commandAndParams[0]
-					.equals(ClayConstants.BEHAVIOR_REQUIRE_ITEM_EXISTS))
-			{
-				AbstractEntity entity = (AbstractEntity) params_[0];
-				Item item = new Item(ItemData.getItem(commandAndParams[1]));
-				if (entity.isHolding(item))
-					continue;
-				Queue<Point> queue = SearchUtil.search(
-						entity,
-						entity.getHomeScreen(),
-						ClayConstants.SEARCH_ITEM_GOAL_ONLY,
-						item);
-				if (queue.isEmpty())
-					return ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS;
-			}
-		}
-		return ClayConstants.BEHAVIOR_PASSED;
-	}
-
 	public void calculateGolemCost(GolemEntity golem_)
 	{
 		if (_golemCost.isEmpty())
