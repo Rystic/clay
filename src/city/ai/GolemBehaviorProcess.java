@@ -1,10 +1,8 @@
 package city.ai;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import main.ClayConstants;
 import models.CityModel;
@@ -27,12 +25,12 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	{
 		super(homeScreen_);
 		_golemList = ((CityModel) homeScreen_.getModel()).getGolems();
-		_unassignedBehaviorList = new HashSet<Behavior>();
-		_inProgressBehaviorList = new HashSet<Behavior>();
-		_unreachableBehaviorList = new HashSet<Behavior>();
-		_noMaterialsBehaviorList = new HashSet<Behavior>();
-		_noAvailableGolemsBehaviorList = new HashSet<Behavior>();
-		_noStorageAvailable = new HashSet<Behavior>();
+		_unassignedBehaviorList = new ArrayList<Behavior>();
+		_inProgressBehaviorList = new ArrayList<Behavior>();
+		_unreachableBehaviorList = new ArrayList<Behavior>();
+		_noMaterialsBehaviorList = new ArrayList<Behavior>();
+		_noAvailableGolemsBehaviorList = new ArrayList<Behavior>();
+		_noStorageAvailable = new ArrayList<Behavior>();
 		EventBus.subscribe(MapUpdateEvent.class, this);
 	}
 
@@ -49,30 +47,33 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			{
 				if (_clearInvalid)
 					behavior.clearInvalidEntities();
-				if (behavior.allGolemsInvalid(_golemList))
-					_unreachableBehaviorList.add(behavior);
-				else
-				{
 					for (GolemEntity golem : _golemList)
 					{
 						if (golem.isActive() || behavior.isInvalid(golem))
 							continue;
-						behaviorScores.add(new BehaviorTriple(golem, behavior,
+						BehaviorTriple triple = new BehaviorTriple(golem,
+								behavior,
 								behavior.calculateBehaviorWeight(golem)
-										+ behavior.getAddedWeight()));
+										+ behavior.getAddedWeight());
+						if (triple._weight <= 0)
+							triple._behavior.requiredFailed(golem);
+						else
+							behaviorScores.add(triple);
 					}
-				}
+				if (behavior.allGolemsInvalid(_golemList))
+					_unreachableBehaviorList.add(behavior);
 			}
 		}
+		toBeAssigned.removeAll(_unreachableBehaviorList);
+		
 		for (GolemEntity golem : _golemList)
 		{
 			if (golem.isActive())
 				continue;
-
 			BehaviorTriple golemNeededBehavior = GolemBrain
 					.calculateBestBehavior(
 							golem,
-							BehaviorData.getNeededBehaviors());
+							BehaviorData.getNeededBehaviors(), true);
 			if (golemNeededBehavior != null)
 			{
 				golemNeededBehavior._behavior.setBehaviorProcess(this);
@@ -86,7 +87,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 					BehaviorTriple golemWantedBehavior = GolemBrain
 							.calculateBestBehavior(
 									golem,
-									BehaviorData.getWantedBehaviors());
+									BehaviorData.getWantedBehaviors(), false);
 					if (golemWantedBehavior != null)
 					{
 						golemWantedBehavior._behavior.setBehaviorProcess(this);
@@ -100,7 +101,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			_noAvailableGolemsBehaviorList.addAll(toBeAssigned);
 			for (Behavior behavior : toBeAssigned)
 			{
-				behavior.increaseAddedWeight(5);
+				behavior.increaseAddedWeight(20);
 			}
 		}
 		else
@@ -124,8 +125,25 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 						invalidGolems.add(triple._golem);
 						invalidBehaviors.add(triple._behavior);
 					}
-					else
-						handleFailedBehavior(triple._behavior, requiredComplete);
+					else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
+					{
+						_noMaterialsBehaviorList.add(triple._behavior);
+						invalidBehaviors.add(triple._behavior);
+					}
+					else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
+					{
+						_noStorageAvailable.add(triple._behavior);
+						invalidBehaviors.add(triple._behavior);
+					}
+					else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
+					{
+						triple._behavior.requiredFailed(triple._golem);
+						if (triple._behavior.allGolemsInvalid(_golemList))
+						{
+							_unreachableBehaviorList.add(triple._behavior);
+							invalidBehaviors.add(triple._behavior);
+						}
+					}
 				}
 			}
 			_clearInvalid = false;
@@ -135,7 +153,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		_unassignedBehaviorList.removeAll(_inProgressBehaviorList);
 		_unassignedBehaviorList.removeAll(_noMaterialsBehaviorList);
 		_unassignedBehaviorList.removeAll(_noAvailableGolemsBehaviorList);
-		//TODO add no storage list
+		_unassignedBehaviorList.removeAll(_noStorageAvailable);
 		for (GolemEntity golem : _golemList)
 		{
 			golem.calculateBehavior();
@@ -155,29 +173,26 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	public void behaviorFailed(Behavior behavior_, int reason_)
 	{
 		if (!behavior_.isPersonalTask())
-			handleFailedBehavior(behavior_, reason_);
+		{
+			_inProgressBehaviorList.remove(behavior_);
+			if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
+			{
+				_noMaterialsBehaviorList.add(behavior_);
+			}
+			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
+			{
+				if (behavior_.allGolemsInvalid(_golemList))
+					_unreachableBehaviorList.add(behavior_);
+				else
+					_unassignedBehaviorList.add(behavior_);
+			}
+			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
+			{
+				_noStorageAvailable.add(behavior_);
+			}
+		}
 		_unassignedBehaviorList.addAll(_noAvailableGolemsBehaviorList);
 		_noAvailableGolemsBehaviorList.clear();
-	}
-
-	private void handleFailedBehavior(Behavior behavior_, int reason_)
-	{
-		_inProgressBehaviorList.remove(behavior_);
-		if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
-		{
-			_noMaterialsBehaviorList.add(behavior_);
-		}
-		else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
-		{
-			if (behavior_.allGolemsInvalid(_golemList))
-				_unreachableBehaviorList.add(behavior_);
-			else
-				_unassignedBehaviorList.add(behavior_);
-		}
-		else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
-		{
-			_noStorageAvailable.add(behavior_);
-		}
 	}
 
 	public void queueBehavior(Behavior behavior_)
@@ -213,15 +228,15 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	private void quicksort(BehaviorTriple[] values, int low, int high)
 	{
 		int i = low, j = high;
-		int pivot = values[low + (high - low) / 2]._score;
+		int pivot = values[low + (high - low) / 2]._weight;
 
 		while (i <= j)
 		{
-			while (values[i]._score > pivot)
+			while (values[i]._weight > pivot)
 			{
 				i++;
 			}
-			while (values[j]._score < pivot)
+			while (values[j]._weight < pivot)
 			{
 				j--;
 			}
@@ -249,20 +264,27 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	public void onEvent(MapUpdateEvent event_)
 	{
 		// TODO make sure it's the home screen
-		_clearInvalid = true;
-		_unassignedBehaviorList.addAll(_unreachableBehaviorList);
-		_unreachableBehaviorList.clear();
 		if (event_.getPoints() != null)
 		{
 			for (GolemEntity golem : _golemList)
 			{
 				golem.recalculatePathIfNecessary(event_.getPoints());
 			}
+			_clearInvalid = true;
+			_unassignedBehaviorList.addAll(_unreachableBehaviorList);
+			_unreachableBehaviorList.clear();
 		}
+		
 		if (event_.isItemUpdate())
 		{
 			_unassignedBehaviorList.addAll(_noMaterialsBehaviorList);
 			_noMaterialsBehaviorList.clear();
+		}
+		
+		if (event_.isStorageAvailable())
+		{
+			_unassignedBehaviorList.addAll(_noStorageAvailable);
+			_noStorageAvailable.clear();
 		}
 	}
 
@@ -270,12 +292,12 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 
 	private List<GolemEntity> _golemList;
 
-	private Set<Behavior> _unassignedBehaviorList;
-	private Set<Behavior> _inProgressBehaviorList;
-	private Set<Behavior> _unreachableBehaviorList;
-	private Set<Behavior> _noMaterialsBehaviorList;
-	private Set<Behavior> _noAvailableGolemsBehaviorList;
-	private Set<Behavior> _noStorageAvailable;
+	private List<Behavior> _unassignedBehaviorList;
+	private List<Behavior> _inProgressBehaviorList;
+	private List<Behavior> _unreachableBehaviorList;
+	private List<Behavior> _noMaterialsBehaviorList;
+	private List<Behavior> _noAvailableGolemsBehaviorList;
+	private List<Behavior> _noStorageAvailable;
 
 	private boolean _clearInvalid;
 

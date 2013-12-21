@@ -2,7 +2,9 @@ package city.entities;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import main.ClayConstants;
 import models.CityModel;
@@ -141,7 +143,14 @@ public class BuildingEntity extends AbstractEntity implements
 		if (_tickTime > 0)
 			((BuildingTickProcess) _homeScreen
 					.getProcess(BuildingTickProcess.class)).register(this);
-		EventBus.publish(new MapUpdateEvent(_homeScreen));
+		
+		List<Point> point = new ArrayList<Point>();
+		point.add(getPoint());
+		
+		Map<Integer, Object> map = new HashMap<Integer, Object>();
+		map.put(ClayConstants.EVENT_MAP_UPDATE, point);
+		if (isStorageAvailable()) map.put(ClayConstants.EVENT_STORAGE_AVAILABLE_UPDATE, true);
+		EventBus.publish(new MapUpdateEvent(_homeScreen, map));
 	}
 
 	public void tick()

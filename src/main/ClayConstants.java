@@ -92,6 +92,7 @@ public class ClayConstants
 	//--Event Constants--
 	public static final Integer EVENT_MAP_UPDATE = 0;
 	public static final Integer EVENT_ITEM_UPDATE = 1;
+	public static final Integer EVENT_STORAGE_AVAILABLE_UPDATE = 2;
 	
 	
 	//--Search Conditions--

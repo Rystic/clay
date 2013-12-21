@@ -9,10 +9,10 @@ public 	class BehaviorTriple
 	{
 		_golem = golem_;
 		_behavior = behavior_;
-		_score = score_;
+		_weight = score_;
 	}
 	
 	public GolemEntity _golem;
 	public Behavior _behavior;
-	public int _score;
+	public int _weight;
 }

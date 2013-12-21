@@ -89,6 +89,9 @@ public class CityInterfaceController extends AbstractProcess
 		AbstractButton ladderButton = new SelectBuildingButton(148 + adjustedX,
 				ClayConstants.DEFAULT_MAP_HEIGHT - 70, TILE_X, TILE_Y,
 				BuildingData.getBuildingByTag("ladder"));
+		AbstractButton ovenButton = new SelectBuildingButton(148 + adjustedX,
+				ClayConstants.DEFAULT_MAP_HEIGHT - 105, TILE_X, TILE_Y,
+				BuildingData.getBuildingByTag("oven"));
 		
 		_options.add(clayBlockButton);
 		_options.add(houseButton);
@@ -100,6 +103,7 @@ public class CityInterfaceController extends AbstractProcess
 		_options.add(obeliskButton);
 		_options.add(studioButton);
 		_options.add(ladderButton);
+		_options.add(ovenButton);
 	}
 
 	private static final int TILE_X = ClayConstants.TILE_X;

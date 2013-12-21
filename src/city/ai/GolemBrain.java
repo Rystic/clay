@@ -16,24 +16,24 @@ public class GolemBrain
 	 * low mana low clay
 	 */
 
-	public static BehaviorTriple calculateBestBehavior(GolemEntity golem_, List<GenericBehavior> behaviors_)
+	public static BehaviorTriple calculateBestBehavior(GolemEntity golem_, List<GenericBehavior> behaviors_, boolean isNeededBehavior_)
 	{
 		// TODO don't spin on this
 		Behavior bestBehavior = null;
 		int bestWeight = Integer.MIN_VALUE;
-		for (GenericBehavior neededBehavior : behaviors_)
+		for (GenericBehavior behavior : behaviors_)
 		{
 			int weight = BehaviorWeightCalculator.calculate(
 					golem_,
-					neededBehavior.getWeightConditions(),
+					behavior.getWeightConditions(),
 					null);
 			if (weight != Integer.MIN_VALUE)
 			{
 				if (weight > bestWeight)
 				{
-					bestBehavior = new Behavior(neededBehavior,
-							neededBehavior.getDefaultParams());
-					bestWeight = weight;
+					bestBehavior = new Behavior(behavior,
+							behavior.getDefaultParams());
+					bestWeight = isNeededBehavior_ ? Integer.MAX_VALUE : weight;
 				}
 			}
 		}

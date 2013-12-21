@@ -15,9 +15,9 @@ public class BehaviorWeightCalculator
 
 	public static int calculate(GolemEntity golem_, String weightConditions_, Object[] params_)
 	{
-		int finalWeight = Integer.MIN_VALUE;
+		int finalWeight = 0;
 		String[] weightConditions = weightConditions_.split(",");
-		
+
 		for (String weightCondition : weightConditions)
 		{
 			if (weightCondition.equals(ClayConstants.WC_CLOSEST_TO_PINT))
@@ -35,16 +35,26 @@ public class BehaviorWeightCalculator
 					break;
 				}
 				finalWeight += 50 - path.size();
+				if (finalWeight <= 0)
+					finalWeight = 1;
 			}
 			if (weightCondition.equals(ClayConstants.WC_LOW_MANA))
 			{
 				if (golem_.isLowMana())
-					finalWeight += (int) (175 - golem_.getMana());
+				{
+					finalWeight += (int) (300 - golem_.getMana());
+					if (finalWeight <= 0)
+						finalWeight = 1;
+				}
 			}
 			if (weightCondition.equals(ClayConstants.WC_LOW_CLAY))
 			{
 				if (golem_.isLowClay())
-					finalWeight += (int) (175 - golem_.getClay());
+				{
+					finalWeight += (int) (300 - golem_.getClay());
+					if (finalWeight <= 0)
+						finalWeight = 1;
+				}
 			}
 			if (weightCondition.equals(ClayConstants.WC_CAN_BUILD_GOLEM))
 			{
@@ -55,7 +65,8 @@ public class BehaviorWeightCalculator
 				{
 					for (int j = 0; j < tiles[0].length; j++)
 					{
-						if (tiles[i][j] != null && tiles[i][j].isHouse())
+						if (tiles[i][j] != null && tiles[i][j].isHouse()
+								&& tiles[i][j].isBuilt())
 							houseCount++;
 					}
 				}
@@ -64,7 +75,10 @@ public class BehaviorWeightCalculator
 					finalWeight = Integer.MIN_VALUE;
 					break;
 				}
-				finalWeight += 50;
+				finalWeight += 50 + ((houseCount - screen.getModel()
+						.getGolemCount()) * 10);
+				if (finalWeight <= 0)
+					finalWeight = 1;
 			}
 			if (weightCondition.equals(ClayConstants.WC_HOLDING_ITEM))
 			{
@@ -77,6 +91,8 @@ public class BehaviorWeightCalculator
 				break;
 			}
 		}
+		if (finalWeight <= 0)
+			return Integer.MIN_VALUE;
 		return finalWeight;
 	}
 }

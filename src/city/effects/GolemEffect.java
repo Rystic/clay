@@ -29,6 +29,15 @@ public class GolemEffect extends AbstractEffect
 			_golemTexture = TextureLoader.getTexture(
 					"PNG",
 					new FileInputStream(new File("art/golem.png")));
+			_lowManaTexture = TextureLoader.getTexture(
+					"PNG",
+					new FileInputStream(new File("art/lowManaGolem.png")));
+			_lowClayTexture = TextureLoader.getTexture(
+					"PNG",
+					new FileInputStream(new File("art/lowClayGolem.png")));
+			_lowManaLowClayTexture = TextureLoader
+					.getTexture("PNG", new FileInputStream(new File(
+							"art/lowManaLowClayGolem.png")));
 			_manaTexture = TextureLoader.getTexture("PNG", new FileInputStream(
 					new File("art/manaClump.png")));
 		} catch (Exception e)
@@ -42,11 +51,38 @@ public class GolemEffect extends AbstractEffect
 	{
 		for (GolemEntity golem : _golemList)
 		{
-			if (!golem.isVisible()) continue;
+			if (!golem.isVisible())
+				continue;
 			float manaVal = (float) (golem.getMana() / 100);
 			float clayVal = (float) (golem.getClay() / 100);
-			GL11.glColor3f(manaVal,manaVal,clayVal);
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, _golemTexture.getTextureID());
+			GL11.glColor3f(manaVal, manaVal, clayVal);
+			if (golem.isLowClay())
+			{
+				if (golem.isLowMana())
+				{
+					GL11.glBindTexture(
+							GL11.GL_TEXTURE_2D,
+							_lowManaLowClayTexture.getTextureID());
+				}
+				else
+				{
+					GL11.glBindTexture(
+							GL11.GL_TEXTURE_2D,
+							_lowClayTexture.getTextureID());
+				}
+			}
+			else if (golem.isLowMana())
+			{
+				GL11.glBindTexture(
+						GL11.GL_TEXTURE_2D,
+						_lowManaTexture.getTextureID());
+			}
+			else
+			{
+				GL11.glBindTexture(
+						GL11.GL_TEXTURE_2D,
+						_golemTexture.getTextureID());
+			}
 			double x = golem.getX();
 			double y = golem.getY();
 			// if (!golem.getVisible())
@@ -86,6 +122,9 @@ public class GolemEffect extends AbstractEffect
 	private final static int GOLEM_DEFAULT_HEIGHT = 20;
 
 	private Texture _golemTexture;
+	private Texture _lowManaTexture;
+	private Texture _lowClayTexture;
+	private Texture _lowManaLowClayTexture;
 	private Texture _manaTexture;
 
 	private List<GolemEntity> _golemList;

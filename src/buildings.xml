@@ -108,9 +108,9 @@
 		BuildTime="25" BuildingRequirements="base,clay-block,n,clay-block"
 		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".2"
 		LesserManaCumulativeCost=".2" isClaimable="false" isHouse="false"
-		isNatural="false" isPassable="true" Scalability="base,-,n,-" isStorage="false"
-		isSupport="false" GlobalGolemanityChange="0" StorageCapacity="0"
-		WorkingGolemsEnterBuilding="false" tickStart="-1">
+		isNatural="false" isPassable="true" Scalability="base,-,n,-"
+		isStorage="false" isSupport="false" GlobalGolemanityChange="0"
+		StorageCapacity="0" WorkingGolemsEnterBuilding="false" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigObeliskBase.png,n,bigObeliskTip.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
@@ -122,7 +122,7 @@
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,ns" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
-		 WorkingGolemsEnterBuilding="false" tickStart="-1">
+		WorkingGolemsEnterBuilding="false" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigLadder.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
@@ -144,9 +144,9 @@
 		BuildTime="40" BuildingRequirements="base,clay-block,s,clay-block"
 		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost="1.0"
 		LesserManaCumulativeCost="1.0" isClaimable="false" isHouse="false"
-		isNatural="false" isPassable="true" Scalability="base,-,s,ns" isStorage="false"
-		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
-		 WorkingGolemsEnterBuilding="false" tickStart="-1">
+		isNatural="false" isPassable="true" Scalability="base,-,s,ns"
+		isStorage="false" isSupport="true" GlobalGolemanityChange="0"
+		StorageCapacity="0" WorkingGolemsEnterBuilding="false" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigChute.png,s,bigChuteBottom.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
@@ -169,6 +169,18 @@
 			Graphic="base,bigDeepHome3.png"></State>
 		<State StateName="state-adjacent:natural-clay,state-buried:6"
 			Graphic="base,bigDeepHome4.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Oven" BuildingTag="oven"
+		BuildingDescription="Ovens cook clay into stoneware bricks."
+		BuildTime="125" BuildingRequirements="base,crucible,e,crucible"
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		LesserManaCumulativeCost=".1" isClaimable="false" isHouse="true"
+		isNatural="false" isPassable="true" Scalability="base,-,e,-" isStorage="false"
+		isSupport="false" GlobalGolemanityChange="0" StorageCapacity="0"
+		WorkingGolemsEnterBuilding="false" tickStart="-1">
+		<State StateName="state-default" Graphic="base,bigOvenLeft.png,e,bigOvenRight.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>

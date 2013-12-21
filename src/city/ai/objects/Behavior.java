@@ -49,7 +49,6 @@ public class Behavior
 			if (passed != ClayConstants.BEHAVIOR_PASSED) break;
 			passed = BehaviorInstructionCalculator.executeRequired(golem_, command, _params);
 		}
-		if (passed != ClayConstants.BEHAVIOR_PASSED) _invalidEntities.add(golem_);
 		return passed;
 	}
 
@@ -102,6 +101,11 @@ public class Behavior
 			return;
 		_invalidEntities.add(_failedGolem);
 		_behaviorProcess.behaviorFailed(this, reason_);
+	}
+	
+	public void requiredFailed(GolemEntity _failedGolem)
+	{
+		_invalidEntities.add(_failedGolem);
 	}
 
 	public GolemBehaviorProcess getBehaviorProcess()

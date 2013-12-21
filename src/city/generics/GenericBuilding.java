@@ -282,8 +282,10 @@ public final class GenericBuilding
 		}
 		else
 			points.add(new Point(newBuildings.get(0).getPoint()));
+		
 		Map<Integer, Object> map = new HashMap<Integer, Object>();
 		map.put(ClayConstants.EVENT_MAP_UPDATE, points);
+		
 		EventBus.publish(new MapUpdateEvent(homeScreen_, map));
 	}
 
