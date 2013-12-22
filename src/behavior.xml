@@ -32,5 +32,4 @@
 		require="claim-building:0,claim-items:saturated-clay:saturated-clay"
 		code="seek-claimed-items,consume-claimed,hide,tick:75,show,create-golem"></Behavior>
 
-
 </Behaviors>

@@ -75,6 +75,9 @@ public class ClayConstants
 	public static final String T_STATE_TICK_FINISHED = "state-tick-finished";
 	public static final String T_STATE_STORAGE_FULL = "state-storage-full";
 	public static final String T_STATE_BURIED = "state-buried";
+	public static final String T_STATE_BLOCKED_LEFT = "state-blocked-left";
+	// Transform States
+	public static final String TRANSFORM_FLANKED = "flanked";
 	
 	// Tick Results
 	public static final String TICK_CODE_PRODUCE_ITEM = "item";

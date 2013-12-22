@@ -44,6 +44,8 @@ public final class GenericBuilding
 		_storageCapacity = GenericUtil.parseInt(eElement
 				.getAttribute("StorageCapacity"));
 
+		_transformCode = eElement.getAttribute("Transform");
+
 		_lesserManaCost = GenericUtil.parseDouble(eElement
 				.getAttribute("LesserManaCost"));
 		_lesserManaCumulativeCost = GenericUtil.parseDouble(eElement
@@ -282,10 +284,10 @@ public final class GenericBuilding
 		}
 		else
 			points.add(new Point(newBuildings.get(0).getPoint()));
-		
+
 		Map<Integer, Object> map = new HashMap<Integer, Object>();
 		map.put(ClayConstants.EVENT_MAP_UPDATE, points);
-		
+
 		EventBus.publish(new MapUpdateEvent(homeScreen_, map));
 	}
 
@@ -381,6 +383,12 @@ public final class GenericBuilding
 						metConditions++;
 					continue;
 				}
+				if (key.equals(ClayConstants.T_STATE_BLOCKED_LEFT))
+				{
+					if (model.getTileValue(building_.getGridX() - 1, building_.getGridY()) != null)
+						metConditions++;
+					continue;
+				}
 				if (key.equals(ClayConstants.T_STATE_BURIED))
 				{
 					int neededDepth = Integer.parseInt(stateValues[1]);
@@ -402,6 +410,28 @@ public final class GenericBuilding
 				returnState = state;
 		}
 		return returnState;
+	}
+
+	public GenericBuilding transform(BuildingEntity building_)
+	{
+		String[] forms = _transformCode.split(",");
+		GenericBuilding newBuilding = null;
+		CityModel model = (CityModel) building_.getModel();
+		for (String form : forms)
+		{
+			String[] commandAndParams = form.split(":");
+			if (commandAndParams[0].equals(ClayConstants.TRANSFORM_FLANKED))
+			{
+				Point p = building_.getPoint();
+				if (model.getTileValue(building_.getGridX() - 1, building_.getGridY()) != null
+						&& model.getTileValue(building_.getGridX() + 1, building_.getGridY()) != null)
+				{
+					newBuilding = BuildingData
+							.getBuildingByTag(commandAndParams[1]);
+				}
+			}
+		}
+		return newBuilding;
 	}
 
 	public void tickFinished(BuildingEntity building_)
@@ -558,6 +588,11 @@ public final class GenericBuilding
 		return _storageCapacity;
 	}
 
+	public String getTransform()
+	{
+		return _transformCode;
+	}
+
 	public boolean isValid(BuildingEntity building_)
 	{
 		return !building_.isInUse();
@@ -591,6 +626,7 @@ public final class GenericBuilding
 	private final String _buildingDescription;
 	private String _tickCompleteCode;
 	private String _tickResetCode;
+	private String _transformCode;
 
 	private final int _buildTime;
 	private final int _tickStart;

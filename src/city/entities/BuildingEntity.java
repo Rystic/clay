@@ -46,7 +46,17 @@ public class BuildingEntity extends AbstractEntity implements
 	public void onEvent(MapUpdateEvent update)
 	{
 		if (update.getHomeScreen().equals(_homeScreen))
+		{
+			if (!_building.getTransform().isEmpty())
+			{
+				GenericBuilding newBuilding = _building.transform(this);
+				if (newBuilding != null)
+				{
+					_building = newBuilding;
+				}
+			}
 			calculateTexture();
+		}
 	}
 
 	@Override
@@ -90,12 +100,12 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return _building.getScalableUpwards(_position);
 	}
-	
+
 	public boolean isDownwardScalable()
 	{
 		return _building.getScalableDownards(_position);
 	}
-	
+
 	public boolean isDiagonalScalable()
 	{
 		return _building.getScalableDiagonal(_position);
@@ -143,13 +153,14 @@ public class BuildingEntity extends AbstractEntity implements
 		if (_tickTime > 0)
 			((BuildingTickProcess) _homeScreen
 					.getProcess(BuildingTickProcess.class)).register(this);
-		
+
 		List<Point> point = new ArrayList<Point>();
 		point.add(getPoint());
-		
+
 		Map<Integer, Object> map = new HashMap<Integer, Object>();
 		map.put(ClayConstants.EVENT_MAP_UPDATE, point);
-		if (isStorageAvailable()) map.put(ClayConstants.EVENT_STORAGE_AVAILABLE_UPDATE, true);
+		if (isStorageAvailable())
+			map.put(ClayConstants.EVENT_STORAGE_AVAILABLE_UPDATE, true);
 		EventBus.publish(new MapUpdateEvent(_homeScreen, map));
 	}
 
@@ -158,7 +169,9 @@ public class BuildingEntity extends AbstractEntity implements
 		if (_tickTime > 0)
 		{
 			_tickTime--;
-			if (_tickTime == 0 && _position.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
+			if (_tickTime == 0
+					&& _position
+							.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
 				_building.tickFinished(this);
 		}
 	}
@@ -247,7 +260,7 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		BuildingTickProcess process = (BuildingTickProcess) _homeScreen
 				.getProcess(BuildingTickProcess.class);
-		CityModel model = (CityModel)_homeScreen.getModel();
+		CityModel model = (CityModel) _homeScreen.getModel();
 		if (_allBuildingTiles == null)
 		{
 			_allBuildingTiles = new ArrayList<BuildingEntity>();
@@ -278,7 +291,7 @@ public class BuildingEntity extends AbstractEntity implements
 		return _building.hashCode();
 	}
 
-	private final GenericBuilding _building;
+	private GenericBuilding _building;
 
 	private List<BuildingEntity> _allBuildingTiles;
 
