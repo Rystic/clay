@@ -19,7 +19,7 @@ public class BehaviorData
 {
 	public static void init()
 	{
-		File fXmlFile = new File("src/behavior.xml");
+		File fXmlFile = new File("src/behaviors.xml");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		try
