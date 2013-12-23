@@ -2,7 +2,7 @@
 <Behaviors>
 
 	<Behavior BehaviorName="Construct Building" BehaviorTag="construct-building"
-		weight="closest-to-point" defaultParams="" neededBehavior="false"
+		weight="closest-to-point,calculate-extra-building-weight" defaultParams="" neededBehavior="false"
 		personalBehavior="false" limit="-1" golemCost="clay:-2" require=""
 		code="seek:0,build:1"></Behavior>
 

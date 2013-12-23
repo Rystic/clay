@@ -36,6 +36,8 @@ public final class GenericBuilding
 		_buildingIdentifier = identifier_;
 		_buildingDescription = eElement.getAttribute("BuildingDescription");
 
+		_extraWeight = eElement.getAttribute("ExtraWeight");
+
 		_buildTime = GenericUtil.parseInt(eElement.getAttribute("BuildTime"));
 		_tickStart = GenericUtil.parseInt(eElement.getAttribute("tickStart"));
 		_storageCapacity = GenericUtil.parseInt(eElement
@@ -82,7 +84,9 @@ public final class GenericBuilding
 				String[] textures = subChild.getAttribute("Graphic").split(",");
 				for (int h = 0; h < textures.length; h += 2)
 				{
-					textureMap.put(textures[h], GenericUtil.parseTexture(textures[h + 1]));
+					textureMap.put(
+							textures[h],
+							GenericUtil.parseTexture(textures[h + 1]));
 				}
 				_stateOrder.add(state);
 			}
@@ -94,7 +98,6 @@ public final class GenericBuilding
 			}
 		}
 	}
-
 
 	private void parseBuildingRequirements(String requirementList_)
 	{
@@ -369,7 +372,9 @@ public final class GenericBuilding
 				}
 				if (key.equals(ClayConstants.T_STATE_BLOCKED_LEFT))
 				{
-					if (model.getTileValue(building_.getGridX() - 1, building_.getGridY()) != null)
+					if (model.getTileValue(
+							building_.getGridX() - 1,
+							building_.getGridY()) != null)
 						metConditions++;
 					continue;
 				}
@@ -406,8 +411,12 @@ public final class GenericBuilding
 			String[] commandAndParams = form.split(":");
 			if (commandAndParams[0].equals(ClayConstants.TRANSFORM_FLANKED))
 			{
-				if (model.getTileValue(building_.getGridX() - 1, building_.getGridY()) != null
-						&& model.getTileValue(building_.getGridX() + 1, building_.getGridY()) != null)
+				if (model.getTileValue(
+						building_.getGridX() - 1,
+						building_.getGridY()) != null
+						&& model.getTileValue(
+								building_.getGridX() + 1,
+								building_.getGridY()) != null)
 				{
 					newBuilding = BuildingData
 							.getBuildingByTag(commandAndParams[1]);
@@ -576,6 +585,11 @@ public final class GenericBuilding
 		return _transformCode;
 	}
 
+	public String getExtraWeight()
+	{
+		return _extraWeight;
+	}
+
 	public boolean isValid(BuildingEntity building_)
 	{
 		return !building_.isInUse();
@@ -610,6 +624,7 @@ public final class GenericBuilding
 	private String _tickCompleteCode;
 	private String _tickResetCode;
 	private String _transformCode;
+	private String _extraWeight;
 
 	private final int _buildTime;
 	private final int _tickStart;

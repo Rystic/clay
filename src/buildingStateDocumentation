@@ -42,10 +42,12 @@ closest-to-point - higher weight for being closer to the given point.
 low-mana - higher weight if mana is low.
 low-clay - higher weight if clay is low.
 can-build-golem - higher weight if there's a slot open to create a golem.
+calculate-extra-building-weight:BuildingEntity - multiplies the weight if the golem and building meet the correct conditions.
 
 
 **Require:
-storage-exists - checks if a storage is available on the map.
+storage-exists:abstract-entity - checks if a storage is available on the map relative to the abstract-entity.
+storage-exists-from-golem - checks if a storage is available on the map relative to the golem doing the behavior
 house - checks if there is an available house on the map.
 exists:item-tag - checks if the given item is available from the golem's location. Note: exists only looks for one item. Multiple exists will not work if they're all looking for the same item.
 

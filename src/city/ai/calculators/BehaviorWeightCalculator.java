@@ -23,7 +23,6 @@ public class BehaviorWeightCalculator
 			if (weightCondition.equals(ClayConstants.WC_CLOSEST_TO_PINT))
 			{
 				AbstractEntity entity = (AbstractEntity) params_[0];
-
 				Queue<Point> path = SearchUtil.search(
 						golem_,
 						golem_.getHomeScreen(),
@@ -38,7 +37,7 @@ public class BehaviorWeightCalculator
 				if (finalWeight <= 0)
 					finalWeight = 1;
 			}
-			if (weightCondition.equals(ClayConstants.WC_LOW_MANA))
+			else if (weightCondition.equals(ClayConstants.WC_LOW_MANA))
 			{
 				if (golem_.isLowMana())
 				{
@@ -47,7 +46,7 @@ public class BehaviorWeightCalculator
 						finalWeight = 1;
 				}
 			}
-			if (weightCondition.equals(ClayConstants.WC_LOW_CLAY))
+			else if (weightCondition.equals(ClayConstants.WC_LOW_CLAY))
 			{
 				if (golem_.isLowClay())
 				{
@@ -56,7 +55,7 @@ public class BehaviorWeightCalculator
 						finalWeight = 1;
 				}
 			}
-			if (weightCondition.equals(ClayConstants.WC_CAN_BUILD_GOLEM))
+			else if (weightCondition.equals(ClayConstants.WC_CAN_BUILD_GOLEM))
 			{
 				CityScreen screen = (CityScreen) golem_.getHomeScreen();
 				BuildingEntity[][] tiles = screen.getModel().getTileValues();
@@ -80,7 +79,7 @@ public class BehaviorWeightCalculator
 				if (finalWeight <= 0)
 					finalWeight = 1;
 			}
-			if (weightCondition.equals(ClayConstants.WC_HOLDING_ITEM))
+			else if (weightCondition.equals(ClayConstants.WC_HOLDING_ITEM))
 			{
 				if (golem_.getCopyOfHeldItems().isEmpty())
 				{
@@ -89,6 +88,34 @@ public class BehaviorWeightCalculator
 				}
 				finalWeight = Integer.MAX_VALUE;
 				break;
+			}
+			else if (weightCondition.equals(ClayConstants.WC_CALC_BUILDING))
+			{
+				BuildingEntity entity = (BuildingEntity) params_[0];
+				String extraWeight = entity.getExtraWeight();
+				if (!extraWeight.isEmpty())
+				{
+					String[] conditions = extraWeight.split(",");
+					for (String condition : conditions)
+					{
+						String[] conditionAndParams = condition.split(":");
+						Integer multiplier = Integer
+								.parseInt(conditionAndParams[1]);
+						boolean passed = false;
+						if (conditionAndParams[0]
+								.equals(ClayConstants.WC_LOW_MANA)
+								&& golem_.isLowMana())
+							passed = true;
+						else if (conditionAndParams[0]
+								.equals(ClayConstants.WC_LOW_CLAY)
+								&& golem_.isLowClay())
+							passed = true;
+						if (passed)
+						{
+							finalWeight *= multiplier;
+						}
+					}
+				}
 			}
 		}
 		if (finalWeight <= 0)

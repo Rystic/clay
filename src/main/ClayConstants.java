@@ -49,6 +49,7 @@ public class ClayConstants
 
 
 	// Behavior Weight Conditions
+	public static final String WC_CALC_BUILDING = "calculate-extra-building-weight";
 	public static final String WC_CAN_BUILD_GOLEM = "can-build-golem";
 	public static final String WC_CLOSEST_TO_PINT = "closest-to-point";
 	public static final String WC_HOLDING_ITEM = "holding-item";

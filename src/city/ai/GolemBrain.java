@@ -33,13 +33,12 @@ public class GolemBrain
 				{
 					bestBehavior = new Behavior(behavior,
 							behavior.getDefaultParams());
-					bestWeight = isNeededBehavior_ ? Integer.MAX_VALUE : weight;
 				}
 			}
 		}
 		if (bestBehavior != null)
 		{
-			return new BehaviorTriple(golem_, bestBehavior, bestWeight);
+			return new BehaviorTriple(golem_, bestBehavior, isNeededBehavior_ ? Integer.MAX_VALUE : bestWeight);
 		}
 		return null;
 	}

@@ -132,6 +132,11 @@ public class BuildingEntity extends AbstractEntity implements
 		return _building.isNatural();
 	}
 
+	public String getExtraWeight()
+	{
+		return _building.getExtraWeight();
+	}
+	
 	public boolean isBuilt()
 	{
 		boolean tileIsBuilt = _built;
