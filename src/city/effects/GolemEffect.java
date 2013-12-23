@@ -38,8 +38,6 @@ public class GolemEffect extends AbstractEffect
 			_lowManaLowClayTexture = TextureLoader
 					.getTexture("PNG", new FileInputStream(new File(
 							"art/lowManaLowClayGolem.png")));
-			_manaTexture = TextureLoader.getTexture("PNG", new FileInputStream(
-					new File("art/manaClump.png")));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -100,9 +98,9 @@ public class GolemEffect extends AbstractEffect
 			GL11.glEnd();
 			if (!golem.getCopyOfHeldItems().isEmpty())
 			{
-				GL11.glBindTexture(
-						GL11.GL_TEXTURE_2D,
-						_manaTexture.getTextureID());
+				GL11.glBindTexture(GL11.GL_TEXTURE_2D, golem
+						.getCopyOfHeldItems().get(0).getTexture()
+						.getTextureID());
 				GL11.glBegin(GL11.GL_POLYGON);
 				GL11.glTexCoord2f(0, 0);
 				GL11.glVertex2d(x, y + GOLEM_DEFAULT_HEIGHT);
@@ -125,7 +123,6 @@ public class GolemEffect extends AbstractEffect
 	private Texture _lowManaTexture;
 	private Texture _lowClayTexture;
 	private Texture _lowManaLowClayTexture;
-	private Texture _manaTexture;
 
 	private List<GolemEntity> _golemList;
 }

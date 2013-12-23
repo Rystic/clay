@@ -85,7 +85,7 @@ public final class GenericBuilding
 				String[] textures = subChild.getAttribute("Graphic").split(",");
 				for (int h = 0; h < textures.length; h += 2)
 				{
-					textureMap.put(textures[h], parseTexture(textures[h + 1]));
+					textureMap.put(textures[h], GenericUtil.parseTexture(textures[h + 1]));
 				}
 				_stateOrder.add(state);
 			}
@@ -98,19 +98,6 @@ public final class GenericBuilding
 		}
 	}
 
-	private static Texture parseTexture(String value_)
-	{
-		try
-		{
-			return TextureLoader.getTexture("PNG", new FileInputStream(
-					new File("art/" + value_)));
-		} catch (Exception e_)
-		{
-			e_.printStackTrace();
-		}
-
-		return null;
-	}
 
 	private void parseBuildingRequirements(String requirementList_)
 	{
@@ -422,7 +409,6 @@ public final class GenericBuilding
 			String[] commandAndParams = form.split(":");
 			if (commandAndParams[0].equals(ClayConstants.TRANSFORM_FLANKED))
 			{
-				Point p = building_.getPoint();
 				if (model.getTileValue(building_.getGridX() - 1, building_.getGridY()) != null
 						&& model.getTileValue(building_.getGridX() + 1, building_.getGridY()) != null)
 				{

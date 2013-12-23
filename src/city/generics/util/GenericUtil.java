@@ -1,5 +1,11 @@
 package city.generics.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
+
 public class GenericUtil
 {
 	public static boolean parseBoolean(String value_)
@@ -36,6 +42,20 @@ public class GenericUtil
 			e_.printStackTrace();
 		}
 		return DEFAULT_DOUBLE_VALUE;
+	}
+	
+	public static Texture parseTexture(String value_)
+	{
+		try
+		{
+			return TextureLoader.getTexture("PNG", new FileInputStream(
+					new File("art/" + value_)));
+		} catch (Exception e_)
+		{
+			e_.printStackTrace();
+		}
+
+		return null;
 	}
 	
 	private static final boolean DEFAULT_BOOL_VALUE = false;

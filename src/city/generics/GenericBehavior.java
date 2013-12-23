@@ -1,20 +1,10 @@
 package city.generics;
 
-import java.awt.Point;
-import java.util.Queue;
-
-import main.ClayConstants;
-import models.CityModel;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import city.ai.objects.Item;
-import city.entities.AbstractEntity;
 import city.entities.GolemEntity;
 import city.generics.util.GenericUtil;
-import city.util.SearchUtil;
-import data.ItemData;
 
 public class GenericBehavior
 {

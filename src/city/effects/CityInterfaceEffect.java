@@ -29,14 +29,6 @@ public class CityInterfaceEffect extends AbstractEffect
 	@Override
 	public void init()
 	{
-		try
-		{
-			_manaTexture = TextureLoader.getTexture("PNG", new FileInputStream(
-					new File("art/manaClump.png")));
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -57,20 +49,20 @@ public class CityInterfaceEffect extends AbstractEffect
 
 		GL11.glColor3f(.1f, .6f, .6f);
 		GL11.glBegin(GL11.GL_POLYGON);
+		GL11.glVertex2d(ClayConstants.DEFAULT_MAP_WIDTH
+				- _interfaceBorderThickness, ClayConstants.DEFAULT_MAP_HEIGHT);
 		GL11.glVertex2d(
-				ClayConstants.DEFAULT_MAP_WIDTH - _interfaceBorderThickness,
+				ClayConstants.DEFAULT_INTERFACE_WIDTH
+						+ ClayConstants.DEFAULT_MAP_WIDTH,
 				ClayConstants.DEFAULT_MAP_HEIGHT);
 		GL11.glVertex2d(
-				ClayConstants.DEFAULT_INTERFACE_WIDTH + ClayConstants.DEFAULT_MAP_WIDTH,
-				ClayConstants.DEFAULT_MAP_HEIGHT);
-		GL11.glVertex2d(
-				ClayConstants.DEFAULT_INTERFACE_WIDTH + ClayConstants.DEFAULT_MAP_WIDTH,
+				ClayConstants.DEFAULT_INTERFACE_WIDTH
+						+ ClayConstants.DEFAULT_MAP_WIDTH,
 				ClayConstants.DEFAULT_MAP_HEIGHT
 						- (_interfaceHeight + _interfaceBorderThickness));
-		GL11.glVertex2d(
-				ClayConstants.DEFAULT_MAP_WIDTH - _interfaceBorderThickness,
-				ClayConstants.DEFAULT_MAP_HEIGHT
-						- (_interfaceHeight + _interfaceBorderThickness));
+		GL11.glVertex2d(ClayConstants.DEFAULT_MAP_WIDTH
+				- _interfaceBorderThickness, ClayConstants.DEFAULT_MAP_HEIGHT
+				- (_interfaceHeight + _interfaceBorderThickness));
 		GL11.glEnd();
 
 		GL11.glColor3f(.8f, .6f, .0f);
@@ -79,10 +71,12 @@ public class CityInterfaceEffect extends AbstractEffect
 				ClayConstants.DEFAULT_MAP_WIDTH,
 				ClayConstants.DEFAULT_MAP_HEIGHT);
 		GL11.glVertex2d(
-				ClayConstants.DEFAULT_INTERFACE_WIDTH + ClayConstants.DEFAULT_MAP_WIDTH,
+				ClayConstants.DEFAULT_INTERFACE_WIDTH
+						+ ClayConstants.DEFAULT_MAP_WIDTH,
 				ClayConstants.DEFAULT_MAP_HEIGHT);
 		GL11.glVertex2d(
-				ClayConstants.DEFAULT_INTERFACE_WIDTH + ClayConstants.DEFAULT_MAP_WIDTH,
+				ClayConstants.DEFAULT_INTERFACE_WIDTH
+						+ ClayConstants.DEFAULT_MAP_WIDTH,
 				ClayConstants.DEFAULT_MAP_HEIGHT - _interfaceHeight);
 		GL11.glVertex2d(
 				ClayConstants.DEFAULT_MAP_WIDTH,
@@ -116,27 +110,27 @@ public class CityInterfaceEffect extends AbstractEffect
 
 		int manaIconDist = 100;
 
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, _manaTexture.getTextureID());
-		GL11.glBegin(GL11.GL_POLYGON);
-		GL11.glTexCoord2f(0, 0);
-		GL11.glVertex2d(
-				ClayConstants.DEFAULT_MAP_WIDTH + manaIconDist,
-				ClayConstants.DEFAULT_MAP_HEIGHT - 155);
-		GL11.glTexCoord2f(.80f, 0);
-		GL11.glVertex2d(
-				ClayConstants.DEFAULT_MAP_WIDTH + manaIconDist + 25,
-				ClayConstants.DEFAULT_MAP_HEIGHT - 155);
-		GL11.glTexCoord2f(.80f, .60f);
-		GL11.glVertex2d(
-				ClayConstants.DEFAULT_MAP_WIDTH + manaIconDist + 25,
-				ClayConstants.DEFAULT_MAP_HEIGHT - 170);
-		GL11.glTexCoord2f(0, .60f);
-		GL11.glVertex2d(
-				ClayConstants.DEFAULT_MAP_WIDTH + manaIconDist,
-				ClayConstants.DEFAULT_MAP_HEIGHT - 170);
-		GL11.glEnd();
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
-		GL11.glColor3f(.0f, 1.0f, 1.0f);
+		// GL11.glBindTexture(GL11.GL_TEXTURE_2D, _manaTexture.getTextureID());
+		// GL11.glBegin(GL11.GL_POLYGON);
+		// GL11.glTexCoord2f(0, 0);
+		// GL11.glVertex2d(
+		// ClayConstants.DEFAULT_MAP_WIDTH + manaIconDist,
+		// ClayConstants.DEFAULT_MAP_HEIGHT - 155);
+		// GL11.glTexCoord2f(.80f, 0);
+		// GL11.glVertex2d(
+		// ClayConstants.DEFAULT_MAP_WIDTH + manaIconDist + 25,
+		// ClayConstants.DEFAULT_MAP_HEIGHT - 155);
+		// GL11.glTexCoord2f(.80f, .60f);
+		// GL11.glVertex2d(
+		// ClayConstants.DEFAULT_MAP_WIDTH + manaIconDist + 25,
+		// ClayConstants.DEFAULT_MAP_HEIGHT - 170);
+		// GL11.glTexCoord2f(0, .60f);
+		// GL11.glVertex2d(
+		// ClayConstants.DEFAULT_MAP_WIDTH + manaIconDist,
+		// ClayConstants.DEFAULT_MAP_HEIGHT - 170);
+		// GL11.glEnd();
+		// GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+		// GL11.glColor3f(.0f, 1.0f, 1.0f);
 		// TextUtil.drawString(
 		// ClayMain._manaProcess.getLesserMana() + " "
 		// + ClayMain._manaProcess.getGreaterMana(),
@@ -163,8 +157,6 @@ public class CityInterfaceEffect extends AbstractEffect
 		GL11.glVertex2d(x, y);
 		GL11.glEnd();
 	}
-
-	private Texture _manaTexture;
 
 	private CityModel _model;
 

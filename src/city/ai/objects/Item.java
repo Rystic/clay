@@ -1,5 +1,7 @@
 package city.ai.objects;
 
+import org.newdawn.slick.opengl.Texture;
+
 import city.entities.BuildingEntity;
 import city.generics.GenericItem;
 
@@ -41,6 +43,11 @@ public class Item
 	public void setItemIdentifier(long itemIdentifier_)
 	{
 		_itemIdentifier = itemIdentifier_;
+	}
+	
+	public Texture getTexture()
+	{
+		return _item.getTexture();
 	}
 	
 	@Override
