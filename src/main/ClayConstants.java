@@ -4,8 +4,8 @@ package main;
 public class ClayConstants
 {
 	//--Interface Constants--
-	public static final int TILE_X = 30;
-	public static final int TILE_Y = 30;
+	public static final int TILE_X = 35;
+	public static final int TILE_Y = 35;
 
 	public static final int DEFAULT_MAP_WIDTH = 40 * ClayConstants.TILE_X;
 	public static final int DEFAULT_MAP_HEIGHT = 25 * ClayConstants.TILE_Y;
@@ -35,6 +35,7 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_SEEK_STORAGE = "seek-storage";
 	public static final String BEHAVIOR_COMMAND_SHOW = "show";
 	public static final String BEHAVIOR_COMMAND_STORAGE_EXISTS = "storage-exists";
+	public static final String BEHAVIOR_COMMAND_STORAGE_EXISTS_FROM_GOLEM = "storage-exists-from-golem";
 	public static final String BEHAVIOR_COMMAND_STORE_ALL = "store-all";
 	public static final String BEHAVIOR_COMMAND_STORE_ITEM = "store-item";
 	public static final String BEHAVIOR_COMMAND_TAKE_ITEM = "take-item";

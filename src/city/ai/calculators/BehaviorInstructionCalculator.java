@@ -142,6 +142,13 @@ public class BehaviorInstructionCalculator
 				passed = ClayConstants.BEHAVIOR_FAILED_NO_STORAGE;
 			}
 		}
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_STORAGE_EXISTS_FROM_GOLEM))
+		{
+			if (!_storageExistsFromGolem(executingEntity_, model, commandAndParams, params_))
+			{
+				passed = ClayConstants.BEHAVIOR_FAILED_NO_STORAGE;
+			}
+		}
 		return passed;
 	}
 
@@ -397,6 +404,15 @@ public class BehaviorInstructionCalculator
 		Queue<Point> path = SearchUtil.search(
 				entity,
 				entity.getHomeScreen(),
+				ClayConstants.SEARCH_STORAGE);
+		return path.size() > 0;
+	}
+	
+	private static boolean _storageExistsFromGolem(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
+	{
+		Queue<Point> path = SearchUtil.search(
+				executingEntity_,
+				executingEntity_.getHomeScreen(),
 				ClayConstants.SEARCH_STORAGE);
 		return path.size() > 0;
 	}

@@ -12,8 +12,8 @@
 		code="seek:0,take-item:saturated-clay:0,seek-storage,store-item:saturated-clay"></Behavior>
 
 	<Behavior BehaviorName="Store Items" BehaviorTag="store-items"
-		weight="holding-item" defaultParams="" neededBehavior="true"
-		personalBehavior="true" limit="-1" golemCost="" require="storage-exists:0"
+		weight="holding-item" defaultParams="storage" neededBehavior="true"
+		personalBehavior="true" limit="-1" golemCost="" require="storage-exists-from-golem:0"
 		code="seek-storage,store-all"></Behavior>
 
 	<Behavior BehaviorName="Power Obelisk" BehaviorTag="power-obelisk"

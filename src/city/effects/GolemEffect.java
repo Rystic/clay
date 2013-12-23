@@ -116,8 +116,8 @@ public class GolemEffect extends AbstractEffect
 		}
 	}
 
-	private final static int GOLEM_DEFAULT_WIDTH = 20;
-	private final static int GOLEM_DEFAULT_HEIGHT = 20;
+	private final static int GOLEM_DEFAULT_WIDTH = 25;
+	private final static int GOLEM_DEFAULT_HEIGHT = 25;
 
 	private Texture _golemTexture;
 	private Texture _lowManaTexture;

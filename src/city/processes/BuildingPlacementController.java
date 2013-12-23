@@ -8,13 +8,11 @@ import java.util.Map;
 import main.ClayConstants;
 import models.CityModel;
 
-import org.bushe.swing.event.EventBus;
 import org.lwjgl.input.Mouse;
 
 import screens.AbstractScreen;
 import city.entities.BuildingEntity;
 import city.generics.GenericBuilding;
-import city.util.MapUpdateEvent;
 import data.BuildingData;
 
 public class BuildingPlacementController extends AbstractProcess

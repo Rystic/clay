@@ -134,7 +134,17 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public boolean isBuilt()
 	{
-		return _built;
+		boolean tileIsBuilt = _built;
+		if (_allBuildingTiles != null && tileIsBuilt && _isBase)
+		{
+			for (BuildingEntity building : _allBuildingTiles)
+			{
+				if (building.equals(this)) continue;
+				if (!building.isBuilt())
+					return false;
+			}
+		}
+		return tileIsBuilt;
 	}
 
 	public boolean isHouse()
