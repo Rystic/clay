@@ -39,6 +39,7 @@ public class BuildingEntity extends AbstractEntity implements
 				_building.calculateTexture(this),
 				_position);
 		_tickTime = _building.getTickStart();
+		_isBase = _position.equals(ClayConstants.DEFAULT_BUILDING_POSITION);
 		EventBus.subscribe(MapUpdateEvent.class, this);
 	}
 
@@ -139,6 +140,11 @@ public class BuildingEntity extends AbstractEntity implements
 	public boolean isHouse()
 	{
 		return _building.isHouse();
+	}
+	
+	public boolean isBaseTile()
+	{
+		return _isBase;
 	}
 
 	public boolean isStorageAvailable()
@@ -310,5 +316,6 @@ public class BuildingEntity extends AbstractEntity implements
 
 	private boolean _built;
 	private boolean _tickReset;
+	private boolean _isBase;
 
 }

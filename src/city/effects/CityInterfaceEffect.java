@@ -1,7 +1,5 @@
 package city.effects;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.Set;
 
 import main.ClayConstants;
@@ -9,7 +7,6 @@ import models.CityModel;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
 
 import screens.AbstractScreen;
 import city.components.AbstractButton;
@@ -24,11 +21,6 @@ public class CityInterfaceEffect extends AbstractEffect
 	{
 		super(homeScreen_);
 		_model = (CityModel) homeScreen_.getModel();
-	}
-
-	@Override
-	public void init()
-	{
 	}
 
 	@Override
@@ -107,35 +99,6 @@ public class CityInterfaceEffect extends AbstractEffect
 			}
 			placeButton(button, button.getTexture());
 		}
-
-		int manaIconDist = 100;
-
-		// GL11.glBindTexture(GL11.GL_TEXTURE_2D, _manaTexture.getTextureID());
-		// GL11.glBegin(GL11.GL_POLYGON);
-		// GL11.glTexCoord2f(0, 0);
-		// GL11.glVertex2d(
-		// ClayConstants.DEFAULT_MAP_WIDTH + manaIconDist,
-		// ClayConstants.DEFAULT_MAP_HEIGHT - 155);
-		// GL11.glTexCoord2f(.80f, 0);
-		// GL11.glVertex2d(
-		// ClayConstants.DEFAULT_MAP_WIDTH + manaIconDist + 25,
-		// ClayConstants.DEFAULT_MAP_HEIGHT - 155);
-		// GL11.glTexCoord2f(.80f, .60f);
-		// GL11.glVertex2d(
-		// ClayConstants.DEFAULT_MAP_WIDTH + manaIconDist + 25,
-		// ClayConstants.DEFAULT_MAP_HEIGHT - 170);
-		// GL11.glTexCoord2f(0, .60f);
-		// GL11.glVertex2d(
-		// ClayConstants.DEFAULT_MAP_WIDTH + manaIconDist,
-		// ClayConstants.DEFAULT_MAP_HEIGHT - 170);
-		// GL11.glEnd();
-		// GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
-		// GL11.glColor3f(.0f, 1.0f, 1.0f);
-		// TextUtil.drawString(
-		// ClayMain._manaProcess.getLesserMana() + " "
-		// + ClayMain._manaProcess.getGreaterMana(),
-		// adjustedX + 50,
-		// ClayConstants.DEFAULT_MAP_HEIGHT - 150);
 	}
 
 	private void placeButton(AbstractButton button_, Texture buttonTexture_)

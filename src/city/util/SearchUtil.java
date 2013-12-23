@@ -69,11 +69,11 @@ public class SearchUtil
 						|| searchType == ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY)
 				{
 					isGoal = tile.getBuildingTag().equals(params_[1])
-							&& !tile.isInUse() && tile.isBuilt();
+							&& !tile.isInUse() && tile.isBuilt() && tile.isBaseTile();
 				}
 				else if (searchType == ClayConstants.SEARCH_STORAGE)
 				{
-					isGoal = tile.isStorageAvailable() && tile.isBuilt();
+					isGoal = tile.isStorageAvailable() && tile.isBuilt() && tile.isBaseTile();
 				}
 				else if (searchType == ClayConstants.SEARCH_ITEM_GOAL_ONLY)
 				{
