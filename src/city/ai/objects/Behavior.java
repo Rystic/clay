@@ -9,6 +9,7 @@ import main.ClayConstants;
 import city.ai.GolemBehaviorProcess;
 import city.ai.calculators.BehaviorInstructionCalculator;
 import city.ai.calculators.BehaviorWeightCalculator;
+import city.entities.BuildingEntity;
 import city.entities.GolemEntity;
 import city.generics.GenericBehavior;
 
@@ -142,12 +143,35 @@ public class Behavior
 	{
 		return _addedWeight;
 	}
-	
+
 	public boolean isRequiredCompleted()
 	{
 		return _requiredCompleted;
 	}
 
+	public void setAssigningBuilding(BuildingEntity assigningBuilding_)
+	{
+		_assigningBuilding = assigningBuilding_;
+	}
+	
+	public void setAssignedGolem(GolemEntity assignedGolem_)
+	{
+		_assignedGolem = assignedGolem_;
+	}
+	
+	public BuildingEntity getAssigningBuilding()
+	{
+		return _assigningBuilding;
+	}
+	
+	public void obsolete()
+	{
+		if (_assignedGolem != null)
+			_assignedGolem.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_OBSOLETE);
+		else
+			_behaviorProcess.behaviorFailed(this, ClayConstants.BEHAVIOR_FAILED_OBSOLETE);
+	}
+	
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -159,6 +183,9 @@ public class Behavior
 	}
 
 	private GenericBehavior _behavior;
+	
+	private BuildingEntity _assigningBuilding;
+	private GolemEntity _assignedGolem;
 
 	private Set<GolemEntity> _invalidEntities;
 
@@ -166,7 +193,8 @@ public class Behavior
 
 	private Object[] _params;
 
-	private boolean _requiredCompleted;
 	private int _addedWeight;
+
+	private boolean _requiredCompleted;
 
 }

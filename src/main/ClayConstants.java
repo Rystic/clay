@@ -62,6 +62,7 @@ public class ClayConstants
 	public static final int BEHAVIOR_FAILED_NO_MATERIALS = 1;
 	public static final int BEHAVIOR_FAILED_MISSING_ITEM = 2;
 	public static final int BEHAVIOR_FAILED_NO_STORAGE = 3;
+	public static final int BEHAVIOR_FAILED_OBSOLETE = 4;
 	
 	
 	

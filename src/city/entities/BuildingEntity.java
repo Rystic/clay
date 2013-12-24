@@ -14,6 +14,7 @@ import org.bushe.swing.event.EventSubscriber;
 import org.newdawn.slick.opengl.Texture;
 
 import screens.AbstractScreen;
+import city.ai.objects.Behavior;
 import city.ai.objects.Item;
 import city.generics.GenericBuilding;
 import city.processes.BuildingTickProcess;
@@ -40,6 +41,7 @@ public class BuildingEntity extends AbstractEntity implements
 				_position);
 		_tickTime = _building.getTickStart();
 		_isBase = _position.equals(ClayConstants.DEFAULT_BUILDING_POSITION);
+		_activeBehaviors = new ArrayList<Behavior>();
 		EventBus.subscribe(MapUpdateEvent.class, this);
 	}
 
@@ -54,6 +56,11 @@ public class BuildingEntity extends AbstractEntity implements
 				if (newBuilding != null)
 				{
 					_building = newBuilding;
+					List<Point> point = new ArrayList<Point>();
+					point.add(getPoint());
+					Map<Integer, Object> map = new HashMap<Integer, Object>();
+					map.put(ClayConstants.EVENT_MAP_UPDATE, point);
+					EventBus.publish(new MapUpdateEvent(_homeScreen, map));
 				}
 			}
 			calculateTexture();
@@ -167,7 +174,7 @@ public class BuildingEntity extends AbstractEntity implements
 		return _building.isStorage()
 				&& _building.getStorageCapacity() > _heldItems.size();
 	}
-
+	
 	public void constructionComplete()
 	{
 		_built = true;
@@ -214,59 +221,6 @@ public class BuildingEntity extends AbstractEntity implements
 		calculateTexture();
 	}
 
-	public void setClaimingGolem(GolemEntity claimingGolem_)
-	{
-		_claimingGolem = claimingGolem_;
-	}
-
-	public Item getItem(Item item_)
-	{
-		for (Item item : _heldItems)
-		{
-			if (item.equals(item_))
-			{
-				return item;
-			}
-		}
-		return null;
-	}
-
-	public void consumeClaimed()
-	{
-		consume(_claimedItems);
-		_claimedItems.clear();
-	}
-
-	public void release()
-	{
-		for (Item item : _claimedItems)
-		{
-			item.release();
-		}
-		_claimedItems.clear();
-		_claimingGolem = null;
-	}
-
-	public void claimItem(Item item_)
-	{
-		item_.setClaimingBuilding(this);
-		item_.setItemIdentifier(_claimedItems.size());
-		_claimedItems.add(item_);
-	}
-
-	public boolean claimHeldItem(Item item_)
-	{
-		for (Item item : _heldItems)
-		{
-			if (item.equals(item_))
-			{
-				claimItem(item);
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public List<Item> getClaimedItems()
 	{
 		return _claimedItems;
@@ -296,6 +250,74 @@ public class BuildingEntity extends AbstractEntity implements
 		}
 	}
 
+	public void release()
+	{
+		for (Item item : _claimedItems)
+		{
+			item.release();
+		}
+		for (Behavior behavior : _activeBehaviors)
+		{
+			behavior.obsolete();
+		}
+		_claimedItems.clear();
+		_claimingGolem = null;
+	}
+	
+
+	public void setClaimingGolem(GolemEntity claimingGolem_)
+	{
+		_claimingGolem = claimingGolem_;
+	}
+
+	public Item getItem(Item item_)
+	{
+		for (Item item : _heldItems)
+		{
+			if (item.equals(item_))
+			{
+				return item;
+			}
+		}
+		return null;
+	}
+
+	public void claimItem(Item item_)
+	{
+		item_.setClaimingBuilding(this);
+		item_.setItemIdentifier(_claimedItems.size());
+		_claimedItems.add(item_);
+	}
+
+	public void consumeClaimed()
+	{
+		consume(_claimedItems);
+		_claimedItems.clear();
+	}
+
+	public boolean claimHeldItem(Item item_)
+	{
+		for (Item item : _heldItems)
+		{
+			if (item.equals(item_))
+			{
+				claimItem(item);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void addActiveBehavior(Behavior behavior_)
+	{
+		_activeBehaviors.add(behavior_);
+	}
+	
+	public void activeBehaviorComplete(Behavior behavior_)
+	{
+		_activeBehaviors.remove(behavior_);
+	}
+	
 	@Override
 	public boolean equals(Object o)
 	{
@@ -315,6 +337,8 @@ public class BuildingEntity extends AbstractEntity implements
 	private GenericBuilding _building;
 
 	private List<BuildingEntity> _allBuildingTiles;
+	
+	private List<Behavior> _activeBehaviors;
 
 	private final Point _point;
 

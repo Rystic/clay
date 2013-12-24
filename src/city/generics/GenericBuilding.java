@@ -255,9 +255,12 @@ public final class GenericBuilding
 					.getProcess(GolemBehaviorProcess.class));
 			for (BuildingEntity entity : newBuildings)
 			{
-				behaviorProcess.queueBehavior(new Behavior(BehaviorData
+				Behavior constructionBehavior = new Behavior(BehaviorData
 						.getBehavior("construct-building"), tiles_[p_.x][p_.y],
-						entity));
+						entity);
+				constructionBehavior.setAssigningBuilding(entity);
+				entity.addActiveBehavior(constructionBehavior);
+				behaviorProcess.queueBehavior(constructionBehavior);
 			}
 		}
 		List<Point> points = new ArrayList<Point>();
@@ -439,8 +442,14 @@ public final class GenericBuilding
 						.getItem(commandAndParams[1])));
 				GolemBehaviorProcess behaviorProcess = ((GolemBehaviorProcess) building_
 						.getHomeScreen().getProcess(GolemBehaviorProcess.class));
-				behaviorProcess.queueBehavior(new Behavior(BehaviorData
-						.getBehavior(commandAndParams[2]), building_));
+				
+				Behavior behavior = new Behavior(BehaviorData
+						.getBehavior(commandAndParams[2]), building_);
+				behavior.setAssigningBuilding(building_);
+				building_.addActiveBehavior(behavior);
+				behaviorProcess.queueBehavior(behavior);
+				
+				
 				Map<Integer, Object> map = new HashMap<Integer, Object>();
 				map.put(ClayConstants.EVENT_ITEM_UPDATE, true);
 				EventBus.publish(new MapUpdateEvent(building_.getHomeScreen(),

@@ -33,6 +33,7 @@ public class GolemBrain
 				{
 					bestBehavior = new Behavior(behavior,
 							behavior.getDefaultParams());
+					bestWeight = weight;
 				}
 			}
 		}
