@@ -37,7 +37,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	@Override
 	public void execute()
 	{
-		List<Behavior> toBeAssigned = new ArrayList<Behavior>();
+	List<Behavior> toBeAssigned = new ArrayList<Behavior>();
 		toBeAssigned.addAll(_unassignedBehaviorList);
 
 		List<BehaviorTriple> behaviorScores = new ArrayList<BehaviorTriple>();
@@ -102,7 +102,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			_noAvailableGolemsBehaviorList.addAll(toBeAssigned);
 			for (Behavior behavior : toBeAssigned)
 			{
-				behavior.increaseAddedWeight(20);
+				behavior.increaseAddedWeight(5);
 			}
 		}
 		else
@@ -288,8 +288,12 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				golem.recalculatePathIfNecessary(event_.getPoints());
 			}
 			_clearInvalid = true;
+			_unassignedBehaviorList.addAll(_noStorageAvailable);
 			_unassignedBehaviorList.addAll(_unreachableBehaviorList);
+			_unassignedBehaviorList.addAll(_noMaterialsBehaviorList);
 			_unreachableBehaviorList.clear();
+			_noStorageAvailable.clear();
+			_noMaterialsBehaviorList.clear();
 		}
 
 		if (event_.isItemUpdate())
