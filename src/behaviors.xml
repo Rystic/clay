@@ -17,9 +17,9 @@
 		code="seek-storage,store-all"></Behavior>
 
 	<Behavior BehaviorName="Power Obelisk" BehaviorTag="power-obelisk"
-		weight="low-mana" defaultParams="obelisk" neededBehavior="true"
+		weight="low-mana" defaultParams="obelisk,inert-clay" neededBehavior="true"
 		personalBehavior="false" limit="-1" golemCost="clay:-2,mana:-1"
-		require="claim-building:0,claim-items:saturated-clay" code="seek-claimed-items,consume-claimed,tick:50,add-mana:10"></Behavior>
+		require="claim-building:0,claim-items:saturated-clay" code="seek-claimed-items,consume-claimed,tick:50,add-mana:10,produce-item-on-golem:1"></Behavior>
 
 	<Behavior BehaviorName="Repair" BehaviorTag="repair" weight="low-clay"
 		defaultParams="house" neededBehavior="true" personalBehavior="true"
@@ -29,7 +29,7 @@
 	<Behavior BehaviorName="Build Clay Golem" BehaviorTag="build-clay-golem"
 		weight="can-build-golem" defaultParams="sculptors-studio"
 		neededBehavior="false" personalBehavior="true" limit="1" golemCost="clay:-2,mana:-1"
-		require="claim-building:0,claim-items:saturated-clay:saturated-clay"
+		require="claim-building:0,claim-items:inert-clay:saturated-clay:saturated-clay"
 		code="seek-claimed-items,consume-claimed,hide,tick:75,show,create-golem"></Behavior>
 
 </Behaviors>

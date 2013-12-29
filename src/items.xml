@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Items>
-	<Item ItemName="Inert Clay" ItemTag="clay" Texture="itemInertClay.png"></Item>
+	<Item ItemName="Inert Clay" ItemTag="inert-clay" Texture="itemInertClay.png"></Item>
 	<Item ItemName="Saturated Clay" ItemTag="saturated-clay" Texture="itemSaturatedClay.png"></Item>
 </Items>

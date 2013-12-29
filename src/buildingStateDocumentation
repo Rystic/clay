@@ -28,6 +28,7 @@ claim-items:item-tag,item-tag...item-tag - Tells the golem to claim the selected
 create-golem:abstract-entity - creates a golem at the given entity.
 consume-claimed - consumes all claimed items the entity is holding.
 hide - Hides the golem until a show command, the behavior finishes, or the behavior fails.
+produce-item-on-golem:<item-tag> - Produces an item on the executiing golem.
 seek:abstract-entity - Tells the golem to seek the given parameter on the map.
 seek-generic-building:building-tag - Tells the golem to seek a building of the given type on the map.
 seek-storage - Tells the golem to find a storage building with available space.

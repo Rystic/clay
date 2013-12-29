@@ -22,8 +22,7 @@ public class GenericBehavior
 		_isPersonalBehavior = GenericUtil.parseBoolean(eElement
 				.getAttribute("personalBehavior"));
 		_limit = GenericUtil.parseInt(eElement.getAttribute("limit"));
-		_defaultParams = new Object[1];
-		_defaultParams[0] = eElement.getAttribute("defaultParams");
+		_defaultParams = eElement.getAttribute("defaultParams").split(",");
 	}
 
 	public void calculateGolemCost(GolemEntity golem_)

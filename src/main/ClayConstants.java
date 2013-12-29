@@ -29,6 +29,7 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_CREATE_GOLEM = "create-golem";
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED = "consume-claimed";
 	public static final String BEHAVIOR_COMMAND_HIDE = "hide";
+	public static final String BEHAVIOR_COMMAND_PRODUCE_ITEM_ON_GOLEM = "produce-item-on-golem";
 	public static final String BEHAVIOR_COMMAND_SEEK = "seek";
 	public static final String BEHAVIOR_COMMAND_SEEK_CLAIMED_ITEMS = "seek-claimed-items";
 	public static final String BEHAVIOR_COMMAND_SEEK_GENERIC_BUILDING = "seek-generic-building";

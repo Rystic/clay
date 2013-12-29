@@ -54,6 +54,10 @@ public class BehaviorInstructionCalculator
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_HIDE))
 			complete = _hide(executingEntity_);
 
+		else if (com
+				.equals(ClayConstants.BEHAVIOR_COMMAND_PRODUCE_ITEM_ON_GOLEM))
+			complete = _produceItemOnGolem(executingEntity_, commandAndParams, behaviorParams_);
+
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK))
 			complete = _seek(
 					executingEntity_,
@@ -261,6 +265,13 @@ public class BehaviorInstructionCalculator
 	private static boolean _hide(GolemEntity executingEntity_)
 	{
 		executingEntity_.setVisible(false);
+		return true;
+	}
+
+	private static boolean _produceItemOnGolem(GolemEntity executingEntity_, String[] commandAndParams_, Object[] behaviorParams)
+	{
+		Item item = new Item(ItemData.getItem((String)behaviorParams[Integer.parseInt(commandAndParams_[1])]));
+		executingEntity_.generate(item);
 		return true;
 	}
 
@@ -472,7 +483,7 @@ public class BehaviorInstructionCalculator
 	{
 		AbstractEntity takenFrom = (AbstractEntity) behaviorParams_[Integer
 				.parseInt(commandAndParams_[1])];
-		Item item = new Item(ItemData.getItem((String)behaviorParams_[Integer
+		Item item = new Item(ItemData.getItem((String) behaviorParams_[Integer
 				.parseInt(commandAndParams_[2])]));
 		if (takenFrom.isHolding(item))
 		{
