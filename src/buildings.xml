@@ -72,8 +72,9 @@
 		isSupport="false" GlobalGolemanityChange="0" StorageCapacity="0"
 		Transform="" tickStart="300">
 		<State StateName="state-default" Graphic="base,bigManaFarm2.png"></State>
-		<State StateName="state-adjacent:natural-clay" Graphic="base,bigManaFarmMana.png"></State>
 		<State StateName="state-tick-finished" Graphic="base,bigManaFarmMature.png"></State>
+		<State StateName="state-adjacent:natural-clay" Graphic="base,bigManaFarmMana.png"></State>
+		<State StateName="state-adjacent:natural-clay,state-tick-finished" Graphic="base,bigManaFarmManaMature.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete code="item:saturated-clay,queue-harvest-behavior:saturated-clay"
 			reset="no-held-items"></TickComplete>
