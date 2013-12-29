@@ -72,9 +72,8 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		if (_tickTime == 0)
 			_tickReset = _building.tickReset(this);
-		_texture = _building.getTexture(
-				_building.calculateTexture(this),
-				_position);
+		_state = _building.calculateTexture(this);
+		_texture = _building.getTexture(_state, _position);
 	}
 
 	public Texture getTexture()
@@ -141,7 +140,12 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public String getExtraWeight()
 	{
-		return _building.getExtraWeight();
+		return _building.getExtraWeightConditions();
+	}
+	
+	public String getState()
+	{
+		return _state;
 	}
 
 	public boolean isBuilt()
@@ -334,7 +338,7 @@ public class BuildingEntity extends AbstractEntity implements
 		}
 		return super.consume(item_);
 	}
-	
+
 	@Override
 	public boolean consume(List<Item> items_)
 	{
@@ -400,6 +404,7 @@ public class BuildingEntity extends AbstractEntity implements
 	private List<Item> _claimedItems;
 
 	private String _position;
+	private String _state;
 
 	private int _buildTime;
 	private int _tickTime;

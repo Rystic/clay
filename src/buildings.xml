@@ -2,8 +2,8 @@
 <Buildings>
 	<Building BuildingName="Clay Block" BuildingTag="clay-block"
 		BuildingDescription="Clay Blocks can be molded into other buildings."
-		BuildTime="0" BuildingRequirements="base,none" ExtraWeight="" GreaterManaCost="0"
-		GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		BuildTime="0" BuildingRequirements="base,none" ExtraWeight=""
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
@@ -33,15 +33,16 @@
 		<State StateName="state-unnatural-above,state-unnatural-right"
 			Graphic="base,bigPackedDirtRightTop.png"></State>
 		<State
-			StateName="state-unnatural-above,state-unnatural-left,state-unnatural-right,"
+			StateName="state-unnatural-above,state-unnatural-left,state-unnatural-right"
 			Graphic="base,bigPackedDirtAll.png"></State>
+
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Natural Clay" BuildingTag="natural-clay"
 		BuildingDescription="Natural clay reduces the mana cost of any adjacent buildings to 0."
-		BuildTime="0" BuildingRequirements="base,none" ExtraWeight="" GreaterManaCost="0"
-		GreaterManaCumulativeCost="0" LesserManaCost="0"
+		BuildTime="0" BuildingRequirements="base,none" ExtraWeight=""
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost="0"
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="true" isPassable="false" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
@@ -52,8 +53,8 @@
 	</Building>
 	<Building BuildingName="House" BuildingTag="house"
 		BuildingDescription="Houses provide a place for golems to repair themselves."
-		BuildTime="125" BuildingRequirements="base,clay-block"
-		ExtraWeight="low-clay:2" GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		BuildTime="125" BuildingRequirements="base,clay-block" ExtraWeight="low-clay:2"
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost=".1" isClaimable="false" isHouse="true"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
@@ -65,8 +66,8 @@
 	</Building>
 	<Building BuildingName="Crucible" BuildingTag="crucible"
 		BuildingDescription="Crucibles are used to siphon mana from the ground, as well as collect natural clay."
-		BuildTime="25" BuildingRequirements="base,clay-block" ExtraWeight="low-mana:2" GreaterManaCost="0"
-		GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		BuildTime="25" BuildingRequirements="base,clay-block" ExtraWeight="low-mana:2"
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".2"
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="false" GlobalGolemanityChange="0" StorageCapacity="0"
@@ -74,9 +75,11 @@
 		<State StateName="state-default" Graphic="base,bigManaFarm2.png"></State>
 		<State StateName="state-tick-finished" Graphic="base,bigManaFarmMature.png"></State>
 		<State StateName="state-adjacent:natural-clay" Graphic="base,bigManaFarmMana.png"></State>
-		<State StateName="state-adjacent:natural-clay,state-tick-finished" Graphic="base,bigManaFarmManaMature.png"></State>
+		<State StateName="state-adjacent:natural-clay,state-tick-finished"
+			Graphic="base,bigManaFarmManaMature.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
-		<TickComplete code="item:saturated-clay,queue-harvest-behavior:saturated-clay"
+		<TickComplete
+			code="item:saturated-clay,queue-harvest-behavior:saturated-clay"
 			reset="no-held-items"></TickComplete>
 	</Building>
 	<Building BuildingName="Storage" BuildingTag="storage"
@@ -108,7 +111,8 @@
 	<Building BuildingName="Obelisk" BuildingTag="obelisk"
 		BuildingDescription="Obelisks are used to dissipate mana among your golems."
 		BuildTime="25" BuildingRequirements="base,clay-block,n,clay-block"
-		ExtraWeight="low-mana:5" GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		ExtraWeight="low-mana:5" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".2"
 		LesserManaCumulativeCost=".2" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,-,n,-"
 		isStorage="false" isSupport="false" GlobalGolemanityChange="0"
@@ -119,8 +123,8 @@
 	</Building>
 	<Building BuildingName="Ladder" BuildingTag="ladder"
 		BuildingDescription="Ladders are used for vertical movement, but come at a high cost."
-		BuildTime="40" BuildingRequirements="base,clay-block" ExtraWeight="" GreaterManaCost=".1"
-		GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		BuildTime="40" BuildingRequirements="base,clay-block" ExtraWeight=""
+		GreaterManaCost=".1" GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,ns" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
@@ -131,8 +135,8 @@
 	</Building>
 	<Building BuildingName="Sculptors' Studio" BuildingTag="sculptors-studio"
 		BuildingDescription="Sculptors' Studios are used to create more golems."
-		BuildTime="125" BuildingRequirements="base,clay-block"
-		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
+		BuildTime="125" BuildingRequirements="base,clay-block" ExtraWeight=""
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
 		LesserManaCumulativeCost=".4" isClaimable="false" isHouse="true"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
@@ -144,9 +148,9 @@
 	<Building BuildingName="Chute" BuildingTag="chute"
 		BuildingDescription="Chutes are used for descending. They're cheaper than ladders, but only go down."
 		BuildTime="40" BuildingRequirements="base,clay-block,s,clay-block"
-		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost="1.0"
-		LesserManaCumulativeCost="1.0" isClaimable="false" isHouse="false"
-		isNatural="false" isPassable="true" Scalability="base,-,s,ns"
+		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		LesserManaCost="1.0" LesserManaCumulativeCost="1.0" isClaimable="false"
+		isHouse="false" isNatural="false" isPassable="true" Scalability="base,-,s,ns"
 		isStorage="false" isSupport="true" GlobalGolemanityChange="0"
 		StorageCapacity="0" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigChute.png,s,bigChuteBottom.png"></State>
@@ -155,8 +159,8 @@
 	</Building>
 	<Building BuildingName="Deep Home" BuildingTag="deep-home"
 		BuildingDescription="Deep Homes generate mana so long as they're buried under other blocks."
-		BuildTime="125" BuildingRequirements="base,house" ExtraWeight="" GreaterManaCost="0"
-		GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		BuildTime="125" BuildingRequirements="base,house" ExtraWeight=""
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".2"
 		LesserManaCumulativeCost=".2" isClaimable="false" isHouse="true"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
@@ -177,11 +181,11 @@
 	<Building BuildingName="Oven" BuildingTag="oven"
 		BuildingDescription="Ovens cook clay into stoneware bricks."
 		BuildTime="125" BuildingRequirements="base,crucible,e,crucible"
-		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
-		LesserManaCumulativeCost=".1" isClaimable="false" isHouse="true"
-		isNatural="false" isPassable="true" Scalability="base,-,e,-" isStorage="false"
-		isSupport="false" GlobalGolemanityChange="0" StorageCapacity="0"
-		Transform="" tickStart="-1">
+		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		LesserManaCost=".1" LesserManaCumulativeCost=".1" isClaimable="false"
+		isHouse="true" isNatural="false" isPassable="true" Scalability="base,-,e,-"
+		isStorage="false" isSupport="false" GlobalGolemanityChange="0"
+		StorageCapacity="0" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigOvenLeft.png,e,bigOvenRight.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>

@@ -7,7 +7,10 @@ state-unnatural-below -- signifies there is a player-made building below the bui
 state-adjacent:<block> -- triggered if <block> is within one tile of the base.
 state-tick-finished -- triggered when the tick on the entity reaches 0.
 state-storage-full -- triggered if the heldItems on the entity is greater than or equal to the allowed storage size.
-
+state-building-above:<building-tag> -- triggered if the given building is above the building.
+state-building-left:<building-tag> -- triggered if the given building type is to the left of the building.
+state-building-right:<building-tag> -- triggered if the given building type is to the right of the building.
+state-building-above-not-state:<state> -- triggered if the building above is NOT in the given state.
 
 
 **Tick Complete:
