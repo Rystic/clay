@@ -8,7 +8,7 @@
 
 	<Behavior BehaviorName="Harvest Mana" BehaviorTag="harvest-mana"
 		weight="closest-to-point" defaultParams="" neededBehavior="false"
-		personalBehavior="false" limit="-1" golemCost="mana:-1" require="storage-exists:0"
+		personalBehavior="false" limit="-1" golemCost="mana:-1" require="storage-exists-from-entity:0"
 		code="seek:0,take-item:saturated-clay:0,seek-storage,store-item:saturated-clay"></Behavior>
 
 	<Behavior BehaviorName="Store Items" BehaviorTag="store-items"

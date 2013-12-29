@@ -130,7 +130,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 					{
 						if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
 						{
-
 							_noMaterialsBehaviorList.add(triple._behavior);
 							invalidBehaviors.add(triple._behavior);
 						}
@@ -288,12 +287,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				golem.recalculatePathIfNecessary(event_.getPoints());
 			}
 			_clearInvalid = true;
-			_unassignedBehaviorList.addAll(_noStorageAvailable);
 			_unassignedBehaviorList.addAll(_unreachableBehaviorList);
-			_unassignedBehaviorList.addAll(_noMaterialsBehaviorList);
 			_unreachableBehaviorList.clear();
-			_noStorageAvailable.clear();
-			_noMaterialsBehaviorList.clear();
 		}
 
 		if (event_.isItemUpdate())

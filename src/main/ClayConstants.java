@@ -34,7 +34,7 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_SEEK_GENERIC_BUILDING = "seek-generic-building";
 	public static final String BEHAVIOR_COMMAND_SEEK_STORAGE = "seek-storage";
 	public static final String BEHAVIOR_COMMAND_SHOW = "show";
-	public static final String BEHAVIOR_COMMAND_STORAGE_EXISTS = "storage-exists";
+	public static final String BEHAVIOR_COMMAND_STORAGE_EXISTS_FROM_ENTITY = "storage-exists-from-entity";
 	public static final String BEHAVIOR_COMMAND_STORAGE_EXISTS_FROM_GOLEM = "storage-exists-from-golem";
 	public static final String BEHAVIOR_COMMAND_STORE_ALL = "store-all";
 	public static final String BEHAVIOR_COMMAND_STORE_ITEM = "store-item";

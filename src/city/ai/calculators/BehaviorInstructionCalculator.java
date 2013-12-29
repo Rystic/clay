@@ -48,7 +48,7 @@ public class BehaviorInstructionCalculator
 					executingEntity_,
 					model,
 					commandAndParams,
-					params_);
+					params_) == ClayConstants.BEHAVIOR_PASSED;
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CONSUME_CLAIMED))
 			complete = _consumeClaimed(
@@ -130,23 +130,36 @@ public class BehaviorInstructionCalculator
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_ITEMS))
 		{
-			if (!_claimItems(executingEntity_, model, commandAndParams, params_))
+			passed = _claimItems(executingEntity_, model, commandAndParams, params_);
+		}
+		else if (com
+				.equals(ClayConstants.BEHAVIOR_COMMAND_STORAGE_EXISTS_FROM_ENTITY))
+		{
+			if (!_storageExistsFromEntity(
+					executingEntity_,
+					model,
+					commandAndParams,
+					params_))
 			{
-				passed = ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS;
+				if (!storageExists(model))
+					passed = ClayConstants.BEHAVIOR_FAILED_NO_STORAGE;
+				else
+					passed = ClayConstants.BEHAVIOR_FAILED_NO_PATH;
 			}
 		}
-		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_STORAGE_EXISTS))
+		else if (com
+				.equals(ClayConstants.BEHAVIOR_COMMAND_STORAGE_EXISTS_FROM_GOLEM))
 		{
-			if (!_storageExists(executingEntity_, model, commandAndParams, params_))
+			if (!_storageExistsFromGolem(
+					executingEntity_,
+					model,
+					commandAndParams,
+					params_))
 			{
-				passed = ClayConstants.BEHAVIOR_FAILED_NO_STORAGE;
-			}
-		}
-		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_STORAGE_EXISTS_FROM_GOLEM))
-		{
-			if (!_storageExistsFromGolem(executingEntity_, model, commandAndParams, params_))
-			{
-				passed = ClayConstants.BEHAVIOR_FAILED_NO_STORAGE;
+				if (!storageExists(model))
+					passed = ClayConstants.BEHAVIOR_FAILED_NO_STORAGE;
+				else
+					passed = ClayConstants.BEHAVIOR_FAILED_NO_PATH;
 			}
 		}
 		return passed;
@@ -201,14 +214,14 @@ public class BehaviorInstructionCalculator
 		return true;
 	}
 
-	private static boolean _claimItems(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
+	private static int _claimItems(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
 	{
 		BuildingEntity claimedBuilding = executingEntity_.getClaimedBuilding();
 		if (claimedBuilding == null)
 		{
 			executingEntity_
 					.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
-			return false;
+			return ClayConstants.BEHAVIOR_FAILED_NO_PATH;
 		}
 		for (int i = 1; i < commandParams_.length; i++)
 		{
@@ -222,9 +235,18 @@ public class BehaviorInstructionCalculator
 					searchItem);
 			if (path.isEmpty())
 			{
-				executingEntity_
-						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS);
-				return false;
+				if (!itemExists(model_, searchItem))
+				{
+					executingEntity_
+							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS);
+					return ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS;
+				}
+				else
+				{
+					executingEntity_
+							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+					return ClayConstants.BEHAVIOR_FAILED_NO_PATH;
+				}
 			}
 			Point buildingPoint = path.poll();
 			BuildingEntity holdingBuilding = model_.getTileValue(
@@ -233,7 +255,7 @@ public class BehaviorInstructionCalculator
 			Item item = holdingBuilding.getItem(searchItem);
 			claimedBuilding.claimItem(item);
 		}
-		return true;
+		return ClayConstants.BEHAVIOR_PASSED;
 	}
 
 	private static boolean _consumeClaimed(GolemEntity executingEntity_, CityModel model_, String[] commandParams_)
@@ -397,7 +419,7 @@ public class BehaviorInstructionCalculator
 		return true;
 	}
 
-	private static boolean _storageExists(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
+	private static boolean _storageExistsFromEntity(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
 	{
 		AbstractEntity entity = (AbstractEntity) params_[Integer
 				.parseInt(commandParams_[1])];
@@ -407,7 +429,7 @@ public class BehaviorInstructionCalculator
 				ClayConstants.SEARCH_STORAGE);
 		return path.size() > 0;
 	}
-	
+
 	private static boolean _storageExistsFromGolem(GolemEntity executingEntity_, CityModel model_, String[] commandParams_, Object[] params_)
 	{
 		Queue<Point> path = SearchUtil.search(
@@ -450,8 +472,12 @@ public class BehaviorInstructionCalculator
 		}
 		else
 		{
-			executingEntity_
-					.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_STORAGE);
+			if (!storageExists(model_))
+				executingEntity_
+						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_STORAGE);
+			else
+				executingEntity_
+						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
 		}
 		return false;
 	}
@@ -482,6 +508,34 @@ public class BehaviorInstructionCalculator
 			return true;
 		else
 			executingEntity_.setTickAndRate(tick, 1);
+		return false;
+	}
+
+	private static boolean storageExists(CityModel model_)
+	{
+		BuildingEntity[][] tiles = model_.getTileValues();
+		for (int i = 0; i < tiles.length; i++)
+		{
+			for (int j = 0; j < tiles[0].length; j++)
+			{
+				if (tiles[i][j] != null && tiles[i][j].isStorageAvailable())
+					return true;
+			}
+		}
+		return false;
+	}
+
+	private static boolean itemExists(CityModel model_, Item item_)
+	{
+		BuildingEntity[][] tiles = model_.getTileValues();
+		for (int i = 0; i < tiles.length; i++)
+		{
+			for (int j = 0; j < tiles[0].length; j++)
+			{
+				if (tiles[i][j] != null && tiles[i][j].isHolding(item_))
+					return true;
+			}
+		}
 		return false;
 	}
 
