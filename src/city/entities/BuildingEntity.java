@@ -143,7 +143,7 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return _building.getExtraWeight();
 	}
-	
+
 	public boolean isBuilt()
 	{
 		boolean tileIsBuilt = _built;
@@ -151,7 +151,8 @@ public class BuildingEntity extends AbstractEntity implements
 		{
 			for (BuildingEntity building : _allBuildingTiles)
 			{
-				if (building.equals(this)) continue;
+				if (building.equals(this))
+					continue;
 				if (!building.isBuilt())
 					return false;
 			}
@@ -163,7 +164,7 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return _building.isHouse();
 	}
-	
+
 	public boolean isBaseTile()
 	{
 		return _isBase;
@@ -174,7 +175,7 @@ public class BuildingEntity extends AbstractEntity implements
 		return _building.isStorage()
 				&& _building.getStorageCapacity() > _heldItems.size();
 	}
-	
+
 	public void constructionComplete()
 	{
 		_built = true;
@@ -263,7 +264,6 @@ public class BuildingEntity extends AbstractEntity implements
 		_claimedItems.clear();
 		_claimingGolem = null;
 	}
-	
 
 	public void setClaimingGolem(GolemEntity claimingGolem_)
 	{
@@ -307,17 +307,68 @@ public class BuildingEntity extends AbstractEntity implements
 		}
 		return false;
 	}
-	
+
 	public void addActiveBehavior(Behavior behavior_)
 	{
 		_activeBehaviors.add(behavior_);
 	}
-	
+
 	public void activeBehaviorComplete(Behavior behavior_)
 	{
 		_activeBehaviors.remove(behavior_);
 	}
+
+	@Override
+	public boolean consume(Item item_)
+	{
+		if (_building.isStorage() && !isStorageAvailable())
+		{
+			boolean consume = super.consume(item_);
+			if (isStorageAvailable())
+			{
+				Map<Integer, Object> map = new HashMap<Integer, Object>();
+				map.put(ClayConstants.EVENT_STORAGE_AVAILABLE_UPDATE, true);
+				EventBus.publish(new MapUpdateEvent(_homeScreen, map));
+			}
+			return consume;
+		}
+		return super.consume(item_);
+	}
 	
+	@Override
+	public boolean consume(List<Item> items_)
+	{
+		if (_building.isStorage() && !isStorageAvailable())
+		{
+			boolean consumed = super.consume(items_);
+			if (isStorageAvailable())
+			{
+				Map<Integer, Object> map = new HashMap<Integer, Object>();
+				map.put(ClayConstants.EVENT_STORAGE_AVAILABLE_UPDATE, true);
+				EventBus.publish(new MapUpdateEvent(_homeScreen, map));
+			}
+			return consumed;
+		}
+		return super.consume(items_);
+	}
+
+	@Override
+	public List<Item> consumeAllItemType(Item item_)
+	{
+		if (_building.isStorage() && !isStorageAvailable())
+		{
+			List<Item> consumed = super.consumeAllItemType(item_);
+			if (isStorageAvailable())
+			{
+				Map<Integer, Object> map = new HashMap<Integer, Object>();
+				map.put(ClayConstants.EVENT_STORAGE_AVAILABLE_UPDATE, true);
+				EventBus.publish(new MapUpdateEvent(_homeScreen, map));
+			}
+			return consumed;
+		}
+		return super.consumeAllItemType(item_);
+	}
+
 	@Override
 	public boolean equals(Object o)
 	{
@@ -337,7 +388,7 @@ public class BuildingEntity extends AbstractEntity implements
 	private GenericBuilding _building;
 
 	private List<BuildingEntity> _allBuildingTiles;
-	
+
 	private List<Behavior> _activeBehaviors;
 
 	private final Point _point;
