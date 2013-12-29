@@ -12,7 +12,7 @@ state-storage-full -- triggered if the heldItems on the entity is greater than o
 
 **Tick Complete:
 item:<item>:<behavior> -- adds <item> to the entity's inventory, as well as a follow up <behavior> to queue.
-
+queue-harvest-behavior:<behavior>:<item-tag> -- adds <behavior> to the behavior queue, with building as the first param and the item-tag as the second.
 
 
 **Reset:
@@ -46,8 +46,8 @@ calculate-extra-building-weight:BuildingEntity - multiplies the weight if the go
 
 
 **Require:
-storage-exists:abstract-entity - checks if a storage is available on the map relative to the abstract-entity.
-storage-exists-from-golem - checks if a storage is available on the map relative to the golem doing the behavior
+storage-exists-from-entity:abstract-entity - checks if a storage is available on the map relative to the abstract-entity.
+storage-exists-from-golem - checks if a storage is available on the map relative to the golem doing the behavior.
 house - checks if there is an available house on the map.
 exists:item-tag - checks if the given item is available from the golem's location. Note: exists only looks for one item. Multiple exists will not work if they're all looking for the same item.
 

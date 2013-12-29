@@ -75,7 +75,7 @@
 		<State StateName="state-adjacent:natural-clay" Graphic="base,bigManaFarmMana.png"></State>
 		<State StateName="state-tick-finished" Graphic="base,bigManaFarmMature.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
-		<TickComplete code="item:saturated-clay:harvest-mana"
+		<TickComplete code="item:saturated-clay,queue-harvest-behavior:saturated-clay"
 			reset="no-held-items"></TickComplete>
 	</Building>
 	<Building BuildingName="Storage" BuildingTag="storage"

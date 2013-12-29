@@ -64,6 +64,9 @@ public class ClayConstants
 	public static final int BEHAVIOR_FAILED_NO_STORAGE = 3;
 	public static final int BEHAVIOR_FAILED_OBSOLETE = 4;
 	
+	// Specific Behaviors
+	public static final String BEHAVIOR_HARVEST = "harvest";
+	
 	
 	
 	//--Building Constants--
@@ -84,7 +87,7 @@ public class ClayConstants
 	
 	// Tick Results
 	public static final String TICK_CODE_PRODUCE_ITEM = "item";
-	public static final String TICK_CODE_BEHAVIOR = "behavior";
+	public static final String TICK_CODE_QUEUE_HARVEST_BEHAVIOR = "queue-harvest-behavior";
 	
 	// Tick Reset Conditions
 	public static final String TICK_RESET_NO_HELD_ITEMS = "no-held-items";

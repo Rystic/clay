@@ -255,9 +255,9 @@ public final class GenericBuilding
 					.getProcess(GolemBehaviorProcess.class));
 			for (BuildingEntity entity : newBuildings)
 			{
-				Behavior constructionBehavior = new Behavior(BehaviorData
-						.getBehavior("construct-building"), tiles_[p_.x][p_.y],
-						entity);
+				Behavior constructionBehavior = new Behavior(
+						BehaviorData.getBehavior("construct-building"),
+						tiles_[p_.x][p_.y], entity);
 				constructionBehavior.setAssigningBuilding(entity);
 				entity.addActiveBehavior(constructionBehavior);
 				behaviorProcess.queueBehavior(constructionBehavior);
@@ -440,27 +440,24 @@ public final class GenericBuilding
 			{
 				building_.generate(new Item(ItemData
 						.getItem(commandAndParams[1])));
-				GolemBehaviorProcess behaviorProcess = ((GolemBehaviorProcess) building_
-						.getHomeScreen().getProcess(GolemBehaviorProcess.class));
-				
-				Behavior behavior = new Behavior(BehaviorData
-						.getBehavior(commandAndParams[2]), building_);
-				behavior.setAssigningBuilding(building_);
-				building_.addActiveBehavior(behavior);
-				behaviorProcess.queueBehavior(behavior);
-				
-				
+
 				Map<Integer, Object> map = new HashMap<Integer, Object>();
 				map.put(ClayConstants.EVENT_ITEM_UPDATE, true);
 				EventBus.publish(new MapUpdateEvent(building_.getHomeScreen(),
 						map));
 			}
-			if (commandAndParams[0].equals(ClayConstants.TICK_CODE_BEHAVIOR))
+			if (commandAndParams[0]
+					.equals(ClayConstants.TICK_CODE_QUEUE_HARVEST_BEHAVIOR))
 			{
 				GolemBehaviorProcess behaviorProcess = ((GolemBehaviorProcess) building_
 						.getHomeScreen().getProcess(GolemBehaviorProcess.class));
-				behaviorProcess.queueBehavior(new Behavior(BehaviorData
-						.getBehavior(commandAndParams[1]), building_));
+
+				Behavior behavior = new Behavior(
+						BehaviorData.getBehavior(ClayConstants.BEHAVIOR_HARVEST),
+						building_, commandAndParams[1]);
+				behavior.setAssigningBuilding(building_);
+				building_.addActiveBehavior(behavior);
+				behaviorProcess.queueBehavior(behavior);
 			}
 		}
 	}

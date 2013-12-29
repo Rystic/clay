@@ -6,10 +6,10 @@
 		personalBehavior="false" limit="-1" golemCost="clay:-2" require=""
 		code="seek:0,build:1"></Behavior>
 
-	<Behavior BehaviorName="Harvest Mana" BehaviorTag="harvest-mana"
+	<Behavior BehaviorName="Harvest" BehaviorTag="harvest"
 		weight="closest-to-point" defaultParams="" neededBehavior="false"
 		personalBehavior="false" limit="-1" golemCost="mana:-1" require="storage-exists-from-entity:0"
-		code="seek:0,take-item:saturated-clay:0,seek-storage,store-item:saturated-clay"></Behavior>
+		code="seek:0,take-item:0:1,seek-storage,store-item:1"></Behavior>
 
 	<Behavior BehaviorName="Store Items" BehaviorTag="store-items"
 		weight="holding-item" defaultParams="storage" neededBehavior="true"
