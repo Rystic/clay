@@ -196,9 +196,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			{
 				_noStorageAvailable.add(behavior_);
 			}
-			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_OBSOLETE)
+			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM || reason_ == ClayConstants.BEHAVIOR_FAILED_OBSOLETE)
 			{
-				System.out.println("OBSOLETE!");
 				_unassignedBehaviorList.remove(behavior_);
 				_inProgressBehaviorList.remove(behavior_);
 				_unreachableBehaviorList.remove(behavior_);

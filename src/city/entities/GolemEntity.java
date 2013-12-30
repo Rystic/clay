@@ -203,6 +203,11 @@ public class GolemEntity extends AbstractEntity
 		if (recalculate)
 			_moveInstructions.clear();
 	}
+	
+	public Behavior getCurrentBehavior()
+	{
+		return _currentBehavior;
+	}
 
 	public void setTickAndRate(int tick_, int tickRate_)
 	{
@@ -275,7 +280,7 @@ public class GolemEntity extends AbstractEntity
 	{
 		return (CityModel) _model;
 	}
-
+	
 	private GenericGolem _golem;
 
 	private List<String> _failedPersonalBehaviors;

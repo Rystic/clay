@@ -142,7 +142,7 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return _building.getExtraWeightConditions();
 	}
-	
+
 	public String getState()
 	{
 		return _state;
@@ -325,52 +325,78 @@ public class BuildingEntity extends AbstractEntity implements
 	@Override
 	public boolean consume(Item item_)
 	{
+		boolean consume;
 		if (_building.isStorage() && !isStorageAvailable())
 		{
-			boolean consume = super.consume(item_);
+			consume = super.consume(item_);
 			if (isStorageAvailable())
 			{
 				Map<Integer, Object> map = new HashMap<Integer, Object>();
 				map.put(ClayConstants.EVENT_STORAGE_AVAILABLE_UPDATE, true);
 				EventBus.publish(new MapUpdateEvent(_homeScreen, map));
 			}
+			removeObsoleteHarvestTasks();
 			return consume;
 		}
-		return super.consume(item_);
+		consume = super.consume(item_);
+		removeObsoleteHarvestTasks();
+		return consume;
 	}
 
 	@Override
 	public boolean consume(List<Item> items_)
 	{
+		boolean consumed;
 		if (_building.isStorage() && !isStorageAvailable())
 		{
-			boolean consumed = super.consume(items_);
+			consumed = super.consume(items_);
 			if (isStorageAvailable())
 			{
 				Map<Integer, Object> map = new HashMap<Integer, Object>();
 				map.put(ClayConstants.EVENT_STORAGE_AVAILABLE_UPDATE, true);
 				EventBus.publish(new MapUpdateEvent(_homeScreen, map));
 			}
+			removeObsoleteHarvestTasks();
 			return consumed;
 		}
-		return super.consume(items_);
+		consumed = super.consume(items_);
+		removeObsoleteHarvestTasks();
+		return consumed;
 	}
 
 	@Override
 	public List<Item> consumeAllItemType(Item item_)
 	{
+		List<Item> consumed;
 		if (_building.isStorage() && !isStorageAvailable())
 		{
-			List<Item> consumed = super.consumeAllItemType(item_);
+			consumed = super.consumeAllItemType(item_);
 			if (isStorageAvailable())
 			{
 				Map<Integer, Object> map = new HashMap<Integer, Object>();
 				map.put(ClayConstants.EVENT_STORAGE_AVAILABLE_UPDATE, true);
 				EventBus.publish(new MapUpdateEvent(_homeScreen, map));
 			}
+			removeObsoleteHarvestTasks();
 			return consumed;
 		}
-		return super.consumeAllItemType(item_);
+		consumed = super.consumeAllItemType(item_);
+		removeObsoleteHarvestTasks();
+		return consumed;
+	}
+
+	public void removeObsoleteHarvestTasks()
+	{
+		List<Behavior> obsoleteBehaviors = new ArrayList<Behavior>();
+		for (Behavior behavior : _activeBehaviors)
+		{
+			if (behavior.checkIfHarvestObsolete())
+			{
+				behavior.obsolete();
+				obsoleteBehaviors.add(behavior);
+			}
+		}
+		_activeBehaviors.removeAll(obsoleteBehaviors);
 	}
 
 	@Override

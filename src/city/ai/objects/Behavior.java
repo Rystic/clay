@@ -12,6 +12,7 @@ import city.ai.calculators.BehaviorWeightCalculator;
 import city.entities.BuildingEntity;
 import city.entities.GolemEntity;
 import city.generics.GenericBehavior;
+import data.ItemData;
 
 public class Behavior
 {
@@ -21,6 +22,8 @@ public class Behavior
 		_params = params_;
 		_invalidEntities = new HashSet<GolemEntity>();
 		_requiredCompleted = _behavior.getRequired().isEmpty();
+		_isHarvestTask = _behavior.getBehaviorTag().equals(
+				ClayConstants.BEHAVIOR_HARVEST);
 	}
 
 	public List<String> getCommands()
@@ -40,15 +43,20 @@ public class Behavior
 				currentCommand_,
 				_params);
 	}
-	
+
 	public int calculateRequired(GolemEntity golem_)
 	{
-		if (_behavior.getRequired().isEmpty()) return ClayConstants.BEHAVIOR_PASSED;
+		if (_behavior.getRequired().isEmpty())
+			return ClayConstants.BEHAVIOR_PASSED;
 		int passed = ClayConstants.BEHAVIOR_PASSED;
 		for (String command : _behavior.getRequired().split(","))
 		{
-			if (passed != ClayConstants.BEHAVIOR_PASSED) break;
-			passed = BehaviorInstructionCalculator.executeRequired(golem_, command, _params);
+			if (passed != ClayConstants.BEHAVIOR_PASSED)
+				break;
+			passed = BehaviorInstructionCalculator.executeRequired(
+					golem_,
+					command,
+					_params);
 		}
 		return passed;
 	}
@@ -98,12 +106,13 @@ public class Behavior
 
 	public void failed(GolemEntity _failedGolem, int reason_)
 	{
+		_assignedGolem = null;
 		if (_behaviorProcess == null)
 			return;
 		_invalidEntities.add(_failedGolem);
 		_behaviorProcess.behaviorFailed(this, reason_);
 	}
-	
+
 	public void requiredFailed(GolemEntity _failedGolem)
 	{
 		_invalidEntities.add(_failedGolem);
@@ -134,6 +143,11 @@ public class Behavior
 		return _behavior.isPersonalBehavior();
 	}
 
+	public boolean isHarvestTask()
+	{
+		return _isHarvestTask;
+	}
+
 	public void increaseAddedWeight(int addedWeight_)
 	{
 		_addedWeight += addedWeight_;
@@ -153,25 +167,51 @@ public class Behavior
 	{
 		_assigningBuilding = assigningBuilding_;
 	}
-	
+
 	public void setAssignedGolem(GolemEntity assignedGolem_)
 	{
 		_assignedGolem = assignedGolem_;
 	}
-	
+
 	public BuildingEntity getAssigningBuilding()
 	{
 		return _assigningBuilding;
 	}
-	
+
+	public boolean checkIfHarvestObsolete()
+	{
+		if (!_isHarvestTask)
+			return false;
+		Item item = new Item(ItemData.getItem((String) _params[1]));
+		return !_assigningBuilding.isHolding(item)
+				&& (_assignedGolem == null || (_assignedGolem != null && !_assignedGolem
+						.isHolding(item)));
+	}
+
 	public void obsolete()
 	{
-		if (_assignedGolem != null)
-			_assignedGolem.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_OBSOLETE);
-		else
-			_behaviorProcess.behaviorFailed(this, ClayConstants.BEHAVIOR_FAILED_OBSOLETE);
+		try
+		{
+			if (_assignedGolem != null)
+			{
+				if (!this.equals(_assignedGolem.getCurrentBehavior()))
+				{
+					throw new Exception(
+							"Obsolete behavior trying to cancel a different behavior.");
+				}
+				_assignedGolem
+						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_OBSOLETE);
+			}
+			else
+				_behaviorProcess.behaviorFailed(
+						this,
+						ClayConstants.BEHAVIOR_FAILED_OBSOLETE);
+		} catch (Exception e_)
+		{
+			e_.printStackTrace();
+		}
 	}
-	
+
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -183,7 +223,7 @@ public class Behavior
 	}
 
 	private GenericBehavior _behavior;
-	
+
 	private BuildingEntity _assigningBuilding;
 	private GolemEntity _assignedGolem;
 
@@ -196,5 +236,6 @@ public class Behavior
 	private int _addedWeight;
 
 	private boolean _requiredCompleted;
+	private boolean _isHarvestTask;
 
 }

@@ -316,8 +316,8 @@ public class BehaviorInstructionCalculator
 				if (executingEntity_.getPoint().equals(
 						claimedBuilding.getPoint()))
 				{
-					executingEntity_.consume(item);
 					claimedBuilding.generate(item);
+					executingEntity_.consume(item);
 					continue;
 				}
 				Queue<Point> path = SearchUtil.search(
@@ -339,8 +339,8 @@ public class BehaviorInstructionCalculator
 
 			if (entityAtPoint.isHolding(item))
 			{
-				entityAtPoint.consume(item);
 				executingEntity_.generate(item);
+				entityAtPoint.consume(item);
 				return false;
 			}
 
@@ -445,8 +445,8 @@ public class BehaviorInstructionCalculator
 		{
 			if (storage.isStorageAvailable())
 			{
-				executingEntity_.consume(item);
 				storage.generate(item);
+				executingEntity_.consume(item);
 			}
 			else
 				break;
@@ -463,8 +463,8 @@ public class BehaviorInstructionCalculator
 				executingEntity_.getGridY());
 		if (executingEntity_.isHolding(item))
 		{
-			executingEntity_.consume(item);
 			storage.generate(item);
+			executingEntity_.consume(item);
 			return true;
 		}
 		else
@@ -487,8 +487,8 @@ public class BehaviorInstructionCalculator
 				.parseInt(commandAndParams_[2])]));
 		if (takenFrom.isHolding(item))
 		{
-			takenFrom.consume(item);
 			executingEntity_.generate(item);
+			takenFrom.consume(item);
 			return true;
 		}
 		else
