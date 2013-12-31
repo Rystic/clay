@@ -3,8 +3,8 @@
 
 	<Behavior BehaviorName="Construct Building" BehaviorTag="construct-building"
 		weight="closest-to-point,calculate-extra-building-weight" defaultParams="" neededBehavior="false"
-		personalBehavior="false" limit="-1" golemCost="clay:-2" require=""
-		code="seek:0,build:1"></Behavior>
+		personalBehavior="false" limit="-1" golemCost="clay:-2" require="claim-construction-items:0"
+		code="seek-claimed-construction-items:0,seek:0,consume-claimed-construction:0,build:1"></Behavior>
 
 	<Behavior BehaviorName="Harvest" BehaviorTag="harvest"
 		weight="closest-to-point" defaultParams="" neededBehavior="false"
@@ -18,7 +18,7 @@
 
 	<Behavior BehaviorName="Power Obelisk" BehaviorTag="power-obelisk"
 		weight="low-mana" defaultParams="obelisk,inert-clay" neededBehavior="true"
-		personalBehavior="false" limit="-1" golemCost="clay:-2,mana:-2"
+		personalBehavior="true" limit="-1" golemCost="clay:-2,mana:-2"
 		require="claim-building:0,claim-items:saturated-clay" code="seek-claimed-items,consume-claimed,tick:50,add-mana:10,produce-item-on-golem:1"></Behavior>
 
 	<Behavior BehaviorName="Repair" BehaviorTag="repair" weight="low-clay"

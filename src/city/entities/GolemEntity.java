@@ -94,7 +94,7 @@ public class GolemEntity extends AbstractEntity
 			_visible = true;
 			if (_claimedBuilding != null)
 			{
-				_claimedBuilding.release();
+				_claimedBuilding.releaseAll();
 				_claimedBuilding = null;
 			}
 		}
@@ -113,7 +113,7 @@ public class GolemEntity extends AbstractEntity
 		_visible = true;
 		if (_claimedBuilding != null)
 		{
-			_claimedBuilding.release();
+			_claimedBuilding.releaseAll();
 			_claimedBuilding = null;
 		}
 	}

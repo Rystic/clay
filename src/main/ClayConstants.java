@@ -25,12 +25,15 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_ADD_MANA = "add-mana";
 	public static final String BEHAVIOR_COMMAND_BUILD = "build";
 	public static final String BEHAVIOR_COMMAND_CLAIM_BUILDING = "claim-building";
+	public static final String BEHAVIOR_COMMAND_CLAIM_CONSTRUCTION_ITEMS = "claim-construction-items";
 	public static final String BEHAVIOR_COMMAND_CLAIM_ITEMS = "claim-items";
 	public static final String BEHAVIOR_COMMAND_CREATE_GOLEM = "create-golem";
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED = "consume-claimed";
+	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED_CONSTRUCTION = "consume-claimed-construction";
 	public static final String BEHAVIOR_COMMAND_HIDE = "hide";
 	public static final String BEHAVIOR_COMMAND_PRODUCE_ITEM_ON_GOLEM = "produce-item-on-golem";
 	public static final String BEHAVIOR_COMMAND_SEEK = "seek";
+	public static final String BEHAVIOR_COMMAND_SEEK_CLAIMED_CONSTRUCTION_ITEMS = "seek-claimed-construction-items";
 	public static final String BEHAVIOR_COMMAND_SEEK_CLAIMED_ITEMS = "seek-claimed-items";
 	public static final String BEHAVIOR_COMMAND_SEEK_GENERIC_BUILDING = "seek-generic-building";
 	public static final String BEHAVIOR_COMMAND_SEEK_STORAGE = "seek-storage";
@@ -47,7 +50,6 @@ public class ClayConstants
 	public static final String PERSONAL_BEHAVIOR_STORE_ITEMS = "store-items";
 	public static final String PERSONAL_BEHAVIOR_REPAIR = "repair";
 	public static final String PERSONAL_BEHAVIOR_POWER_OBELISK = "power-obelisk";
-
 
 	// Behavior Weight Conditions
 	public static final String WC_CALC_BUILDING = "calculate-extra-building-weight";
@@ -67,7 +69,7 @@ public class ClayConstants
 	
 	// Specific Behaviors
 	public static final String BEHAVIOR_HARVEST = "harvest";
-	
+
 	
 	
 	//--Building Constants--
@@ -112,6 +114,7 @@ public class ClayConstants
 	public static final Integer EVENT_STORAGE_AVAILABLE_UPDATE = 2;
 	
 	
+	
 	//--Search Conditions--
 	public static final int SEARCH_ENTITY = 0; // Expects a single BuildingEntity at [1]
 	public static final int SEARCH_GENERIC_BUILDING = 1; // Expects a single BuildingEntity [1]
@@ -120,5 +123,4 @@ public class ClayConstants
 	public static final int SEARCH_CLAIMED_ITEM = 4; // Expects nothing.
 	public static final int SEARCH_ITEM_GOAL_ONLY = 5; // Expects an Item.
 	public static final int SEARCH_HOUSE = 6; // Expects nothing.
-	
 }

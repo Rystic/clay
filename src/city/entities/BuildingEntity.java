@@ -231,6 +231,11 @@ public class BuildingEntity extends AbstractEntity implements
 		return _claimedItems;
 	}
 
+	public String getConstructionMaterials()
+	{
+		return _building.getConstructionItems();
+	}
+
 	public void setAllTiles(List<BuildingEntity> allBuildingTiles_)
 	{
 		_allBuildingTiles = allBuildingTiles_;
@@ -249,13 +254,22 @@ public class BuildingEntity extends AbstractEntity implements
 
 		for (BuildingEntity building : _allBuildingTiles)
 		{
-			building.release();
+			building.releaseAll();
 			process.unregister(building);
 			model.clearTile(building.getGridX(), building.getGridY());
 		}
 	}
 
-	public void release()
+	public void releaseItems()
+	{
+		for (Item item : _claimedItems)
+		{
+			item.release();
+		}
+		_claimedItems.clear();
+	}
+
+	public void releaseAll()
 	{
 		for (Item item : _claimedItems)
 		{
@@ -317,7 +331,7 @@ public class BuildingEntity extends AbstractEntity implements
 		_activeBehaviors.add(behavior_);
 	}
 
-	public void activeBehaviorComplete(Behavior behavior_)
+	public void removeActiveBehavior(Behavior behavior_)
 	{
 		_activeBehaviors.remove(behavior_);
 	}

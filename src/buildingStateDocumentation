@@ -25,14 +25,19 @@ no-held-items-- signals that the tick should restart if the entity is holding no
 
 **Behavior Commands:
 add-clay:int - Tells the golem to increase it's clay by the given amount.
+add-mana:int - Tells the golem to increase the city's mana by the given amount.
 build:building-entity,building-entity - Tells the golem to move to the first parameter, and start construction on the second parameter.
 claim-building:building-tag - Tells the golem to find a building and declare it in use.
+claim-construction-items:building-entity - Claims the items required to construct the building. 
 claim-items:item-tag,item-tag...item-tag - Tells the golem to claim the selected items, and bring them to the claimed building.
 create-golem:abstract-entity - creates a golem at the given entity.
 consume-claimed - consumes all claimed items the entity is holding.
+consume-claimed-construction:building-entity - consumes all claimed items the building is holding
 hide - Hides the golem until a show command, the behavior finishes, or the behavior fails.
 produce-item-on-golem:<item-tag> - Produces an item on the executiing golem.
 seek:abstract-entity - Tells the golem to seek the given parameter on the map.
+seek-claimed-construction-items - Tells the golem to seek the items for the building under construction.
+seek-claimed-items - Tells the golem to gather the claimed items for the building it has claimed.
 seek-generic-building:building-tag - Tells the golem to seek a building of the given type on the map.
 seek-storage - Tells the golem to find a storage building with available space.
 show - Reveals a golem made invisible with 'hide'

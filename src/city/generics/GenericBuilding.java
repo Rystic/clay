@@ -44,6 +44,7 @@ public final class GenericBuilding
 				.getAttribute("StorageCapacity"));
 
 		_transformCode = eElement.getAttribute("Transform");
+		_constructionItems = eElement.getAttribute("ConstructionItems");
 
 		_lesserManaCost = GenericUtil.parseDouble(eElement
 				.getAttribute("LesserManaCost"));
@@ -647,6 +648,11 @@ public final class GenericBuilding
 	{
 		return _extraWeightConditions;
 	}
+	
+	public String getConstructionItems()
+	{
+		return _constructionItems;
+	}
 
 	public boolean isValid(BuildingEntity building_)
 	{
@@ -683,6 +689,7 @@ public final class GenericBuilding
 	private String _tickResetCode;
 	private String _transformCode;
 	private String _extraWeightConditions;
+	private String _constructionItems;
 
 	private final int _buildTime;
 	private final int _tickStart;

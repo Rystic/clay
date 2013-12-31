@@ -42,11 +42,15 @@ public class BehaviorInstructionCalculator
 					commandAndParams,
 					behaviorParams_);
 
-		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_ITEMS))
-			complete = _claimItems(executingEntity_, model, commandAndParams) == ClayConstants.BEHAVIOR_PASSED;
-
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CONSUME_CLAIMED))
 			complete = _consumeClaimed(executingEntity_);
+
+		else if (com
+				.equals(ClayConstants.BEHAVIOR_COMMAND_CONSUME_CLAIMED_CONSTRUCTION))
+			complete = _consumeConstructionClaimed(
+					executingEntity_,
+					commandAndParams,
+					behaviorParams_);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CREATE_GOLEM))
 			complete = _createClayGolem(executingEntity_, model);
@@ -56,7 +60,10 @@ public class BehaviorInstructionCalculator
 
 		else if (com
 				.equals(ClayConstants.BEHAVIOR_COMMAND_PRODUCE_ITEM_ON_GOLEM))
-			complete = _produceItemOnGolem(executingEntity_, commandAndParams, behaviorParams_);
+			complete = _produceItemOnGolem(
+					executingEntity_,
+					commandAndParams,
+					behaviorParams_);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK))
 			complete = _seek(
@@ -66,6 +73,14 @@ public class BehaviorInstructionCalculator
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_CLAIMED_ITEMS))
 			complete = _seekClaimedItems(executingEntity_, model);
+
+		else if (com
+				.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_CLAIMED_CONSTRUCTION_ITEMS))
+			complete = _seekClaimedConstructionItems(
+					executingEntity_,
+					model,
+					commandAndParams,
+					behaviorParams_);
 
 		else if (com
 				.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_GENERIC_BUILDING))
@@ -149,6 +164,14 @@ public class BehaviorInstructionCalculator
 					passed = ClayConstants.BEHAVIOR_FAILED_NO_PATH;
 			}
 		}
+		else if (com
+				.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_CONSTRUCTION_ITEMS))
+			passed = _claimConstructionItems(
+					executingEntity_,
+					model,
+					commandAndParams,
+					behaviorParams_);
+
 		return passed;
 	}
 
@@ -202,6 +225,50 @@ public class BehaviorInstructionCalculator
 		return true;
 	}
 
+	private static int _claimConstructionItems(GolemEntity executingEntity_, CityModel model_, String[] commandAndParams_, Object[] behaviorParams_)
+	{
+		BuildingEntity building = (BuildingEntity) behaviorParams_[Integer
+				.parseInt(commandAndParams_[1])];
+		if (building.getConstructionMaterials().isEmpty())
+			return ClayConstants.BEHAVIOR_PASSED;
+		String[] neededItems = building.getConstructionMaterials().split(",");
+		for (int i = 0; i < neededItems.length; i++)
+		{
+			Item searchItem = new Item(ItemData.getItem(neededItems[i]));
+			if (building.claimHeldItem(searchItem))
+				continue;
+			Queue<Point> path = SearchUtil.search(
+					building,
+					building.getHomeScreen(),
+					ClayConstants.SEARCH_ITEM_GOAL_ONLY,
+					searchItem);
+			if (path.isEmpty())
+			{
+				if (!itemExists(model_, searchItem))
+				{
+					building.releaseItems();
+					executingEntity_
+							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS);
+					return ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS;
+				}
+				else
+				{
+					building.releaseItems();
+					executingEntity_
+							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+					return ClayConstants.BEHAVIOR_FAILED_NO_PATH;
+				}
+			}
+			Point buildingPoint = path.poll();
+			BuildingEntity holdingBuilding = model_.getTileValue(
+					(int) buildingPoint.getX(),
+					(int) buildingPoint.getY());
+			Item item = holdingBuilding.getItem(searchItem);
+			building.claimItem(item);
+		}
+		return ClayConstants.BEHAVIOR_PASSED;
+	}
+
 	private static int _claimItems(GolemEntity executingEntity_, CityModel model_, String[] commandAndParams_)
 	{
 		BuildingEntity claimedBuilding = executingEntity_.getClaimedBuilding();
@@ -225,12 +292,14 @@ public class BehaviorInstructionCalculator
 			{
 				if (!itemExists(model_, searchItem))
 				{
+					claimedBuilding.releaseItems();
 					executingEntity_
 							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS);
 					return ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS;
 				}
 				else
 				{
+					claimedBuilding.releaseItems();
 					executingEntity_
 							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
 					return ClayConstants.BEHAVIOR_FAILED_NO_PATH;
@@ -253,6 +322,14 @@ public class BehaviorInstructionCalculator
 		return true;
 	}
 
+	private static boolean _consumeConstructionClaimed(GolemEntity executingEntity_, String[] commandAndParams_, Object[] behaviorParams_)
+	{
+		BuildingEntity building = (BuildingEntity) behaviorParams_[Integer
+				.parseInt(commandAndParams_[1])];
+		building.consumeClaimed();
+		return true;
+	}
+
 	private static boolean _createClayGolem(GolemEntity executingEntity_, CityModel model_)
 	{
 		model_.addGolem(
@@ -268,9 +345,10 @@ public class BehaviorInstructionCalculator
 		return true;
 	}
 
-	private static boolean _produceItemOnGolem(GolemEntity executingEntity_, String[] commandAndParams_, Object[] behaviorParams)
+	private static boolean _produceItemOnGolem(GolemEntity executingEntity_, String[] commandAndParams_, Object[] behaviorParams_)
 	{
-		Item item = new Item(ItemData.getItem((String)behaviorParams[Integer.parseInt(commandAndParams_[1])]));
+		Item item = new Item(ItemData.getItem((String) behaviorParams_[Integer
+				.parseInt(commandAndParams_[1])]));
 		executingEntity_.generate(item);
 		return true;
 	}
@@ -295,6 +373,64 @@ public class BehaviorInstructionCalculator
 				executingEntity_.addMoveInstructions(path);
 		}
 		return false;
+	}
+
+	private static boolean _seekClaimedConstructionItems(GolemEntity executingEntity_, CityModel model_, String[] commandAndParams_, Object[] behaviorParams_)
+	{
+		BuildingEntity building = (BuildingEntity) behaviorParams_[Integer
+				.parseInt(commandAndParams_[1])];
+		if (building.getConstructionMaterials().isEmpty())
+			return true;
+		for (Item item : building.getClaimedItems())
+		{
+			if (building.isHolding(item))
+				continue;
+
+			if (executingEntity_.isHolding(item))
+			{
+				if (executingEntity_.getPoint().equals(building.getPoint()))
+				{
+					building.generate(item);
+					executingEntity_.consume(item);
+					continue;
+				}
+				Queue<Point> path = SearchUtil.search(
+						executingEntity_,
+						executingEntity_.getHomeScreen(),
+						ClayConstants.SEARCH_ENTITY,
+						building);
+				if (path.isEmpty())
+					executingEntity_
+							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+				else
+					executingEntity_.addMoveInstructions(path);
+				return false;
+			}
+
+			BuildingEntity entityAtPoint = model_.getTileValue(
+					executingEntity_.getGridX(),
+					executingEntity_.getGridY());
+
+			if (entityAtPoint.isHolding(item))
+			{
+				executingEntity_.generate(item);
+				entityAtPoint.consume(item);
+				return false;
+			}
+
+			Queue<Point> path = SearchUtil.search(
+					executingEntity_,
+					executingEntity_.getHomeScreen(),
+					ClayConstants.SEARCH_CLAIMED_ITEM,
+					item);
+			if (path.isEmpty())
+				executingEntity_
+						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+			else
+				executingEntity_.addMoveInstructions(path);
+			return false;
+		}
+		return true;
 	}
 
 	private static boolean _seekClaimedItems(GolemEntity executingEntity_, CityModel model_)

@@ -7,7 +7,7 @@
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
-		Transform="" tickStart="-1">
+		ConstructionItems="" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigClayBlock.png"></State>
 		<State StateName="state-adjacent:natural-clay" Graphic="base,bigManaClay.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
@@ -20,7 +20,7 @@
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="true" isPassable="false" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
-		Transform="" tickStart="-1">
+		ConstructionItems="" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigDirt.png"></State>
 		<State StateName="state-none-above" Graphic="base,bigGrass.png"></State>
 		<State StateName="state-unnatural-above" Graphic="base,bigPackedDirt.png"></State>
@@ -46,7 +46,7 @@
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="true" isPassable="false" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
-		Transform="" tickStart="-1">
+		ConstructionItems="" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigClay.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
@@ -58,7 +58,7 @@
 		LesserManaCumulativeCost=".1" isClaimable="false" isHouse="true"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
-		Transform="" tickStart="-1">
+		ConstructionItems="" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigHouse.png"></State>
 		<State StateName="state-adjacent:natural-clay" Graphic="base,bigHouseMana.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
@@ -71,7 +71,7 @@
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="false" GlobalGolemanityChange="0" StorageCapacity="0"
-		Transform="" tickStart="300">
+		ConstructionItems="" Transform="" tickStart="300">
 		<State StateName="state-default" Graphic="base,bigManaFarm2.png"></State>
 		<State StateName="state-tick-finished" Graphic="base,bigManaFarmMature.png"></State>
 		<State StateName="state-adjacent:natural-clay" Graphic="base,bigManaFarmMana.png"></State>
@@ -89,7 +89,7 @@
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="true"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="40"
-		Transform="" tickStart="-1">
+		ConstructionItems="" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigStorage.png"></State>
 		<State StateName="state-storage-full" Graphic="base,bigStorageFull.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
@@ -102,7 +102,7 @@
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,ew" isStorage="false"
 		isSupport="false" GlobalGolemanityChange="0" StorageCapacity="0"
-		Transform="flanked:clay-block" tickStart="-1">
+		ConstructionItems="" Transform="flanked:clay-block" tickStart="-1">
 		<State StateName="state-default" Graphic="base,rampRight.png"></State>
 		<State StateName="state-blocked-left" Graphic="base,rampLeft.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
@@ -116,7 +116,7 @@
 		LesserManaCumulativeCost=".2" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,-,n,-"
 		isStorage="false" isSupport="false" GlobalGolemanityChange="0"
-		StorageCapacity="0" Transform="" tickStart="-1">
+		StorageCapacity="0" ConstructionItems="saturated-clay,saturated-clay,saturated-clay" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigObeliskBase.png,n,bigObeliskTip.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
@@ -128,7 +128,7 @@
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,ns" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
-		Transform="" tickStart="-1">
+		ConstructionItems="" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigLadder.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
@@ -140,7 +140,7 @@
 		LesserManaCumulativeCost=".4" isClaimable="false" isHouse="true"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
-		Transform="" tickStart="-1">
+		ConstructionItems="" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigStudio.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
@@ -152,7 +152,7 @@
 		LesserManaCost="1.0" LesserManaCumulativeCost="1.0" isClaimable="false"
 		isHouse="false" isNatural="false" isPassable="true" Scalability="base,-,s,ns"
 		isStorage="false" isSupport="true" GlobalGolemanityChange="0"
-		StorageCapacity="0" Transform="" tickStart="-1">
+		StorageCapacity="0" ConstructionItems="" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigChute.png,s,bigChuteBottom.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
@@ -164,7 +164,7 @@
 		LesserManaCumulativeCost=".2" isClaimable="false" isHouse="true"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
-		Transform="" tickStart="-1">
+		ConstructionItems="" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigDeepHome1.png"></State>
 		<State StateName="state-buried:4" Graphic="base,bigDeepHome2.png"></State>
 		<State StateName="state-buried:8" Graphic="base,bigDeepHome3.png"></State>
@@ -185,7 +185,7 @@
 		LesserManaCost=".1" LesserManaCumulativeCost=".1" isClaimable="false"
 		isHouse="true" isNatural="false" isPassable="true" Scalability="base,-,e,-"
 		isStorage="false" isSupport="false" GlobalGolemanityChange="0"
-		StorageCapacity="0" Transform="" tickStart="-1">
+		StorageCapacity="0" ConstructionItems="" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigOvenLeft.png,e,bigOvenRight.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>

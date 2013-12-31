@@ -168,7 +168,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	{
 		_inProgressBehaviorList.remove(behavior_);
 		if (behavior_.getAssigningBuilding() != null)
-			behavior_.getAssigningBuilding().activeBehaviorComplete(behavior_);
+			behavior_.getAssigningBuilding().removeActiveBehavior(behavior_);
 		if (!_noAvailableGolemsBehaviorList.isEmpty())
 		{
 			_unassignedBehaviorList.addAll(_noAvailableGolemsBehaviorList);
