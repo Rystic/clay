@@ -35,13 +35,6 @@ public class BehaviorInstructionCalculator
 					commandAndParams,
 					behaviorParams_);
 
-		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_BUILDING))
-			complete = _claimBuilding(
-					executingEntity_,
-					model,
-					commandAndParams,
-					behaviorParams_);
-
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CONSUME_CLAIMED))
 			complete = _consumeClaimed(executingEntity_);
 
@@ -133,9 +126,13 @@ public class BehaviorInstructionCalculator
 					model,
 					commandAndParams,
 					behaviorParams_))
-			{
 				passed = ClayConstants.BEHAVIOR_FAILED_NO_PATH;
-			}
+		}
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_HOUSE))
+
+		{
+			if (!_claimHouse(executingEntity_, model))
+				passed = ClayConstants.BEHAVIOR_FAILED_NO_PATH;
 		}
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_ITEMS))
@@ -219,6 +216,27 @@ public class BehaviorInstructionCalculator
 				executingEntity_.getHomeScreen(),
 				ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY,
 				tag);
+		if (path.isEmpty())
+		{
+			executingEntity_
+					.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+			return false;
+		}
+		Point point = path.poll();
+		BuildingEntity claimableBuilding = model_
+				.getTileValue(point.x, point.y);
+		executingEntity_.setClaimedBuilding(claimableBuilding);
+		claimableBuilding.setClaimingGolem(executingEntity_);
+
+		return true;
+	}
+
+	private static boolean _claimHouse(GolemEntity executingEntity_, CityModel model_)
+	{
+		Queue<Point> path = SearchUtil.search(
+				executingEntity_,
+				executingEntity_.getHomeScreen(),
+				ClayConstants.SEARCH_HOUSE_GOAL_ONLY);
 		if (path.isEmpty())
 		{
 			executingEntity_

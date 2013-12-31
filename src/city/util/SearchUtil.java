@@ -69,11 +69,13 @@ public class SearchUtil
 						|| searchType == ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY)
 				{
 					isGoal = tile.getBuildingTag().equals(params_[1])
-							&& !tile.isInUse() && tile.isBuilt() && tile.isBaseTile();
+							&& !tile.isInUse() && tile.isBuilt()
+							&& tile.isBaseTile();
 				}
 				else if (searchType == ClayConstants.SEARCH_STORAGE)
 				{
-					isGoal = tile.isStorageAvailable() && tile.isBuilt() && tile.isBaseTile();
+					isGoal = tile.isStorageAvailable() && tile.isBuilt()
+							&& tile.isBaseTile();
 				}
 				else if (searchType == ClayConstants.SEARCH_ITEM_GOAL_ONLY)
 				{
@@ -86,9 +88,11 @@ public class SearchUtil
 					isGoal = tile.isHolding((Item) params_[1])
 							&& !tile.equals(claimedBuilding);
 				}
-				else if (searchType == ClayConstants.SEARCH_HOUSE)
+				else if (searchType == ClayConstants.SEARCH_HOUSE
+						|| searchType == ClayConstants.SEARCH_HOUSE_GOAL_ONLY)
 				{
-					isGoal = tile.isHouse() && tile.isBuilt();
+					isGoal = tile.isBuilt() && tile.isHouse()
+							&& !tile.isInUse();
 				}
 
 				if (isGoal)
@@ -174,7 +178,8 @@ public class SearchUtil
 		List<Point> bestPath = new ArrayList<Point>();
 
 		if (searchType == ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY
-				|| searchType == ClayConstants.SEARCH_ITEM_GOAL_ONLY)
+				|| searchType == ClayConstants.SEARCH_ITEM_GOAL_ONLY
+				|| searchType == ClayConstants.SEARCH_HOUSE_GOAL_ONLY)
 		{
 			resultQueue.add(finalGoal);
 			return resultQueue;
