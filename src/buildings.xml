@@ -137,7 +137,7 @@
 		BuildingDescription="Sculptors' Studios are used to create more golems."
 		BuildTime="125" BuildingRequirements="base,clay-block" ExtraWeight=""
 		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
-		LesserManaCumulativeCost=".4" isClaimable="false" isHouse="true"
+		LesserManaCumulativeCost=".4" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
 		ConstructionItems="saturated-clay,inert-clay" Transform="" tickStart="-1">
