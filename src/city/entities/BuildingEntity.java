@@ -231,7 +231,7 @@ public class BuildingEntity extends AbstractEntity implements
 		return _claimedItems;
 	}
 
-	public String getConstructionMaterials()
+	public String getConstructionItems()
 	{
 		return _building.getConstructionItems();
 	}

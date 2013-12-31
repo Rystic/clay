@@ -154,6 +154,22 @@ public class BehaviorInstructionCalculator
 			}
 		}
 		else if (com
+				.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_CONSTRUCTION_ITEMS))
+			passed = _claimConstructionItems(
+					executingEntity_,
+					model,
+					commandAndParams,
+					behaviorParams_);
+		else if (com
+				.equals(ClayConstants.BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_ITEM))
+			passed = _entityNotHoldingItem(executingEntity_) ? ClayConstants.BEHAVIOR_PASSED : ClayConstants.BEHAVIOR_FAILED_INVALID_GOLEM;
+		else if (com
+				.equals(ClayConstants.BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_ITEM_CONSTRUCTION))
+			passed = _entityNotHoldingItemConstruction(
+					executingEntity_,
+					commandAndParams,
+					behaviorParams_) ? ClayConstants.BEHAVIOR_PASSED : ClayConstants.BEHAVIOR_FAILED_INVALID_GOLEM;
+		else if (com
 				.equals(ClayConstants.BEHAVIOR_COMMAND_STORAGE_EXISTS_FROM_GOLEM))
 		{
 			if (!_storageExistsFromGolem(executingEntity_))
@@ -164,13 +180,6 @@ public class BehaviorInstructionCalculator
 					passed = ClayConstants.BEHAVIOR_FAILED_NO_PATH;
 			}
 		}
-		else if (com
-				.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_CONSTRUCTION_ITEMS))
-			passed = _claimConstructionItems(
-					executingEntity_,
-					model,
-					commandAndParams,
-					behaviorParams_);
 
 		return passed;
 	}
@@ -229,9 +238,9 @@ public class BehaviorInstructionCalculator
 	{
 		BuildingEntity building = (BuildingEntity) behaviorParams_[Integer
 				.parseInt(commandAndParams_[1])];
-		if (building.getConstructionMaterials().isEmpty())
+		if (building.getConstructionItems().isEmpty())
 			return ClayConstants.BEHAVIOR_PASSED;
-		String[] neededItems = building.getConstructionMaterials().split(",");
+		String[] neededItems = building.getConstructionItems().split(",");
 		for (int i = 0; i < neededItems.length; i++)
 		{
 			Item searchItem = new Item(ItemData.getItem(neededItems[i]));
@@ -339,6 +348,20 @@ public class BehaviorInstructionCalculator
 		return true;
 	}
 
+	private static boolean _entityNotHoldingItem(GolemEntity executingEntity_)
+	{
+		return executingEntity_.getCopyOfHeldItems().isEmpty();
+	}
+
+	private static boolean _entityNotHoldingItemConstruction(GolemEntity executingEntity_, String[] commandAndParams_, Object[] behaviorParams_)
+	{
+		BuildingEntity building = (BuildingEntity) behaviorParams_[Integer
+				.parseInt(commandAndParams_[1])];
+
+		return building.getConstructionItems().isEmpty()
+				|| executingEntity_.getCopyOfHeldItems().isEmpty();
+	}
+
 	private static boolean _hide(GolemEntity executingEntity_)
 	{
 		executingEntity_.setVisible(false);
@@ -379,7 +402,7 @@ public class BehaviorInstructionCalculator
 	{
 		BuildingEntity building = (BuildingEntity) behaviorParams_[Integer
 				.parseInt(commandAndParams_[1])];
-		if (building.getConstructionMaterials().isEmpty())
+		if (building.getConstructionItems().isEmpty())
 			return true;
 		for (Item item : building.getClaimedItems())
 		{

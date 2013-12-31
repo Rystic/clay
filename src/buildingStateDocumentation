@@ -22,14 +22,10 @@ queue-harvest-behavior:<behavior>:<item-tag> -- adds <behavior> to the behavior 
 no-held-items-- signals that the tick should restart if the entity is holding no item.
 
 
-
 **Behavior Commands:
 add-clay:int - Tells the golem to increase it's clay by the given amount.
 add-mana:int - Tells the golem to increase the city's mana by the given amount.
 build:building-entity,building-entity - Tells the golem to move to the first parameter, and start construction on the second parameter.
-claim-building:building-tag - Tells the golem to find a building and declare it in use.
-claim-construction-items:building-entity - Claims the items required to construct the building. 
-claim-items:item-tag,item-tag...item-tag - Tells the golem to claim the selected items, and bring them to the claimed building.
 create-golem:abstract-entity - creates a golem at the given entity.
 consume-claimed - consumes all claimed items the entity is holding.
 consume-claimed-construction:building-entity - consumes all claimed items the building is holding
@@ -55,10 +51,16 @@ calculate-extra-building-weight:BuildingEntity - multiplies the weight if the go
 
 
 **Require:
+claim-building:building-tag - Tells the golem to find a building and declare it in use.
+claim-construction-items:building-entity - Claims the items required to construct the building. 
+claim-items:item-tag,item-tag...item-tag - Tells the golem to claim the selected items, and bring them to the claimed building.
+entity-not-holding-item - checks if there's an item in the golem's inventory.
+entity-not-holding-item-and-construction-has-items:building-entity - checks if there's an item in the golem's inventory, only if the building construction requires items.
 storage-exists-from-entity:abstract-entity - checks if a storage is available on the map relative to the abstract-entity.
 storage-exists-from-golem - checks if a storage is available on the map relative to the golem doing the behavior.
 house - checks if there is an available house on the map.
 exists:item-tag - checks if the given item is available from the golem's location. Note: exists only looks for one item. Multiple exists will not work if they're all looking for the same item.
+
 
 **Transform
 flanked - checks if the tile has blocks on the left and right of it.
