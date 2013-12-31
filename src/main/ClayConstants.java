@@ -126,4 +126,10 @@ public class ClayConstants
 	public static final int SEARCH_CLAIMED_ITEM = 4; // Expects nothing.
 	public static final int SEARCH_ITEM_GOAL_ONLY = 5; // Expects an Item.
 	public static final int SEARCH_HOUSE = 6; // Expects nothing.
+	
+	
+	
+	//--Misc.--
+	public static final int ADDED_WEIGHT_INCREASE = 5;
+	public static final int ADDED_WEIGHT_CAP = 250;
 }

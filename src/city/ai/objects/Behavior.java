@@ -150,7 +150,9 @@ public class Behavior
 
 	public void increaseAddedWeight(int addedWeight_)
 	{
+		if (_addedWeight >= ClayConstants.ADDED_WEIGHT_CAP) return;
 		_addedWeight += addedWeight_;
+		if (_addedWeight > ClayConstants.ADDED_WEIGHT_CAP) _addedWeight = ClayConstants.ADDED_WEIGHT_CAP;
 	}
 
 	public int getAddedWeight()

@@ -102,7 +102,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			_noAvailableGolemsBehaviorList.addAll(toBeAssigned);
 			for (Behavior behavior : toBeAssigned)
 			{
-				behavior.increaseAddedWeight(5);
+				behavior.increaseAddedWeight(ClayConstants.ADDED_WEIGHT_INCREASE);
 			}
 		}
 		else
