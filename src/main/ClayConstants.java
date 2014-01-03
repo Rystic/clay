@@ -1,8 +1,7 @@
 package main;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Queue;
 
 
 public class ClayConstants
@@ -77,6 +76,7 @@ public class ClayConstants
 	public static final int BEHAVIOR_FAILED_OBSOLETE = 4;
 	public static final int BEHAVIOR_FAILED_INVALID_GOLEM = 5;
 	public static final int BEHAVIOR_FAILED_LIMIT_REACHED = 6;
+	public static final int BEHAVIOR_FAILED_BUILDING_OCCUPIED = 7;
 	
 	// Specific Behaviors
 	public static final String BEHAVIOR_HARVEST = "harvest";
@@ -141,6 +141,4 @@ public class ClayConstants
 	public static final int ADDED_WEIGHT_INCREASE = 5;
 	public static final int ADDED_WEIGHT_CAP = 250;
 	public static final int NO_LIMIT = -1;
-	public static final List<Point> NO_AVAILABLE_BUILDING = new ArrayList<Point>();
-	{ NO_AVAILABLE_BUILDING.add(new Point(-1,-1));}
 }

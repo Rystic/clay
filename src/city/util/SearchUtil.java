@@ -111,6 +111,8 @@ public class SearchUtil
 
 		int searchType = Integer.parseInt(params_[0].toString());
 
+		boolean existsButOccupied = false;
+
 		while (!openQueue.isEmpty())
 		{
 			Point current = openQueue.poll();
@@ -137,8 +139,12 @@ public class SearchUtil
 						|| searchType == ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY)
 				{
 					isGoal = tile.getBuildingTag().equals(params_[1])
-							&& !tile.isInUse() && tile.isBuilt()
-							&& tile.isBaseTile();
+							&& tile.isBuilt() && tile.isBaseTile();
+					if (isGoal && tile.isInUse())
+					{
+						isGoal = false;
+						existsButOccupied = true;
+					}
 				}
 				else if (searchType == ClayConstants.SEARCH_STORAGE)
 				{
@@ -158,8 +164,12 @@ public class SearchUtil
 				}
 				else if (searchType == ClayConstants.SEARCH_HOUSE_GOAL_ONLY)
 				{
-					isGoal = tile.isBuilt() && tile.isHouse()
-							&& !tile.isInUse();
+					isGoal = tile.isBuilt() && tile.isHouse();
+					if (isGoal && tile.isInUse())
+					{
+						isGoal = false;
+						existsButOccupied = true;
+					}
 				}
 
 				if (isGoal)
@@ -240,7 +250,11 @@ public class SearchUtil
 		}
 		Queue<Point> resultQueue = new ArrayBlockingQueue<Point>(256);
 		if (finalGoal == null)
+		{
+			if (existsButOccupied)
+				return EXISTS_BUT_IN_USE;
 			return resultQueue;
+		}
 
 		List<Point> bestPath = new ArrayList<Point>();
 
@@ -336,6 +350,22 @@ public class SearchUtil
 				return true;
 		}
 		return false;
+	}
+
+	public static int getPathStatus(Queue<Point> path_)
+	{
+		if (path_.isEmpty())
+			return ClayConstants.BEHAVIOR_FAILED_NO_PATH;
+		if (path_.equals(EXISTS_BUT_IN_USE))
+			return ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED;
+		return ClayConstants.BEHAVIOR_PASSED;
+	}
+
+	public static final Queue<Point> EXISTS_BUT_IN_USE = new ArrayBlockingQueue<Point>(
+			256);
+	static
+	{
+		EXISTS_BUT_IN_USE.add(new Point(-1, -1));
 	}
 
 	private static final int DIR_LEFT = -1;
