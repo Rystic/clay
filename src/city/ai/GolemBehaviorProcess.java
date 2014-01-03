@@ -91,8 +91,11 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 									false);
 					if (golemWantedBehavior != null)
 					{
+						String behaviorTag = golemWantedBehavior._behavior.getBehavior().getBehaviorTag();
 						golemWantedBehavior._behavior.setBehaviorProcess(this);
 						behaviorScores.add(golemWantedBehavior);
+						golemWantedBehavior._weight += golem.getPersonalBehaviorWeight(behaviorTag);
+						golem.addPersonalBehaviorWeight(behaviorTag);
 					}
 				}
 			}

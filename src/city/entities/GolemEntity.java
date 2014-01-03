@@ -1,12 +1,14 @@
 package city.entities;
 
 import java.awt.Point;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import main.ClayConstants;
 import models.CityModel;
 import screens.AbstractScreen;
 import city.ai.objects.Behavior;
@@ -22,7 +24,7 @@ public class GolemEntity extends AbstractEntity
 		_model = (CityModel) homeScreen_.getModel();
 		_golem = golem_;
 		_moveInstructions = new ArrayBlockingQueue<Point>(256);
-		_failedPersonalBehaviors = new ArrayList<String>();
+		_ignoredPersonalBehaviors = new HashMap<String, Integer>();
 		_claimedBuilding = null;
 		_mana = _golem.getStartingMana();
 		_clay = _golem.getStartingClay();
@@ -76,6 +78,8 @@ public class GolemEntity extends AbstractEntity
 
 	public void setBehavior(Behavior behavior_)
 	{
+		_ignoredPersonalBehaviors.remove(behavior_.getBehavior()
+				.getBehaviorTag());
 		_currentBehavior = behavior_;
 		_currentBehavior.setAssignedGolem(this);
 		_commands = _currentBehavior.getCommands();
@@ -108,9 +112,6 @@ public class GolemEntity extends AbstractEntity
 		if (_currentBehavior != null)
 		{
 			_currentBehavior.failed(this, reason_);
-			if (_currentBehavior.isPersonalTask())
-				_failedPersonalBehaviors.add(_currentBehavior.getBehavior()
-						.getBehaviorTag());
 			_currentBehavior = null;
 		}
 		_visible = true;
@@ -120,11 +121,6 @@ public class GolemEntity extends AbstractEntity
 			_claimedBuilding.setClaimingGolem(null);
 			_claimedBuilding = null;
 		}
-	}
-
-	public void clearFailedBehaviors()
-	{
-		_failedPersonalBehaviors.clear();
 	}
 
 	public boolean isActive()
@@ -207,7 +203,7 @@ public class GolemEntity extends AbstractEntity
 		if (recalculate)
 			_moveInstructions.clear();
 	}
-	
+
 	public void claimItemForBuilding(BuildingEntity building_, Item item_)
 	{
 		for (Item item : _heldItems)
@@ -215,6 +211,26 @@ public class GolemEntity extends AbstractEntity
 			if (item.equals(item_))
 				building_.claimItem(item);
 		}
+	}
+
+	public void addPersonalBehaviorWeight(String tag_)
+	{
+		Integer value = _ignoredPersonalBehaviors.get(tag_);
+		if (value == null)
+			_ignoredPersonalBehaviors.put(tag_, 0);
+		int addedWeight = _ignoredPersonalBehaviors.get(tag_)
+				+ ClayConstants.ADDED_WEIGHT_INCREASE;
+		if (addedWeight > ClayConstants.ADDED_WEIGHT_CAP)
+			addedWeight = ClayConstants.ADDED_WEIGHT_CAP;
+		_ignoredPersonalBehaviors.put(tag_, addedWeight);
+	}
+
+	public int getPersonalBehaviorWeight(String tag_)
+	{
+		Integer value = _ignoredPersonalBehaviors.get(tag_);
+		if (value == null)
+			_ignoredPersonalBehaviors.put(tag_, 0);
+		return _ignoredPersonalBehaviors.get(tag_);
 	}
 
 	public Behavior getCurrentBehavior()
@@ -296,7 +312,7 @@ public class GolemEntity extends AbstractEntity
 
 	private GenericGolem _golem;
 
-	private List<String> _failedPersonalBehaviors;
+	private Map<String, Integer> _ignoredPersonalBehaviors;
 
 	private CityModel _model;
 	private Behavior _currentBehavior;
