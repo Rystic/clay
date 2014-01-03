@@ -170,7 +170,7 @@ public class BehaviorInstructionCalculator
 				.equals(ClayConstants.BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_ITEM))
 			passed = _entityNotHoldingItem(executingEntity_) ? ClayConstants.BEHAVIOR_PASSED : ClayConstants.BEHAVIOR_FAILED_INVALID_GOLEM;
 		else if (com
-				.equals(ClayConstants.BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_ITEM_CONSTRUCTION))
+				.equals(ClayConstants.BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_UNNECESSARY_ITEM))
 			passed = _entityNotHoldingItemConstruction(
 					executingEntity_,
 					commandAndParams,
@@ -287,6 +287,11 @@ public class BehaviorInstructionCalculator
 				building.claimHeldItem(searchItem);
 				continue;
 			}
+			if (executingEntity_.isHolding(searchItem))
+			{
+				executingEntity_.claimItemForBuilding(building, searchItem);
+				continue;
+			}
 			Queue<Point> path = SearchUtil.search(
 					building,
 					building.getHomeScreen(),
@@ -334,6 +339,11 @@ public class BehaviorInstructionCalculator
 			if (claimedBuilding.isHolding(searchItem))
 			{
 				claimedBuilding.claimHeldItem(searchItem);
+				continue;
+			}
+			if (executingEntity_.isHolding(searchItem))
+			{
+				executingEntity_.claimItemForBuilding(claimedBuilding, searchItem);
 				continue;
 			}
 			Queue<Point> path = SearchUtil.search(
@@ -400,8 +410,13 @@ public class BehaviorInstructionCalculator
 		BuildingEntity building = (BuildingEntity) behaviorParams_[Integer
 				.parseInt(commandAndParams_[1])];
 
-		return building.getConstructionItems().isEmpty()
-				|| executingEntity_.getCopyOfHeldItems().isEmpty();
+		List<Item> items = executingEntity_.getCopyOfHeldItems();
+		String constructionItems = building.getConstructionItems();
+		if (items.isEmpty() || constructionItems.isEmpty())
+			return true;
+
+		return constructionItems.contains(items.get(0).getTag());
+
 	}
 
 	private static boolean _hide(GolemEntity executingEntity_)
@@ -454,10 +469,7 @@ public class BehaviorInstructionCalculator
 				.parseInt(commandAndParams_[1])];
 		if (building.getConstructionItems().isEmpty())
 			return true;
-		return _seekItems(
-				executingEntity_,
-				building,
-				model_);
+		return _seekItems(executingEntity_, building, model_);
 	}
 
 	private static boolean _seekItems(GolemEntity executingEntity_, BuildingEntity building_, CityModel model_)
@@ -475,8 +487,7 @@ public class BehaviorInstructionCalculator
 
 			if (executingEntity_.isHolding(item))
 			{
-				if (executingEntity_.getPoint().equals(
-						building_.getPoint()))
+				if (executingEntity_.getPoint().equals(building_.getPoint()))
 				{
 					building_.generate(item);
 					executingEntity_.consume(item);

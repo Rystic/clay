@@ -5,7 +5,7 @@
 		weight="closest-to-point,calculate-extra-building-weight"
 		defaultParams="" neededBehavior="false" personalBehavior="false"
 		limit="-1" golemCost="clay:-2"
-		require="entity-not-holding-item-and-construction-has-items:0,claim-building:0,claim-construction-items:0"
+		require="entity-not-holding-unnecessary-item:0,claim-building:0,claim-construction-items:0"
 		code="seek-claimed-construction-items:0,seek:0,consume-claimed-construction:0,build:1"></Behavior>
 
 	<Behavior BehaviorName="Harvest" BehaviorTag="harvest"

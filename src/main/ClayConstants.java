@@ -33,7 +33,7 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED = "consume-claimed";
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED_CONSTRUCTION = "consume-claimed-construction";
 	public static final String BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_ITEM = "entity-not-holding-item";
-	public static final String BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_ITEM_CONSTRUCTION = "entity-not-holding-item-and-construction-has-items";
+	public static final String BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_UNNECESSARY_ITEM = "entity-not-holding-unnecessary-item";
 	public static final String BEHAVIOR_COMMAND_HIDE = "hide";
 	public static final String BEHAVIOR_COMMAND_PRODUCE_ITEM_ON_GOLEM = "produce-item-on-golem";
 	public static final String BEHAVIOR_COMMAND_SEEK = "seek";

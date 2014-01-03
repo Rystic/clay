@@ -10,6 +10,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import models.CityModel;
 import screens.AbstractScreen;
 import city.ai.objects.Behavior;
+import city.ai.objects.Item;
 import city.generics.GenericGolem;
 
 public class GolemEntity extends AbstractEntity
@@ -205,6 +206,15 @@ public class GolemEntity extends AbstractEntity
 		}
 		if (recalculate)
 			_moveInstructions.clear();
+	}
+	
+	public void claimItemForBuilding(BuildingEntity building_, Item item_)
+	{
+		for (Item item : _heldItems)
+		{
+			if (item.equals(item_))
+				building_.claimItem(item);
+		}
 	}
 
 	public Behavior getCurrentBehavior()
