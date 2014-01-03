@@ -150,8 +150,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 					}
 				}
 			}
-			_clearInvalid = false;
 		}
+		_clearInvalid = false;
 
 		_unassignedBehaviorList.removeAll(_unreachableBehaviorList);
 		_unassignedBehaviorList.removeAll(_inProgressBehaviorList);
@@ -198,6 +198,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			}
 			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM || reason_ == ClayConstants.BEHAVIOR_FAILED_OBSOLETE)
 			{
+				
 				_unassignedBehaviorList.remove(behavior_);
 				_inProgressBehaviorList.remove(behavior_);
 				_unreachableBehaviorList.remove(behavior_);

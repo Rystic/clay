@@ -51,8 +51,9 @@ calculate-extra-building-weight:BuildingEntity - multiplies the weight if the go
 
 
 **Require:
-claim-building:building-tag - Tells the golem to find a building and declare it in use.
+claim-building:building-entity - Tells the golem to claim the given building.
 claim-construction-items:building-entity - Claims the items required to construct the building. 
+claim-generic-building:building-tag - Tells the golem to find a building and declare it in use.
 claim-house = Claims a building marked as a house.
 claim-items:item-tag,item-tag...item-tag - Tells the golem to claim the selected items, and bring them to the claimed building.
 entity-not-holding-item - checks if there's an item in the golem's inventory.

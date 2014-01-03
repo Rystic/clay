@@ -98,6 +98,7 @@ public class Behavior
 
 	public void complete(GolemEntity golem_)
 	{
+		_assignedGolem = null;
 		_behavior.calculateGolemCost(golem_);
 		if (_behaviorProcess == null)
 			return;
