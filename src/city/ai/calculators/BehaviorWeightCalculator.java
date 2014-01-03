@@ -110,6 +110,12 @@ public class BehaviorWeightCalculator
 								.equals(ClayConstants.WC_LOW_CLAY)
 								&& golem_.isLowClay())
 							passed = true;
+						else if (conditionAndParams[0]
+								.equals(ClayConstants.WC_NO_STORAGE))
+							passed = SearchUtil.search(
+									golem_,
+									golem_.getHomeScreen(),
+									ClayConstants.SEARCH_STORAGE).isEmpty();
 						if (passed)
 						{
 							finalWeight *= multiplier;

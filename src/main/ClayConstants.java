@@ -62,6 +62,7 @@ public class ClayConstants
 	public static final String WC_HOLDING_ITEM = "holding-item";
 	public static final String WC_LOW_CLAY = "low-clay";
 	public static final String WC_LOW_MANA = "low-mana";
+	public static final String WC_NO_STORAGE = "no-storage";
 
 	// Behavior passed/failed
 	public static final int BEHAVIOR_PASSED = -1;

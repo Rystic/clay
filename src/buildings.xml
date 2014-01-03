@@ -84,7 +84,7 @@
 	</Building>
 	<Building BuildingName="Storage" BuildingTag="storage"
 		BuildingDescription="Storages hold items." BuildTime="10"
-		BuildingRequirements="base,clay-block" ExtraWeight="" GreaterManaCost="0"
+		BuildingRequirements="base,clay-block" ExtraWeight="no-storage:8" GreaterManaCost="0"
 		GreaterManaCumulativeCost="0" LesserManaCost=".2"
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="true"
