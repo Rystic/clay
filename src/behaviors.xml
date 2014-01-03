@@ -25,7 +25,7 @@
 		code="seek-claimed-items,consume-claimed,tick:50,add-mana:10,produce-item-on-golem:1"></Behavior>
 
 	<Behavior BehaviorName="Repair" BehaviorTag="repair" weight="low-clay"
-		defaultParams="" neededBehavior="true" personalBehavior="true" limit="1"
+		defaultParams="" neededBehavior="true" personalBehavior="true" limit="-1"
 		golemCost="mana:-4" require="claim-house,claim-items:saturated-clay"
 		code="seek-claimed-items,hide,consume-claimed,tick:125,show,add-clay:20"></Behavior>
 

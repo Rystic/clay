@@ -46,7 +46,7 @@ public class Behavior
 
 	public int calculateRequired(GolemEntity golem_)
 	{
-		if (getLimit() > 0)
+		if (getLimit() != ClayConstants.NO_LIMIT)
 		{
 			boolean limitReached = _behaviorProcess.getBehaviorCount(getBehaviorTag()) >= getLimit();
 			if (limitReached) return ClayConstants.BEHAVIOR_FAILED_LIMIT_REACHED;

@@ -137,4 +137,5 @@ public class ClayConstants
 	//--Misc.--
 	public static final int ADDED_WEIGHT_INCREASE = 5;
 	public static final int ADDED_WEIGHT_CAP = 250;
+	public static final int NO_LIMIT = -1;
 }
