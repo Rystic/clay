@@ -46,6 +46,11 @@ public class Behavior
 
 	public int calculateRequired(GolemEntity golem_)
 	{
+		if (getLimit() > 0)
+		{
+			boolean limitReached = _behaviorProcess.getBehaviorCount(getBehaviorTag()) >= getLimit();
+			if (limitReached) return ClayConstants.BEHAVIOR_FAILED_LIMIT_REACHED;
+		}
 		if (_behavior.getRequired().isEmpty())
 			return ClayConstants.BEHAVIOR_PASSED;
 		int passed = ClayConstants.BEHAVIOR_PASSED;
@@ -146,9 +151,11 @@ public class Behavior
 
 	public void increaseAddedWeight(int addedWeight_)
 	{
-		if (_addedWeight >= ClayConstants.ADDED_WEIGHT_CAP) return;
+		if (_addedWeight >= ClayConstants.ADDED_WEIGHT_CAP)
+			return;
 		_addedWeight += addedWeight_;
-		if (_addedWeight > ClayConstants.ADDED_WEIGHT_CAP) _addedWeight = ClayConstants.ADDED_WEIGHT_CAP;
+		if (_addedWeight > ClayConstants.ADDED_WEIGHT_CAP)
+			_addedWeight = ClayConstants.ADDED_WEIGHT_CAP;
 	}
 
 	public int getAddedWeight()
@@ -160,7 +167,7 @@ public class Behavior
 	{
 		return _behavior.getBehaviorTag();
 	}
-	
+
 	public boolean isRequiredCompleted()
 	{
 		return _requiredCompleted;
@@ -214,7 +221,7 @@ public class Behavior
 			e_.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public boolean equals(Object obj)
 	{

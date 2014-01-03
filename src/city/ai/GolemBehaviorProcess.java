@@ -230,9 +230,10 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	public int getBehaviorCount(String behaviorTag_)
 	{
 		int count = 0;
-		for (Behavior behavior : _inProgressBehaviorList)
+		for (GolemEntity golem : _golemList)
 		{
-			if (behavior.getBehaviorTag().equals(behaviorTag_))
+			Behavior behavior = golem.getCurrentBehavior();
+			if (behavior != null && behavior.getBehaviorTag().equals(behaviorTag_))
 				count++;
 		}
 		return count;

@@ -72,6 +72,7 @@ public class ClayConstants
 	public static final int BEHAVIOR_FAILED_NO_STORAGE = 3;
 	public static final int BEHAVIOR_FAILED_OBSOLETE = 4;
 	public static final int BEHAVIOR_FAILED_INVALID_GOLEM = 5;
+	public static final int BEHAVIOR_FAILED_LIMIT_REACHED = 6;
 	
 	// Specific Behaviors
 	public static final String BEHAVIOR_HARVEST = "harvest";

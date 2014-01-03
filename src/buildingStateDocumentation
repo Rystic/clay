@@ -47,6 +47,7 @@ closest-to-point - higher weight for being closer to the given point.
 low-mana - higher weight if mana is low.
 low-clay - higher weight if clay is low.
 can-build-golem - higher weight if there's a slot open to create a golem.
+no-storage - weight if no storage exists from the executing golem.
 calculate-extra-building-weight:BuildingEntity - multiplies the weight if the golem and building meet the correct conditions.
 
 
