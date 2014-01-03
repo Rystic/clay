@@ -231,10 +231,9 @@ public class BehaviorInstructionCalculator
 	{
 		String tag = (String) behaviorParams_[Integer
 				.parseInt(commandAndParams_[1])];
-		Queue<Point> path = SearchUtil.search(
+		Queue<Point> path = SearchUtil.searchGenericBuildingGoalOnly(
 				executingEntity_,
 				executingEntity_.getHomeScreen(),
-				ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY,
 				tag);
 		if (path.isEmpty())
 		{
@@ -253,10 +252,9 @@ public class BehaviorInstructionCalculator
 
 	private static boolean _claimHouse(GolemEntity executingEntity_, CityModel model_)
 	{
-		Queue<Point> path = SearchUtil.search(
+		Queue<Point> path = SearchUtil.searchHouseGoalOnly(
 				executingEntity_,
-				executingEntity_.getHomeScreen(),
-				ClayConstants.SEARCH_HOUSE_GOAL_ONLY);
+				executingEntity_.getHomeScreen());
 		if (path.isEmpty())
 		{
 			executingEntity_
@@ -292,10 +290,9 @@ public class BehaviorInstructionCalculator
 				executingEntity_.claimItemForBuilding(building, searchItem);
 				continue;
 			}
-			Queue<Point> path = SearchUtil.search(
+			Queue<Point> path = SearchUtil.searchItemGoalOnly(
 					building,
 					building.getHomeScreen(),
-					ClayConstants.SEARCH_ITEM_GOAL_ONLY,
 					searchItem);
 			if (path.isEmpty())
 			{
@@ -343,13 +340,14 @@ public class BehaviorInstructionCalculator
 			}
 			if (executingEntity_.isHolding(searchItem))
 			{
-				executingEntity_.claimItemForBuilding(claimedBuilding, searchItem);
+				executingEntity_.claimItemForBuilding(
+						claimedBuilding,
+						searchItem);
 				continue;
 			}
-			Queue<Point> path = SearchUtil.search(
+			Queue<Point> path = SearchUtil.searchItemGoalOnly(
 					claimedBuilding,
 					claimedBuilding.getHomeScreen(),
-					ClayConstants.SEARCH_ITEM_GOAL_ONLY,
 					searchItem);
 			if (path.isEmpty())
 			{
@@ -435,16 +433,15 @@ public class BehaviorInstructionCalculator
 
 	private static boolean _seek(GolemEntity executingEntity_, String[] commandAndParams_, Object[] behaviorParams_)
 	{
-		AbstractEntity entity = (AbstractEntity) behaviorParams_[Integer
+		BuildingEntity entity = (BuildingEntity) behaviorParams_[Integer
 				.parseInt(commandAndParams_[1])];
 		if (executingEntity_.getPoint().equals(entity.getPoint()))
 			return true;
 		else
 		{
-			Queue<Point> path = SearchUtil.search(
+			Queue<Point> path = SearchUtil.searchBuildingEntity(
 					executingEntity_,
 					executingEntity_.getHomeScreen(),
-					ClayConstants.SEARCH_ENTITY,
 					entity);
 			if (path.isEmpty())
 				executingEntity_
@@ -493,10 +490,9 @@ public class BehaviorInstructionCalculator
 					executingEntity_.consume(item);
 					continue;
 				}
-				Queue<Point> path = SearchUtil.search(
+				Queue<Point> path = SearchUtil.searchBuildingEntity(
 						executingEntity_,
 						executingEntity_.getHomeScreen(),
-						ClayConstants.SEARCH_ENTITY,
 						building_);
 				if (path.isEmpty())
 					executingEntity_
@@ -517,10 +513,9 @@ public class BehaviorInstructionCalculator
 				return false;
 			}
 
-			Queue<Point> path = SearchUtil.search(
+			Queue<Point> path = SearchUtil.searchClaimedItem(
 					executingEntity_,
 					executingEntity_.getHomeScreen(),
-					ClayConstants.SEARCH_CLAIMED_ITEM,
 					item);
 			if (path.isEmpty() && !building_.isHolding(item))
 				executingEntity_
@@ -545,10 +540,9 @@ public class BehaviorInstructionCalculator
 		}
 		else
 		{
-			Queue<Point> path = SearchUtil.search(
+			Queue<Point> path = SearchUtil.searchGenericBuilding(
 					executingEntity_,
 					executingEntity_.getHomeScreen(),
-					ClayConstants.SEARCH_GENERIC_BUILDING,
 					tag);
 			if (path.isEmpty())
 				executingEntity_
@@ -569,10 +563,9 @@ public class BehaviorInstructionCalculator
 			return true;
 		else
 		{
-			Queue<Point> path = SearchUtil.search(
+			Queue<Point> path = SearchUtil.searchStorage(
 					executingEntity_,
-					executingEntity_.getHomeScreen(),
-					ClayConstants.SEARCH_STORAGE);
+					executingEntity_.getHomeScreen());
 			if (path.isEmpty())
 				executingEntity_
 						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
@@ -592,19 +585,17 @@ public class BehaviorInstructionCalculator
 	{
 		AbstractEntity entity = (AbstractEntity) behaviorParams_[Integer
 				.parseInt(commandAndParams_[1])];
-		Queue<Point> path = SearchUtil.search(
+		Queue<Point> path = SearchUtil.searchStorage(
 				entity,
-				entity.getHomeScreen(),
-				ClayConstants.SEARCH_STORAGE);
+				entity.getHomeScreen());
 		return path.size() > 0;
 	}
 
 	private static boolean _storageExistsFromGolem(GolemEntity executingEntity_)
 	{
-		Queue<Point> path = SearchUtil.search(
+		Queue<Point> path = SearchUtil.searchStorage(
 				executingEntity_,
-				executingEntity_.getHomeScreen(),
-				ClayConstants.SEARCH_STORAGE);
+				executingEntity_.getHomeScreen());
 		return path.size() > 0;
 	}
 

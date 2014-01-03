@@ -5,7 +5,6 @@ import java.util.Queue;
 
 import main.ClayConstants;
 import screens.CityScreen;
-import city.entities.AbstractEntity;
 import city.entities.BuildingEntity;
 import city.entities.GolemEntity;
 import city.util.SearchUtil;
@@ -22,11 +21,10 @@ public class BehaviorWeightCalculator
 		{
 			if (weightCondition.equals(ClayConstants.WC_CLOSEST_TO_PINT))
 			{
-				AbstractEntity entity = (AbstractEntity) params_[0];
-				Queue<Point> path = SearchUtil.search(
+				BuildingEntity entity = (BuildingEntity) params_[0];
+				Queue<Point> path = SearchUtil.searchBuildingEntity(
 						golem_,
 						golem_.getHomeScreen(),
-						ClayConstants.SEARCH_ENTITY,
 						entity);
 				if (path.size() == 0)
 				{
@@ -112,10 +110,9 @@ public class BehaviorWeightCalculator
 							passed = true;
 						else if (conditionAndParams[0]
 								.equals(ClayConstants.WC_NO_STORAGE))
-							passed = SearchUtil.search(
+							passed = SearchUtil.searchStorage(
 									golem_,
-									golem_.getHomeScreen(),
-									ClayConstants.SEARCH_STORAGE).isEmpty();
+									golem_.getHomeScreen()).isEmpty();
 						if (passed)
 						{
 							finalWeight *= multiplier;

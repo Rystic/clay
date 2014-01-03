@@ -21,14 +21,82 @@ import city.entities.GolemEntity;
 
 public class SearchUtil
 {
-	public static Queue<Point> search(AbstractEntity entity_, AbstractScreen abstractScreen, Object... params_)
+	public static Queue<Point> searchBuildingEntity(AbstractEntity entity_, AbstractScreen abstractScreen_, BuildingEntity buildingEntity_)
+	{
+		Queue<Point> path = SearchUtil.search(
+				entity_,
+				entity_.getHomeScreen(),
+				ClayConstants.SEARCH_ENTITY,
+				buildingEntity_);
+		return path;
+	}
+
+	public static Queue<Point> searchGenericBuilding(AbstractEntity entity_, AbstractScreen abstractScreen_, String buildingTag_)
+	{
+		Queue<Point> path = SearchUtil.search(
+				entity_,
+				entity_.getHomeScreen(),
+				ClayConstants.SEARCH_GENERIC_BUILDING,
+				buildingTag_);
+		return path;
+	}
+
+	public static Queue<Point> searchGenericBuildingGoalOnly(AbstractEntity entity_, AbstractScreen abstractScreen_, String buildingTag_)
+	{
+		Queue<Point> path = SearchUtil.search(
+				entity_,
+				entity_.getHomeScreen(),
+				ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY,
+				buildingTag_);
+		return path;
+	}
+
+	public static Queue<Point> searchStorage(AbstractEntity entity_, AbstractScreen abstractScreen_)
+	{
+		Queue<Point> path = SearchUtil.search(
+				entity_,
+				entity_.getHomeScreen(),
+				ClayConstants.SEARCH_STORAGE);
+		return path;
+	}
+
+	public static Queue<Point> searchClaimedItem(AbstractEntity entity_, AbstractScreen abstractScreen_, Item item_)
+	{
+		Queue<Point> path = SearchUtil.search(
+				entity_,
+				entity_.getHomeScreen(),
+				ClayConstants.SEARCH_CLAIMED_ITEM,
+				item_);
+		return path;
+	}
+
+	public static Queue<Point> searchItemGoalOnly(AbstractEntity entity_, AbstractScreen abstractScreen_, Item item_)
+	{
+		Queue<Point> path = SearchUtil.search(
+				entity_,
+				entity_.getHomeScreen(),
+				ClayConstants.SEARCH_ITEM_GOAL_ONLY,
+				item_);
+		return path;
+	}
+
+	public static Queue<Point> searchHouseGoalOnly(AbstractEntity entity_, AbstractScreen abstractScreen_)
+	{
+		Queue<Point> path = SearchUtil.search(
+				entity_,
+				entity_.getHomeScreen(),
+				ClayConstants.SEARCH_HOUSE_GOAL_ONLY);
+		return path;
+	}
+
+	private static Queue<Point> search(AbstractEntity entity_, AbstractScreen abstractScreen_, Object... params_)
 	{
 		Set<Point> closedSet = new HashSet<Point>();
 		Queue<Point> openQueue = new ArrayBlockingQueue<Point>(256);
 		Map<Point, Point> cameFrom = new HashMap<Point, Point>();
 		Map<Point, Integer> nodeWeight = new HashMap<Point, Integer>();
 
-		BuildingEntity tiles_[][] = ((CityScreen) abstractScreen).getModel()
+		BuildingEntity tiles_[][] = ((CityScreen) abstractScreen_).getModel()
 				.getTileValues();
 
 		Point start = new Point(entity_.getGridX(), entity_.getGridY());
@@ -88,8 +156,7 @@ public class SearchUtil
 					isGoal = tile.isHolding((Item) params_[1])
 							&& !tile.equals(claimedBuilding);
 				}
-				else if (searchType == ClayConstants.SEARCH_HOUSE
-						|| searchType == ClayConstants.SEARCH_HOUSE_GOAL_ONLY)
+				else if (searchType == ClayConstants.SEARCH_HOUSE_GOAL_ONLY)
 				{
 					isGoal = tile.isBuilt() && tile.isHouse()
 							&& !tile.isInUse();

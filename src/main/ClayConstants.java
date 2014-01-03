@@ -1,5 +1,9 @@
 package main;
 
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ClayConstants
 {
@@ -123,14 +127,13 @@ public class ClayConstants
 	
 	
 	//--Search Conditions--
-	public static final int SEARCH_ENTITY = 0; // Expects a single BuildingEntity at [1]
-	public static final int SEARCH_GENERIC_BUILDING = 1; // Expects a single BuildingEntity [1]
-	public static final int SEARCH_STORAGE = 2; // Expects nothing.
-	public static final int SEARCH_GENERIC_BUILDING_GOAL_ONLY = 3; // Expects a single BuildingEntity [1]
-	public static final int SEARCH_CLAIMED_ITEM = 4; // Expects nothing.
-	public static final int SEARCH_ITEM_GOAL_ONLY = 5; // Expects an Item.
-	public static final int SEARCH_HOUSE = 6; // Expects nothing.
-	public static final int SEARCH_HOUSE_GOAL_ONLY = 7; // Expects nothing.
+	public static final int SEARCH_ENTITY = 0;
+	public static final int SEARCH_GENERIC_BUILDING = 1;
+	public static final int SEARCH_STORAGE = 2;
+	public static final int SEARCH_GENERIC_BUILDING_GOAL_ONLY = 3;
+	public static final int SEARCH_CLAIMED_ITEM = 4;
+	public static final int SEARCH_ITEM_GOAL_ONLY = 5;
+	public static final int SEARCH_HOUSE_GOAL_ONLY = 6;
 	
 	
 	
@@ -138,4 +141,6 @@ public class ClayConstants
 	public static final int ADDED_WEIGHT_INCREASE = 5;
 	public static final int ADDED_WEIGHT_CAP = 250;
 	public static final int NO_LIMIT = -1;
+	public static final List<Point> NO_AVAILABLE_BUILDING = new ArrayList<Point>();
+	{ NO_AVAILABLE_BUILDING.add(new Point(-1,-1));}
 }
