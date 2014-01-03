@@ -156,7 +156,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 						}
 						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
 						{
-							System.out.println("NEAT");
 						}
 					}
 				}
@@ -196,7 +195,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	{
 		if (!behavior_.isPersonalTask())
 		{
-			_inProgressBehaviors.remove(behavior_);
 			if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
 			{
 				_noMaterials.add(behavior_);
@@ -236,6 +234,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		}
 		// TODO if there's ever a failure task for a building being interrupted
 		// mid-task, it needs to clear no unoccupied buildings
+		_inProgressBehaviors.remove(behavior_);
 		_unassignedBehaviors.addAll(_noAvailableGolems);
 		_noAvailableGolems.clear();
 	}
