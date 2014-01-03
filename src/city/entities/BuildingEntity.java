@@ -275,10 +275,22 @@ public class BuildingEntity extends AbstractEntity implements
 		{
 			item.release();
 		}
+
+		boolean golemFailed = false;
 		for (Behavior behavior : _activeBehaviors)
 		{
+			if (behavior.getAssignedGolem() != null
+					&& behavior.getAssignedGolem().equals(_claimingGolem))
+				golemFailed = true;
 			behavior.obsolete();
 		}
+
+		if (_claimingGolem != null && !golemFailed)
+		{
+			_claimingGolem
+					.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_OBSOLETE);
+		}
+
 		_claimedItems.clear();
 		_claimingGolem = null;
 	}

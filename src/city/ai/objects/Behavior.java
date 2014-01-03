@@ -187,6 +187,11 @@ public class Behavior
 	{
 		return _assigningBuilding;
 	}
+	
+	public GolemEntity getAssignedGolem()
+	{
+		return _assignedGolem;
+	}
 
 	public boolean checkIfHarvestObsolete()
 	{
