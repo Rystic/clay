@@ -278,7 +278,6 @@ public class BehaviorInstructionCalculator
 				.parseInt(commandAndParams_[1])];
 		if (building.getConstructionItems().isEmpty())
 			return ClayConstants.BEHAVIOR_PASSED;
-		System.out.println("WHAT");
 		String[] neededItems = building.getConstructionItems().split(",");
 		for (int i = 0; i < neededItems.length; i++)
 		{
