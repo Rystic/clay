@@ -78,8 +78,7 @@ public class GolemEntity extends AbstractEntity
 
 	public void setBehavior(Behavior behavior_)
 	{
-		_ignoredPersonalBehaviors.remove(behavior_.getBehavior()
-				.getBehaviorTag());
+		_ignoredPersonalBehaviors.remove(behavior_.getBehaviorTag());
 		_currentBehavior = behavior_;
 		_currentBehavior.setAssignedGolem(this);
 		_commands = _currentBehavior.getCommands();

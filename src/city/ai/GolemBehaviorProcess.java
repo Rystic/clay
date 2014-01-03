@@ -92,7 +92,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 									false);
 					if (golemWantedBehavior != null)
 					{
-						String behaviorTag = golemWantedBehavior._behavior.getBehavior().getBehaviorTag();
+						String behaviorTag = golemWantedBehavior._behavior.getBehaviorTag();
 						golemWantedBehavior._behavior.setBehaviorProcess(this);
 						behaviorScores.add(golemWantedBehavior);
 						golemWantedBehavior._weight += golem.getPersonalBehaviorWeight(behaviorTag);
@@ -232,7 +232,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		int count = 0;
 		for (Behavior behavior : _inProgressBehaviorList)
 		{
-			if (behavior.getBehavior().getBehaviorTag().equals(behaviorTag_))
+			if (behavior.getBehaviorTag().equals(behaviorTag_))
 				count++;
 		}
 		return count;

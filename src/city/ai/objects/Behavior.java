@@ -129,11 +129,6 @@ public class Behavior
 		return _params;
 	}
 
-	public GenericBehavior getBehavior()
-	{
-		return _behavior;
-	}
-
 	public int getLimit()
 	{
 		return _behavior.getLimit();
@@ -161,6 +156,11 @@ public class Behavior
 		return _addedWeight;
 	}
 
+	public String getBehaviorTag()
+	{
+		return _behavior.getBehaviorTag();
+	}
+	
 	public boolean isRequiredCompleted()
 	{
 		return _requiredCompleted;
@@ -214,7 +214,7 @@ public class Behavior
 			e_.printStackTrace();
 		}
 	}
-
+	
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -222,7 +222,7 @@ public class Behavior
 			return false;
 		Behavior behavior = (Behavior) obj;
 		return _params.equals(behavior.getParams())
-				&& _behavior.equals(behavior.getBehavior());
+				&& _behavior.equals(behavior._behavior);
 	}
 
 	private GenericBehavior _behavior;
