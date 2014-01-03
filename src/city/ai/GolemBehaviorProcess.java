@@ -13,6 +13,7 @@ import org.bushe.swing.event.EventSubscriber;
 import screens.AbstractScreen;
 import city.ai.objects.Behavior;
 import city.ai.util.BehaviorTriple;
+import city.ai.util.BehaviorTripleQuickSort;
 import city.entities.GolemEntity;
 import city.processes.AbstractProcess;
 import city.util.MapUpdateEvent;
@@ -112,7 +113,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		{
 			BehaviorTriple[] scores = new BehaviorTriple[behaviorScores.size()];
 			behaviorScores.toArray(scores);
-			BehaviorTriple[] topScores = sort(scores);
+			BehaviorTriple[] topScores = BehaviorTripleQuickSort.sort(scores);
 			List<GolemEntity> invalidGolems = new ArrayList<GolemEntity>();
 			List<Behavior> invalidBehaviors = new ArrayList<Behavior>();
 			for (BehaviorTriple triple : topScores)
@@ -237,48 +238,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		return count;
 	}
 
-	public BehaviorTriple[] sort(BehaviorTriple[] values)
-	{
-		BehaviorTriple[] returnValues = values;
-		quicksort(returnValues, 0, values.length - 1);
-		return returnValues;
-	}
-
-	private void quicksort(BehaviorTriple[] values, int low, int high)
-	{
-		int i = low, j = high;
-		int pivot = values[low + (high - low) / 2]._weight;
-
-		while (i <= j)
-		{
-			while (values[i]._weight > pivot)
-			{
-				i++;
-			}
-			while (values[j]._weight < pivot)
-			{
-				j--;
-			}
-			if (i <= j)
-			{
-				exchange(values, i, j);
-				i++;
-				j--;
-			}
-		}
-		if (low < j)
-			quicksort(values, low, j);
-		if (i < high)
-			quicksort(values, i, high);
-	}
-
-	private void exchange(BehaviorTriple[] values, int i, int j)
-	{
-		BehaviorTriple temp = values[i];
-		values[i] = values[j];
-		values[j] = temp;
-	}
-
 	@Override
 	public void onEvent(MapUpdateEvent event_)
 	{
@@ -306,7 +265,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			_noStorageAvailable.clear();
 		}
 	}
-
+	
 	private Random _random = new Random();
 
 	private List<GolemEntity> _golemList;
