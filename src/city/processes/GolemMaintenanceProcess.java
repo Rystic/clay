@@ -3,9 +3,8 @@ package city.processes;
 import java.util.List;
 
 import models.CityModel;
-
 import screens.AbstractScreen;
-import city.entities.GolemEntity;
+import city.generics.entities.GolemEntity;
 
 public class GolemMaintenanceProcess extends AbstractProcess
 {

@@ -3,10 +3,10 @@ package city.ai;
 import java.util.List;
 
 import city.ai.calculators.BehaviorWeightCalculator;
-import city.ai.objects.Behavior;
 import city.ai.util.BehaviorTriple;
-import city.entities.GolemEntity;
 import city.generics.GenericBehavior;
+import city.generics.entities.GolemEntity;
+import city.generics.objects.Behavior;
 
 public class GolemBrain
 {

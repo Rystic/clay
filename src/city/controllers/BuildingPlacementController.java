@@ -1,4 +1,4 @@
-package city.processes;
+package city.controllers;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -11,9 +11,10 @@ import models.CityModel;
 import org.lwjgl.input.Mouse;
 
 import screens.AbstractScreen;
-import city.entities.BuildingEntity;
 import city.generics.GenericBuilding;
-import data.BuildingData;
+import city.generics.data.BuildingData;
+import city.generics.entities.BuildingEntity;
+import city.processes.AbstractProcess;
 
 public class BuildingPlacementController extends AbstractProcess
 {

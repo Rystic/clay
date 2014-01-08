@@ -1,9 +1,5 @@
 package main;
 
-import java.awt.Point;
-import java.util.Queue;
-
-
 public class ClayConstants
 {
 	//--Interface Constants--
@@ -13,7 +9,7 @@ public class ClayConstants
 	public static final int DEFAULT_MAP_WIDTH = 40 * ClayConstants.TILE_X;
 	public static final int DEFAULT_MAP_HEIGHT = 25 * ClayConstants.TILE_Y;
 	
-	public static final int DEFAULT_INTERFACE_WIDTH = 200;
+	public static final int DEFAULT_INTERFACE_WIDTH = 300;
 	
 	
 	

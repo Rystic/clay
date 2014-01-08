@@ -6,13 +6,13 @@ import java.util.Queue;
 
 import main.ClayConstants;
 import models.CityModel;
-import city.ai.objects.Item;
-import city.entities.AbstractEntity;
-import city.entities.BuildingEntity;
-import city.entities.GolemEntity;
+import city.generics.data.GolemData;
+import city.generics.data.ItemData;
+import city.generics.entities.AbstractEntity;
+import city.generics.entities.BuildingEntity;
+import city.generics.entities.GolemEntity;
+import city.generics.objects.Item;
 import city.util.SearchUtil;
-import data.GolemData;
-import data.ItemData;
 
 public class BehaviorInstructionCalculator
 {

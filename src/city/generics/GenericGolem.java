@@ -3,7 +3,7 @@ package city.generics;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import city.generics.util.GenericUtil;
+import city.generics.util.XmlFieldParser;
 
 public class GenericGolem
 {
@@ -12,27 +12,27 @@ public class GenericGolem
 		Element eElement = (Element) node_;
 		_golemName = eElement.getAttribute("GolemName");
 		_golemTag = eElement.getAttribute("GolemTag");
-		_moveSpeed = GenericUtil
+		_moveSpeed = XmlFieldParser
 				.parseDouble(eElement.getAttribute("MoveSpeed"));
-		_moveVariation = GenericUtil.parseDouble(eElement
+		_moveVariation = XmlFieldParser.parseDouble(eElement
 				.getAttribute("MoveVariation"));
-		_startingMana = GenericUtil.parseDouble(eElement
+		_startingMana = XmlFieldParser.parseDouble(eElement
 				.getAttribute("StartingMana"));
-		_startingClay = GenericUtil.parseDouble(eElement
+		_startingClay = XmlFieldParser.parseDouble(eElement
 				.getAttribute("StartingClay"));
-		_startingClayMaximum = GenericUtil.parseDouble(eElement
+		_startingClayMaximum = XmlFieldParser.parseDouble(eElement
 				.getAttribute("StartingClayMaximum"));
-		_maximumMana = GenericUtil.parseDouble(eElement
+		_maximumMana = XmlFieldParser.parseDouble(eElement
 				.getAttribute("MaximumMana"));
-		_maximumClay = GenericUtil.parseDouble(eElement
+		_maximumClay = XmlFieldParser.parseDouble(eElement
 				.getAttribute("MaximumClay"));
-		_manaLostOnMovement = GenericUtil.parseDouble(eElement
+		_manaLostOnMovement = XmlFieldParser.parseDouble(eElement
 				.getAttribute("ManaLostOnMovement"));
-		_lowManaThreshold = GenericUtil.parseDouble(eElement
+		_lowManaThreshold = XmlFieldParser.parseDouble(eElement
 				.getAttribute("LowManaThreshold"));
-		_lowClayThreshold = GenericUtil.parseDouble(eElement
+		_lowClayThreshold = XmlFieldParser.parseDouble(eElement
 				.getAttribute("LowClayThreshold"));
-		_personalBehaviorChance = GenericUtil.parseInt(eElement
+		_personalBehaviorChance = XmlFieldParser.parseInt(eElement
 				.getAttribute("PersonalBehaviorChance"));
 	}
 

@@ -6,19 +6,19 @@ import java.util.Random;
 import main.ClayConstants;
 import models.CityModel;
 import city.ai.GolemBehaviorProcess;
+import city.controllers.BuildingPlacementController;
+import city.controllers.CityInterfaceController;
 import city.effects.AbstractEffect;
 import city.effects.ArchitectureEffect;
 import city.effects.BackgroundEffect;
 import city.effects.CityInterfaceEffect;
 import city.effects.GolemEffect;
-import city.entities.BuildingEntity;
-import city.processes.BuildingPlacementController;
+import city.generics.data.BuildingData;
+import city.generics.data.GolemData;
+import city.generics.entities.BuildingEntity;
 import city.processes.BuildingTickProcess;
-import city.processes.CityInterfaceController;
 import city.processes.GolemMaintenanceProcess;
 import city.util.ClayTerrainGenerator;
-import data.BuildingData;
-import data.GolemData;
 
 public class CityScreen extends AbstractScreen
 {

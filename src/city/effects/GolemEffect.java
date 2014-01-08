@@ -11,7 +11,7 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
 import screens.AbstractScreen;
-import city.entities.GolemEntity;
+import city.generics.entities.GolemEntity;
 
 public class GolemEffect extends AbstractEffect
 {
@@ -89,11 +89,11 @@ public class GolemEffect extends AbstractEffect
 			GL11.glBegin(GL11.GL_POLYGON);
 			GL11.glTexCoord2f(0, 0);
 			GL11.glVertex2d(x, y + GOLEM_DEFAULT_HEIGHT);
-			GL11.glTexCoord2f(.60f, 0);
+			GL11.glTexCoord2f(_drawRatioGolems, 0);
 			GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, y + GOLEM_DEFAULT_HEIGHT);
-			GL11.glTexCoord2f(.60f, .60f);
+			GL11.glTexCoord2f(_drawRatioGolems, _drawRatioGolems);
 			GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, y);
-			GL11.glTexCoord2f(0, .60f);
+			GL11.glTexCoord2f(0, _drawRatioGolems);
 			GL11.glVertex2d(x, y);
 			GL11.glEnd();
 			if (!golem.getCopyOfHeldItems().isEmpty())
@@ -104,20 +104,23 @@ public class GolemEffect extends AbstractEffect
 				GL11.glBegin(GL11.GL_POLYGON);
 				GL11.glTexCoord2f(0, 0);
 				GL11.glVertex2d(x, y + GOLEM_DEFAULT_HEIGHT);
-				GL11.glTexCoord2f(.60f, 0);
+				GL11.glTexCoord2f(_drawRatioItems, 0);
 				GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, y
 						+ GOLEM_DEFAULT_HEIGHT);
-				GL11.glTexCoord2f(.60f, .60f);
+				GL11.glTexCoord2f(_drawRatioItems, _drawRatioItems);
 				GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, y);
-				GL11.glTexCoord2f(0, .60f);
+				GL11.glTexCoord2f(0, _drawRatioItems);
 				GL11.glVertex2d(x, y);
 				GL11.glEnd();
 			}
 		}
 	}
 
-	private final static int GOLEM_DEFAULT_WIDTH = 25;
-	private final static int GOLEM_DEFAULT_HEIGHT = 25;
+	private final static int GOLEM_DEFAULT_WIDTH = 30;
+	private final static int GOLEM_DEFAULT_HEIGHT = 30;
+	
+	private final static float _drawRatioGolems = .6f;
+	private final static float _drawRatioItems = .6f;
 
 	private Texture _golemTexture;
 	private Texture _lowManaTexture;

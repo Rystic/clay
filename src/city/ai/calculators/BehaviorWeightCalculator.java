@@ -5,8 +5,8 @@ import java.util.Queue;
 
 import main.ClayConstants;
 import screens.CityScreen;
-import city.entities.BuildingEntity;
-import city.entities.GolemEntity;
+import city.generics.entities.BuildingEntity;
+import city.generics.entities.GolemEntity;
 import city.util.SearchUtil;
 
 public class BehaviorWeightCalculator

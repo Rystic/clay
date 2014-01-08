@@ -1,4 +1,4 @@
-package city.ai.objects;
+package city.generics.objects;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,10 +9,10 @@ import main.ClayConstants;
 import city.ai.GolemBehaviorProcess;
 import city.ai.calculators.BehaviorInstructionCalculator;
 import city.ai.calculators.BehaviorWeightCalculator;
-import city.entities.BuildingEntity;
-import city.entities.GolemEntity;
 import city.generics.GenericBehavior;
-import data.ItemData;
+import city.generics.data.ItemData;
+import city.generics.entities.BuildingEntity;
+import city.generics.entities.GolemEntity;
 
 public class Behavior
 {

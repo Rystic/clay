@@ -1,9 +1,9 @@
-package city.ai.objects;
+package city.generics.objects;
 
 import org.newdawn.slick.opengl.Texture;
 
-import city.entities.BuildingEntity;
 import city.generics.GenericItem;
+import city.generics.entities.BuildingEntity;
 
 public class Item
 {

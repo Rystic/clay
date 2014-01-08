@@ -1,4 +1,4 @@
-package city.components;
+package city.ui.components;
 
 import java.awt.Rectangle;
 

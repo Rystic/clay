@@ -10,12 +10,12 @@ import java.util.Set;
 
 import main.ClayConstants;
 import screens.AbstractScreen;
-import city.components.AbstractButton;
-import city.entities.BuildingEntity;
-import city.entities.GolemEntity;
 import city.generics.GenericBuilding;
 import city.generics.GenericGolem;
-import data.BuildingData;
+import city.generics.data.BuildingData;
+import city.generics.entities.BuildingEntity;
+import city.generics.entities.GolemEntity;
+import city.ui.components.AbstractButton;
 
 public class CityModel extends AbstractModel
 {

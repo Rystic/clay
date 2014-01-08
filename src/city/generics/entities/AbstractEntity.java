@@ -1,10 +1,10 @@
-package city.entities;
+package city.generics.entities;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import city.ai.objects.Item;
+import city.generics.objects.Item;
 import main.ClayConstants;
 import models.AbstractModel;
 import screens.AbstractScreen;

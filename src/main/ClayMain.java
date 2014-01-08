@@ -8,11 +8,11 @@ import org.lwjgl.opengl.GL11;
 import screens.AbstractScreen;
 import screens.CityScreen;
 import city.effects.AbstractEffect;
+import city.generics.data.BehaviorData;
+import city.generics.data.BuildingData;
+import city.generics.data.GolemData;
+import city.generics.data.ItemData;
 import city.processes.AbstractProcess;
-import data.BehaviorData;
-import data.BuildingData;
-import data.GolemData;
-import data.ItemData;
 
 public class ClayMain implements Runnable
 {

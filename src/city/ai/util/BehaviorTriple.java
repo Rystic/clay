@@ -1,7 +1,7 @@
 package city.ai.util;
 
-import city.ai.objects.Behavior;
-import city.entities.GolemEntity;
+import city.generics.entities.GolemEntity;
+import city.generics.objects.Behavior;
 
 public 	class BehaviorTriple
 {

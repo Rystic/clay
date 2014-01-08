@@ -11,13 +11,13 @@ import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
 
 import screens.AbstractScreen;
-import city.ai.objects.Behavior;
 import city.ai.util.BehaviorTriple;
 import city.ai.util.BehaviorTripleQuickSort;
-import city.entities.GolemEntity;
+import city.generics.data.BehaviorData;
+import city.generics.entities.GolemEntity;
+import city.generics.objects.Behavior;
 import city.processes.AbstractProcess;
 import city.util.MapUpdateEvent;
-import data.BehaviorData;
 
 public class GolemBehaviorProcess extends AbstractProcess implements
 		EventSubscriber<MapUpdateEvent>

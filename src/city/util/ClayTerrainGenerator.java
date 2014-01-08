@@ -8,8 +8,8 @@ import main.ClayConstants;
 import org.bushe.swing.event.EventBus;
 
 import screens.AbstractScreen;
-import city.entities.BuildingEntity;
-import data.BuildingData;
+import city.generics.data.BuildingData;
+import city.generics.entities.BuildingEntity;
 
 public class ClayTerrainGenerator
 {

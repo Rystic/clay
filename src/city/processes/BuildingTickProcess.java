@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import screens.AbstractScreen;
-import city.entities.BuildingEntity;
+import city.generics.entities.BuildingEntity;
 
 public class BuildingTickProcess extends AbstractProcess
 {

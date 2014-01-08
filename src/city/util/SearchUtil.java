@@ -14,10 +14,10 @@ import java.util.concurrent.ArrayBlockingQueue;
 import main.ClayConstants;
 import screens.AbstractScreen;
 import screens.CityScreen;
-import city.ai.objects.Item;
-import city.entities.AbstractEntity;
-import city.entities.BuildingEntity;
-import city.entities.GolemEntity;
+import city.generics.entities.AbstractEntity;
+import city.generics.entities.BuildingEntity;
+import city.generics.entities.GolemEntity;
+import city.generics.objects.Item;
 
 public class SearchUtil
 {

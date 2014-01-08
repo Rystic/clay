@@ -6,7 +6,7 @@ import models.CityModel;
 import org.lwjgl.opengl.GL11;
 
 import screens.AbstractScreen;
-import city.entities.BuildingEntity;
+import city.generics.entities.BuildingEntity;
 
 public class ArchitectureEffect extends AbstractEffect
 {

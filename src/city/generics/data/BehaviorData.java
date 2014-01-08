@@ -1,4 +1,4 @@
-package data;
+package city.generics.data;
 
 import java.io.File;
 import java.util.ArrayList;

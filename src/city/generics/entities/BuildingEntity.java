@@ -1,4 +1,4 @@
-package city.entities;
+package city.generics.entities;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -14,12 +14,12 @@ import org.bushe.swing.event.EventSubscriber;
 import org.newdawn.slick.opengl.Texture;
 
 import screens.AbstractScreen;
-import city.ai.objects.Behavior;
-import city.ai.objects.Item;
 import city.generics.GenericBuilding;
+import city.generics.data.BuildingData;
+import city.generics.objects.Behavior;
+import city.generics.objects.Item;
 import city.processes.BuildingTickProcess;
 import city.util.MapUpdateEvent;
-import data.BuildingData;
 
 public class BuildingEntity extends AbstractEntity implements
 		EventSubscriber<MapUpdateEvent>

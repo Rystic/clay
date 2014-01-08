@@ -1,4 +1,4 @@
-package city.entities;
+package city.generics.entities;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -11,9 +11,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 import main.ClayConstants;
 import models.CityModel;
 import screens.AbstractScreen;
-import city.ai.objects.Behavior;
-import city.ai.objects.Item;
 import city.generics.GenericGolem;
+import city.generics.objects.Behavior;
+import city.generics.objects.Item;
 
 public class GolemEntity extends AbstractEntity
 {

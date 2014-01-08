@@ -9,11 +9,11 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 
 import screens.AbstractScreen;
-import city.components.AbstractButton;
-import city.components.SelectBuildingButton;
 import city.generics.GenericBuilding;
+import city.generics.data.BuildingData;
+import city.ui.components.AbstractButton;
+import city.ui.components.SelectBuildingButton;
 import city.util.TextUtil;
-import data.BuildingData;
 
 public class CityInterfaceEffect extends AbstractEffect
 {
@@ -29,9 +29,34 @@ public class CityInterfaceEffect extends AbstractEffect
 		doBuildingMenu();
 	}
 
+//	private void doBuildingMenu1()
+//	{
+//		drawInterfaceBox();
+//	}
+	
+//	private void drawInterfaceBox()
+//	{
+//		GL11.glColor3f(.8f, .6f, .1f);
+//		GL11.glBegin(GL11.GL_POLYGON);
+//		GL11.glVertex2d(ClayConstants.DEFAULT_MAP_WIDTH
+//				- _interfaceBorderThickness, ClayConstants.DEFAULT_MAP_HEIGHT);
+//		GL11.glVertex2d(
+//				ClayConstants.DEFAULT_INTERFACE_WIDTH
+//						+ ClayConstants.DEFAULT_MAP_WIDTH,
+//				ClayConstants.DEFAULT_MAP_HEIGHT);
+//		GL11.glVertex2d(
+//				ClayConstants.DEFAULT_INTERFACE_WIDTH
+//						+ ClayConstants.DEFAULT_MAP_WIDTH,
+//				ClayConstants.DEFAULT_MAP_HEIGHT
+//						- (_interfaceHeight + _interfaceBorderThickness));
+//		GL11.glVertex2d(ClayConstants.DEFAULT_MAP_WIDTH
+//				- _interfaceBorderThickness, ClayConstants.DEFAULT_MAP_HEIGHT
+//				- (_interfaceHeight + _interfaceBorderThickness));
+//		GL11.glEnd();
+//	}
+	
 	private void doBuildingMenu()
 	{
-
 		GL11.glColor3f(.75f, .75f, .75f);
 		GenericBuilding selectedBuilding = BuildingData.getBuildingById(_model
 				.getSelectedBuilding());

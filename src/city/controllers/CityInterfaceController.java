@@ -1,4 +1,4 @@
-package city.processes;
+package city.controllers;
 
 import java.util.Set;
 
@@ -9,9 +9,10 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import screens.AbstractScreen;
-import city.components.AbstractButton;
-import city.components.SelectBuildingButton;
-import data.BuildingData;
+import city.generics.data.BuildingData;
+import city.processes.AbstractProcess;
+import city.ui.components.AbstractButton;
+import city.ui.components.SelectBuildingButton;
 
 public class CityInterfaceController extends AbstractProcess
 {

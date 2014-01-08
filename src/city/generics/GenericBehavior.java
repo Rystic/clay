@@ -3,8 +3,8 @@ package city.generics;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import city.entities.GolemEntity;
-import city.generics.util.GenericUtil;
+import city.generics.entities.GolemEntity;
+import city.generics.util.XmlFieldParser;
 
 public class GenericBehavior
 {
@@ -17,11 +17,11 @@ public class GenericBehavior
 		_require = eElement.getAttribute("require");
 		_weightConditions = eElement.getAttribute("weight");
 		_golemCost = eElement.getAttribute("golemCost");
-		_isNeededBehavior = GenericUtil.parseBoolean(eElement
+		_isNeededBehavior = XmlFieldParser.parseBoolean(eElement
 				.getAttribute("neededBehavior"));
-		_isPersonalBehavior = GenericUtil.parseBoolean(eElement
+		_isPersonalBehavior = XmlFieldParser.parseBoolean(eElement
 				.getAttribute("personalBehavior"));
-		_limit = GenericUtil.parseInt(eElement.getAttribute("limit"));
+		_limit = XmlFieldParser.parseInt(eElement.getAttribute("limit"));
 		_defaultParams = eElement.getAttribute("defaultParams").split(",");
 	}
 

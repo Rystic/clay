@@ -17,14 +17,14 @@ import org.w3c.dom.NodeList;
 
 import screens.AbstractScreen;
 import city.ai.GolemBehaviorProcess;
-import city.ai.objects.Behavior;
-import city.ai.objects.Item;
-import city.entities.BuildingEntity;
-import city.generics.util.GenericUtil;
+import city.generics.data.BehaviorData;
+import city.generics.data.BuildingData;
+import city.generics.data.ItemData;
+import city.generics.entities.BuildingEntity;
+import city.generics.objects.Behavior;
+import city.generics.objects.Item;
+import city.generics.util.XmlFieldParser;
 import city.util.MapUpdateEvent;
-import data.BehaviorData;
-import data.BuildingData;
-import data.ItemData;
 
 public final class GenericBuilding
 {
@@ -38,33 +38,33 @@ public final class GenericBuilding
 
 		_extraWeightConditions = eElement.getAttribute("ExtraWeight");
 
-		_buildTime = GenericUtil.parseInt(eElement.getAttribute("BuildTime"));
-		_tickStart = GenericUtil.parseInt(eElement.getAttribute("tickStart"));
-		_storageCapacity = GenericUtil.parseInt(eElement
+		_buildTime = XmlFieldParser.parseInt(eElement.getAttribute("BuildTime"));
+		_tickStart = XmlFieldParser.parseInt(eElement.getAttribute("tickStart"));
+		_storageCapacity = XmlFieldParser.parseInt(eElement
 				.getAttribute("StorageCapacity"));
 
 		_transformCode = eElement.getAttribute("Transform");
 		_constructionItems = eElement.getAttribute("ConstructionItems");
 
-		_lesserManaCost = GenericUtil.parseDouble(eElement
+		_lesserManaCost = XmlFieldParser.parseDouble(eElement
 				.getAttribute("LesserManaCost"));
-		_lesserManaCumulativeCost = GenericUtil.parseDouble(eElement
+		_lesserManaCumulativeCost = XmlFieldParser.parseDouble(eElement
 				.getAttribute("LesserManaCumulativeCost"));
-		_greaterManaCost = GenericUtil.parseDouble(eElement
+		_greaterManaCost = XmlFieldParser.parseDouble(eElement
 				.getAttribute("GreaterManaCost"));
-		_greaterManaCumulativeCost = GenericUtil.parseDouble(eElement
+		_greaterManaCumulativeCost = XmlFieldParser.parseDouble(eElement
 				.getAttribute("GreaterManaCumulativeCost"));
 
-		_isClaimable = GenericUtil.parseBoolean(eElement
+		_isClaimable = XmlFieldParser.parseBoolean(eElement
 				.getAttribute("isClaimable"));
-		_isHouse = GenericUtil.parseBoolean(eElement.getAttribute("isHouse"));
-		_isNatural = GenericUtil.parseBoolean(eElement
+		_isHouse = XmlFieldParser.parseBoolean(eElement.getAttribute("isHouse"));
+		_isNatural = XmlFieldParser.parseBoolean(eElement
 				.getAttribute("isNatural"));
-		_isPassable = GenericUtil.parseBoolean(eElement
+		_isPassable = XmlFieldParser.parseBoolean(eElement
 				.getAttribute("isPassable"));
-		_isStorage = GenericUtil.parseBoolean(eElement
+		_isStorage = XmlFieldParser.parseBoolean(eElement
 				.getAttribute("isStorage"));
-		_isSupport = GenericUtil.parseBoolean(eElement
+		_isSupport = XmlFieldParser.parseBoolean(eElement
 				.getAttribute("isSupport"));
 
 		parseBuildingRequirements(eElement.getAttribute("BuildingRequirements"));
@@ -87,7 +87,7 @@ public final class GenericBuilding
 				{
 					textureMap.put(
 							textures[h],
-							GenericUtil.parseTexture(textures[h + 1]));
+							XmlFieldParser.parseTexture(textures[h + 1]));
 				}
 				_stateOrder.add(state);
 			}
