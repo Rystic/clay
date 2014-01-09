@@ -34,7 +34,7 @@ public abstract class AbstractMenu
 		return new ArrayList<AbstractComponent>(_components);
 	}
 
-	private List<AbstractComponent> _components;
+	protected List<AbstractComponent> _components;
 
-	private AbstractScreen _homeScreen;
+	protected AbstractScreen _homeScreen;
 }

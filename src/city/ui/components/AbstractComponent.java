@@ -12,9 +12,24 @@ public abstract class AbstractComponent
 		_bounds = new Rectangle(x_, y_, width_, height_);
 	}
 	
+	public void setTexture(Texture texture_)
+	{
+		_texture = texture_;
+	}
+	
 	public Texture getTexture()
 	{
 		return null;
+	}
+
+	public void setDrawRatio(float drawRatio_)
+	{
+		_drawRatio = drawRatio_;
+	}
+	
+	public float getDrawRatio()
+	{
+		return _drawRatio;
 	}
 	
 	public double getWidth()
@@ -22,7 +37,7 @@ public abstract class AbstractComponent
 		return _bounds.getWidth();
 	}
 	
-	public double getHeiht()
+	public double getHeight()
 	{
 		return _bounds.getHeight();
 	}
@@ -45,4 +60,7 @@ public abstract class AbstractComponent
 	public abstract void clicked();
 	
 	private Rectangle _bounds;
+	
+	private Texture _texture;
+	private float _drawRatio;
 }

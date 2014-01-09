@@ -13,7 +13,7 @@ public class SelectBuildingButton extends AbstractComponent
 			GenericBuilding building_)
 	{
 		super(x_, y_, width_, height_);
-		_building = building_;
+		setGenericBuilding(building_);
 	}
 	
 	@Override
@@ -25,6 +25,12 @@ public class SelectBuildingButton extends AbstractComponent
 	public int getIdentifier()
 	{
 		return _building.getBuildingIdentifier();
+	}
+	
+	public void setGenericBuilding(GenericBuilding building_)
+	{
+		_building = building_;
+		setTexture(_building.getTexture(ClayConstants.T_STATE_DEFAULT, ClayConstants.DEFAULT_BUILDING_POSITION));
 	}
 
 	@Override

@@ -37,7 +37,7 @@ public class RainEffect extends AbstractEffect
 		}
 		for (Droplet droplet : _existingDroplets)
 		{
-			GL11.glColor3f(0.0f, droplet._color, droplet._color);
+			GL11.glColor3f(0.0f, 0.0f, droplet._color);
 			double x = droplet._xPos;
 			double y = droplet._yPos;
 			double size = droplet._size;
@@ -64,10 +64,10 @@ public class RainEffect extends AbstractEffect
 		public Droplet()
 		{
 			Random random = new Random();
-			_size = random.nextDouble() + 4;
+			_size = random.nextDouble() + 7;
 			_xPos = random.nextInt(ClayConstants.DEFAULT_MAP_WIDTH);
 			_yPos = ClayConstants.DEFAULT_MAP_HEIGHT;
-			_color = .25f + random.nextFloat();
+			_color = .75f + random.nextFloat();
 			_fallSpeed += 20 + random.nextInt(_dropletSpeedVariance);
 		}
 

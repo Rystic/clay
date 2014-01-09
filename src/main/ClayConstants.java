@@ -12,7 +12,6 @@ public class ClayConstants
 	public static final int DEFAULT_INTERFACE_WIDTH = 300;
 	
 	
-	
 	// Golem types
 	public static final String GOLEM_CLAY = "clay-golem";
 	
