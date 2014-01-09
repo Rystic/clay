@@ -1,0 +1,13 @@
+Interface workflow.
+
+Interface Effect
+
+Interface Component -> Components come with their own coords.
+--> Button
+--> Label
+
+Interface Controller -> Sends mouse events and keyboard events to the Interface Model.
+
+Interface Model -> Keeps a pointer to the current menu, as well as handling information consumed by the interfaces (ie, keeps track of item count).
+
+Menus -> Keep a list of components. Consume mouse and keyboard events and modify their components accordingly.
