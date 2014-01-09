@@ -1,6 +1,8 @@
 package screens;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import main.ClayConstants;
@@ -13,11 +15,14 @@ import city.effects.ArchitectureEffect;
 import city.effects.BackgroundEffect;
 import city.effects.CityInterfaceEffect;
 import city.effects.GolemEffect;
+import city.effects.RainEffect;
 import city.generics.data.BuildingData;
 import city.generics.data.GolemData;
 import city.generics.entities.BuildingEntity;
 import city.processes.BuildingTickProcess;
 import city.processes.GolemMaintenanceProcess;
+import city.ui.menus.AbstractMenu;
+import city.ui.menus.BuildingMenu;
 import city.util.ClayTerrainGenerator;
 
 public class CityScreen extends AbstractScreen
@@ -26,10 +31,15 @@ public class CityScreen extends AbstractScreen
 	protected void init()
 	{
 		_model = new CityModel(this);
+		
+		_menus = new ArrayList<AbstractMenu>();
+		_menus.add(new BuildingMenu(this));
 
+		_model.setSelectedMenu(_menus.get(0));
+		
 		_effects.add(new BackgroundEffect(this));
 		_effects.add(new ArchitectureEffect(this));
-//		_effects.add(new RainEffect(this));
+		_effects.add(new RainEffect(this));
 		_effects.add(new GolemEffect(this));
 		_effects.add(new CityInterfaceEffect(this));
 		
@@ -90,4 +100,6 @@ public class CityScreen extends AbstractScreen
 	}
 	
 	protected CityModel _model;
+	
+	protected List<AbstractMenu> _menus;
 }

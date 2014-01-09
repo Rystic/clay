@@ -7,8 +7,7 @@ import org.newdawn.slick.opengl.Texture;
 import city.generics.GenericBuilding;
 
 
-@SuppressWarnings("serial")
-public class SelectBuildingButton extends AbstractButton
+public class SelectBuildingButton extends AbstractComponent
 {
 	public SelectBuildingButton(int x_, int y_, int width_, int height_,
 			GenericBuilding building_)
@@ -26,6 +25,12 @@ public class SelectBuildingButton extends AbstractButton
 	public int getIdentifier()
 	{
 		return _building.getBuildingIdentifier();
+	}
+
+	@Override
+	public void clicked()
+	{
+		
 	}
 
 	private GenericBuilding _building;

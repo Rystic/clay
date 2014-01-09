@@ -3,10 +3,8 @@ package models;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import main.ClayConstants;
 import screens.AbstractScreen;
@@ -15,7 +13,7 @@ import city.generics.GenericGolem;
 import city.generics.data.BuildingData;
 import city.generics.entities.BuildingEntity;
 import city.generics.entities.GolemEntity;
-import city.ui.components.AbstractButton;
+import city.ui.menus.AbstractMenu;
 
 public class CityModel extends AbstractModel
 {
@@ -31,7 +29,6 @@ public class CityModel extends AbstractModel
 		_newGolemList = new ArrayList<GolemEntity>();
 		_mana = 0;
 		_buildingMap = new HashMap<Integer, List<BuildingEntity>>();
-		_interfaceOptions = new HashSet<AbstractButton>();
 		_selectedBuilding = BuildingData.getBuildingByTag("clay-block")
 				.getBuildingIdentifier();
 	}
@@ -112,6 +109,16 @@ public class CityModel extends AbstractModel
 		return _mana;
 	}
 
+	public void setSelectedMenu(AbstractMenu _selectedMenu)
+	{
+		this._selectedMenu = _selectedMenu;
+	}
+	
+	public AbstractMenu getSelectedMenu()
+	{
+		return _selectedMenu;
+	}
+
 	public void setSelectedBuilding(int selectedBuilding_)
 	{
 		_selectedBuilding = selectedBuilding_;
@@ -125,11 +132,6 @@ public class CityModel extends AbstractModel
 	public int getAdjustedX()
 	{
 		return _adjustedX;
-	}
-
-	public Set<AbstractButton> getInterfaceOptions()
-	{
-		return _interfaceOptions;
 	}
 
 	public boolean isInterfaceToggle()
@@ -152,10 +154,10 @@ public class CityModel extends AbstractModel
 	private int _mana;
 
 	// Interface
+	private AbstractMenu _selectedMenu;
 	private int _selectedBuilding;
 	private int _adjustedX = ClayConstants.DEFAULT_MAP_WIDTH
 			- ClayConstants.DEFAULT_INTERFACE_WIDTH;
-	private Set<AbstractButton> _interfaceOptions;
 	private boolean _interfaceToggle;
 
 	private int _xTileCount;
