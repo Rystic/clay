@@ -1,5 +1,7 @@
 package main;
 
+import models.PlayerModel;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -40,7 +42,8 @@ public class ClayMain implements Runnable
 		BehaviorData.init();
 		ItemData.init();
 		GolemData.init();
-		_screen = new CityScreen();
+		PlayerModel player = new PlayerModel();
+		_screen = new CityScreen(player);
 		
 		while (!Display.isCloseRequested())
 		{
@@ -71,11 +74,13 @@ public class ClayMain implements Runnable
 		}
 		System.exit(0);
 	}
-
+	
 	public static void main(String[] args)
 	{
 		new ClayMain();
 	}
 	
 	private AbstractScreen _screen;
+	
+	public static PlayerModel _globalModel;
 }

@@ -7,6 +7,7 @@ import java.util.Random;
 
 import main.ClayConstants;
 import models.CityModel;
+import models.PlayerModel;
 import city.ai.GolemBehaviorProcess;
 import city.controllers.BuildingPlacementController;
 import city.controllers.CityInterfaceController;
@@ -15,7 +16,6 @@ import city.effects.ArchitectureEffect;
 import city.effects.BackgroundEffect;
 import city.effects.CityInterfaceEffect;
 import city.effects.GolemEffect;
-import city.effects.RainEffect;
 import city.generics.data.BuildingData;
 import city.generics.data.GolemData;
 import city.generics.entities.BuildingEntity;
@@ -27,22 +27,27 @@ import city.util.ClayTerrainGenerator;
 
 public class CityScreen extends AbstractScreen
 {
+	public CityScreen(PlayerModel playerModel_)
+	{
+		super(playerModel_);
+		_playerModel = playerModel_;
+	}
+
 	@Override
 	protected void init()
 	{
-		_model = new CityModel(this);
-		
+		_cityModel = new CityModel(this);
+
 		_menus = new ArrayList<AbstractMenu>();
 		_menus.add(new BuildingMenu(this));
 
-		_model.setSelectedMenu(_menus.get(0));
-		
+		_cityModel.setSelectedMenu(_menus.get(0));
+
 		_effects.add(new BackgroundEffect(this));
 		_effects.add(new ArchitectureEffect(this));
-		//_effects.add(new RainEffect(this));
 		_effects.add(new GolemEffect(this));
 		_effects.add(new CityInterfaceEffect(this));
-		
+
 		for (AbstractEffect effect : _effects)
 		{
 			effect.init();
@@ -53,7 +58,7 @@ public class CityScreen extends AbstractScreen
 
 		_controllers.add(new BuildingPlacementController(this));
 		_controllers.add(new CityInterfaceController(this));
-		
+
 		_processes.add(new GolemBehaviorProcess(this));
 		_processes.add(new GolemMaintenanceProcess(this));
 		_processes.add(new BuildingTickProcess(this));
@@ -62,20 +67,25 @@ public class CityScreen extends AbstractScreen
 	public void initTerrain()
 	{
 		ClayTerrainGenerator gen = new ClayTerrainGenerator(this);
-		BuildingEntity[][] tileValues = _model.getTileValues();
+		BuildingEntity[][] tileValues = _cityModel.getTileValues();
 		gen.buildTerrain(
-				_model.getTileValues(),
+				_cityModel.getTileValues(),
 				2,
 				((ClayConstants.DEFAULT_MAP_HEIGHT / ClayConstants.TILE_Y) / 2) - 1,
-				new Point(0, (ClayConstants.DEFAULT_MAP_WIDTH / ClayConstants.TILE_X) - 1));
-		for (int i = 0; i < ClayConstants.DEFAULT_MAP_WIDTH / ClayConstants.TILE_X; i++)
+				new Point(
+						0,
+						(ClayConstants.DEFAULT_MAP_WIDTH / ClayConstants.TILE_X) - 1));
+		for (int i = 0; i < ClayConstants.DEFAULT_MAP_WIDTH
+				/ ClayConstants.TILE_X; i++)
 		{
 			if (tileValues[i][0] == null)
 				tileValues[i][0] = new BuildingEntity(
-						BuildingData.getBuildingByTag("dirt-block"), new Point(i * ClayConstants.TILE_X, 0), this, ClayConstants.DEFAULT_BUILDING_POSITION);
+						BuildingData.getBuildingByTag("dirt-block"), new Point(
+								i * ClayConstants.TILE_X, 0), this,
+						ClayConstants.DEFAULT_BUILDING_POSITION);
 		}
 	}
-	
+
 	public void initGolems()
 	{
 		Random random = new Random();
@@ -86,20 +96,28 @@ public class CityScreen extends AbstractScreen
 		for (int indexY = 1; indexY < ClayConstants.DEFAULT_MAP_HEIGHT
 				/ ClayConstants.TILE_Y; indexY++)
 		{
-			if (_model.getTileValue(indexX, indexY) == null)
+			if (_cityModel.getTileValue(indexX, indexY) == null)
 				break;
 			placementY += ClayConstants.TILE_Y;
 		}
-		_model.addGolem(GolemData.getGolem(ClayConstants.GOLEM_CLAY),placementX, placementY);
+		_cityModel.addGolem(
+				GolemData.getGolem(ClayConstants.GOLEM_CLAY),
+				placementX,
+				placementY);
 	}
-	
+
 	@Override
 	public CityModel getModel()
 	{
-		return _model;
+		return _cityModel;
 	}
-	
-	protected CityModel _model;
-	
+
+	public List<AbstractMenu> getMenus()
+	{
+		return _menus;
+	}
+
+	protected CityModel _cityModel;
+
 	protected List<AbstractMenu> _menus;
 }

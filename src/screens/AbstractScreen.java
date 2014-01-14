@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.AbstractModel;
-
+import models.PlayerModel;
 import city.effects.AbstractEffect;
 import city.processes.AbstractProcess;
 
 public abstract class AbstractScreen
 {
-	public AbstractScreen()
+	public AbstractScreen(PlayerModel playerModel_)
 	{
+		_playerModel = playerModel_;
 		_effects = new ArrayList<AbstractEffect>();
 		_processes = new ArrayList<AbstractProcess>();
 		_controllers = new ArrayList<AbstractProcess>();
@@ -62,10 +63,18 @@ public abstract class AbstractScreen
 	{
 		return _model;
 	}
+	
+	public PlayerModel getPlayerModel()
+	{
+		return _playerModel;
+	}
 
 	protected List<AbstractEffect> _effects;
 	protected List<AbstractProcess> _processes;
 	protected List<AbstractProcess> _controllers;
 
 	protected AbstractModel _model;
+	
+	protected PlayerModel _playerModel;
+
 }

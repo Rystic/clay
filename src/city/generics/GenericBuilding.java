@@ -38,8 +38,10 @@ public final class GenericBuilding
 
 		_extraWeightConditions = eElement.getAttribute("ExtraWeight");
 
-		_buildTime = XmlFieldParser.parseInt(eElement.getAttribute("BuildTime"));
-		_tickStart = XmlFieldParser.parseInt(eElement.getAttribute("tickStart"));
+		_buildTime = XmlFieldParser
+				.parseInt(eElement.getAttribute("BuildTime"));
+		_tickStart = XmlFieldParser
+				.parseInt(eElement.getAttribute("tickStart"));
 		_storageCapacity = XmlFieldParser.parseInt(eElement
 				.getAttribute("StorageCapacity"));
 
@@ -57,7 +59,8 @@ public final class GenericBuilding
 
 		_isClaimable = XmlFieldParser.parseBoolean(eElement
 				.getAttribute("isClaimable"));
-		_isHouse = XmlFieldParser.parseBoolean(eElement.getAttribute("isHouse"));
+		_isHouse = XmlFieldParser
+				.parseBoolean(eElement.getAttribute("isHouse"));
 		_isNatural = XmlFieldParser.parseBoolean(eElement
 				.getAttribute("isNatural"));
 		_isPassable = XmlFieldParser.parseBoolean(eElement
@@ -66,6 +69,8 @@ public final class GenericBuilding
 				.getAttribute("isStorage"));
 		_isSupport = XmlFieldParser.parseBoolean(eElement
 				.getAttribute("isSupport"));
+		_unlockedFromStart = XmlFieldParser.parseBoolean(eElement
+				.getAttribute("UnlockedFromStart"));
 
 		parseBuildingRequirements(eElement.getAttribute("BuildingRequirements"));
 		parseScalability(eElement.getAttribute("Scalability"));
@@ -303,7 +308,8 @@ public final class GenericBuilding
 						metConditions++;
 					continue;
 				}
-				else if (stateName.equals(ClayConstants.T_STATE_UNNATURAL_ABOVE))
+				else if (stateName
+						.equals(ClayConstants.T_STATE_UNNATURAL_ABOVE))
 				{
 					if (model.getTileValue(point.x, point.y + 1) != null
 							&& !model.getTileValue(point.x, point.y + 1)
@@ -311,7 +317,8 @@ public final class GenericBuilding
 						metConditions++;
 					continue;
 				}
-				else if (stateName.equals(ClayConstants.T_STATE_UNNATURAL_BELOW))
+				else if (stateName
+						.equals(ClayConstants.T_STATE_UNNATURAL_BELOW))
 				{
 					if (model.getTileValue(point.x, point.y - 1) != null
 							&& !model.getTileValue(point.x, point.y - 1)
@@ -327,7 +334,8 @@ public final class GenericBuilding
 						metConditions++;
 					continue;
 				}
-				else if (stateName.equals(ClayConstants.T_STATE_UNNATURAL_RIGHT))
+				else if (stateName
+						.equals(ClayConstants.T_STATE_UNNATURAL_RIGHT))
 				{
 					if (model.getTileValue(point.x + 1, point.y) != null
 							&& !model.getTileValue(point.x + 1, point.y)
@@ -344,19 +352,23 @@ public final class GenericBuilding
 					boolean isAdjacent = false;
 					if (model.getTileValue(above.x, above.y) != null
 							&& model.getTileValue(above.x, above.y)
-									.getBuildingTag().equals(stateNameAndParams[1]))
+									.getBuildingTag()
+									.equals(stateNameAndParams[1]))
 						isAdjacent = true;
 					else if (model.getTileValue(below.x, below.y) != null
 							&& model.getTileValue(below.x, below.y)
-									.getBuildingTag().equals(stateNameAndParams[1]))
+									.getBuildingTag()
+									.equals(stateNameAndParams[1]))
 						isAdjacent = true;
 					else if (model.getTileValue(left.x, left.y) != null
 							&& model.getTileValue(left.x, left.y)
-									.getBuildingTag().equals(stateNameAndParams[1]))
+									.getBuildingTag()
+									.equals(stateNameAndParams[1]))
 						isAdjacent = true;
 					else if (model.getTileValue(right.x, right.y) != null
 							&& model.getTileValue(right.x, right.y)
-									.getBuildingTag().equals(stateNameAndParams[1]))
+									.getBuildingTag()
+									.equals(stateNameAndParams[1]))
 						isAdjacent = true;
 					if (isAdjacent)
 						metConditions++;
@@ -425,27 +437,36 @@ public final class GenericBuilding
 						metConditions++;
 					continue;
 				}
-				else if (stateName.equals(ClayConstants.T_STATE_BUILDING_ABOVE_NOT_STATE))
+				else if (stateName
+						.equals(ClayConstants.T_STATE_BUILDING_ABOVE_NOT_STATE))
 				{
 					String state = stateNameAndParams[1];
 					if (model.getTileValue(point.x, point.y + 1) != null
-							&& !state.equals(model.getTileValue(point.x, point.y + 1).getState()))
+							&& !state.equals(model.getTileValue(
+									point.x,
+									point.y + 1).getState()))
 						metConditions++;
 					continue;
 				}
-				else if (stateName.equals(ClayConstants.T_STATE_BUILDING_LEFT_NOT_STATE))
+				else if (stateName
+						.equals(ClayConstants.T_STATE_BUILDING_LEFT_NOT_STATE))
 				{
 					String state = stateNameAndParams[1];
 					if (model.getTileValue(point.x - 1, point.y) != null
-							&& !state.equals(model.getTileValue(point.x - 1, point.y).getState()))
+							&& !state.equals(model.getTileValue(
+									point.x - 1,
+									point.y).getState()))
 						metConditions++;
 					continue;
 				}
-				else if (stateName.equals(ClayConstants.T_STATE_BUILDING_RIGHT_NOT_STATE))
+				else if (stateName
+						.equals(ClayConstants.T_STATE_BUILDING_RIGHT_NOT_STATE))
 				{
 					String state = stateNameAndParams[1];
 					if (model.getTileValue(point.x + 1, point.y) != null
-							&& !state.equals(model.getTileValue(point.x + 1, point.y).getState()))
+							&& !state.equals(model.getTileValue(
+									point.x + 1,
+									point.y).getState()))
 						metConditions++;
 					continue;
 				}
@@ -643,12 +664,17 @@ public final class GenericBuilding
 	{
 		return _transformCode;
 	}
+	
+	public boolean isUnlockedFromStart()
+	{
+		return _unlockedFromStart;
+	}
 
 	public String getExtraWeightConditions()
 	{
 		return _extraWeightConditions;
 	}
-	
+
 	public String getConstructionItems()
 	{
 		return _constructionItems;
@@ -707,4 +733,5 @@ public final class GenericBuilding
 	private final boolean _isStorage;
 	private final boolean _isSupport;
 
+	private final boolean _unlockedFromStart;
 }

@@ -1,6 +1,5 @@
 package city.ui.components;
 
-import java.awt.Point;
 import java.awt.Rectangle;
 
 import org.newdawn.slick.opengl.Texture;
@@ -16,51 +15,64 @@ public abstract class AbstractComponent
 	{
 		_texture = texture_;
 	}
-	
+
 	public Texture getTexture()
 	{
-		return null;
+		return _texture;
 	}
 
 	public void setDrawRatio(float drawRatio_)
 	{
 		_drawRatio = drawRatio_;
 	}
-	
+
 	public float getDrawRatio()
 	{
 		return _drawRatio;
 	}
-	
+
 	public double getWidth()
 	{
 		return _bounds.getWidth();
 	}
-	
+
+	public void setWidth(int width_)
+	{
+		_bounds.width = width_;
+	}
+
 	public double getHeight()
 	{
 		return _bounds.getHeight();
 	}
 	
+	public void setHeight(int height_)
+	{
+		_bounds.height = height_;
+	}
+
 	public double getX()
 	{
 		return _bounds.getX();
 	}
 	
+	public void setX(int x_)
+	{
+		_bounds.x = x_;
+	}
+
 	public double getY()
 	{
 		return _bounds.getY();
 	}
 	
-	public boolean isClicked(Point point_)
+	public void setY(int y_)
 	{
-		return _bounds.contains(point_);
+		_bounds.y = y_;
 	}
 	
-	public abstract void clicked();
-	
-	private Rectangle _bounds;
-	
-	private Texture _texture;
-	private float _drawRatio;
+	protected Rectangle _bounds;
+
+	protected Texture _texture;
+	protected float _drawRatio;
 }

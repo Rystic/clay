@@ -1,25 +1,29 @@
 package city.ui.menus;
 
+import org.lwjgl.input.Keyboard;
+
 import screens.AbstractScreen;
-import city.generics.data.BuildingData;
-import city.ui.components.SelectBuildingButton;
-import city.ui.events.InterfaceKeyEvent;
 import city.ui.events.InterfaceMouseEvent;
+import city.ui.menus.areas.BuildingSliderArea;
 
 public class BuildingMenu extends AbstractMenu
 {
 	public BuildingMenu(AbstractScreen homeScreen_)
 	{
 		super(homeScreen_);
-		SelectBuildingButton houseButton = new SelectBuildingButton(115, 750, 75, 75, BuildingData.getBuildingByTag("crucible"));
-		houseButton.setDrawRatio(.77f);
-		_components.add(houseButton);
+		_buildingSlider = new BuildingSliderArea(homeScreen_, 800);
+		_components.addAll(_buildingSlider.getComponents());
+		_hotKeys.add(Keyboard.KEY_Q);
+		_hotKeys.add(Keyboard.KEY_E);
 	}
-	
+
 	@Override
-	public void handleKeyEvent(InterfaceKeyEvent event_)
+	public void handleKeyEvent(Integer key_)
 	{
-		// TODO Auto-generated method stub
+		if (key_ == Keyboard.KEY_Q)
+			_buildingSlider.moveLeft();
+		else if (key_ == Keyboard.KEY_E)
+			_buildingSlider.moveRight();
 	}
 
 	@Override
@@ -27,4 +31,7 @@ public class BuildingMenu extends AbstractMenu
 	{
 		// TODO Auto-generated method stub
 	}
+
+	private BuildingSliderArea _buildingSlider;
+
 }
