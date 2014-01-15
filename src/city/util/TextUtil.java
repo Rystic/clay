@@ -6,7 +6,6 @@ public class TextUtil
 {
 	 public static void drawString(String s, int x, int y) {
 	      int startX = x;
-			GL11.glColor3f(1.0f, 1.0f, 1.0f);
 	      GL11.glBegin(GL11.GL_POINTS);
 	      for (char c : s.toLowerCase().toCharArray()) {
 	         if (c == 'a') {

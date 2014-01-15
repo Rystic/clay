@@ -12,9 +12,9 @@ public class BuildingMenu extends AbstractMenu
 	public BuildingMenu(AbstractScreen homeScreen_)
 	{
 		super(homeScreen_);
-		_buildingSlider = new BuildingSliderArea(homeScreen_, 800);
-		_buildingPattern = new BuildingPatternArea(homeScreen_, 650);
-		_buildingInformation = new BuildingInformationArea(homeScreen_, 450);
+		_buildingSlider = new BuildingSliderArea(homeScreen_, 825);
+		_buildingPattern = new BuildingPatternArea(homeScreen_, 625);
+		_buildingInformation = new BuildingInformationArea(homeScreen_, 425);
 
 		_areas.add(_buildingSlider);
 		_areas.add(_buildingPattern);
@@ -37,9 +37,9 @@ public class BuildingMenu extends AbstractMenu
 	public void handleMouseWheel(boolean upwardScroll_)
 	{
 		if (upwardScroll_)
-			_buildingSlider.moveRight();
-		else
 			_buildingSlider.moveLeft();
+		else
+			_buildingSlider.moveRight();
 	}
 
 	private BuildingSliderArea _buildingSlider;
