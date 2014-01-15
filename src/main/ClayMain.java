@@ -15,6 +15,7 @@ import city.generics.data.BuildingData;
 import city.generics.data.GolemData;
 import city.generics.data.ItemData;
 import city.processes.AbstractProcess;
+import city.ui.menus.AbstractMenu;
 
 public class ClayMain implements Runnable
 {
@@ -29,8 +30,11 @@ public class ClayMain implements Runnable
 	{
 		try
 		{
-			//DisplayMode[] modes = Display.getAvailableDisplayModes();
-			Display.setDisplayMode(new DisplayMode(ClayConstants.DEFAULT_MAP_WIDTH + ClayConstants.DEFAULT_INTERFACE_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT));
+			// DisplayMode[] modes = Display.getAvailableDisplayModes();
+			Display.setDisplayMode(new DisplayMode(
+					ClayConstants.DEFAULT_MAP_WIDTH
+							+ ClayConstants.DEFAULT_INTERFACE_WIDTH,
+					ClayConstants.DEFAULT_MAP_HEIGHT));
 			Display.setFullscreen(false);
 			Display.create();
 		} catch (LWJGLException e)
@@ -44,22 +48,37 @@ public class ClayMain implements Runnable
 		GolemData.init();
 		PlayerModel player = new PlayerModel();
 		_screen = new CityScreen(player);
-		
+
 		while (!Display.isCloseRequested())
 		{
-			//.if (Keyboard.isKeyDown(Keyboard.KEY_TAB))_currentScreen = _secondScreen;
+			// .if (Keyboard.isKeyDown(Keyboard.KEY_TAB))_currentScreen =
+			// _secondScreen;
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			GL11.glEnable(GL11.GL_BLEND); 
+			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			
+
 			for (AbstractEffect effect : _screen.getEffects())
 			{
 				GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 				GL11.glMatrixMode(GL11.GL_PROJECTION);
 				GL11.glLoadIdentity();
-				GL11.glOrtho(0, ClayConstants.DEFAULT_MAP_WIDTH + ClayConstants.DEFAULT_INTERFACE_WIDTH, 0, ClayConstants.DEFAULT_MAP_HEIGHT, -1, 1);
+				GL11.glOrtho(
+						0,
+						ClayConstants.DEFAULT_MAP_WIDTH
+								+ ClayConstants.DEFAULT_INTERFACE_WIDTH,
+						0,
+						ClayConstants.DEFAULT_MAP_HEIGHT,
+						-1,
+						1);
 				GL11.glMatrixMode(GL11.GL_MODELVIEW);
 				effect.executeEffect();
+			}
+			if (_screen instanceof CityScreen)
+			{
+				for (AbstractMenu menu : ((CityScreen)_screen).getMenus())
+				{
+					menu.update();
+				}
 			}
 			for (AbstractProcess controller : _screen.getControllers())
 			{
@@ -74,13 +93,13 @@ public class ClayMain implements Runnable
 		}
 		System.exit(0);
 	}
-	
+
 	public static void main(String[] args)
 	{
 		new ClayMain();
 	}
-	
+
 	private AbstractScreen _screen;
-	
+
 	public static PlayerModel _globalModel;
 }

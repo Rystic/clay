@@ -684,6 +684,11 @@ public final class GenericBuilding
 	{
 		return !building_.isInUse();
 	}
+	
+	public Map<String, String> getValidPlacementMap()
+	{
+		return _validPlacementMap;
+	}
 
 	@Override
 	public boolean equals(Object obj)

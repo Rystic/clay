@@ -6,7 +6,7 @@ import java.util.List;
 import screens.AbstractScreen;
 import city.ui.components.AbstractComponent;
 
-public class AbstractArea
+public abstract class AbstractArea
 {
 	public AbstractArea(AbstractScreen homeScreen_)
 	{
@@ -18,6 +18,8 @@ public class AbstractArea
 	{
 		return _components;
 	}
+	
+	public abstract void update();
 		
 	protected List<AbstractComponent> _components;
 	

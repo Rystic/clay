@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 
 import screens.AbstractScreen;
 import screens.CityScreen;
@@ -35,6 +36,9 @@ public class CityInterfaceController extends AbstractProcess
 					menu.handleKeyEvent(key);
 				}
 			}
+			int wheel = Mouse.getDWheel();
+			if (wheel != 0)
+				menu.handleMouseWheel(wheel > 0);
 		}
 		if (_pressedKeys.size() > 0)
 		{

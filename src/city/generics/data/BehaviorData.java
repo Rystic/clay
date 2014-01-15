@@ -38,6 +38,7 @@ public class BehaviorData
 						_neededBehaviors.add(behavior);
 					if (behavior.isPersonalBehavior())
 						_personalBehaviors.add(behavior);
+					_allBehaviors.add(behavior);
 					_tagToBehavior.put(behavior.getBehaviorTag(), behavior);
 				}
 			}
@@ -54,6 +55,11 @@ public class BehaviorData
 		return _tagToBehavior.get(tag_);
 	}
 
+	public static List<GenericBehavior> getAllBeahviors()
+	{
+		return _allBehaviors;
+	}
+
 	public static List<GenericBehavior> getNeededBehaviors()
 	{
 		return _neededBehaviors;
@@ -68,9 +74,11 @@ public class BehaviorData
 	{
 		return _personalBehaviors;
 	}
+	
 
 	public static final Map<String, GenericBehavior> _tagToBehavior = new HashMap<String, GenericBehavior>();
 
+	private static final List<GenericBehavior> _allBehaviors = new ArrayList<GenericBehavior>();
 	private static final List<GenericBehavior> _neededBehaviors = new ArrayList<GenericBehavior>();
 	private static final List<GenericBehavior> _wantedBehaviors = new ArrayList<GenericBehavior>();
 	private static final List<GenericBehavior> _personalBehaviors = new ArrayList<GenericBehavior>();

@@ -25,7 +25,7 @@ public class BackgroundEffect extends AbstractEffect
 		{
 			_skyTexture = TextureLoader.getTexture(
 					"PNG",
-					new FileInputStream(new File("art/sky3.jpg")));
+					new FileInputStream(new File("art/sky2.jpg")));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -35,7 +35,7 @@ public class BackgroundEffect extends AbstractEffect
 	@Override
 	public void executeEffect()
 	{
-			GL11.glColor3f(0.2f, 0.7f, .9f);
+			GL11.glColor3f(0.5f, 0.5f, 1.0f);
 		// GL11.glColor3f(0.2f, 0.7f, .9f); not main
 		// GL11.glColor3f(0.6f, 0.6f, 1.0f); not main
 

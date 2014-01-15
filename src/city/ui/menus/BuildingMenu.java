@@ -3,7 +3,8 @@ package city.ui.menus;
 import org.lwjgl.input.Keyboard;
 
 import screens.AbstractScreen;
-import city.ui.events.InterfaceMouseEvent;
+import city.ui.menus.areas.BuildingInformationArea;
+import city.ui.menus.areas.BuildingPatternArea;
 import city.ui.menus.areas.BuildingSliderArea;
 
 public class BuildingMenu extends AbstractMenu
@@ -12,7 +13,13 @@ public class BuildingMenu extends AbstractMenu
 	{
 		super(homeScreen_);
 		_buildingSlider = new BuildingSliderArea(homeScreen_, 800);
-		_components.addAll(_buildingSlider.getComponents());
+		_buildingPattern = new BuildingPatternArea(homeScreen_, 650);
+		_buildingInformation = new BuildingInformationArea(homeScreen_, 450);
+
+		_areas.add(_buildingSlider);
+		_areas.add(_buildingPattern);
+		_areas.add(_buildingInformation);
+		
 		_hotKeys.add(Keyboard.KEY_Q);
 		_hotKeys.add(Keyboard.KEY_E);
 	}
@@ -27,11 +34,15 @@ public class BuildingMenu extends AbstractMenu
 	}
 
 	@Override
-	public void handleMouseEvent(InterfaceMouseEvent event_)
+	public void handleMouseWheel(boolean upwardScroll_)
 	{
-		// TODO Auto-generated method stub
+		if (upwardScroll_)
+			_buildingSlider.moveRight();
+		else
+			_buildingSlider.moveLeft();
 	}
 
 	private BuildingSliderArea _buildingSlider;
-
+	private BuildingPatternArea _buildingPattern;
+	private BuildingInformationArea _buildingInformation;
 }
