@@ -12,8 +12,9 @@ import org.newdawn.slick.opengl.Texture;
 import screens.AbstractScreen;
 import screens.CityScreen;
 import city.generics.GenericBuilding;
-import city.ui.components.ImageComponent;
-import city.ui.components.TextComponent;
+import city.ui.menus.components.AbstractButton;
+import city.ui.menus.components.ImageComponent;
+import city.ui.menus.components.TextComponent;
 
 public class BuildingSliderArea extends AbstractArea
 {
@@ -27,11 +28,45 @@ public class BuildingSliderArea extends AbstractArea
 
 		loadKnownBuildings();
 
-		_firstBuilding = new ImageComponent(40, _yPos, 35, 35);
-		_secondBuilding = new ImageComponent(40, _yPos - 40, 35, 35);
+		_firstBuilding = new AbstractButton(40, _yPos, 35, 35)
+		{
+
+			@Override
+			public void clicked()
+			{
+				moveLeft();
+				moveLeft();
+			}
+		};
+		_secondBuilding = new AbstractButton(40, _yPos - 40, 35, 35)
+		{
+
+			@Override
+			public void clicked()
+			{
+				moveLeft();
+			}
+		};
 		_thirdBuilding = new ImageComponent(40, _yPos - 80, 35, 35);
-		_fourthBuilding = new ImageComponent(40, _yPos - 120, 35, 35);
-		_fifthBuilding = new ImageComponent(40, _yPos - 160, 35, 35);
+		_fourthBuilding = new AbstractButton(40, _yPos - 120, 35, 35)
+		{
+
+			@Override
+			public void clicked()
+			{
+				moveRight();
+			}
+		};
+		_fifthBuilding = new AbstractButton(40, _yPos - 160, 35, 35)
+		{
+
+			@Override
+			public void clicked()
+			{
+				moveRight();
+				moveRight();
+			}
+		};
 
 		_firstBuilding.setTexture(getTextureFromPointer(-2));
 		_secondBuilding.setTexture(getTextureFromPointer(-1));
@@ -55,7 +90,7 @@ public class BuildingSliderArea extends AbstractArea
 				getBuildingNameFromPointer(1));
 		_fifthBuildingLabel = new TextComponent(80, _yPos - 140,
 				getBuildingNameFromPointer(2));
-		
+
 		_thirdBuildingLabel.setTextColor(new Color(1.0f, 0f, 0f));
 
 		_components.add(_firstBuilding);
@@ -159,11 +194,11 @@ public class BuildingSliderArea extends AbstractArea
 
 	private int _listPointer;
 
-	private ImageComponent _firstBuilding;
-	private ImageComponent _secondBuilding;
+	private AbstractButton _firstBuilding;
+	private AbstractButton _secondBuilding;
 	private ImageComponent _thirdBuilding;
-	private ImageComponent _fourthBuilding;
-	private ImageComponent _fifthBuilding;
+	private AbstractButton _fourthBuilding;
+	private AbstractButton _fifthBuilding;
 
 	private TextComponent _firstBuildingLabel;
 	private TextComponent _secondBuildingLabel;

@@ -1,4 +1,4 @@
-package city.ui.components;
+package city.ui.menus.components;
 
 import org.newdawn.slick.opengl.Texture;
 

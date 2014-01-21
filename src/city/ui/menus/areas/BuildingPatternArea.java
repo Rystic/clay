@@ -7,8 +7,8 @@ import screens.AbstractScreen;
 import screens.CityScreen;
 import city.generics.GenericBuilding;
 import city.generics.data.BuildingData;
-import city.ui.components.ImageComponent;
-import city.ui.components.TextComponent;
+import city.ui.menus.components.ImageComponent;
+import city.ui.menus.components.TextComponent;
 
 public class BuildingPatternArea extends AbstractArea
 {

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import screens.AbstractScreen;
-import city.ui.components.AbstractButton;
-import city.ui.components.AbstractComponent;
 import city.ui.events.InterfaceMouseEvent;
 import city.ui.menus.areas.AbstractArea;
+import city.ui.menus.components.AbstractButton;
+import city.ui.menus.components.AbstractComponent;
 
 public abstract class AbstractMenu
 {

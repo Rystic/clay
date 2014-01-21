@@ -3,12 +3,16 @@ package city.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.ClayConstants;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
 
 import screens.AbstractScreen;
 import screens.CityScreen;
 import city.processes.AbstractProcess;
+import city.ui.events.InterfaceMouseEvent;
 import city.ui.menus.AbstractMenu;
 
 public class CityInterfaceController extends AbstractProcess
@@ -39,6 +43,21 @@ public class CityInterfaceController extends AbstractProcess
 			int wheel = Mouse.getDWheel();
 			if (wheel != 0)
 				menu.handleMouseWheel(wheel > 0);
+			if (Mouse.isButtonDown(0))
+			{
+				if (!_leftMouseDown)
+				{
+					menu.handleMouseEvent(new InterfaceMouseEvent(Mouse.getX()
+							- Display.getWidth()
+							+ ClayConstants.DEFAULT_INTERFACE_WIDTH, Mouse
+							.getY()));
+					_leftMouseDown = true;
+				}
+			}
+			else
+			{
+				_leftMouseDown = false;
+			}
 		}
 		if (_pressedKeys.size() > 0)
 		{
@@ -132,6 +151,8 @@ public class CityInterfaceController extends AbstractProcess
 		// _options.add(ladderButton);
 		// _options.add(ovenButton);
 	}
+
+	private boolean _leftMouseDown;
 
 	private List<Integer> _pressedKeys;
 

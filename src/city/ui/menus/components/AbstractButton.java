@@ -1,4 +1,4 @@
-package city.ui.components;
+package city.ui.menus.components;
 
 import java.awt.Point;
 
@@ -8,12 +8,12 @@ public abstract class AbstractButton extends AbstractComponent
 	{
 		super(x_, y_, width_, height_);
 	}
-	
+
 	public boolean isClicked(Point point_)
 	{
 		return _bounds.contains(point_);
 	}
-	
+
 	public abstract void clicked();
-	
+
 }

@@ -6,9 +6,9 @@ import models.CityModel;
 import org.lwjgl.opengl.GL11;
 
 import screens.AbstractScreen;
-import city.ui.components.AbstractComponent;
-import city.ui.components.TextComponent;
 import city.ui.menus.AbstractMenu;
+import city.ui.menus.components.AbstractComponent;
+import city.ui.menus.components.TextComponent;
 import city.util.TextUtil;
 
 public class CityInterfaceEffect extends AbstractEffect

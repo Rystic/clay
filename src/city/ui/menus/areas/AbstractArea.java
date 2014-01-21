@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import screens.AbstractScreen;
-import city.ui.components.AbstractComponent;
+import city.ui.menus.components.AbstractComponent;
 
 public abstract class AbstractArea
 {

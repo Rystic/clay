@@ -1,4 +1,4 @@
-package city.ui.components;
+package city.ui.menus.components;
 
 import java.awt.Color;
 
