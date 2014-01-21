@@ -15,6 +15,7 @@ import city.effects.AbstractEffect;
 import city.effects.ArchitectureEffect;
 import city.effects.BackgroundEffect;
 import city.effects.CityInterfaceEffect;
+import city.effects.CursorEffect;
 import city.effects.GolemEffect;
 import city.generics.data.BuildingData;
 import city.generics.data.GolemData;
@@ -47,6 +48,7 @@ public class CityScreen extends AbstractScreen
 		_effects.add(new ArchitectureEffect(this));
 		_effects.add(new GolemEffect(this));
 		_effects.add(new CityInterfaceEffect(this));
+		_effects.add(new CursorEffect(this));
 
 		for (AbstractEffect effect : _effects)
 		{
