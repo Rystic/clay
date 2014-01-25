@@ -3,6 +3,7 @@ package city.ui.menus;
 import org.lwjgl.input.Keyboard;
 
 import screens.AbstractScreen;
+import city.ui.menus.areas.BuildingDescriptionArea;
 import city.ui.menus.areas.BuildingInformationArea;
 import city.ui.menus.areas.BuildingPatternArea;
 import city.ui.menus.areas.BuildingSliderArea;
@@ -15,10 +16,12 @@ public class BuildingMenu extends AbstractMenu
 		_buildingSlider = new BuildingSliderArea(homeScreen_, 825);
 		_buildingPattern = new BuildingPatternArea(homeScreen_, 625);
 		_buildingInformation = new BuildingInformationArea(homeScreen_, 425);
+		_buildingDescription = new BuildingDescriptionArea(homeScreen_, 200);
 
 		_areas.add(_buildingSlider);
 		_areas.add(_buildingPattern);
 		_areas.add(_buildingInformation);
+		_areas.add(_buildingDescription);
 		
 		_hotKeys.add(Keyboard.KEY_Q);
 		_hotKeys.add(Keyboard.KEY_E);
@@ -45,4 +48,5 @@ public class BuildingMenu extends AbstractMenu
 	private BuildingSliderArea _buildingSlider;
 	private BuildingPatternArea _buildingPattern;
 	private BuildingInformationArea _buildingInformation;
+	private BuildingDescriptionArea _buildingDescription;
 }
