@@ -19,7 +19,7 @@ public class BehaviorWeightCalculator
 
 		for (String weightCondition : weightConditions)
 		{
-			if (weightCondition.equals(ClayConstants.WC_CLOSEST_TO_PINT))
+			if (weightCondition.equals(ClayConstants.WC_CLOSEST_TO_POINT))
 			{
 				BuildingEntity entity = (BuildingEntity) params_[0];
 				Queue<Point> path = SearchUtil.searchBuildingEntity(
