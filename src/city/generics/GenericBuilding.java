@@ -498,6 +498,22 @@ public final class GenericBuilding
 							.getBuildingByTag(commandAndParams[1]);
 				}
 			}
+			if (commandAndParams[0]
+					.equals(ClayConstants.TRANSFORM_FLANKED_SUPPORT))
+			{
+				BuildingEntity left = model.getTileValue(
+						building_.getGridX() - 1,
+						building_.getGridY());
+				BuildingEntity right = model.getTileValue(
+						building_.getGridX() + 1,
+						building_.getGridY());
+				if (left != null && left.isSupportBlock()
+						&& right != null && right.isSupportBlock())
+				{
+					newBuilding = BuildingData
+							.getBuildingByTag(commandAndParams[1]);
+				}
+			}
 		}
 		return newBuilding;
 	}
@@ -664,7 +680,7 @@ public final class GenericBuilding
 	{
 		return _transformCode;
 	}
-	
+
 	public boolean isUnlockedFromStart()
 	{
 		return _unlockedFromStart;
@@ -684,7 +700,7 @@ public final class GenericBuilding
 	{
 		return !building_.isInUse();
 	}
-	
+
 	public Map<String, String> getValidPlacementMap()
 	{
 		return _validPlacementMap;

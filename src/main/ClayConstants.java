@@ -100,7 +100,8 @@ public class ClayConstants
 	
 	// Transform States
 	public static final String TRANSFORM_FLANKED = "flanked";
-	
+	public static final String TRANSFORM_FLANKED_SUPPORT = "flanked-support";
+
 	// Tick Results
 	public static final String TICK_CODE_PRODUCE_ITEM = "item";
 	public static final String TICK_CODE_QUEUE_HARVEST_BEHAVIOR = "queue-harvest-behavior";

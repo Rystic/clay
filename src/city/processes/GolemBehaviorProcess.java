@@ -51,7 +51,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	
 	public void calculateBehavior(List<GolemEntity> inactiveGolems_)
 	{
-		System.out.println("List size: " + inactiveGolems_.size());
 		List<Behavior> toBeAssigned = new ArrayList<Behavior>();
 		toBeAssigned.addAll(_unassignedBehaviors);
 
