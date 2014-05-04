@@ -394,6 +394,15 @@ public final class GenericBuilding
 						metConditions++;
 					continue;
 				}
+				else if (stateName.equals(ClayConstants.T_STATE_BLOCKED_LEFT_SUPPORT))
+				{
+					BuildingEntity left = model.getTileValue(
+							building_.getGridX() - 1,
+							building_.getGridY());
+					if (left != null && left.isSupportBlock())
+						metConditions++;
+					continue;
+				}
 				else if (stateName.equals(ClayConstants.T_STATE_BURIED))
 				{
 					int neededDepth = Integer.parseInt(stateNameAndParams[1]);

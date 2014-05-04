@@ -105,7 +105,7 @@
 		ConstructionItems="" UnlockedFromStart="true" Transform="flanked-support:clay-block"
 		tickStart="-1">
 		<State StateName="state-default" Graphic="base,rampRight.png"></State>
-		<State StateName="state-blocked-left" Graphic="base,rampLeft.png"></State>
+		<State StateName="state-blocked-left-support" Graphic="base,rampLeft.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>

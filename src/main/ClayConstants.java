@@ -91,6 +91,7 @@ public class ClayConstants
 	public static final String T_STATE_STORAGE_FULL = "state-storage-full";
 	public static final String T_STATE_BURIED = "state-buried";
 	public static final String T_STATE_BLOCKED_LEFT = "state-blocked-left";
+	public static final String T_STATE_BLOCKED_LEFT_SUPPORT = "state-blocked-left-support";
 	public static final String T_STATE_BUILDING_ABOVE = "state-building-above";
 	public static final String T_STATE_BUILDING_LEFT = "state-building-left";
 	public static final String T_STATE_BUILDING_RIGHT = "state-building-right";

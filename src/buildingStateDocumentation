@@ -11,6 +11,8 @@ state-building-above:<building-tag> -- triggered if the given building is above 
 state-building-left:<building-tag> -- triggered if the given building type is to the left of the building.
 state-building-right:<building-tag> -- triggered if the given building type is to the right of the building.
 state-building-above-not-state:<state> -- triggered if the building above is NOT in the given state.
+state-blocked-left -- triggered when any type of building is placed left of the entity.
+state-blocked-left-support -- triggered when a support building is placed left of the entity.
 
 
 **Tick Complete:
