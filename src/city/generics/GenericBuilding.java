@@ -16,7 +16,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import screens.AbstractScreen;
-import city.ai.GolemBehaviorProcess;
 import city.generics.data.BehaviorData;
 import city.generics.data.BuildingData;
 import city.generics.data.ItemData;
@@ -24,6 +23,7 @@ import city.generics.entities.BuildingEntity;
 import city.generics.objects.Behavior;
 import city.generics.objects.Item;
 import city.generics.util.XmlFieldParser;
+import city.processes.GolemBehaviorProcess;
 import city.util.MapUpdateEvent;
 
 public final class GenericBuilding

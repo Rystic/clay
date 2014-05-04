@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Set;
 
 import main.ClayConstants;
-import city.ai.GolemBehaviorProcess;
 import city.ai.calculators.BehaviorInstructionCalculator;
 import city.ai.calculators.BehaviorWeightCalculator;
 import city.generics.GenericBehavior;
 import city.generics.data.ItemData;
 import city.generics.entities.BuildingEntity;
 import city.generics.entities.GolemEntity;
+import city.processes.GolemBehaviorProcess;
 
 public class Behavior
 {

@@ -8,19 +8,18 @@ import java.util.Random;
 import main.ClayConstants;
 import models.CityModel;
 import models.PlayerModel;
-import city.ai.GolemBehaviorProcess;
 import city.controllers.BuildingPlacementController;
 import city.controllers.CityInterfaceController;
 import city.effects.AbstractEffect;
 import city.effects.ArchitectureEffect;
 import city.effects.BackgroundEffect;
 import city.effects.CityInterfaceEffect;
-import city.effects.CursorEffect;
 import city.effects.GolemEffect;
 import city.generics.data.BuildingData;
 import city.generics.data.GolemData;
 import city.generics.entities.BuildingEntity;
 import city.processes.BuildingTickProcess;
+import city.processes.GolemBehaviorProcess;
 import city.processes.GolemMaintenanceProcess;
 import city.ui.menus.AbstractMenu;
 import city.ui.menus.BuildingMenu;
@@ -48,7 +47,7 @@ public class CityScreen extends AbstractScreen
 		_effects.add(new ArchitectureEffect(this));
 		_effects.add(new GolemEffect(this));
 		_effects.add(new CityInterfaceEffect(this));
-		_effects.add(new CursorEffect(this));
+		// _effects.add(new CursorEffect(this));
 
 		for (AbstractEffect effect : _effects)
 		{
@@ -60,10 +59,10 @@ public class CityScreen extends AbstractScreen
 
 		_controllers.add(new BuildingPlacementController(this));
 		_controllers.add(new CityInterfaceController(this));
-
 		_processes.add(new GolemBehaviorProcess(this));
 		_processes.add(new GolemMaintenanceProcess(this));
 		_processes.add(new BuildingTickProcess(this));
+
 	}
 
 	public void initTerrain()

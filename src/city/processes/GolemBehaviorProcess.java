@@ -1,4 +1,4 @@
-package city.ai;
+package city.processes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +11,12 @@ import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
 
 import screens.AbstractScreen;
+import city.ai.GolemBrain;
 import city.ai.util.BehaviorTriple;
 import city.ai.util.BehaviorTripleQuickSort;
 import city.generics.data.BehaviorData;
 import city.generics.entities.GolemEntity;
 import city.generics.objects.Behavior;
-import city.processes.AbstractProcess;
 import city.util.MapUpdateEvent;
 
 public class GolemBehaviorProcess extends AbstractProcess implements
@@ -38,6 +38,18 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 
 	@Override
 	public void execute()
+	{
+		boolean calculateBehavior = false;
+		for (GolemEntity golem : _golemList)
+		{
+			if (golem.isActive())
+				golem.executeBehavior();
+			else calculateBehavior = true;
+		}
+		if (calculateBehavior) calculateBehavior();
+	}
+	
+	public void calculateBehavior()
 	{
 		List<Behavior> toBeAssigned = new ArrayList<Behavior>();
 		toBeAssigned.addAll(_unassignedBehaviors);
@@ -168,10 +180,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		_unassignedBehaviors.removeAll(_noMaterials);
 		_unassignedBehaviors.removeAll(_noAvailableGolems);
 		_unassignedBehaviors.removeAll(_noStorageAvailable);
-		for (GolemEntity golem : _golemList)
-		{
-			golem.calculateBehavior();
-		}
 	}
 
 	public void behaviorComplete(Behavior behavior_)

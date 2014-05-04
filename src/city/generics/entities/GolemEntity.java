@@ -55,7 +55,7 @@ public class GolemEntity extends AbstractEntity
 		_visible = true;
 	}
 
-	public void calculateBehavior()
+	public void executeBehavior()
 	{
 		_mana -= .001;
 		_clay -= .001;
@@ -64,7 +64,7 @@ public class GolemEntity extends AbstractEntity
 			updatePosition();
 			return;
 		}
-		if (_tickCount > 0)
+		else if (_tickCount > 0)
 		{
 			_tickCount -= _tickCountRate;
 			if (_tickCount <= 0)
@@ -72,7 +72,7 @@ public class GolemEntity extends AbstractEntity
 			else
 				return;
 		}
-		if (_currentBehavior != null)
+		else if (_currentBehavior != null)
 			_currentBehavior.executeBehavior(this, _commands.get(0));
 	}
 
