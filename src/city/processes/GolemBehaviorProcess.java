@@ -39,18 +39,19 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	@Override
 	public void execute()
 	{
-		boolean calculateBehavior = false;
+		List<GolemEntity> inactiveGolems = new ArrayList<GolemEntity>();
 		for (GolemEntity golem : _golemList)
 		{
 			if (golem.isActive())
 				golem.executeBehavior();
-			else calculateBehavior = true;
+			else inactiveGolems.add(golem);
 		}
-		if (calculateBehavior) calculateBehavior();
+		if (inactiveGolems.size() > 0) calculateBehavior(inactiveGolems);
 	}
 	
-	public void calculateBehavior()
+	public void calculateBehavior(List<GolemEntity> inactiveGolems_)
 	{
+		System.out.println("List size: " + inactiveGolems_.size());
 		List<Behavior> toBeAssigned = new ArrayList<Behavior>();
 		toBeAssigned.addAll(_unassignedBehaviors);
 
@@ -61,9 +62,9 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			{
 				if (_clearInvalid)
 					behavior.clearInvalidEntities();
-				for (GolemEntity golem : _golemList)
+				for (GolemEntity golem : inactiveGolems_)
 				{
-					if (golem.isActive() || behavior.isInvalid(golem))
+					if (behavior.isInvalid(golem))
 						continue;
 					BehaviorTriple triple = new BehaviorTriple(golem, behavior,
 							behavior.calculateBehaviorWeight(golem)
@@ -79,10 +80,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		}
 		toBeAssigned.removeAll(_unreachableBehaviors);
 
-		for (GolemEntity golem : _golemList)
+		for (GolemEntity golem : inactiveGolems_)
 		{
-			if (golem.isActive())
-				continue;
 			BehaviorTriple golemNeededBehavior = GolemBrain
 					.calculateBestBehavior(
 							golem,
@@ -168,6 +167,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 						}
 						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
 						{
+							//TODO finish this branch
 						}
 					}
 				}
