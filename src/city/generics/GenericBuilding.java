@@ -394,7 +394,8 @@ public final class GenericBuilding
 						metConditions++;
 					continue;
 				}
-				else if (stateName.equals(ClayConstants.T_STATE_BLOCKED_LEFT_SUPPORT))
+				else if (stateName
+						.equals(ClayConstants.T_STATE_BLOCKED_LEFT_SUPPORT))
 				{
 					BuildingEntity left = model.getTileValue(
 							building_.getGridX() - 1,
@@ -516,8 +517,24 @@ public final class GenericBuilding
 				BuildingEntity right = model.getTileValue(
 						building_.getGridX() + 1,
 						building_.getGridY());
-				if (left != null && left.isSupportBlock()
-						&& right != null && right.isSupportBlock())
+				if (left != null && left.isSupportBlock() && right != null
+						&& right.isSupportBlock())
+				{
+					newBuilding = BuildingData
+							.getBuildingByTag(commandAndParams[1]);
+				}
+			}
+			if (commandAndParams[0]
+					.equals(ClayConstants.TRANSFORM_FLANKED_SUPPORT))
+			{
+				BuildingEntity left = model.getTileValue(
+						building_.getGridX() - 1,
+						building_.getGridY());
+				BuildingEntity right = model.getTileValue(
+						building_.getGridX() + 1,
+						building_.getGridY());
+				if ((left == null || !left.isSupportBlock()) && (right == null
+						|| !right.isSupportBlock()))
 				{
 					newBuilding = BuildingData
 							.getBuildingByTag(commandAndParams[1]);

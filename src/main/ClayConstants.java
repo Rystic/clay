@@ -102,6 +102,7 @@ public class ClayConstants
 	// Transform States
 	public static final String TRANSFORM_FLANKED = "flanked";
 	public static final String TRANSFORM_FLANKED_SUPPORT = "flanked-support";
+	public static final String TRANSFORM_FLANKED_NON_SUPPORT = "flanked-non-support";
 
 	// Tick Results
 	public static final String TICK_CODE_PRODUCE_ITEM = "item";

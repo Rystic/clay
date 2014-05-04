@@ -70,3 +70,4 @@ exists:item-tag - checks if the given item is available from the golem's locatio
 **Transform
 flanked - checks if the tile has blocks on the left and right of it.
 flanked-support - checks if the tile has support blocks on the left and right of it.
+flanked-non-support - checks if the tile has no blocks or non-support blocks to the left and right of it.
