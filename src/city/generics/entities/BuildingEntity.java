@@ -105,17 +105,17 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public boolean isUpwardScalable()
 	{
-		return _building.getScalableUpwards(_position);
+		return isBuilt() && _building.getScalableUpwards(_position);
 	}
 
 	public boolean isDownwardScalable()
 	{
-		return _building.getScalableDownards(_position);
+		return isBuilt() && _building.getScalableDownards(_position);
 	}
 
 	public boolean isDiagonalScalable()
 	{
-		return _building.getScalableDiagonal(_position);
+		return isBuilt() && _building.getScalableDiagonal(_position);
 	}
 
 	public boolean isPassable()
