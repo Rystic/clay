@@ -250,9 +250,15 @@ public class BuildingEntity extends AbstractEntity implements
 				.getProcess(BuildingTickProcess.class);
 		CityModel model = (CityModel) _homeScreen.getModel();
 		if (_heldItems.size() > 0)
+		{
+			for (Item item : _heldItems)
+			{
+				if (item.getClaimingBuilding() != null && !item.getClaimingBuilding().equals(this)) item.getClaimingBuilding().claimedItemDestroyed();
+			}
 			((StorageInventoryProcess) _homeScreen
 					.getProcess(StorageInventoryProcess.class))
 					.requestInventoryUpdate();
+		}
 		if (_allBuildingTiles == null)
 		{
 			_allBuildingTiles = new ArrayList<BuildingEntity>();
@@ -266,6 +272,15 @@ public class BuildingEntity extends AbstractEntity implements
 			model.clearTile(building.getGridX(), building.getGridY());
 		}
 
+	}
+	
+	public void claimedItemDestroyed()
+	{
+		for (Item item : _claimedItems)
+		{
+			item.release();
+		}
+		_claimingGolem.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM);
 	}
 
 	public void releaseItems()
