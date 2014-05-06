@@ -21,6 +21,7 @@ import city.generics.entities.BuildingEntity;
 import city.processes.BuildingTickProcess;
 import city.processes.GolemBehaviorProcess;
 import city.processes.GolemMaintenanceProcess;
+import city.processes.StorageInventoryProcess;
 import city.ui.menus.AbstractMenu;
 import city.ui.menus.BuildingMenu;
 import city.util.ClayTerrainGenerator;
@@ -62,6 +63,7 @@ public class CityScreen extends AbstractScreen
 		_processes.add(new GolemBehaviorProcess(this));
 		_processes.add(new GolemMaintenanceProcess(this));
 		_processes.add(new BuildingTickProcess(this));
+		_processes.add(new StorageInventoryProcess(this));
 
 	}
 

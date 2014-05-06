@@ -19,6 +19,7 @@ import city.generics.data.BuildingData;
 import city.generics.objects.Behavior;
 import city.generics.objects.Item;
 import city.processes.BuildingTickProcess;
+import city.processes.StorageInventoryProcess;
 import city.util.MapUpdateEvent;
 
 public class BuildingEntity extends AbstractEntity implements
@@ -148,6 +149,8 @@ public class BuildingEntity extends AbstractEntity implements
 		return _state;
 	}
 
+	
+	
 	public boolean isBuilt()
 	{
 		boolean tileIsBuilt = _built;
@@ -246,6 +249,10 @@ public class BuildingEntity extends AbstractEntity implements
 		BuildingTickProcess process = (BuildingTickProcess) _homeScreen
 				.getProcess(BuildingTickProcess.class);
 		CityModel model = (CityModel) _homeScreen.getModel();
+		if (_heldItems.size() > 0)
+			((StorageInventoryProcess) _homeScreen
+					.getProcess(StorageInventoryProcess.class))
+					.requestInventoryUpdate();
 		if (_allBuildingTiles == null)
 		{
 			_allBuildingTiles = new ArrayList<BuildingEntity>();
@@ -258,6 +265,7 @@ public class BuildingEntity extends AbstractEntity implements
 			process.unregister(building);
 			model.clearTile(building.getGridX(), building.getGridY());
 		}
+
 	}
 
 	public void releaseItems()
@@ -293,6 +301,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 		_claimedItems.clear();
 		_claimingGolem = null;
+
 	}
 
 	public void setClaimingGolem(GolemEntity claimingGolem_)
@@ -317,12 +326,18 @@ public class BuildingEntity extends AbstractEntity implements
 		item_.setClaimingBuilding(this);
 		item_.setItemIdentifier(_claimedItems.size());
 		_claimedItems.add(item_);
+		((StorageInventoryProcess) _homeScreen
+				.getProcess(StorageInventoryProcess.class))
+				.requestInventoryUpdate();
 	}
 
 	public void consumeClaimed()
 	{
 		consume(_claimedItems);
 		_claimedItems.clear();
+		((StorageInventoryProcess) _homeScreen
+				.getProcess(StorageInventoryProcess.class))
+				.requestInventoryUpdate();
 	}
 
 	public boolean claimHeldItem(Item item_)
@@ -332,6 +347,9 @@ public class BuildingEntity extends AbstractEntity implements
 			if (item.equals(item_))
 			{
 				claimItem(item);
+				((StorageInventoryProcess) _homeScreen
+						.getProcess(StorageInventoryProcess.class))
+						.requestInventoryUpdate();
 				return true;
 			}
 		}
@@ -349,6 +367,24 @@ public class BuildingEntity extends AbstractEntity implements
 	}
 
 	@Override
+	public void generate(Item item_)
+	{
+		super.generate(item_);
+		((StorageInventoryProcess) _homeScreen
+				.getProcess(StorageInventoryProcess.class))
+				.requestInventoryUpdate();
+	}
+
+	@Override
+	public void generate(List<Item> items_)
+	{
+		super.generate(items_);
+		((StorageInventoryProcess) _homeScreen
+				.getProcess(StorageInventoryProcess.class))
+				.requestInventoryUpdate();
+	}
+
+	@Override
 	public boolean consume(Item item_)
 	{
 		boolean consume;
@@ -362,10 +398,16 @@ public class BuildingEntity extends AbstractEntity implements
 				EventBus.publish(new MapUpdateEvent(_homeScreen, map));
 			}
 			removeObsoleteHarvestTasks();
+			((StorageInventoryProcess) _homeScreen
+					.getProcess(StorageInventoryProcess.class))
+					.requestInventoryUpdate();
 			return consume;
 		}
 		consume = super.consume(item_);
 		removeObsoleteHarvestTasks();
+		((StorageInventoryProcess) _homeScreen
+				.getProcess(StorageInventoryProcess.class))
+				.requestInventoryUpdate();
 		return consume;
 	}
 
@@ -383,10 +425,16 @@ public class BuildingEntity extends AbstractEntity implements
 				EventBus.publish(new MapUpdateEvent(_homeScreen, map));
 			}
 			removeObsoleteHarvestTasks();
+			((StorageInventoryProcess) _homeScreen
+					.getProcess(StorageInventoryProcess.class))
+					.requestInventoryUpdate();
 			return consumed;
 		}
 		consumed = super.consume(items_);
 		removeObsoleteHarvestTasks();
+		((StorageInventoryProcess) _homeScreen
+				.getProcess(StorageInventoryProcess.class))
+				.requestInventoryUpdate();
 		return consumed;
 	}
 
@@ -404,10 +452,16 @@ public class BuildingEntity extends AbstractEntity implements
 				EventBus.publish(new MapUpdateEvent(_homeScreen, map));
 			}
 			removeObsoleteHarvestTasks();
+			((StorageInventoryProcess) _homeScreen
+					.getProcess(StorageInventoryProcess.class))
+					.requestInventoryUpdate();
 			return consumed;
 		}
 		consumed = super.consumeAllItemType(item_);
 		removeObsoleteHarvestTasks();
+		((StorageInventoryProcess) _homeScreen
+				.getProcess(StorageInventoryProcess.class))
+				.requestInventoryUpdate();
 		return consumed;
 	}
 

@@ -72,7 +72,7 @@ public class Item
 	}
 
 	
-	private static final long NO_IDENTIFIER = -1;
+	public static final long NO_IDENTIFIER = -1;
 
 	private GenericItem _item;
 
