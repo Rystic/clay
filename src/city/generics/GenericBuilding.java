@@ -490,7 +490,7 @@ public final class GenericBuilding
 	public GenericBuilding transform(BuildingEntity building_)
 	{
 		String[] forms = _transformCode.split(",");
-		GenericBuilding newBuilding = null;
+		GenericBuilding newBuilding = this;
 		CityModel model = (CityModel) building_.getModel();
 		for (String form : forms)
 		{

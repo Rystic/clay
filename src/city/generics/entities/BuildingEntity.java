@@ -76,7 +76,7 @@ public class BuildingEntity extends AbstractEntity implements
 		_state = _building.calculateTexture(this);
 		_texture = _building.getTexture(_state, _position);
 	}
-
+	
 	public Texture getTexture()
 	{
 		if (!_built)
@@ -148,19 +148,22 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return _state;
 	}
-
-	
 	
 	public boolean isBuilt()
 	{
+		return isBuilt(true);
+	}
+
+	public boolean isBuilt(boolean firstSearch_)
+	{
 		boolean tileIsBuilt = _built;
-		if (_allBuildingTiles != null && tileIsBuilt && _isBase)
+		if (_allBuildingTiles != null && tileIsBuilt && firstSearch_)
 		{
 			for (BuildingEntity building : _allBuildingTiles)
 			{
 				if (building.equals(this))
 					continue;
-				if (!building.isBuilt())
+				if (!building.isBuilt(false))
 					return false;
 			}
 		}
