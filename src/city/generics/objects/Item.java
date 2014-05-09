@@ -45,6 +45,17 @@ public class Item
 		_itemIdentifier = itemIdentifier_;
 	}
 	
+	public String getItemName()
+	{
+		return _item.getItemName();
+	}
+	
+	public String getItemFamily()
+	{
+		return _item.getItemFamily();
+	}
+	
+	
 	public Texture getTexture()
 	{
 		return _item.getTexture();

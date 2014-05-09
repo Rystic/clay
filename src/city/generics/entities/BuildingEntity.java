@@ -154,7 +154,7 @@ public class BuildingEntity extends AbstractEntity implements
 		return isBuilt(true);
 	}
 
-	public boolean isBuilt(boolean firstSearch_)
+	private boolean isBuilt(boolean firstSearch_)
 	{
 		boolean tileIsBuilt = _built;
 		if (_allBuildingTiles != null && tileIsBuilt && firstSearch_)

@@ -24,6 +24,7 @@ import city.processes.GolemMaintenanceProcess;
 import city.processes.StorageInventoryProcess;
 import city.ui.menus.AbstractMenu;
 import city.ui.menus.BuildingMenu;
+import city.ui.menus.StorageInventoryMenu;
 import city.util.ClayTerrainGenerator;
 
 public class CityScreen extends AbstractScreen
@@ -41,6 +42,7 @@ public class CityScreen extends AbstractScreen
 
 		_menus = new ArrayList<AbstractMenu>();
 		_menus.add(new BuildingMenu(this));
+		_menus.add(new StorageInventoryMenu(this));
 
 		_cityModel.setSelectedMenu(_menus.get(0));
 

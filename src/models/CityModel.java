@@ -31,6 +31,7 @@ public class CityModel extends AbstractModel
 		_buildingMap = new HashMap<Integer, List<BuildingEntity>>();
 		_selectedBuilding = BuildingData.getBuildingByTag("clay-block")
 				.getBuildingIdentifier();
+		_itemInventory = new HashMap<String, Integer>();
 	}
 
 	public List<GolemEntity> getGolems()
@@ -109,11 +110,11 @@ public class CityModel extends AbstractModel
 		return _mana;
 	}
 
-	public void setSelectedMenu(AbstractMenu _selectedMenu)
+	public void setSelectedMenu(AbstractMenu selectedMenu_)
 	{
-		this._selectedMenu = _selectedMenu;
+		_selectedMenu = selectedMenu_;
 	}
-	
+
 	public AbstractMenu getSelectedMenu()
 	{
 		return _selectedMenu;
@@ -134,14 +135,14 @@ public class CityModel extends AbstractModel
 		return _adjustedX;
 	}
 
-	public boolean isInterfaceToggle()
+	public void updateItemInventory(Map<String, Integer> itemInventory_)
 	{
-		return _interfaceToggle;
+		_itemInventory = itemInventory_;
 	}
 
-	public void setInterfaceToggle(boolean interfaceToggle_)
+	public Map<String, Integer> getItemInventory()
 	{
-		_interfaceToggle = interfaceToggle_;
+		return _itemInventory;
 	}
 
 	// Architecture
@@ -158,10 +159,11 @@ public class CityModel extends AbstractModel
 	private int _selectedBuilding;
 	private int _adjustedX = ClayConstants.DEFAULT_MAP_WIDTH
 			- ClayConstants.DEFAULT_INTERFACE_WIDTH;
-	private boolean _interfaceToggle;
 
 	private int _xTileCount;
 	private int _yTileCount;
+
+	private Map<String, Integer> _itemInventory;
 
 	private Map<Integer, List<BuildingEntity>> _buildingMap;
 

@@ -13,6 +13,7 @@ public class GenericItem
 		Element eElement = (Element) node_;
 		_itemName = eElement.getAttribute("ItemName");
 		_itemTag = eElement.getAttribute("ItemTag");
+		_itemFamily = eElement.getAttribute("ItemFamily");
 		_texture = XmlFieldParser.parseTexture(eElement.getAttribute("Texture"));
 	}
 
@@ -31,9 +32,16 @@ public class GenericItem
 		return _texture;
 	}
 	
+	public String getItemFamily()
+	{
+		return _itemFamily;
+	}
+	
 	private final Texture _texture;
 	
 	private final String _itemName;
 	private final String _itemTag;
+	private final String _itemFamily;
+
 	
 }
