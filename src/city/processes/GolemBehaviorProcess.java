@@ -44,11 +44,24 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		{
 			if (golem.isActive())
 				golem.executeBehavior();
-			else inactiveGolems.add(golem);
+			else
+				inactiveGolems.add(golem);
 		}
-		if (inactiveGolems.size() > 0) calculateBehavior(inactiveGolems);
+		if (inactiveGolems.size() > 0)
+			calculateBehavior(inactiveGolems);
+		else
+		{
+			List<Behavior> toBeAssigned = new ArrayList<Behavior>();
+			toBeAssigned.addAll(_unassignedBehaviors);
+			_noAvailableGolems.addAll(_unassignedBehaviors);
+			for (Behavior behavior : toBeAssigned)
+			{
+				behavior.increaseAddedWeight(ClayConstants.ADDED_WEIGHT_INCREASE);
+			}
+			_unassignedBehaviors.removeAll(_noAvailableGolems);
+		}
 	}
-	
+
 	public void calculateBehavior(List<GolemEntity> inactiveGolems_)
 	{
 		List<Behavior> toBeAssigned = new ArrayList<Behavior>();
@@ -114,60 +127,49 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				}
 			}
 		}
-		if (behaviorScores.isEmpty())
+		BehaviorTriple[] scores = new BehaviorTriple[behaviorScores.size()];
+		behaviorScores.toArray(scores);
+		BehaviorTriple[] topScores = BehaviorTripleQuickSort.sort(scores);
+		List<GolemEntity> invalidGolems = new ArrayList<GolemEntity>();
+		List<Behavior> invalidBehaviors = new ArrayList<Behavior>();
+		for (BehaviorTriple triple : topScores)
 		{
-			_noAvailableGolems.addAll(toBeAssigned);
-			for (Behavior behavior : toBeAssigned)
+			if (!invalidGolems.contains(triple._golem)
+					&& !invalidBehaviors.contains(triple._behavior))
 			{
-				behavior.increaseAddedWeight(ClayConstants.ADDED_WEIGHT_INCREASE);
-			}
-		}
-		else
-		{
-			BehaviorTriple[] scores = new BehaviorTriple[behaviorScores.size()];
-			behaviorScores.toArray(scores);
-			BehaviorTriple[] topScores = BehaviorTripleQuickSort.sort(scores);
-			List<GolemEntity> invalidGolems = new ArrayList<GolemEntity>();
-			List<Behavior> invalidBehaviors = new ArrayList<Behavior>();
-			for (BehaviorTriple triple : topScores)
-			{
-				if (!invalidGolems.contains(triple._golem)
-						&& !invalidBehaviors.contains(triple._behavior))
+				int requiredComplete = triple._behavior
+						.calculateRequired(triple._golem);
+				if (requiredComplete == ClayConstants.BEHAVIOR_PASSED)
 				{
-					int requiredComplete = triple._behavior
-							.calculateRequired(triple._golem);
-					if (requiredComplete == ClayConstants.BEHAVIOR_PASSED)
+					triple._golem.setBehavior(triple._behavior);
+					setBehaviorInProgess(triple._behavior);
+					invalidGolems.add(triple._golem);
+					invalidBehaviors.add(triple._behavior);
+				}
+				else if (!triple._behavior.isPersonalTask())
+				{
+					if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
 					{
-						triple._golem.setBehavior(triple._behavior);
-						setBehaviorInProgess(triple._behavior);
-						invalidGolems.add(triple._golem);
+						_noMaterials.add(triple._behavior);
 						invalidBehaviors.add(triple._behavior);
 					}
-					else if (!triple._behavior.isPersonalTask())
+					else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
 					{
-						if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
+						_noStorageAvailable.add(triple._behavior);
+						invalidBehaviors.add(triple._behavior);
+					}
+					else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
+					{
+						triple._behavior.requiredFailed(triple._golem);
+						if (triple._behavior.allGolemsInvalid(_golemList))
 						{
-							_noMaterials.add(triple._behavior);
+							_unreachableBehaviors.add(triple._behavior);
 							invalidBehaviors.add(triple._behavior);
 						}
-						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
-						{
-							_noStorageAvailable.add(triple._behavior);
-							invalidBehaviors.add(triple._behavior);
-						}
-						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
-						{
-							triple._behavior.requiredFailed(triple._golem);
-							if (triple._behavior.allGolemsInvalid(_golemList))
-							{
-								_unreachableBehaviors.add(triple._behavior);
-								invalidBehaviors.add(triple._behavior);
-							}
-						}
-						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
-						{
-							//TODO finish this branch
-						}
+					}
+					else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
+					{
+						// TODO finish this branch
 					}
 				}
 			}
