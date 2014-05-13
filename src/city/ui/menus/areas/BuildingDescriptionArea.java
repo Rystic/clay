@@ -3,6 +3,8 @@ package city.ui.menus.areas;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.newdawn.slick.Color;
+
 import screens.AbstractScreen;
 import screens.CityScreen;
 import city.generics.data.BuildingData;
@@ -15,8 +17,9 @@ public class BuildingDescriptionArea extends AbstractArea
 		super(homeScreen_);
 		_yPos = yPos_;
 		_selectedBuilding = -1;
-		_buildingDescriptionLabel = new TextComponent(80, _yPos + 40,
+		_buildingDescriptionLabel = new TextComponent(70, _yPos + 40,
 				"Building Description");
+		_buildingDescriptionLabel.setTextColor(Color.yellow);
 	}
 
 	@Override

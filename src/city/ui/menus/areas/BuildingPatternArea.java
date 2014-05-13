@@ -2,6 +2,8 @@ package city.ui.menus.areas;
 
 import java.util.Map;
 
+import org.newdawn.slick.Color;
+
 import main.ClayConstants;
 import screens.AbstractScreen;
 import screens.CityScreen;
@@ -18,7 +20,8 @@ public class BuildingPatternArea extends AbstractArea
 		super(homeScreen_);
 		_yPos = yPos_;
 		_selectedBuilding = -1;
-		_buildingPatternLabel = new TextComponent(95, _yPos, "Building Pattern");
+		_buildingPatternLabel = new TextComponent(85, _yPos, "Building Pattern");
+		_buildingPatternLabel.setTextColor(Color.yellow);
 		_components.add(_buildingPatternLabel);
 	}
 
@@ -57,7 +60,7 @@ public class BuildingPatternArea extends AbstractArea
 				if (building != null)
 				{
 					ImageComponent tc = new ImageComponent(
-							125 + (ClayConstants.TILE_X * xDiff), _yPos - 80
+							125 + (ClayConstants.TILE_X * xDiff), _yPos - 120
 									+ (ClayConstants.TILE_Y * yDiff),
 							ClayConstants.TILE_X, ClayConstants.TILE_Y,
 							building.getTexture(

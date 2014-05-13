@@ -54,15 +54,16 @@ public class BackgroundEffect extends AbstractEffect
 
 		GL11.glBegin(GL11.GL_POLYGON);
 		GL11.glTexCoord2f(0, 0);
-		GL11.glVertex2d(0, ClayConstants.DEFAULT_MAP_HEIGHT);
+		GL11.glVertex2d(0, 0);
 		GL11.glTexCoord2f(.50f, 0);
+		GL11.glVertex2d(ClayConstants.DEFAULT_MAP_WIDTH, 0);
+		GL11.glTexCoord2f(.50f, .50f);
 		GL11.glVertex2d(
 				ClayConstants.DEFAULT_MAP_WIDTH,
 				ClayConstants.DEFAULT_MAP_HEIGHT);
-		GL11.glTexCoord2f(.50f, .50f);
-		GL11.glVertex2d(ClayConstants.DEFAULT_MAP_WIDTH, TILE_Y);
 		GL11.glTexCoord2f(0, .50f);
-		GL11.glVertex2d(0, TILE_Y);
+		GL11.glVertex2d(0, ClayConstants.DEFAULT_MAP_HEIGHT);
+
 		GL11.glEnd();
 	}
 

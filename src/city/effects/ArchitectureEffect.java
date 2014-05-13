@@ -21,7 +21,6 @@ public class ArchitectureEffect extends AbstractEffect
 	public void executeEffect()
 	{
 		GL11.glColor3f(0.75f, 0.75f, .75f);
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
 
 		for (int i = 0; i < ClayConstants.DEFAULT_MAP_WIDTH; i += TILE_X)
 		{
@@ -34,20 +33,19 @@ public class ArchitectureEffect extends AbstractEffect
 							.getTextureID());
 					GL11.glBegin(GL11.GL_POLYGON);
 					GL11.glTexCoord2f(0, 0);
-					GL11.glVertex2d(i, j + TILE_Y + 1);
+					GL11.glVertex2d(i, ClayConstants.DEFAULT_MAP_HEIGHT - j - TILE_Y - 1);
 					GL11.glTexCoord2f(.75f, 0);
-					GL11.glVertex2d(i + TILE_X, j + TILE_Y + 1);
+					GL11.glVertex2d(i + TILE_X, ClayConstants.DEFAULT_MAP_HEIGHT - j - TILE_Y - 1);
 					GL11.glTexCoord2f(.75f, .75f);
-					GL11.glVertex2d(i + TILE_X, j);
+					GL11.glVertex2d(i + TILE_X, ClayConstants.DEFAULT_MAP_HEIGHT - j);
 					GL11.glTexCoord2f(0, .75f);
-					GL11.glVertex2d(i, j);
+					GL11.glVertex2d(i, ClayConstants.DEFAULT_MAP_HEIGHT - j);
 					GL11.glEnd();
 				}
 			}
 		}
-	}
 
-	// TODO handle synchronization
+	}
 
 	private static final int TILE_X = ClayConstants.TILE_X;
 	private static final int TILE_Y = ClayConstants.TILE_Y;

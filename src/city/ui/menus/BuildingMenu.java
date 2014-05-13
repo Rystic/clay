@@ -13,10 +13,10 @@ public class BuildingMenu extends AbstractMenu
 	public BuildingMenu(AbstractScreen homeScreen_)
 	{
 		super(homeScreen_);
-		_buildingSlider = new BuildingSliderArea(homeScreen_, 825);
-		_buildingPattern = new BuildingPatternArea(homeScreen_, 625);
-		_buildingInformation = new BuildingInformationArea(homeScreen_, 425);
-		_buildingDescription = new BuildingDescriptionArea(homeScreen_, 200);
+		_buildingSlider = new BuildingSliderArea(homeScreen_, 775);
+		_buildingPattern = new BuildingPatternArea(homeScreen_, 575);
+		_buildingInformation = new BuildingInformationArea(homeScreen_, 350);
+		_buildingDescription = new BuildingDescriptionArea(homeScreen_, 175);
 
 		_areas.add(_buildingSlider);
 		_areas.add(_buildingPattern);
