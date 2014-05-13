@@ -265,10 +265,17 @@ public class SearchUtil
 			resultQueue.add(finalGoal);
 			return resultQueue;
 		}
-		
-		for (; cameFrom.get(finalGoal) != null; finalGoal = cameFrom.get(finalGoal))
-		{
+
+		if (cameFrom.get(finalGoal) == null)
 			bestPath.add(new Point(finalGoal.x * TILE_X, finalGoal.y * TILE_Y));
+		else
+		{
+			for (; cameFrom.get(finalGoal) != null; finalGoal = cameFrom
+					.get(finalGoal))
+			{
+				bestPath.add(new Point(finalGoal.x * TILE_X, finalGoal.y
+						* TILE_Y));
+			}
 		}
 
 		Collections.reverse(bestPath);
