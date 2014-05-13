@@ -46,5 +46,5 @@ public class ItemData
 		return _tagToItem.get(tag_);
 	}
 	
-	public static Map<String, GenericItem> _tagToItem = new HashMap<String, GenericItem>();
+	private static Map<String, GenericItem> _tagToItem = new HashMap<String, GenericItem>();
 }

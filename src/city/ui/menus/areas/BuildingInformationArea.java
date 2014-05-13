@@ -1,5 +1,7 @@
 package city.ui.menus.areas;
 
+import org.newdawn.slick.Color;
+
 import screens.AbstractScreen;
 import screens.CityScreen;
 import city.generics.GenericBehavior;
@@ -15,7 +17,8 @@ public class BuildingInformationArea extends AbstractArea
 		super(homeScreen_);
 		_yPos = yPos_;
 		_selectedBuilding = -1;
-		_buildingInformationLabel = new TextComponent(80, _yPos + 40, "Building Information");
+		_buildingInformationLabel = new TextComponent(65, _yPos + 40, "Building Information");
+		_buildingInformationLabel.setTextColor(Color.yellow);
 	}
 
 	@Override

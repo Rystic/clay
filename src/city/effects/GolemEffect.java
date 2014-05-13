@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 
+import main.ClayConstants;
 import models.CityModel;
 
 import org.lwjgl.opengl.GL11;
@@ -88,13 +89,13 @@ public class GolemEffect extends AbstractEffect
 
 			GL11.glBegin(GL11.GL_POLYGON);
 			GL11.glTexCoord2f(0, 0);
-			GL11.glVertex2d(x, y + GOLEM_DEFAULT_HEIGHT);
+			GL11.glVertex2d(x, ClayConstants.DEFAULT_MAP_HEIGHT - y - GOLEM_DEFAULT_HEIGHT);
 			GL11.glTexCoord2f(_drawRatioGolems, 0);
-			GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, y + GOLEM_DEFAULT_HEIGHT);
+			GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT - y - GOLEM_DEFAULT_HEIGHT);
 			GL11.glTexCoord2f(_drawRatioGolems, _drawRatioGolems);
-			GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, y);
+			GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT - y);
 			GL11.glTexCoord2f(0, _drawRatioGolems);
-			GL11.glVertex2d(x, y);
+			GL11.glVertex2d(x, ClayConstants.DEFAULT_MAP_HEIGHT - y);
 			GL11.glEnd();
 			if (!golem.getCopyOfHeldItems().isEmpty())
 			{
@@ -103,14 +104,13 @@ public class GolemEffect extends AbstractEffect
 						.getTextureID());
 				GL11.glBegin(GL11.GL_POLYGON);
 				GL11.glTexCoord2f(0, 0);
-				GL11.glVertex2d(x, y + GOLEM_DEFAULT_HEIGHT);
+				GL11.glVertex2d(x, ClayConstants.DEFAULT_MAP_HEIGHT - y - GOLEM_DEFAULT_HEIGHT);
 				GL11.glTexCoord2f(_drawRatioItems, 0);
-				GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, y
-						+ GOLEM_DEFAULT_HEIGHT);
+				GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT - y - GOLEM_DEFAULT_HEIGHT);
 				GL11.glTexCoord2f(_drawRatioItems, _drawRatioItems);
-				GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, y);
+				GL11.glVertex2d(x + GOLEM_DEFAULT_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT - y);
 				GL11.glTexCoord2f(0, _drawRatioItems);
-				GL11.glVertex2d(x, y);
+				GL11.glVertex2d(x, ClayConstants.DEFAULT_MAP_HEIGHT - y);
 				GL11.glEnd();
 			}
 		}

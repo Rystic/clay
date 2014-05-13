@@ -35,10 +35,10 @@ public class CityInterfaceEffect extends AbstractEffect
 						textComponent.getTextColor().getGreen(),
 						textComponent.getTextColor().getBlue());
 				TextUtil.drawString(
-						textComponent.getText(),
+						textComponent,
 						(int) textComponent.getX()
 								+ ClayConstants.DEFAULT_MAP_WIDTH,
-						(int) textComponent.getY());
+								ClayConstants.DEFAULT_MAP_HEIGHT - (int) textComponent.getY());
 			}
 			else
 			{
@@ -48,26 +48,26 @@ public class CityInterfaceEffect extends AbstractEffect
 				GL11.glTexCoord2f(0, 0);
 
 				GL11.glVertex2d(component.getX()
-						+ ClayConstants.DEFAULT_MAP_WIDTH, component.getY()
-						+ component.getHeight());
+						+ ClayConstants.DEFAULT_MAP_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT - component.getY()
+						- component.getHeight());
 
 				GL11.glTexCoord2f(component.getDrawRatio(), 0);
 
 				GL11.glVertex2d(component.getX() + component.getWidth()
-						+ ClayConstants.DEFAULT_MAP_WIDTH, component.getY()
-						+ component.getHeight());
+						+ ClayConstants.DEFAULT_MAP_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT - component.getY()
+						- component.getHeight());
 
 				GL11.glTexCoord2f(
 						component.getDrawRatio(),
 						component.getDrawRatio());
 
 				GL11.glVertex2d(component.getX() + component.getWidth()
-						+ ClayConstants.DEFAULT_MAP_WIDTH, component.getY());
+						+ ClayConstants.DEFAULT_MAP_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT - component.getY());
 
 				GL11.glTexCoord2f(0, component.getDrawRatio());
 
 				GL11.glVertex2d(component.getX()
-						+ ClayConstants.DEFAULT_MAP_WIDTH, component.getY());
+						+ ClayConstants.DEFAULT_MAP_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT - component.getY());
 				GL11.glEnd();
 			}
 		}

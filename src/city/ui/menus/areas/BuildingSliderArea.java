@@ -1,12 +1,12 @@
 package city.ui.menus.areas;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 import main.ClayConstants;
 import models.CityModel;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import screens.AbstractScreen;
@@ -27,6 +27,9 @@ public class BuildingSliderArea extends AbstractArea
 		_listPointer = 0;
 
 		loadKnownBuildings();
+		
+		_buildingSliderLabel = new TextComponent(80, _yPos + 75, "Building Selection");
+		_buildingSliderLabel.setTextColor(Color.yellow);
 
 		_firstBuilding = new AbstractButton(40, _yPos, 35, 35)
 		{
@@ -80,18 +83,24 @@ public class BuildingSliderArea extends AbstractArea
 		_fourthBuilding.setDrawRatio(.75f);
 		_fifthBuilding.setDrawRatio(.75f);
 
-		_firstBuildingLabel = new TextComponent(80, _yPos,
+		_firstBuildingLabel = new TextComponent(80, _yPos + 20,
 				getBuildingNameFromPointer(-2));
-		_secondBuildingLabel = new TextComponent(80, _yPos - 35,
+		_secondBuildingLabel = new TextComponent(80, _yPos - 20,
 				getBuildingNameFromPointer(-1));
-		_thirdBuildingLabel = new TextComponent(80, _yPos - 70,
+		_thirdBuildingLabel = new TextComponent(80, _yPos - 60,
 				getBuildingNameFromPointer(0));
-		_fourthBuildingLabel = new TextComponent(80, _yPos - 105,
+		_fourthBuildingLabel = new TextComponent(80, _yPos - 100,
 				getBuildingNameFromPointer(1));
 		_fifthBuildingLabel = new TextComponent(80, _yPos - 140,
 				getBuildingNameFromPointer(2));
 
-		_thirdBuildingLabel.setTextColor(new Color(1.0f, 0f, 0f));
+		_firstBuildingLabel.setTextColor(Color.white);
+		_secondBuildingLabel.setTextColor(Color.white);
+		_thirdBuildingLabel.setTextColor(Color.yellow);
+		_fourthBuildingLabel.setTextColor(Color.white);
+		_fifthBuildingLabel.setTextColor(Color.white);
+
+		_components.add(_buildingSliderLabel);
 
 		_components.add(_firstBuilding);
 		_components.add(_secondBuilding);
@@ -193,6 +202,8 @@ public class BuildingSliderArea extends AbstractArea
 	private int _yPos;
 
 	private int _listPointer;
+
+	private TextComponent _buildingSliderLabel;
 
 	private AbstractButton _firstBuilding;
 	private AbstractButton _secondBuilding;

@@ -37,12 +37,12 @@ public class StorageInventoryProcess extends AbstractProcess
 					for (Item item : items)
 					{
 						if (item.getItemIdentifier() != Item.NO_IDENTIFIER) continue;
-						String itemName = item.getItemName();
-						Integer count = _itemInventory.get(itemName);
+						String itemTag = item.getTag();
+						Integer count = _itemInventory.get(itemTag);
 						if (count == null)
-							_itemInventory.put(itemName, new Integer(1));
+							_itemInventory.put(itemTag, new Integer(1));
 						else
-							_itemInventory.put(itemName, count + 1);
+							_itemInventory.put(itemTag, count + 1);
 					}
 				}
 			}

@@ -1,6 +1,7 @@
 package city.ui.menus.components;
 
-import java.awt.Color;
+import org.newdawn.slick.Color;
+
 
 public class TextComponent extends AbstractComponent
 {
@@ -8,6 +9,7 @@ public class TextComponent extends AbstractComponent
 	{
 		super(x, y, 0, 0);
 		_text = "";
+		_textColor = Color.white;
 	}
 
 	public TextComponent(int x, int y, String text_)
