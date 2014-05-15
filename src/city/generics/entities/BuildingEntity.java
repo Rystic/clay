@@ -53,7 +53,7 @@ public class BuildingEntity extends AbstractEntity implements
 		{
 			if (!_building.getTransform().isEmpty())
 			{
-				GenericBuilding newBuilding = _building.transform(this);
+				GenericBuilding newBuilding = _building.transform(new Point(getGridX(), getGridY()), ((CityModel) _model).getTileValues());
 				if (newBuilding != null)
 				{
 					_building = newBuilding;

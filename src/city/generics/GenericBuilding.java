@@ -189,6 +189,11 @@ public final class GenericBuilding
 					}
 				}
 			}
+			if (!_transformCode.isEmpty())
+			{
+				GenericBuilding transformCheck = transform(p_, tiles_);
+				if (!transformCheck.equals(this)) return false;
+			}
 			if (yDiff == 0)
 			{
 				BuildingEntity ground = tiles_[p_.x + xDiff][p_.y - 1];
@@ -487,22 +492,17 @@ public final class GenericBuilding
 		return returnState;
 	}
 
-	public GenericBuilding transform(BuildingEntity building_)
+	public GenericBuilding transform(Point p_, BuildingEntity[][] tiles_)
 	{
 		String[] forms = _transformCode.split(",");
 		GenericBuilding newBuilding = this;
-		CityModel model = (CityModel) building_.getModel();
 		for (String form : forms)
 		{
 			String[] commandAndParams = form.split(":");
 			if (commandAndParams[0].equals(ClayConstants.TRANSFORM_FLANKED))
 			{
-				if (model.getTileValue(
-						building_.getGridX() - 1,
-						building_.getGridY()) != null
-						&& model.getTileValue(
-								building_.getGridX() + 1,
-								building_.getGridY()) != null)
+				if (tiles_[p_.x - 1][p_.y] != null
+						&& tiles_[p_.x + 1][p_.y] != null)
 				{
 					newBuilding = BuildingData
 							.getBuildingByTag(commandAndParams[1]);
@@ -511,12 +511,8 @@ public final class GenericBuilding
 			if (commandAndParams[0]
 					.equals(ClayConstants.TRANSFORM_FLANKED_SUPPORT))
 			{
-				BuildingEntity left = model.getTileValue(
-						building_.getGridX() - 1,
-						building_.getGridY());
-				BuildingEntity right = model.getTileValue(
-						building_.getGridX() + 1,
-						building_.getGridY());
+				BuildingEntity left = tiles_[p_.x - 1][p_.y];
+				BuildingEntity right = tiles_[p_.x + 1][p_.y];
 				if (left != null && left.isSupportBlock() && right != null
 						&& right.isSupportBlock())
 				{
@@ -527,12 +523,8 @@ public final class GenericBuilding
 			if (commandAndParams[0]
 					.equals(ClayConstants.TRANSFORM_FLANKED_SUPPORT))
 			{
-				BuildingEntity left = model.getTileValue(
-						building_.getGridX() - 1,
-						building_.getGridY());
-				BuildingEntity right = model.getTileValue(
-						building_.getGridX() + 1,
-						building_.getGridY());
+				BuildingEntity left = tiles_[p_.x - 1][p_.y];
+				BuildingEntity right = tiles_[p_.x + 1][p_.y];
 				if ((left == null || !left.isSupportBlock()) && (right == null
 						|| !right.isSupportBlock()))
 				{
