@@ -67,7 +67,5 @@ public class BackgroundEffect extends AbstractEffect
 		GL11.glEnd();
 	}
 
-	private static final int TILE_Y = ClayConstants.TILE_Y;
-
 	private static Texture _skyTexture;
 }
