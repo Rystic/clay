@@ -15,7 +15,7 @@ public class StorageInventoryProcess extends AbstractProcess
 	{
 		super(homeScreen_);
 		_model = (CityModel) homeScreen_.getModel();
-		_itemInventory = new HashMap<String, Integer>();
+		_itemInventory = new HashMap<String, Map<String, Integer>>();
 		_updateInventory = false;
 	}
 
@@ -37,12 +37,19 @@ public class StorageInventoryProcess extends AbstractProcess
 					for (Item item : items)
 					{
 						if (item.getItemIdentifier() != Item.NO_IDENTIFIER) continue;
+						String itemFamily = item.getFamily();
 						String itemTag = item.getTag();
-						Integer count = _itemInventory.get(itemTag);
+						Map<String, Integer> familyMap = _itemInventory.get(itemFamily);
+						if (familyMap == null)
+						{
+							familyMap = new HashMap<String, Integer>();
+							_itemInventory.put(itemFamily, familyMap);
+						}
+						Integer count = familyMap.get(itemTag);
 						if (count == null)
-							_itemInventory.put(itemTag, new Integer(1));
+							familyMap.put(itemTag, new Integer(1));
 						else
-							_itemInventory.put(itemTag, count + 1);
+							familyMap.put(itemTag, count + 1);
 					}
 				}
 			}
@@ -56,6 +63,6 @@ public class StorageInventoryProcess extends AbstractProcess
 	}
 
 	private CityModel _model;
-	private Map<String, Integer> _itemInventory;
+	private Map<String, Map<String, Integer>> _itemInventory;
 	private boolean _updateInventory;
 }

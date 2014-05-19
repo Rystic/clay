@@ -31,7 +31,7 @@ public class CityModel extends AbstractModel
 		_buildingMap = new HashMap<Integer, List<BuildingEntity>>();
 		_selectedBuilding = BuildingData.getBuildingByTag("clay-block")
 				.getBuildingIdentifier();
-		_itemInventory = new HashMap<String, Integer>();
+		_itemInventory = new HashMap<String, Map<String, Integer>>();
 	}
 
 	public List<GolemEntity> getGolems()
@@ -135,12 +135,12 @@ public class CityModel extends AbstractModel
 		return _adjustedX;
 	}
 
-	public void updateItemInventory(Map<String, Integer> itemInventory_)
+	public void updateItemInventory(Map<String, Map<String, Integer>> itemInventory_)
 	{
 		_itemInventory = itemInventory_;
 	}
 
-	public Map<String, Integer> getItemInventory()
+	public Map<String, Map<String, Integer>> getItemInventory()
 	{
 		return _itemInventory;
 	}
@@ -163,7 +163,7 @@ public class CityModel extends AbstractModel
 	private int _xTileCount;
 	private int _yTileCount;
 
-	private Map<String, Integer> _itemInventory;
+	private Map<String, Map<String, Integer>> _itemInventory;
 
 	private Map<Integer, List<BuildingEntity>> _buildingMap;
 

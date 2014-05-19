@@ -32,19 +32,27 @@ public class StorageInventoryArea extends AbstractArea
 	{
 		_components.clear();
 		_components.add(_storageMenuLabel);
-		Map<String, Integer> itemInventory = _model.getItemInventory();
+		Map<String, Map<String, Integer>> itemInventory = _model
+				.getItemInventory();
 		if (itemInventory.keySet().isEmpty())
 			_components.add(_noItemsLabel);
 
 		int yDiff = 0;
-		for (String key : itemInventory.keySet())
+		for (String familyName : itemInventory.keySet())
 		{
-			GenericItem item = ItemData.getItem(key);
-			_components.add(new ImageComponent(20, _yPos - yDiff - 40, 30, 30,
-					item.getTexture()));
-			_components.add(new TextComponent(50, _yPos - yDiff - 15, item
-					.getItemName() + " - " + itemInventory.get(key)));
-			yDiff += 30;
+			Map<String, Integer> itemMap = itemInventory.get(familyName);
+			for (String itemName : itemMap.keySet())
+			{
+				GenericItem item = ItemData.getItem(itemName);
+				_components.add(new ImageComponent(20, _yPos - yDiff - 40, 30,
+						30, item.getTexture()));
+				_components
+						.add(new TextComponent(50, _yPos - yDiff - 15, item
+								.getItemName()
+								+ " - "
+								+ itemMap.get(itemName)));
+				yDiff += 30;
+			}
 		}
 	}
 

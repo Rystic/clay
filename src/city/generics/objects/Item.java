@@ -45,12 +45,12 @@ public class Item
 		_itemIdentifier = itemIdentifier_;
 	}
 	
-	public String getItemName()
+	public String getName()
 	{
 		return _item.getItemName();
 	}
 	
-	public String getItemFamily()
+	public String getFamily()
 	{
 		return _item.getItemFamily();
 	}
