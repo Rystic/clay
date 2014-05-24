@@ -13,6 +13,7 @@ import screens.CityScreen;
 import city.effects.AbstractEffect;
 import city.generics.data.BehaviorData;
 import city.generics.data.BuildingData;
+import city.generics.data.ConversionData;
 import city.generics.data.GolemData;
 import city.generics.data.ItemData;
 import city.processes.AbstractProcess;
@@ -46,6 +47,7 @@ public class ClayMain implements Runnable
 		BehaviorData.init();
 		ItemData.init();
 		GolemData.init();
+		ConversionData.init();
 		PlayerModel player = new PlayerModel();
 		_screen = new CityScreen(player);
 		GL11.glEnable(GL11.GL_BLEND);

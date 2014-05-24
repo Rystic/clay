@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Items>
-	<Item ItemName="Inert Clay" ItemTag="inert-clay" Texture="itemInertClay.png" ItemFamily="clay"></Item>
-	<Item ItemName="Saturated Clay" ItemTag="saturated-clay" Texture="itemSaturatedClay.png" ItemFamily="mana"></Item>
+	<Item ItemName="Inert Clay" ItemTag="inert-clay" Texture="itemInertClay.png"
+		ItemFamily="clay"></Item>
+	
+	<Item ItemName="Saturated Clay" ItemTag="saturated-clay" Texture="itemSaturatedClay.png"
+		ItemFamily="mana"></Item>
+	
+	<Item ItemName="Mana Pipe" ItemTag="mana-pipe" Texture="itemManaPipes.png"
+		ItemFamily="mana"></Item>
+
 </Items>
