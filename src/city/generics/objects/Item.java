@@ -55,6 +55,10 @@ public class Item
 		return _item.getItemFamily();
 	}
 	
+	public boolean isFamilyHead()
+	{
+		return _item.isFamilyHead();
+	}
 	
 	public Texture getTexture()
 	{

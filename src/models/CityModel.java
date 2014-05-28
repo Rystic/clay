@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import main.ClayConstants;
 import screens.AbstractScreen;
 import city.generics.GenericBuilding;
 import city.generics.GenericGolem;
 import city.generics.data.BuildingData;
+import city.generics.data.ItemData;
 import city.generics.entities.BuildingEntity;
 import city.generics.entities.GolemEntity;
 import city.ui.menus.AbstractMenu;
@@ -32,6 +34,18 @@ public class CityModel extends AbstractModel
 		_selectedBuilding = BuildingData.getBuildingByTag("clay-block")
 				.getBuildingIdentifier();
 		_itemInventory = new HashMap<String, Map<String, Integer>>();
+		_itemRatios = new HashMap<String, Integer>();
+		initItemRatios();
+	}
+
+	private void initItemRatios()
+	{
+		Set<String> items = ItemData.getAllItemTags();
+		for (String item : items)
+		{
+			if (ItemData.getItem(item).isFamilyHead())
+				_itemRatios.put(item, 100);
+		}
 	}
 
 	public List<GolemEntity> getGolems()
@@ -144,6 +158,11 @@ public class CityModel extends AbstractModel
 	{
 		return _itemInventory;
 	}
+	
+	public Map<String, Integer> getItemRatios()
+	{
+		return _itemRatios;
+	}
 
 	// Architecture
 	private BuildingEntity[][] _tileValues;
@@ -164,6 +183,7 @@ public class CityModel extends AbstractModel
 	private int _yTileCount;
 
 	private Map<String, Map<String, Integer>> _itemInventory;
+	private Map<String, Integer> _itemRatios;
 
 	private Map<Integer, List<BuildingEntity>> _buildingMap;
 

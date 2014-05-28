@@ -10,6 +10,7 @@ public class GenericConversion
 		Element eElement = (Element) node_;
 		_conversionName = eElement.getAttribute("ConversionName");
 		_conversionTag = eElement.getAttribute("ConversionTag");
+		_conversionBuilding = eElement.getAttribute("ConversionTag");
 		_conversionInput = eElement.getAttribute("ConversionInput");
 		_converstionOutput = eElement.getAttribute("ConversionOutput");
 	}
@@ -24,6 +25,11 @@ public class GenericConversion
 		return _conversionTag;
 	}
 	
+	public String getConversionBuilding()
+	{
+		return _conversionBuilding;
+	}
+	
 	public String getConversionInput()
 	{
 		return _conversionInput;
@@ -36,6 +42,7 @@ public class GenericConversion
 
 	private final String _conversionName;
 	private final String _conversionTag;
+	private final String _conversionBuilding;
 	private final String _conversionInput;
 	private final String _converstionOutput;
 }

@@ -3,6 +3,7 @@ package city.generics.data;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -44,6 +45,11 @@ public class ItemData
 	public static GenericItem getItem(String tag_)
 	{
 		return _tagToItem.get(tag_);
+	}
+	
+	public static Set<String> getAllItemTags()
+	{
+		return _tagToItem.keySet();
 	}
 	
 	private static Map<String, GenericItem> _tagToItem = new HashMap<String, GenericItem>();

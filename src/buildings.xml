@@ -209,4 +209,17 @@
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
+		<Building BuildingName="Foundry" BuildingTag="foundry"
+		BuildingDescription="Foundries are used to cast saturated mana into mana pipes. "
+		BuildTime="125" BuildingRequirements="base,clay-block" ExtraWeight=""
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
+		LesserManaCumulativeCost=".4" isClaimable="false" isHouse="false"
+		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
+		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
+		ConstructionItems="saturated-clay,saturated-clay,saturated-clay" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
+		<State StateName="state-default" Graphic="base,foundry.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
 </Buildings>

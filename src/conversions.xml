@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Conversions>
 
-	<Conversion ConversionName="Produce Mana Pipe" ConversionTag="mana-pipe" ConversionInput="saturated-clay,saturated-clay" ConversionOutput="mana-pipe,mana-pipe,mana-pipe,inert-clay"></Conversion>
+	<Conversion ConversionName="Produce Mana Pipe" ConversionTag="mana-pipe" ConversionBuilding="foundry" ConversionInput="saturated-clay,saturated-clay" ConversionOutput="mana-pipe,mana-pipe,mana-pipe,inert-clay"></Conversion>
     
 </Conversions>

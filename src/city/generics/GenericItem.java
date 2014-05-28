@@ -14,34 +14,42 @@ public class GenericItem
 		_itemName = eElement.getAttribute("ItemName");
 		_itemTag = eElement.getAttribute("ItemTag");
 		_itemFamily = eElement.getAttribute("ItemFamily");
-		_texture = XmlFieldParser.parseTexture(eElement.getAttribute("Texture"));
+		_familyHead = XmlFieldParser.parseBoolean(eElement
+				.getAttribute("FamilyHead"));
+		_texture = XmlFieldParser
+				.parseTexture(eElement.getAttribute("Texture"));
 	}
 
 	public String getItemName()
 	{
 		return _itemName;
 	}
-	
+
 	public String getItemTag()
 	{
 		return _itemTag;
 	}
-	
+
 	public Texture getTexture()
 	{
 		return _texture;
 	}
-	
+
 	public String getItemFamily()
 	{
 		return _itemFamily;
 	}
-	
+
+	public boolean isFamilyHead()
+	{
+		return _familyHead;
+	}
+
 	private final Texture _texture;
-	
+
 	private final String _itemName;
 	private final String _itemTag;
 	private final String _itemFamily;
 
-	
+	private boolean _familyHead;
 }

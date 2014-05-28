@@ -46,5 +46,5 @@ public class GolemData
 		return _tagToGolem.get(tag_);
 	}
 	
-	public static Map<String, GenericGolem> _tagToGolem = new HashMap<String, GenericGolem>();
+	private static Map<String, GenericGolem> _tagToGolem = new HashMap<String, GenericGolem>();
 }

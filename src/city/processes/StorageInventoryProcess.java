@@ -54,6 +54,7 @@ public class StorageInventoryProcess extends AbstractProcess
 				}
 			}
 			_model.updateItemInventory(_itemInventory);
+			((ResourceManagerProcess)_homeScreen.getProcess(ResourceManagerProcess.class)).requiresUpdate();
 		}
 	}
 
