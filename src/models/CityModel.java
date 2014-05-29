@@ -11,6 +11,7 @@ import main.ClayConstants;
 import screens.AbstractScreen;
 import city.generics.GenericBuilding;
 import city.generics.GenericGolem;
+import city.generics.GenericItem;
 import city.generics.data.BuildingData;
 import city.generics.data.ItemData;
 import city.generics.entities.BuildingEntity;
@@ -34,17 +35,28 @@ public class CityModel extends AbstractModel
 		_selectedBuilding = BuildingData.getBuildingByTag("clay-block")
 				.getBuildingIdentifier();
 		_itemInventory = new HashMap<String, Map<String, Integer>>();
-		_itemRatios = new HashMap<String, Integer>();
-		initItemRatios();
+		_itemRatios = new HashMap<String, Map<String, Integer>>();
+		initItems();
+		System.out.println("dsff");
 	}
 
-	private void initItemRatios()
+	private void initItems()
 	{
 		Set<String> items = ItemData.getAllItemTags();
-		for (String item : items)
+		for (String itemTag : items)
 		{
-			if (ItemData.getItem(item).isFamilyHead())
-				_itemRatios.put(item, 100);
+			GenericItem item = ItemData.getItem(itemTag);
+			Map<String, Integer> familyMap = _itemRatios.get(item
+					.getItemFamily());
+			if (familyMap == null)
+			{
+				familyMap = new HashMap<String, Integer>();
+				_itemRatios.put(item.getItemFamily(), familyMap);
+			}
+			if (item.isFamilyHead())
+				familyMap.put(itemTag, 90);
+			else
+				familyMap.put(itemTag, 10);
 		}
 	}
 
@@ -158,8 +170,8 @@ public class CityModel extends AbstractModel
 	{
 		return _itemInventory;
 	}
-	
-	public Map<String, Integer> getItemRatios()
+
+	public Map<String, Map<String, Integer>> getItemRatios()
 	{
 		return _itemRatios;
 	}
@@ -183,7 +195,7 @@ public class CityModel extends AbstractModel
 	private int _yTileCount;
 
 	private Map<String, Map<String, Integer>> _itemInventory;
-	private Map<String, Integer> _itemRatios;
+	private Map<String, Map<String, Integer>> _itemRatios;
 
 	private Map<Integer, List<BuildingEntity>> _buildingMap;
 

@@ -22,6 +22,7 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_BUILD = "build";
 	public static final String BEHAVIOR_COMMAND_CLAIM_BUILDING = "claim-building";
 	public static final String BEHAVIOR_COMMAND_CLAIM_CONSTRUCTION_ITEMS = "claim-construction-items";
+	public static final String BEHAVIOR_COMMAND_CLAIM_PARAMETER_ITEMS = "claim-parameter-items";
 	public static final String BEHAVIOR_COMMAND_CLAIM_GENERIC_BUILDING = "claim-generic-building";
 	public static final String BEHAVIOR_COMMAND_CLAIM_HOUSE = "claim-house";
 	public static final String BEHAVIOR_COMMAND_CLAIM_ITEMS = "claim-items";
@@ -73,7 +74,7 @@ public class ClayConstants
 	
 	// Specific Behaviors
 	public static final String BEHAVIOR_HARVEST = "harvest";
-
+	public static final String BEHAVIOR_CONVERSION = "conversion";
 	
 	
 	//--Building Constants--

@@ -1,9 +1,20 @@
 package city.processes;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import main.ClayConstants;
 import models.CityModel;
 import screens.AbstractScreen;
+import city.generics.GenericBuilding;
+import city.generics.GenericConversion;
+import city.generics.data.BehaviorData;
+import city.generics.data.BuildingData;
+import city.generics.data.ConversionData;
+import city.generics.entities.BuildingEntity;
+import city.generics.objects.Behavior;
 
 public class ResourceManagerProcess extends AbstractProcess
 {
@@ -21,9 +32,12 @@ public class ResourceManagerProcess extends AbstractProcess
 		{
 			Map<String, Map<String, Integer>> itemInventory = _model
 					.getItemInventory();
-			Map<String, Integer> itemRatios = _model.getItemRatios();
+			Map<String, Map<String, Integer>> itemRatios = _model
+					.getItemRatios();
+			List<String> underQuotaItems = new ArrayList<String>();
 			for (String familyName : itemInventory.keySet())
 			{
+				Map<String, Integer> familyRatios = itemRatios.get(familyName);
 				Integer total = 0;
 				Map<String, Integer> familyInventory = itemInventory
 						.get(familyName);
@@ -31,13 +45,71 @@ public class ResourceManagerProcess extends AbstractProcess
 				{
 					total += familyInventory.get(item);
 				}
-				for (String item : familyInventory.keySet())
+				for (String item : familyRatios.keySet())
 				{
-					Double percentage = 100 * (double) (familyInventory.get(item) / total);
-					System.out.println("The percentage of " + item + " is " + percentage + " with a desired percentage of " + itemRatios.get(item));
+					if (!familyInventory.containsKey(item)
+							&& familyRatios.get(item) > 0)
+					{
+						underQuotaItems.add(item);
+						continue;
+					}
+					Double percentage = 100 * (double) (familyInventory
+							.get(item) / total);
+					if (percentage < familyRatios.get(item))
+						underQuotaItems.add(item);
+				}
+				underQuoteItems: for (String underQuotaItem : underQuotaItems)
+				{
+					GenericConversion conversion = ConversionData
+							.getConversion(underQuotaItem);
+					String[] inputList = conversion.getConversionInput().split(
+							",");
+					Map<String, Integer> inputCountMap = new HashMap<String, Integer>();
+					for (String input : inputList)
+					{
+						if (underQuotaItems.contains(input))
+							continue underQuoteItems;
+						Integer count = inputCountMap.get(input);
+						if (count == null)
+							count = new Integer(1);
+						count++;
+						inputCountMap.put(input, count);
+					}
+					if (!inputItemsExist(itemInventory, inputCountMap))
+						continue;
+					GenericBuilding building = BuildingData.getBuildingByTag(conversion.getConversionBuilding());
+					List<BuildingEntity> buildings = _model.getBuildingMap().get(building.getBuildingIdentifier());
+					if (buildings == null || buildings.size() == 0) continue;
+					Object[] conversionParams = new String[3];
+					conversionParams[0] = conversion.getConversionInput();
+					conversionParams[1] = conversion.getConversionBuilding();
+					conversionParams[2] = conversion.getConverstionOutput();
+					Behavior conversionBehavior = new Behavior(BehaviorData.getBehavior(ClayConstants.BEHAVIOR_CONVERSION), conversionParams);
 				}
 			}
 		}
+	}
+
+	private boolean inputItemsExist(Map<String, Map<String, Integer>> itemInventory_, Map<String, Integer> inputCountMap_)
+	{
+		boolean passed = true;
+		inputItems: for (String inputName : inputCountMap_.keySet())
+		{
+			for (String familyName : itemInventory_.keySet())
+			{
+				Map<String, Integer> familyInventory = itemInventory_
+						.get(familyName);
+				if (familyInventory.containsKey(inputName))
+				{
+					if (familyInventory.get(inputName) >= inputCountMap_
+							.get(inputName))
+						continue inputItems;
+				}
+			}
+			passed = false;
+			break;
+		}
+		return passed;
 	}
 
 	public void requiresUpdate()

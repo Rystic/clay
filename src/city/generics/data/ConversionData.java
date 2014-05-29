@@ -41,7 +41,7 @@ public class ConversionData
 		}
 	}
 	
-	public static GenericConversion getItem(String tag_)
+	public static GenericConversion getConversion(String tag_)
 	{
 		return _tagToConversion.get(tag_);
 	}

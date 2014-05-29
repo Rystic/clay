@@ -37,7 +37,7 @@
 
 	<Behavior BehaviorName="Conversion" BehaviorTag="conversion"
 		weight="closest-to-point" defaultParams="" neededBehavior="false"
-		personalBehavior="false" limit="1" golemCost="clay:-2,mana:-4"
+		personalBehavior="false" limit="-1" golemCost="clay:-2,mana:-4"
 		require="claim-generic-building:0,claim-items:inert-clay:saturated-clay:saturated-clay"
 		code="seek-claimed-items,consume-claimed,hide,tick:75,show,create-golem"></Behavior>
 
