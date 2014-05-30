@@ -41,6 +41,16 @@ public class SearchUtil
 		return path;
 	}
 
+	public static Queue<Point> searchEmptyGenericBuildingGoalOnly(AbstractEntity entity_, AbstractScreen abstractScreen_, String buildingTag_)
+	{
+		Queue<Point> path = SearchUtil.search(
+				entity_,
+				entity_.getHomeScreen(),
+				ClayConstants.SEARCH_EMPTY_GENERIC_BUILDING_GOAL_ONLY,
+				buildingTag_);
+		return path;
+	}
+	
 	public static Queue<Point> searchGenericBuildingGoalOnly(AbstractEntity entity_, AbstractScreen abstractScreen_, String buildingTag_)
 	{
 		Queue<Point> path = SearchUtil.search(
@@ -50,7 +60,7 @@ public class SearchUtil
 				buildingTag_);
 		return path;
 	}
-
+	
 	public static Queue<Point> searchStorage(AbstractEntity entity_, AbstractScreen abstractScreen_)
 	{
 		Queue<Point> path = SearchUtil.search(
@@ -140,6 +150,16 @@ public class SearchUtil
 				{
 					isGoal = tile.getBuildingTag().equals(params_[1])
 							&& tile.isBuilt() && tile.isBaseTile();
+					if (isGoal && tile.isInUse())
+					{
+						isGoal = false;
+						existsButOccupied = true;
+					}
+				}
+				else if (searchType == ClayConstants.SEARCH_EMPTY_GENERIC_BUILDING_GOAL_ONLY)
+				{
+					isGoal = tile.getBuildingTag().equals(params_[1])
+							&& tile.isBuilt() && tile.isBaseTile() && tile.getCopyOfHeldItems().size() == 0;
 					if (isGoal && tile.isInUse())
 					{
 						isGoal = false;

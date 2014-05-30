@@ -168,7 +168,7 @@
 		LesserManaCumulativeCost=".2" isClaimable="false" isHouse="true"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
-		ConstructionItems="saturated-clay,saturated-clay,saturated-clay,saturated-clay"
+		ConstructionItems="mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe"
 		UnlockedFromStart="true" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigDeepHome1.png"></State>
 		<State StateName="state-buried:4" Graphic="base,bigDeepHome2.png"></State>

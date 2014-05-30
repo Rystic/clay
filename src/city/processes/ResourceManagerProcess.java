@@ -54,7 +54,7 @@ public class ResourceManagerProcess extends AbstractProcess
 						continue;
 					}
 					Double percentage = 100 * (double) (familyInventory
-							.get(item) / total);
+							.get(item).doubleValue() / total);
 					if (percentage < familyRatios.get(item))
 						underQuotaItems.add(item);
 				}
@@ -62,6 +62,7 @@ public class ResourceManagerProcess extends AbstractProcess
 				{
 					GenericConversion conversion = ConversionData
 							.getConversion(underQuotaItem);
+					if (conversion == null) continue;
 					String[] inputList = conversion.getConversionInput().split(
 							",");
 					Map<String, Integer> inputCountMap = new HashMap<String, Integer>();
@@ -77,14 +78,37 @@ public class ResourceManagerProcess extends AbstractProcess
 					}
 					if (!inputItemsExist(itemInventory, inputCountMap))
 						continue;
-					GenericBuilding building = BuildingData.getBuildingByTag(conversion.getConversionBuilding());
-					List<BuildingEntity> buildings = _model.getBuildingMap().get(building.getBuildingIdentifier());
-					if (buildings == null || buildings.size() == 0) continue;
-					Object[] conversionParams = new String[3];
-					conversionParams[0] = conversion.getConversionInput();
-					conversionParams[1] = conversion.getConversionBuilding();
+					GenericBuilding building = BuildingData
+							.getBuildingByTag(conversion
+									.getConversionBuilding());
+					List<BuildingEntity> buildings = _model.getBuildingMap()
+							.get(building.getBuildingIdentifier());
+					if (buildings == null || buildings.size() == 0)
+						continue;
+					Object[] conversionParams = new Object[3];
+					boolean validBuilding = false;
+					for (BuildingEntity conversionBuilding : buildings)
+					{
+						if (!conversionBuilding.isInUse() && conversionBuilding.getCopyOfHeldItems().size() == 0 && conversionBuilding.isBuilt() && !conversionBuilding.hasActiveBehavior())
+						{
+							conversionParams[0] = conversionBuilding;
+							validBuilding = true;
+							break;
+						}
+					}
+					if (!validBuilding) continue;
+					System.out.println("added");
+					conversionParams[1] = conversion.getConversionInput();
 					conversionParams[2] = conversion.getConverstionOutput();
-					Behavior conversionBehavior = new Behavior(BehaviorData.getBehavior(ClayConstants.BEHAVIOR_CONVERSION), conversionParams);
+					Behavior conversionBehavior = new Behavior(
+							BehaviorData
+									.getBehavior(ClayConstants.BEHAVIOR_CONVERSION),
+							conversionParams);
+					conversionBehavior.setAssigningBuilding(((BuildingEntity)conversionParams[0]));
+					((BuildingEntity)conversionParams[0]).addActiveBehavior(conversionBehavior);					
+					GolemBehaviorProcess behaviorProcess = ((GolemBehaviorProcess) _homeScreen
+							.getProcess(GolemBehaviorProcess.class));
+					behaviorProcess.queueBehavior(conversionBehavior);
 				}
 			}
 		}

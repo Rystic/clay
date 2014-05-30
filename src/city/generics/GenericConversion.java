@@ -10,7 +10,7 @@ public class GenericConversion
 		Element eElement = (Element) node_;
 		_conversionName = eElement.getAttribute("ConversionName");
 		_conversionTag = eElement.getAttribute("ConversionTag");
-		_conversionBuilding = eElement.getAttribute("ConversionTag");
+		_conversionBuilding = eElement.getAttribute("ConversionBuilding");
 		_conversionInput = eElement.getAttribute("ConversionInput");
 		_converstionOutput = eElement.getAttribute("ConversionOutput");
 	}

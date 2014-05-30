@@ -37,7 +37,6 @@ public class CityModel extends AbstractModel
 		_itemInventory = new HashMap<String, Map<String, Integer>>();
 		_itemRatios = new HashMap<String, Map<String, Integer>>();
 		initItems();
-		System.out.println("dsff");
 	}
 
 	private void initItems()

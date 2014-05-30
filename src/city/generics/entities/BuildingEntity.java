@@ -385,6 +385,11 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		_activeBehaviors.remove(behavior_);
 	}
+	
+	public boolean hasActiveBehavior()
+	{
+		return _activeBehaviors.size() > 0;
+	}
 
 	@Override
 	public void generate(Item item_)

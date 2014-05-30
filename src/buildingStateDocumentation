@@ -31,8 +31,10 @@ build:building-entity,building-entity - Tells the golem to move to the first par
 create-golem:abstract-entity - creates a golem at the given entity.
 consume-claimed - consumes all claimed items the entity is holding.
 consume-claimed-construction:building-entity - consumes all claimed items the building is holding
+harvest-items-on-building:<building-entity> - queues harvest tasks for all items on a building.
 hide - Hides the golem until a show command, the behavior finishes, or the behavior fails.
-produce-item-on-golem:<item-tag> - Produces an item on the executiing golem.
+produce-items-on-building:<item-tag,item-tag...item-tag> - Produces items on the executing golem's claimed building.
+produce-item-on-golem:<item-tag> - Produces an item on the executing golem.
 seek:abstract-entity - Tells the golem to seek the given parameter on the map.
 seek-claimed-construction-items - Tells the golem to seek the items for the building under construction.
 seek-claimed-items - Tells the golem to gather the claimed items for the building it has claimed.
@@ -55,10 +57,12 @@ calculate-extra-building-weight:BuildingEntity - multiplies the weight if the go
 
 **Require:
 claim-building:building-entity - Tells the golem to claim the given building.
-claim-construction-items:building-entity - Claims the items required to construct the building. 
+claim-construction-items:building-entity - Claims the items required to construct the building.
+claim-empty-generic-building:building-tag - Tells the golem to find a building that's empty and declare it in use.
 claim-generic-building:building-tag - Tells the golem to find a building and declare it in use.
 claim-house = Claims a building marked as a house.
 claim-items:item-tag,item-tag...item-tag - Tells the golem to claim the selected items, and bring them to the claimed building.
+claim-parameter-items:<item-tag,item-tag...item-tag> - Tells the golem to claim the items passed in from the behavior, and bring them to the claimed building.
 entity-not-holding-item - checks if there's an item in the golem's inventory.
 entity-not-holding-unnecessary-item:building-entity - checks if there's an item in the golem's inventory, only if the building construction requires items.
 storage-exists-from-entity:abstract-entity - checks if a storage is available on the map relative to the abstract-entity.

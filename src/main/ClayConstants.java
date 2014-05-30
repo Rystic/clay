@@ -22,16 +22,19 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_BUILD = "build";
 	public static final String BEHAVIOR_COMMAND_CLAIM_BUILDING = "claim-building";
 	public static final String BEHAVIOR_COMMAND_CLAIM_CONSTRUCTION_ITEMS = "claim-construction-items";
-	public static final String BEHAVIOR_COMMAND_CLAIM_PARAMETER_ITEMS = "claim-parameter-items";
+	public static final String BEHAVIOR_COMMAND_CLAIM_EMPTY_GENERIC_BUILDING = "claim-empty-generic-building";
 	public static final String BEHAVIOR_COMMAND_CLAIM_GENERIC_BUILDING = "claim-generic-building";
 	public static final String BEHAVIOR_COMMAND_CLAIM_HOUSE = "claim-house";
 	public static final String BEHAVIOR_COMMAND_CLAIM_ITEMS = "claim-items";
+	public static final String BEHAVIOR_COMMAND_CLAIM_PARAMETER_ITEMS = "claim-parameter-items";
 	public static final String BEHAVIOR_COMMAND_CREATE_GOLEM = "create-golem";
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED = "consume-claimed";
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED_CONSTRUCTION = "consume-claimed-construction";
 	public static final String BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_ITEM = "entity-not-holding-item";
 	public static final String BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_UNNECESSARY_ITEM = "entity-not-holding-unnecessary-item";
+	public static final String BEHAVIOR_COMMAND_HARVEST_ITEMS_ON_BUILDING = "harvest-items-on-building";
 	public static final String BEHAVIOR_COMMAND_HIDE = "hide";
+	public static final String BEHAVIOR_COMMAND_PRODUCE_ITEMS_ON_BUILDING = "produce-items-on-building";
 	public static final String BEHAVIOR_COMMAND_PRODUCE_ITEM_ON_GOLEM = "produce-item-on-golem";
 	public static final String BEHAVIOR_COMMAND_SEEK = "seek";
 	public static final String BEHAVIOR_COMMAND_SEEK_CLAIMED_CONSTRUCTION_ITEMS = "seek-claimed-construction-items";
@@ -131,6 +134,7 @@ public class ClayConstants
 	public static final int SEARCH_CLAIMED_ITEM = 4;
 	public static final int SEARCH_ITEM_GOAL_ONLY = 5;
 	public static final int SEARCH_HOUSE_GOAL_ONLY = 6;
+	public static final int SEARCH_EMPTY_GENERIC_BUILDING_GOAL_ONLY = 7;
 	
 	
 	
