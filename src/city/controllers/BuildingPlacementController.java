@@ -23,6 +23,7 @@ public class BuildingPlacementController extends AbstractProcess
 		super(homeScreen_);
 		_model = (CityModel) homeScreen_.getModel();
 		_tileValues = _model.getTileValues();
+		_recentlyCreatedClayBlocks = new ArrayList<Point>();
 	}
 
 	@Override
@@ -30,6 +31,8 @@ public class BuildingPlacementController extends AbstractProcess
 	{
 		if (Mouse.isButtonDown(0))
 			placeBuilding(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
+		else
+			_recentlyCreatedClayBlocks.clear();
 	}
 
 	private void placeBuilding(int x_, int y_)
@@ -43,14 +46,23 @@ public class BuildingPlacementController extends AbstractProcess
 			GenericBuilding building = BuildingData.getBuildingById(_model
 					.getSelectedBuilding());
 			Point location = new Point(x_, y_);
-			if (building.isValidLocation(location, _tileValues, building.isSupport()))
+			if (_tileValues[location.x][location.y] == null || _recentlyCreatedClayBlocks.contains(location))
+			{
+				building = BuildingData
+						.getBuildingByTag(ClayConstants.DEFAULT_TILE_TYPE);
+				_recentlyCreatedClayBlocks.add(location);
+			}
+			if (building.isValidLocation(
+					location,
+					_tileValues,
+					building.isSupport()))
 			{
 				if (_tileValues[x_][y_] != null)
 				{
 					if (buildingMap.get(_tileValues[x_][y_].getIdentifier()) != null)
 					{
 						buildingMap.get(_tileValues[x_][y_].getIdentifier())
-						.remove(_tileValues[x_][y_]);
+								.remove(_tileValues[x_][y_]);
 					}
 					else
 						return;
@@ -81,6 +93,7 @@ public class BuildingPlacementController extends AbstractProcess
 	private static final int TILE_Y = ClayConstants.TILE_Y;
 
 	private BuildingEntity[][] _tileValues;
+	private List<Point> _recentlyCreatedClayBlocks;
 
 	private CityModel _model;
 

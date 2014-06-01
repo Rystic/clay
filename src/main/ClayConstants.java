@@ -2,20 +2,23 @@ package main;
 
 public class ClayConstants
 {
-	//--Interface Constants--
+	// --Interface Constants--
 	public static final int TILE_X = 35;
 	public static final int TILE_Y = 35;
 
 	public static final int DEFAULT_MAP_WIDTH = 40 * ClayConstants.TILE_X;
 	public static final int DEFAULT_MAP_HEIGHT = 25 * ClayConstants.TILE_Y;
-	
+
 	public static final int DEFAULT_INTERFACE_WIDTH = 300;
-	
-	
+
+	// Default Tile
+
+	public static final String DEFAULT_TILE_TYPE = "clay-block";
+
 	// Golem types
 	public static final String GOLEM_CLAY = "clay-golem";
-	
-	//--Behavior Constants--
+
+	// --Behavior Constants--
 	// Behavior Commands
 	public static final String BEHAVIOR_COMMAND_ADD_CLAY = "add-clay";
 	public static final String BEHAVIOR_COMMAND_ADD_MANA = "add-mana";
@@ -47,7 +50,7 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_STORE_ALL = "store-all";
 	public static final String BEHAVIOR_COMMAND_STORE_ITEM = "store-item";
 	public static final String BEHAVIOR_COMMAND_TAKE_ITEM = "take-item";
-	public static final String BEHAVIOR_COMMAND_TICK= "tick";
+	public static final String BEHAVIOR_COMMAND_TICK = "tick";
 
 	// Golem Brain Behavior
 	public static final String PERSONAL_BEHAVIOR_BUILD_CLAY_GOLEM = "build-clay-golem";
@@ -74,13 +77,12 @@ public class ClayConstants
 	public static final int BEHAVIOR_FAILED_INVALID_GOLEM = 5;
 	public static final int BEHAVIOR_FAILED_LIMIT_REACHED = 6;
 	public static final int BEHAVIOR_FAILED_BUILDING_OCCUPIED = 7;
-	
+
 	// Specific Behaviors
 	public static final String BEHAVIOR_HARVEST = "harvest";
 	public static final String BEHAVIOR_CONVERSION = "conversion";
-	
-	
-	//--Building Constants--
+
+	// --Building Constants--
 	// Texture States
 	public static final String T_STATE_DEFAULT = "state-default";
 	public static final String T_STATE_NONE_ABOVE = "state-none-above";
@@ -100,7 +102,7 @@ public class ClayConstants
 	public static final String T_STATE_BUILDING_ABOVE_NOT_STATE = "state-building-above-not-state";
 	public static final String T_STATE_BUILDING_LEFT_NOT_STATE = "state-building-left-not-state";
 	public static final String T_STATE_BUILDING_RIGHT_NOT_STATE = "state-building-right-not-state";
-	
+
 	// Transform States
 	public static final String TRANSFORM_FLANKED = "flanked";
 	public static final String TRANSFORM_FLANKED_SUPPORT = "flanked-support";
@@ -109,24 +111,20 @@ public class ClayConstants
 	// Tick Results
 	public static final String TICK_CODE_PRODUCE_ITEM = "item";
 	public static final String TICK_CODE_QUEUE_HARVEST_BEHAVIOR = "queue-harvest-behavior";
-	
+
 	// Tick Reset Conditions
 	public static final String TICK_RESET_NO_HELD_ITEMS = "no-held-items";
-	
+
 	// Building Position
 	public static final String DEFAULT_BUILDING_POSITION = "base";
 	public static final String EMPTY_TILE = "none";
-	
-	
-	
-	//--Event Constants--
+
+	// --Event Constants--
 	public static final Integer EVENT_MAP_UPDATE = 0;
 	public static final Integer EVENT_ITEM_UPDATE = 1;
 	public static final Integer EVENT_STORAGE_AVAILABLE_UPDATE = 2;
-	
-	
-	
-	//--Search Conditions--
+
+	// --Search Conditions--
 	public static final int SEARCH_ENTITY = 0;
 	public static final int SEARCH_GENERIC_BUILDING = 1;
 	public static final int SEARCH_STORAGE = 2;
@@ -135,10 +133,8 @@ public class ClayConstants
 	public static final int SEARCH_ITEM_GOAL_ONLY = 5;
 	public static final int SEARCH_HOUSE_GOAL_ONLY = 6;
 	public static final int SEARCH_EMPTY_GENERIC_BUILDING_GOAL_ONLY = 7;
-	
-	
-	
-	//--Misc.--
+
+	// --Misc.--
 	public static final int ADDED_WEIGHT_INCREASE = 10;
 	public static final int ADDED_WEIGHT_CAP = 250;
 	public static final int NO_LIMIT = -1;
