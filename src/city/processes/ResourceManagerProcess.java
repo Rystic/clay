@@ -86,29 +86,25 @@ public class ResourceManagerProcess extends AbstractProcess
 					if (buildings == null || buildings.size() == 0)
 						continue;
 					Object[] conversionParams = new Object[3];
-					boolean validBuilding = false;
-					for (BuildingEntity conversionBuilding : buildings)
-					{
-						if (!conversionBuilding.isInUse() && conversionBuilding.getCopyOfHeldItems().size() == 0 && conversionBuilding.isBuilt() && !conversionBuilding.hasActiveBehavior())
-						{
-							conversionParams[0] = conversionBuilding;
-							validBuilding = true;
-							break;
-						}
-					}
-					if (!validBuilding) continue;
-					System.out.println("added");
 					conversionParams[1] = conversion.getConversionInput();
 					conversionParams[2] = conversion.getConverstionOutput();
-					Behavior conversionBehavior = new Behavior(
-							BehaviorData
-									.getBehavior(ClayConstants.BEHAVIOR_CONVERSION),
-							conversionParams);
-					conversionBehavior.setAssigningBuilding(((BuildingEntity)conversionParams[0]));
-					((BuildingEntity)conversionParams[0]).addActiveBehavior(conversionBehavior);					
-					GolemBehaviorProcess behaviorProcess = ((GolemBehaviorProcess) _homeScreen
-							.getProcess(GolemBehaviorProcess.class));
-					behaviorProcess.queueBehavior(conversionBehavior);
+					for (BuildingEntity conversionBuilding : buildings)
+					{
+						if (conversionBuilding.isBuilt() && !conversionBuilding.hasActiveBehavior())
+						{
+							conversionParams[0] = conversionBuilding;
+							Behavior conversionBehavior = new Behavior(
+									BehaviorData
+											.getBehavior(ClayConstants.BEHAVIOR_CONVERSION),
+									conversionParams);
+							conversionBehavior.setAssigningBuilding(((BuildingEntity)conversionParams[0]));
+							((BuildingEntity)conversionParams[0]).addActiveBehavior(conversionBehavior);					
+							GolemBehaviorProcess behaviorProcess = ((GolemBehaviorProcess) _homeScreen
+									.getProcess(GolemBehaviorProcess.class));
+							behaviorProcess.queueBehavior(conversionBehavior);
+						}
+					}
+
 				}
 			}
 		}

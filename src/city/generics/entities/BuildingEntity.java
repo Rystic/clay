@@ -388,7 +388,7 @@ public class BuildingEntity extends AbstractEntity implements
 	
 	public boolean hasActiveBehavior()
 	{
-		return _activeBehaviors.size() > 0;
+		return isBaseTile() && _activeBehaviors.size() > 0;
 	}
 
 	@Override

@@ -2,10 +2,13 @@
 <Items>
 	<Item ItemName="Inert Clay" ItemTag="inert-clay" Texture="itemInertClay.png"
 		ItemFamily="clay" FamilyHead="true"></Item>
-	
+
+	<Item ItemName="Stoneware Brick" ItemTag="stoneware-brick"
+		Texture="itemStonewareBrick.png" ItemFamily="clay" FamilyHead="false"></Item>
+
 	<Item ItemName="Saturated Clay" ItemTag="saturated-clay" Texture="itemSaturatedClay.png"
 		ItemFamily="mana" FamilyHead="true"></Item>
-	
+
 	<Item ItemName="Mana Pipe" ItemTag="mana-pipe" Texture="itemManaPipes.png"
 		ItemFamily="mana" FamilyHead="false"></Item>
 
