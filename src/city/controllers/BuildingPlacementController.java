@@ -32,7 +32,12 @@ public class BuildingPlacementController extends AbstractProcess
 		if (Mouse.isButtonDown(0))
 			placeBuilding(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
 		else
+		{
 			_recentlyCreatedClayBlocks.clear();
+			if (Mouse.isButtonDown(1))
+				copyBuilding(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
+		}
+
 	}
 
 	private void placeBuilding(int x_, int y_)
@@ -46,7 +51,8 @@ public class BuildingPlacementController extends AbstractProcess
 			GenericBuilding building = BuildingData.getBuildingById(_model
 					.getSelectedBuilding());
 			Point location = new Point(x_, y_);
-			if (_tileValues[location.x][location.y] == null || _recentlyCreatedClayBlocks.contains(location))
+			if (_tileValues[location.x][location.y] == null
+					|| _recentlyCreatedClayBlocks.contains(location))
 			{
 				building = BuildingData
 						.getBuildingByTag(ClayConstants.DEFAULT_TILE_TYPE);
@@ -86,6 +92,15 @@ public class BuildingPlacementController extends AbstractProcess
 				}
 				buildingList.add(_tileValues[x_][y_]);
 			}
+		}
+	}
+	
+	private void copyBuilding(int x_, int y_)
+	{
+		BuildingEntity building = _tileValues[x_][y_];
+		if (building != null)
+		{
+			_model.setSelectedBuilding(building.getIdentifier());
 		}
 	}
 

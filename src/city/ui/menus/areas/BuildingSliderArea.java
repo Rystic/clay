@@ -12,6 +12,7 @@ import org.newdawn.slick.opengl.Texture;
 import screens.AbstractScreen;
 import screens.CityScreen;
 import city.generics.GenericBuilding;
+import city.generics.entities.BuildingEntity;
 import city.ui.menus.components.AbstractButton;
 import city.ui.menus.components.ImageComponent;
 import city.ui.menus.components.TextComponent;
@@ -26,9 +27,12 @@ public class BuildingSliderArea extends AbstractArea
 		_buildings = new ArrayList<GenericBuilding>();
 		_listPointer = 0;
 
+		_model = ((CityScreen) _homeScreen).getModel();
+
 		loadKnownBuildings();
-		
-		_buildingSliderLabel = new TextComponent(80, _yPos + 75, "Building Selection");
+
+		_buildingSliderLabel = new TextComponent(80, _yPos + 75,
+				"Building Selection");
 		_buildingSliderLabel.setTextColor(Color.yellow);
 
 		_firstBuilding = new AbstractButton(40, _yPos, 35, 35)
@@ -190,20 +194,28 @@ public class BuildingSliderArea extends AbstractArea
 		_fourthBuildingLabel.setText(getBuildingNameFromPointer(1));
 		_fifthBuildingLabel.setText(getBuildingNameFromPointer(2));
 
+		_selectedBuildingIdentifier = _buildings.get(_listPointer).getBuildingIdentifier();
 	}
 
 	@Override
 	public void update()
 	{
+		int selectedBuildingTag = _model.getSelectedBuilding();
+		if (_buildings.get(_listPointer).getBuildingIdentifier() != selectedBuildingTag)
+		{
+			for (int i = 0; i < _buildings.size(); i++)
+			{
+				if (_buildings.get(i).getBuildingIdentifier() == selectedBuildingTag)
+				{
+					_listPointer = i;
+					updateSelectedBuilding();
+					break;
+				}
+			}
+		}
 	}
 
-	private List<GenericBuilding> _buildings;
-
-	private int _yPos;
-
-	private int _listPointer;
-
-	private TextComponent _buildingSliderLabel;
+	private CityModel _model;
 
 	private AbstractButton _firstBuilding;
 	private AbstractButton _secondBuilding;
@@ -216,4 +228,12 @@ public class BuildingSliderArea extends AbstractArea
 	private TextComponent _thirdBuildingLabel;
 	private TextComponent _fourthBuildingLabel;
 	private TextComponent _fifthBuildingLabel;
+	private TextComponent _buildingSliderLabel;
+
+	private List<GenericBuilding> _buildings;
+
+	private int _yPos;
+	private int _listPointer;
+	private int _selectedBuildingIdentifier;
+
 }
