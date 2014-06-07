@@ -142,15 +142,6 @@ public class BehaviorInstructionCalculator
 				passed = ClayConstants.BEHAVIOR_FAILED_NO_PATH;
 		}
 		else if (com
-				.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_EMPTY_GENERIC_BUILDING))
-		{
-			passed = _claimGenericBuilding(
-					executingEntity_,
-					model,
-					commandAndParams,
-					behaviorParams_);
-		}
-		else if (com
 				.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_GENERIC_BUILDING))
 		{
 			passed = _claimGenericBuilding(
@@ -253,29 +244,6 @@ public class BehaviorInstructionCalculator
 		building.setClaimingGolem(executingEntity_);
 		executingEntity_.setClaimedBuilding(building);
 		return true;
-	}
-
-	private static int _claimEmptyGenericBuilding(GolemEntity executingEntity_, CityModel model_, String[] commandAndParams_, Object[] behaviorParams_)
-	{
-		String tag = (String) behaviorParams_[Integer
-				.parseInt(commandAndParams_[1])];
-		Queue<Point> path = SearchUtil.searchEmptyGenericBuildingGoalOnly(
-				executingEntity_,
-				executingEntity_.getHomeScreen(),
-				tag);
-		int pathStatus = SearchUtil.getPathStatus(path);
-		if (pathStatus != ClayConstants.BEHAVIOR_PASSED)
-		{
-			executingEntity_.behaviorFailed(pathStatus);
-			return pathStatus;
-		}
-		Point point = path.poll();
-		BuildingEntity claimableBuilding = model_
-				.getTileValue(point.x, point.y);
-		executingEntity_.setClaimedBuilding(claimableBuilding);
-		claimableBuilding.setClaimingGolem(executingEntity_);
-
-		return ClayConstants.BEHAVIOR_PASSED;
 	}
 
 	private static int _claimGenericBuilding(GolemEntity executingEntity_, CityModel model_, String[] commandAndParams_, Object[] behaviorParams_)
