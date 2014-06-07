@@ -50,7 +50,7 @@ public class SearchUtil
 				buildingTag_);
 		return path;
 	}
-	
+
 	public static Queue<Point> searchGenericBuildingGoalOnly(AbstractEntity entity_, AbstractScreen abstractScreen_, String buildingTag_)
 	{
 		Queue<Point> path = SearchUtil.search(
@@ -60,7 +60,7 @@ public class SearchUtil
 				buildingTag_);
 		return path;
 	}
-	
+
 	public static Queue<Point> searchStorage(AbstractEntity entity_, AbstractScreen abstractScreen_)
 	{
 		Queue<Point> path = SearchUtil.search(
@@ -132,10 +132,10 @@ public class SearchUtil
 
 			if (bestGoalWeight != -1 && currentWeight >= bestGoalWeight)
 				continue;
-
-			if (tiles_[current.x][current.y] != null)
+			boolean startTile = current.x == start.x && current.y == start.y;
+			if (tiles_[current.x][current.y] != null && !startTile)
 			{
-				if (!tiles_[current.x][current.y].isPassable())
+				if (!tiles_[current.x][current.y].isPassable() && !startTile)
 					continue;
 				boolean isGoal = false;
 
@@ -159,7 +159,8 @@ public class SearchUtil
 				else if (searchType == ClayConstants.SEARCH_EMPTY_GENERIC_BUILDING_GOAL_ONLY)
 				{
 					isGoal = tile.getBuildingTag().equals(params_[1])
-							&& tile.isBuilt() && tile.isBaseTile() && tile.getCopyOfHeldItems().size() == 0;
+							&& tile.isBuilt() && tile.isBaseTile()
+							&& tile.getCopyOfHeldItems().size() == 0;
 					if (isGoal && tile.isInUse())
 					{
 						isGoal = false;

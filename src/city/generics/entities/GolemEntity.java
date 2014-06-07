@@ -52,7 +52,6 @@ public class GolemEntity extends AbstractEntity
 			}
 
 		}
-		_maxSpeed = 3;
 		_visible = true;
 	}
 

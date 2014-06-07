@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Golems>
 
-	<Golem GolemName="Clay Golem" GolemTag="clay-golem" MoveSpeed="2" MoveVariation="2" StartingMana="100" StartingClay="100" StartingClayMaximum="100" MaximumMana="100" MaximumClay="150" ManaLostOnMovement=".0001" LowManaThreshold="90" LowClayThreshold="60" PersonalBehaviorChance="20"></Golem>
+	<Golem GolemName="Clay Golem" GolemTag="clay-golem" MoveSpeed="2" MoveVariation="1" StartingMana="100" StartingClay="100" StartingClayMaximum="100" MaximumMana="100" MaximumClay="150" ManaLostOnMovement=".0001" LowManaThreshold="90" LowClayThreshold="60" PersonalBehaviorChance="20"></Golem>
 
 </Golems>

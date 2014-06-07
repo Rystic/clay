@@ -65,53 +65,31 @@ public class ClayMain implements Runnable
 				1,
 				-1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
-		boolean debug = false;
 		while (!Display.isCloseRequested())
 		{
-			debug = true;
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			long start = 0;
-			if (debug)
-				start = System.nanoTime();
+
 			for (AbstractEffect effect : _screen.getEffects())
 			{
 				GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 				effect.executeEffect();
 			}
-			if (debug)
-				System.out.println("Effects: "
-						+ (System.nanoTime() - start));
-			if (debug)
-				start = System.nanoTime();
 			if (_screen instanceof CityScreen)
 			{
 				CityModel model = (CityModel) _screen.getModel();
 				model.getSelectedMenu().update();
 			}
-			if (debug)
-				System.out.println("Screen: "
-						+ (System.nanoTime() - start));
-			if (debug)
-				start = System.nanoTime();
 			for (AbstractProcess controller : _screen.getControllers())
 			{
 				controller.execute();
+
 			}
-			if (debug)
-				System.out.println("Controllers: "
-						+ (System.nanoTime() - start));
-			if (debug)
-				start = System.nanoTime();
 			for (AbstractProcess process : _screen.getProcesses())
 			{
 				process.execute();
 			}
-			if (debug)
-				System.out.println("Processes: "
-						+ (System.nanoTime() - start));
-
 			Display.update();
-			Display.sync(50);
+			Display.sync(60);
 		}
 		System.exit(0);
 	}
