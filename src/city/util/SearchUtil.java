@@ -133,7 +133,7 @@ public class SearchUtil
 			if (bestGoalWeight != -1 && currentWeight >= bestGoalWeight)
 				continue;
 			boolean startTile = current.x == start.x && current.y == start.y;
-			if (tiles_[current.x][current.y] != null && !startTile)
+			if (tiles_[current.x][current.y] != null)
 			{
 				if (!tiles_[current.x][current.y].isPassable() && !startTile)
 					continue;
