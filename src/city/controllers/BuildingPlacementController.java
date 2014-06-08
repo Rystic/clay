@@ -98,7 +98,7 @@ public class BuildingPlacementController extends AbstractProcess
 	private void copyBuilding(int x_, int y_)
 	{
 		BuildingEntity building = _tileValues[x_][y_];
-		if (building != null)
+		if (building != null && !building.isNatural())
 		{
 			_model.setSelectedBuilding(building.getIdentifier());
 		}
