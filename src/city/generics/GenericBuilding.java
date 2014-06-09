@@ -22,7 +22,7 @@ import city.generics.data.ItemData;
 import city.generics.entities.BuildingEntity;
 import city.generics.objects.Behavior;
 import city.generics.objects.Item;
-import city.generics.util.XmlFieldParser;
+import city.generics.util.FieldParser;
 import city.processes.GolemBehaviorProcess;
 import city.util.MapUpdateEvent;
 
@@ -38,38 +38,38 @@ public final class GenericBuilding
 
 		_extraWeightConditions = eElement.getAttribute("ExtraWeight");
 
-		_buildTime = XmlFieldParser
+		_buildTime = FieldParser
 				.parseInt(eElement.getAttribute("BuildTime"));
-		_tickStart = XmlFieldParser
+		_tickStart = FieldParser
 				.parseInt(eElement.getAttribute("tickStart"));
-		_storageCapacity = XmlFieldParser.parseInt(eElement
+		_storageCapacity = FieldParser.parseInt(eElement
 				.getAttribute("StorageCapacity"));
 
 		_transformCode = eElement.getAttribute("Transform");
 		_constructionItems = eElement.getAttribute("ConstructionItems");
 
-		_lesserManaCost = XmlFieldParser.parseDouble(eElement
+		_lesserManaCost = FieldParser.parseDouble(eElement
 				.getAttribute("LesserManaCost"));
-		_lesserManaCumulativeCost = XmlFieldParser.parseDouble(eElement
+		_lesserManaCumulativeCost = FieldParser.parseDouble(eElement
 				.getAttribute("LesserManaCumulativeCost"));
-		_greaterManaCost = XmlFieldParser.parseDouble(eElement
+		_greaterManaCost = FieldParser.parseDouble(eElement
 				.getAttribute("GreaterManaCost"));
-		_greaterManaCumulativeCost = XmlFieldParser.parseDouble(eElement
+		_greaterManaCumulativeCost = FieldParser.parseDouble(eElement
 				.getAttribute("GreaterManaCumulativeCost"));
 
-		_isClaimable = XmlFieldParser.parseBoolean(eElement
+		_isClaimable = FieldParser.parseBoolean(eElement
 				.getAttribute("isClaimable"));
-		_isHouse = XmlFieldParser
+		_isHouse = FieldParser
 				.parseBoolean(eElement.getAttribute("isHouse"));
-		_isNatural = XmlFieldParser.parseBoolean(eElement
+		_isNatural = FieldParser.parseBoolean(eElement
 				.getAttribute("isNatural"));
-		_isPassable = XmlFieldParser.parseBoolean(eElement
+		_isPassable = FieldParser.parseBoolean(eElement
 				.getAttribute("isPassable"));
-		_isStorage = XmlFieldParser.parseBoolean(eElement
+		_isStorage = FieldParser.parseBoolean(eElement
 				.getAttribute("isStorage"));
-		_isSupport = XmlFieldParser.parseBoolean(eElement
+		_isSupport = FieldParser.parseBoolean(eElement
 				.getAttribute("isSupport"));
-		_unlockedFromStart = XmlFieldParser.parseBoolean(eElement
+		_unlockedFromStart = FieldParser.parseBoolean(eElement
 				.getAttribute("UnlockedFromStart"));
 
 		parseBuildingRequirements(eElement.getAttribute("BuildingRequirements"));
@@ -92,7 +92,7 @@ public final class GenericBuilding
 				{
 					textureMap.put(
 							textures[h],
-							XmlFieldParser.parseTexture(textures[h + 1]));
+							FieldParser.parseTexture(textures[h + 1]));
 				}
 				_stateOrder.add(state);
 			}

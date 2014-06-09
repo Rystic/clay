@@ -60,6 +60,11 @@ public class Item
 		return _item.isFamilyHead();
 	}
 	
+	public String getParentTag()
+	{
+		return _item.getParentTag();
+	}
+	
 	public Texture getTexture()
 	{
 		return _item.getTexture();

@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-public class XmlFieldParser
+public class FieldParser
 {
 	public static boolean parseBoolean(String value_)
 	{

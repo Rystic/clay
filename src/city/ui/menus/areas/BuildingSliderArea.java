@@ -12,7 +12,6 @@ import org.newdawn.slick.opengl.Texture;
 import screens.AbstractScreen;
 import screens.CityScreen;
 import city.generics.GenericBuilding;
-import city.generics.entities.BuildingEntity;
 import city.ui.menus.components.AbstractButton;
 import city.ui.menus.components.ImageComponent;
 import city.ui.menus.components.TextComponent;
@@ -201,7 +200,7 @@ public class BuildingSliderArea extends AbstractArea
 	public void update()
 	{
 		int selectedBuildingTag = _model.getSelectedBuilding();
-		if (_buildings.get(_listPointer).getBuildingIdentifier() != selectedBuildingTag)
+		if (_selectedBuildingIdentifier != selectedBuildingTag)
 		{
 			for (int i = 0; i < _buildings.size(); i++)
 			{
