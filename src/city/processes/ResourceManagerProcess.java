@@ -53,8 +53,9 @@ public class ResourceManagerProcess extends AbstractProcess
 						underQuotaItems.add(item);
 						continue;
 					}
-					Double percentage = 100 * (double) (familyInventory
-							.get(item).doubleValue() / total);
+					Double itemCount = familyInventory.get(item) != null ? familyInventory
+							.get(item).doubleValue() : 0D;
+					Double percentage = 100 * (double) (itemCount / total);
 					if (percentage < familyRatios.get(item))
 						underQuotaItems.add(item);
 				}
@@ -62,7 +63,8 @@ public class ResourceManagerProcess extends AbstractProcess
 				{
 					GenericConversion conversion = ConversionData
 							.getConversion(underQuotaItem);
-					if (conversion == null) continue;
+					if (conversion == null)
+						continue;
 					String[] inputList = conversion.getConversionInput().split(
 							",");
 					Map<String, Integer> inputCountMap = new HashMap<String, Integer>();
@@ -90,15 +92,18 @@ public class ResourceManagerProcess extends AbstractProcess
 					conversionParams[2] = conversion.getConverstionOutput();
 					for (BuildingEntity conversionBuilding : buildings)
 					{
-						if (conversionBuilding.isBuilt() && !conversionBuilding.hasActiveBehavior())
+						if (conversionBuilding.isBuilt()
+								&& !conversionBuilding.hasActiveBehavior())
 						{
 							conversionParams[0] = conversionBuilding;
 							Behavior conversionBehavior = new Behavior(
 									BehaviorData
 											.getBehavior(ClayConstants.BEHAVIOR_CONVERSION),
 									conversionParams);
-							conversionBehavior.setAssigningBuilding(((BuildingEntity)conversionParams[0]));
-							((BuildingEntity)conversionParams[0]).addActiveBehavior(conversionBehavior);					
+							conversionBehavior
+									.setAssigningBuilding(((BuildingEntity) conversionParams[0]));
+							((BuildingEntity) conversionParams[0])
+									.addActiveBehavior(conversionBehavior);
 							GolemBehaviorProcess behaviorProcess = ((GolemBehaviorProcess) _homeScreen
 									.getProcess(GolemBehaviorProcess.class));
 							behaviorProcess.queueBehavior(conversionBehavior);
