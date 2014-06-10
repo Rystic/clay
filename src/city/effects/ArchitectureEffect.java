@@ -29,24 +29,35 @@ public class ArchitectureEffect extends AbstractEffect
 				BuildingEntity tile = _tileValues[i / TILE_X][j / TILE_Y];
 				if (tile != null)
 				{
+					if (tile.isHighlighted())
+					{
+						GL11.glColor3f(0.75f, 0.0f, .0f);
+						tile.setHighlighted(false);
+					}
 					GL11.glBindTexture(GL11.GL_TEXTURE_2D, tile.getTexture()
 							.getTextureID());
 					GL11.glBegin(GL11.GL_POLYGON);
 					GL11.glTexCoord2f(0, 0);
-					GL11.glVertex2d(i - 1, ClayConstants.DEFAULT_MAP_HEIGHT - j - TILE_Y - 1);
+					GL11.glVertex2d(i - 1, ClayConstants.DEFAULT_MAP_HEIGHT - j
+							- TILE_Y - 1);
 					GL11.glTexCoord2f(_coordSize, 0);
-					GL11.glVertex2d(i + TILE_X, ClayConstants.DEFAULT_MAP_HEIGHT - j - TILE_Y - 1);
+					GL11.glVertex2d(
+							i + TILE_X,
+							ClayConstants.DEFAULT_MAP_HEIGHT - j - TILE_Y - 1);
 					GL11.glTexCoord2f(_coordSize, _coordSize);
-					GL11.glVertex2d(i + TILE_X, ClayConstants.DEFAULT_MAP_HEIGHT - j);
+					GL11.glVertex2d(
+							i + TILE_X,
+							ClayConstants.DEFAULT_MAP_HEIGHT - j);
 					GL11.glTexCoord2f(0, _coordSize);
 					GL11.glVertex2d(i - 1, ClayConstants.DEFAULT_MAP_HEIGHT - j);
 					GL11.glEnd();
+					GL11.glColor3f(0.75f, 0.75f, .75f);
 				}
 			}
 		}
 
 	}
-	
+
 	private float _coordSize;
 
 	private static final int TILE_X = ClayConstants.TILE_X;

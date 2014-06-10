@@ -53,7 +53,9 @@ public class BuildingEntity extends AbstractEntity implements
 		{
 			if (!_building.getTransform().isEmpty())
 			{
-				GenericBuilding newBuilding = _building.transform(new Point(getGridX(), getGridY()), ((CityModel) _model).getTileValues());
+				GenericBuilding newBuilding = _building.transform(
+						new Point(getGridX(), getGridY()),
+						((CityModel) _model).getTileValues());
 				if (!newBuilding.equals(_building))
 				{
 					_building = newBuilding;
@@ -78,7 +80,7 @@ public class BuildingEntity extends AbstractEntity implements
 		_state = _building.calculateTexture(this);
 		_texture = _building.getTexture(_state, _position);
 	}
-	
+
 	public Texture getTexture()
 	{
 		if (!_built)
@@ -150,7 +152,7 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return _state;
 	}
-	
+
 	public boolean isBuilt()
 	{
 		return isBuilt(true);
@@ -258,7 +260,9 @@ public class BuildingEntity extends AbstractEntity implements
 		{
 			for (Item item : _heldItems)
 			{
-				if (item.getClaimingBuilding() != null && !item.getClaimingBuilding().equals(this)) item.getClaimingBuilding().claimedItemDestroyed();
+				if (item.getClaimingBuilding() != null
+						&& !item.getClaimingBuilding().equals(this))
+					item.getClaimingBuilding().claimedItemDestroyed();
 			}
 			((StorageInventoryProcess) _homeScreen
 					.getProcess(StorageInventoryProcess.class))
@@ -278,14 +282,15 @@ public class BuildingEntity extends AbstractEntity implements
 		}
 
 	}
-	
+
 	public void claimedItemDestroyed()
 	{
 		for (Item item : _claimedItems)
 		{
 			item.release();
 		}
-		_claimingGolem.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM);
+		_claimingGolem
+				.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM);
 	}
 
 	public void releaseItems()
@@ -385,7 +390,7 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		_activeBehaviors.remove(behavior_);
 	}
-	
+
 	public boolean hasActiveBehavior()
 	{
 		return isBaseTile() && _activeBehaviors.size() > 0;
@@ -504,6 +509,29 @@ public class BuildingEntity extends AbstractEntity implements
 		_activeBehaviors.removeAll(obsoleteBehaviors);
 	}
 
+	public void highlightAll()
+	{
+		if (_allBuildingTiles == null)
+			setHighlighted(true);
+		else
+		{
+			for (BuildingEntity building : _allBuildingTiles)
+			{
+				building.setHighlighted(true);
+			}
+		}
+	}
+
+	public void setHighlighted(boolean isHighlighted_)
+	{
+		_isHighlighted = isHighlighted_;
+	}
+
+	public boolean isHighlighted()
+	{
+		return _isHighlighted;
+	}
+
 	@Override
 	public boolean equals(Object o)
 	{
@@ -543,5 +571,6 @@ public class BuildingEntity extends AbstractEntity implements
 	private boolean _built;
 	private boolean _tickReset;
 	private boolean _isBase;
+	private boolean _isHighlighted;
 
 }

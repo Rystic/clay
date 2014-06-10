@@ -1,7 +1,5 @@
 package city.generics;
 
-import java.util.List;
-
 import org.newdawn.slick.opengl.Texture;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -53,8 +51,6 @@ public class GenericItem
 
 	private final Texture _texture;
 
-	private List<String> _children;
-	
 	private final String _itemName;
 	private final String _itemTag;
 	private final String _itemFamily;

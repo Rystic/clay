@@ -8,6 +8,7 @@ import java.util.Map;
 import main.ClayConstants;
 import models.CityModel;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import screens.AbstractScreen;
@@ -29,8 +30,22 @@ public class BuildingPlacementController extends AbstractProcess
 	@Override
 	public void execute()
 	{
-		if (Mouse.isButtonDown(0))
+
+		boolean leftClick = Mouse.isButtonDown(0);
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)
+				|| Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+		{
+			if (leftClick)
+				destroyBuilding(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
+			else
+				highlightBuilding(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
+
+		}
+		else if (leftClick)
+		{
 			placeBuilding(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
+		}
 		else
 		{
 			_recentlyCreatedClayBlocks.clear();
@@ -94,13 +109,52 @@ public class BuildingPlacementController extends AbstractProcess
 			}
 		}
 	}
-	
+
 	private void copyBuilding(int x_, int y_)
 	{
-		BuildingEntity building = _tileValues[x_][y_];
-		if (building != null && !building.isNatural())
+		if (x_ >= ClayConstants.DEFAULT_MAP_WIDTH / ClayConstants.TILE_X)
+			return;
+		if (y_ > 0)
 		{
-			_model.setSelectedBuilding(building.getIdentifier());
+			BuildingEntity building = _tileValues[x_][y_];
+			if (building != null && !building.isNatural())
+			{
+				_model.setSelectedBuilding(building.getIdentifier());
+			}
+		}
+	}
+
+	private void destroyBuilding(int x_, int y_)
+	{
+		if (x_ >= ClayConstants.DEFAULT_MAP_WIDTH / ClayConstants.TILE_X)
+			return;
+		if (y_ > 0)
+		{
+			BuildingEntity building = _tileValues[x_][y_];
+			if (building != null
+					&& !building.isNatural()
+					&& !building.getBuildingTag().equals(
+							ClayConstants.DEFAULT_TILE_TYPE))
+			{
+				building.deleteBuilding();
+			}
+		}
+	}
+
+	private void highlightBuilding(int x_, int y_)
+	{
+		if (x_ >= ClayConstants.DEFAULT_MAP_WIDTH / ClayConstants.TILE_X)
+			return;
+		if (y_ > 0)
+		{
+			BuildingEntity building = _tileValues[x_][y_];
+			if (building != null
+					&& !building.isNatural()
+					&& !building.getBuildingTag().equals(
+							ClayConstants.DEFAULT_TILE_TYPE))
+			{
+				building.highlightAll();
+			}
 		}
 	}
 
