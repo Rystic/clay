@@ -59,7 +59,7 @@ public class ResourceManagerProcess extends AbstractProcess
 					if (percentage < familyRatios.get(item))
 						underQuotaItems.add(item);
 				}
-				underQuoteItems: for (String underQuotaItem : underQuotaItems)
+				for (String underQuotaItem : underQuotaItems)
 				{
 					GenericConversion conversion = ConversionData
 							.getConversion(underQuotaItem);
@@ -70,8 +70,6 @@ public class ResourceManagerProcess extends AbstractProcess
 					Map<String, Integer> inputCountMap = new HashMap<String, Integer>();
 					for (String input : inputList)
 					{
-						if (underQuotaItems.contains(input))
-							continue underQuoteItems;
 						Integer count = inputCountMap.get(input);
 						if (count == null)
 							count = new Integer(1);

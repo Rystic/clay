@@ -11,10 +11,12 @@ public class ResourceManagementMenu extends AbstractMenu
 		super(homeScreen_);
 		CityModel model = (CityModel) homeScreen_.getModel();
 		int yPos = 900;
+		boolean first = true;
 		for (String key : model.getItemRatios().keySet())
 		{
-			_areas.add(new ResourceFamilyArea(homeScreen_, key, yPos));
+			_areas.add(new ResourceFamilyArea(homeScreen_, key, yPos, first));
 			yPos -= 150;
+			first = false;
 		}
 	}
 
