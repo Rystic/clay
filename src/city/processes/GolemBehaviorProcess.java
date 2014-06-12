@@ -299,7 +299,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	private List<GolemEntity> _golemList;
 	private List<GolemEntity> _inactiveGolems;
 
-	private List<Behavior> _unassignedBehaviors;
+	private volatile List<Behavior> _unassignedBehaviors;
 	private List<Behavior> _inProgressBehaviors;
 	private List<Behavior> _unreachableBehaviors;
 	private List<Behavior> _noMaterials;
