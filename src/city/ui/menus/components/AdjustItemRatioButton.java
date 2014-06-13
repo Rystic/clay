@@ -10,17 +10,14 @@ import org.newdawn.slick.opengl.Texture;
 import city.generics.GenericItem;
 import city.generics.data.ItemData;
 import city.generics.util.FieldParser;
-import city.ui.menus.areas.ResourceFamilyArea;
 
 public class AdjustItemRatioButton extends AbstractButton
 {
 	protected AdjustItemRatioButton(int x_, int y_, int width_, int height_,
-			CityModel model_, String item_, boolean increaseValue_,
-			ResourceFamilyArea parentArea_)
+			CityModel model_, String item_, boolean increaseValue_)
 	{
 		super(x_, y_, width_, height_);
 		_item = item_;
-		_parentArea = parentArea_;
 		_increaseValue = increaseValue_;
 		_model = model_;
 		setTexture(increaseValue_ ? _plusIcon : _minusIcon);
@@ -43,8 +40,6 @@ public class AdjustItemRatioButton extends AbstractButton
 		if (adjustParent(item, ratios))
 		{
 			ratios.put(_item, percentage);
-			_parentArea.requiresUpdate();
-			
 		}
 
 	}
@@ -112,11 +107,9 @@ public class AdjustItemRatioButton extends AbstractButton
 	public static class IncreaseItemRatioButton extends AdjustItemRatioButton
 	{
 		public IncreaseItemRatioButton(int x_, int y_, int width_, int height_,
-				CityModel model_, String item_,
-				ResourceFamilyArea resourceFamilyArea_)
+				CityModel model_, String item_)
 		{
-			super(x_, y_, width_, height_, model_, item_, true,
-					resourceFamilyArea_);
+			super(x_, y_, width_, height_, model_, item_, true);
 		}
 
 	}
@@ -124,11 +117,9 @@ public class AdjustItemRatioButton extends AbstractButton
 	public static class DecreaseItemRatioButton extends AdjustItemRatioButton
 	{
 		public DecreaseItemRatioButton(int x_, int y_, int width_, int height_,
-				CityModel model_, String item_,
-				ResourceFamilyArea resourceFamilyArea_)
+				CityModel model_, String item_)
 		{
-			super(x_, y_, width_, height_, model_, item_, false,
-					resourceFamilyArea_);
+			super(x_, y_, width_, height_, model_, item_, false);
 		}
 
 	}
@@ -136,8 +127,6 @@ public class AdjustItemRatioButton extends AbstractButton
 	private static Texture _plusIcon = FieldParser.parseTexture("plusIcon.png");
 	private static Texture _minusIcon = FieldParser
 			.parseTexture("minusIcon.png");
-
-	private ResourceFamilyArea _parentArea;
 
 	private CityModel _model;
 	private String _item;
