@@ -36,6 +36,7 @@ public class CityModel extends AbstractModel
 				.getBuildingIdentifier();
 		_itemInventory = new HashMap<String, Map<String, Integer>>();
 		_itemRatios = new HashMap<String, Map<String, Integer>>();
+		_currentItemRatios = new HashMap<String, Map<String, Integer>>();
 		initItems();
 	}
 
@@ -174,6 +175,16 @@ public class CityModel extends AbstractModel
 	{
 		return _itemRatios;
 	}
+	
+	public Map<String, Map<String, Integer>> getCurrentItemRatios()
+	{
+		return _currentItemRatios;
+	}
+	
+	public void setCurrentItemRatios(Map<String, Map<String, Integer>> currentItemRatios_)
+	{
+		_currentItemRatios = currentItemRatios_;
+	}
 
 	// Architecture
 	private BuildingEntity[][] _tileValues;
@@ -195,6 +206,8 @@ public class CityModel extends AbstractModel
 
 	private Map<String, Map<String, Integer>> _itemInventory;
 	private Map<String, Map<String, Integer>> _itemRatios;
+	private Map<String, Map<String, Integer>> _currentItemRatios;
+
 
 	private Map<Integer, List<BuildingEntity>> _buildingMap;
 

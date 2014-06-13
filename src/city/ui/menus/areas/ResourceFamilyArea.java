@@ -37,39 +37,53 @@ public class ResourceFamilyArea extends AbstractArea
 			title.setTextColor(Color.yellow);
 			_components.add(title);
 		}
-		Map<String, Integer> ratios = _model.getItemRatios().get(_familyName);
+		Map<String, Integer> desiredRatios = _model.getItemRatios().get(
+				_familyName);
 		TextComponent header = new TextComponent(20, _startingY - 100,
 				_familyName + " Family");
 		header.setTextColor(Color.yellow);
 		_components.add(header);
+		
 		int yPos = _startingY - 100;
-		for (String key : ratios.keySet())
+		
+		Map<String, Integer> itemFamily = _model.getItemInventory().get(
+				_familyName);
+		Map<String, Integer> currentRatios = _model.getCurrentItemRatios().get(
+				_familyName);
+		
+		for (String key : desiredRatios.keySet())
 		{
-			Map<String, Integer> itemFamily = _model.getItemInventory().get(
-					_familyName);
-			Integer count = itemFamily == null ? null : itemFamily.get(key);
-			if (count == null)
-				count = 0;
+			Integer itemCount = itemFamily == null ? null : itemFamily.get(key);
+			if (itemCount == null)
+				itemCount = 0;
+			Integer itemCurrentRatio = currentRatios == null ? null : currentRatios.get(key);
+			if (itemCurrentRatio == null)
+				itemCurrentRatio = 0;
 			GenericItem item = ItemData.getItem(key);
-			ImageComponent resourceIcon = new ImageComponent(15, yPos - 60, 30,
+			ImageComponent resourceIcon = new ImageComponent(5, yPos - 60, 30,
 					30, item.getTexture());
-			TextComponent resourceName = new TextComponent(45, yPos - 30,
-					item.getItemName() + " (" + count + ")");
-			TextComponent resourceRatio = new TextComponent(215, yPos - 30,
-					ratios.get(key).toString() + "%");
+			TextComponent resourceName = new TextComponent(30, yPos - 30,
+					item.getItemName() + " (" + itemCount + ")");
+			yPos -= 30;
+			TextComponent resourceRatio = new TextComponent(30, yPos - 30,
+					itemCurrentRatio + "%/"
+							+ desiredRatios.get(key).toString() + "% (desired)");
+			int diff = desiredRatios.get(key) - itemCurrentRatio;
+			if (diff >= 5) resourceRatio.setTextColor(Color.red);
+			else if (diff <= -5) resourceRatio.setTextColor(Color.green);
 			_components.add(resourceIcon);
 			_components.add(resourceName);
 			_components.add(resourceRatio);
 			if (!item.isFamilyHead())
 			{
 				IncreaseItemRatioButton itemIncrease = new IncreaseItemRatioButton(
-						255, yPos - 50, 20, 20, _model, key);
+						185, yPos - 50, 20, 20, _model, key);
 				DecreaseItemRatioButton itemDecrease = new DecreaseItemRatioButton(
-						275, yPos - 50, 20, 20, _model, key);
+						210, yPos - 50, 20, 20, _model, key);
 				_components.add(itemIncrease);
 				_components.add(itemDecrease);
 			}
-			yPos -= 35;
+			yPos -= 40;
 		}
 	}
 

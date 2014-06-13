@@ -15,7 +15,7 @@ public class ResourceManagementMenu extends AbstractMenu
 		for (String key : model.getItemRatios().keySet())
 		{
 			_areas.add(new ResourceFamilyArea(homeScreen_, key, yPos, first));
-			yPos -= 150;
+			yPos -= 200;
 			first = false;
 		}
 	}
