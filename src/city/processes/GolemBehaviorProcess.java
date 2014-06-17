@@ -52,7 +52,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			calculateBehavior();
 	}
 
-	public void calculateBehavior()
+	private void calculateBehavior()
 	{
 		List<Behavior> toBeAssigned = new ArrayList<Behavior>();
 		toBeAssigned.addAll(_unassignedBehaviors);

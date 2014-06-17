@@ -8,6 +8,8 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import org.newdawn.slick.opengl.Texture;
+
 import main.ClayConstants;
 import models.CityModel;
 import screens.AbstractScreen;
@@ -247,7 +249,22 @@ public class GolemEntity extends AbstractEntity
 	{
 		return _tickComplete;
 	}
-
+	
+	public Texture getCurrentTexture()
+	{
+		if (isLowClay())
+		{
+			if (isLowMana())
+			{
+				return _golem.getLowManaLowClayTexture();
+			}
+			return _golem.getLowClayTexture();
+		}
+		else if (isLowMana())
+			return _golem.getLowManaTexture();
+		return _golem.getDefaultTexture();
+	}
+	
 	public void adjustMana(double value_)
 	{
 		_mana += value_;

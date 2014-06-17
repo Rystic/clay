@@ -3,11 +3,14 @@ package city.ui.menus.areas;
 import java.util.List;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
 
 import screens.AbstractScreen;
 import screens.CityScreen;
 import city.generics.entities.GolemEntity;
 import city.generics.objects.Behavior;
+import city.generics.util.FieldParser;
+import city.ui.menus.components.ImageComponent;
 import city.ui.menus.components.TextComponent;
 
 public class GolemRosterArea extends AbstractArea
@@ -21,6 +24,7 @@ public class GolemRosterArea extends AbstractArea
 		_golemCountLabel.setTextColor(Color.yellow);
 		_golemList = ((CityScreen) homeScreen_).getModel().getGolems();
 		_yPos = yPos_;
+		_golemTexture = FieldParser.parseTexture("golem.png");
 	}
 
 	@Override
@@ -36,9 +40,11 @@ public class GolemRosterArea extends AbstractArea
 		{
 			Behavior currBehavior = golem.getCurrentBehavior();
 			String task = currBehavior == null ? "No task." : currBehavior
-					.getBehaviorTag();
-			TextComponent text = new TextComponent(75, yPos, task);
+					.getBehaviorDescription();
+			ImageComponent golemStatus = new ImageComponent(20, yPos - 30, 30, 30, golem.getCurrentTexture());
+			TextComponent text = new TextComponent(50, yPos, task);
 			_components.add(text);
+			_components.add(golemStatus);
 			yPos -= 25;
 		}
 
@@ -47,6 +53,8 @@ public class GolemRosterArea extends AbstractArea
 	private TextComponent _golemRosterLabel;
 	private TextComponent _golemCountLabel;
 	private List<GolemEntity> _golemList;
+	
+	private Texture _golemTexture;
 
 	private int _yPos;
 }

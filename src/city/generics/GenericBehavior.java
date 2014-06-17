@@ -1,8 +1,13 @@
 package city.generics;
 
+import main.ClayConstants;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import city.generics.data.BuildingData;
+import city.generics.data.ItemData;
+import city.generics.entities.BuildingEntity;
 import city.generics.entities.GolemEntity;
 import city.generics.util.FieldParser;
 
@@ -13,6 +18,7 @@ public class GenericBehavior
 		Element eElement = (Element) node_;
 		_behaviorName = eElement.getAttribute("BehaviorName");
 		_behaviorTag = eElement.getAttribute("BehaviorTag");
+		_beheviorDescription = eElement.getAttribute("BehaviorDescription");
 		_code = eElement.getAttribute("code");
 		_require = eElement.getAttribute("require");
 		_weightConditions = eElement.getAttribute("weight");
@@ -40,6 +46,37 @@ public class GenericBehavior
 			else if (attribute.equals("mana"))
 				golem_.adjustMana(val);
 		}
+	}
+
+	public String calculateBehaviorDescription(Object[] params_)
+	{
+		String[] behaviorDescription = _beheviorDescription.split(",");
+		StringBuilder resultText = new StringBuilder();
+		for (String description : behaviorDescription)
+		{
+			String[] descriptionAndParams = description.split(":");
+			if (descriptionAndParams[0]
+					.equals(ClayConstants.BEHAVIOR_DESCRIPTION_TEXT))
+				resultText.append(descriptionAndParams[1]);
+			else if (descriptionAndParams[0]
+					.equals(ClayConstants.BEHAVIOR_DESCRIPTION_ITEM))
+			{
+				String itemTag = params_[Integer
+						.parseInt(descriptionAndParams[1])].toString();
+				if (itemTag.contains(","))
+					itemTag = itemTag.split(",")[0];
+				GenericItem item = ItemData.getItem(itemTag);
+				resultText.append(item.getItemName());
+			}
+			else if (descriptionAndParams[0]
+					.equals(ClayConstants.BEHAVIOR_DESCRIPTION_BUILDING))
+			{
+				BuildingEntity building = (BuildingEntity) params_[Integer
+						.parseInt(descriptionAndParams[1])];
+				resultText.append(building.getBuildingName());
+			}
+		}
+		return resultText.toString();
 	}
 
 	public int getLimit()
@@ -89,6 +126,7 @@ public class GenericBehavior
 
 	private final String _behaviorName;
 	private final String _behaviorTag;
+	private final String _beheviorDescription;
 	private final String _code;
 	private final String _require;
 	private final String _weightConditions;

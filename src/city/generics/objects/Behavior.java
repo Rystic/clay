@@ -24,6 +24,7 @@ public class Behavior
 		_requiredCompleted = _behavior.getRequired().isEmpty();
 		_isHarvestTask = _behavior.getBehaviorTag().equals(
 				ClayConstants.BEHAVIOR_HARVEST);
+		_itemDescription = behavior_.calculateBehaviorDescription(params_);
 	}
 
 	public List<String> getCommands()
@@ -167,6 +168,11 @@ public class Behavior
 	{
 		return _behavior.getBehaviorTag();
 	}
+	
+	public String getBehaviorDescription()
+	{
+		return _itemDescription;
+	}
 
 	public boolean isRequiredCompleted()
 	{
@@ -248,6 +254,8 @@ public class Behavior
 
 	private Object[] _params;
 
+	private String _itemDescription;
+	
 	private int _addedWeight;
 
 	private boolean _requiredCompleted;

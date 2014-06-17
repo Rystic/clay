@@ -1,5 +1,6 @@
 package city.generics;
 
+import org.newdawn.slick.opengl.Texture;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -12,6 +13,12 @@ public class GenericGolem
 		Element eElement = (Element) node_;
 		_golemName = eElement.getAttribute("GolemName");
 		_golemTag = eElement.getAttribute("GolemTag");
+		
+		_defaultTexture = FieldParser.parseTexture(eElement.getAttribute("DefaultTexture"));
+		_lowClayTexture = FieldParser.parseTexture(eElement.getAttribute("LowClayTexture"));
+		_lowManaTexture = FieldParser.parseTexture(eElement.getAttribute("LowManaTexture"));
+		_lowManaLClayTexture = FieldParser.parseTexture(eElement.getAttribute("LowManaLowClayTexture"));
+		
 		_moveSpeed = FieldParser
 				.parseDouble(eElement.getAttribute("MoveSpeed"));
 		_moveVariation = FieldParser.parseDouble(eElement
@@ -44,6 +51,26 @@ public class GenericGolem
 	public String getGolemTag()
 	{
 		return _golemTag;
+	}
+	
+	public Texture getDefaultTexture()
+	{
+		return _defaultTexture;
+	}
+	
+	public Texture getLowClayTexture()
+	{
+		return _lowClayTexture;
+	}
+	
+	public Texture getLowManaTexture()
+	{
+		return _lowManaTexture;
+	}
+	
+	public Texture getLowManaLowClayTexture()
+	{
+		return _lowManaLClayTexture;
 	}
 
 	public double getMoveSpeed()
@@ -103,6 +130,11 @@ public class GenericGolem
 
 	private final String _golemName;
 	private final String _golemTag;
+	
+	private final Texture _defaultTexture;
+	private final Texture _lowClayTexture;
+	private final Texture _lowManaTexture;
+	private final Texture _lowManaLClayTexture;
 
 	private final double _moveSpeed;
 	private final double _moveVariation;

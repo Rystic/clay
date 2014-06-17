@@ -98,6 +98,11 @@ public class BuildingEntity extends AbstractEntity implements
 		return _buildTime;
 	}
 
+	public String getBuildingName()
+	{
+		return _building.getBuildingName();
+	}
+
 	public String getBuildingTag()
 	{
 		return _building.getBuildingTag();

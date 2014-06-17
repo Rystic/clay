@@ -50,10 +50,14 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_STORE_ITEM = "store-item";
 	public static final String BEHAVIOR_COMMAND_TAKE_ITEM = "take-item";
 	public static final String BEHAVIOR_COMMAND_TICK = "tick";
+	
+	// Behavior Description
+	public static final String BEHAVIOR_DESCRIPTION_TEXT = "text";
+	public static final String BEHAVIOR_DESCRIPTION_ITEM = "item";
+	public static final String BEHAVIOR_DESCRIPTION_BUILDING = "building";
 
 	// Golem Brain Behavior
 	public static final String PERSONAL_BEHAVIOR_BUILD_CLAY_GOLEM = "build-clay-golem";
-	public static final String PERSONAL_BEHAVIOR_STORE_ITEMS = "store-items";
 	public static final String PERSONAL_BEHAVIOR_REPAIR = "repair";
 	public static final String PERSONAL_BEHAVIOR_POWER_OBELISK = "power-obelisk";
 
