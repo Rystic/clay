@@ -188,7 +188,7 @@
 		BuildTime="125" BuildingRequirements="base,crucible,e,crucible"
 		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
 		LesserManaCost=".1" LesserManaCumulativeCost=".1" isClaimable="false"
-		isHouse="true" isNatural="false" isPassable="true" Scalability="base,-,e,-"
+		isHouse="false" isNatural="false" isPassable="true" Scalability="base,-,e,-"
 		isStorage="false" isSupport="false" GlobalGolemanityChange="0"
 		StorageCapacity="0" ConstructionItems="" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
