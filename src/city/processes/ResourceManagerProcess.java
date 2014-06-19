@@ -34,7 +34,7 @@ public class ResourceManagerProcess extends AbstractProcess
 					.getItemInventory();
 			Map<String, Map<String, Integer>> itemRatios = _model
 					.getItemRatios();
-			Map<String, Map<String, Integer>> currentItemRatios = new HashMap<String, Map<String, Integer>>(); 
+			Map<String, Map<String, Integer>> currentItemRatios = new HashMap<String, Map<String, Integer>>();
 			List<String> underQuotaItems = new ArrayList<String>();
 			for (String familyName : itemInventory.keySet())
 			{
@@ -103,8 +103,8 @@ public class ResourceManagerProcess extends AbstractProcess
 											.getBehavior(ClayConstants.BEHAVIOR_CONVERSION),
 									conversionParams);
 							conversionBehavior
-									.setAssigningBuilding(((BuildingEntity) conversionParams[0]));
-							((BuildingEntity) conversionParams[0])
+									.setAssigningBuilding(conversionBuilding);
+							conversionBuilding
 									.addActiveBehavior(conversionBehavior);
 							GolemBehaviorProcess behaviorProcess = ((GolemBehaviorProcess) _homeScreen
 									.getProcess(GolemBehaviorProcess.class));

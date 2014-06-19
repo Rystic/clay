@@ -49,8 +49,10 @@ public class Behavior
 	{
 		if (getLimit() != ClayConstants.NO_LIMIT)
 		{
-			boolean limitReached = _behaviorProcess.getBehaviorCount(getBehaviorTag()) >= getLimit();
-			if (limitReached) return ClayConstants.BEHAVIOR_FAILED_LIMIT_REACHED;
+			boolean limitReached = _behaviorProcess
+					.getBehaviorCount(getBehaviorTag()) >= getLimit();
+			if (limitReached)
+				return ClayConstants.BEHAVIOR_FAILED_LIMIT_REACHED;
 		}
 		if (_behavior.getRequired().isEmpty())
 			return ClayConstants.BEHAVIOR_PASSED;
@@ -168,7 +170,7 @@ public class Behavior
 	{
 		return _behavior.getBehaviorTag();
 	}
-	
+
 	public String getBehaviorDescription()
 	{
 		return _itemDescription;
@@ -193,7 +195,7 @@ public class Behavior
 	{
 		return _assigningBuilding;
 	}
-	
+
 	public GolemEntity getAssignedGolem()
 	{
 		return _assignedGolem;
@@ -239,6 +241,14 @@ public class Behavior
 		if (!(obj instanceof Behavior))
 			return false;
 		Behavior behavior = (Behavior) obj;
+		if (_assigningBuilding != null)
+		{
+			if (!_assigningBuilding.equals(behavior.getAssigningBuilding()))
+				return false;
+		}
+		else if (_assigningBuilding == null
+				&& behavior.getAssigningBuilding() != null)
+			return false;
 		return _params.equals(behavior.getParams())
 				&& _behavior.equals(behavior._behavior);
 	}
@@ -255,7 +265,7 @@ public class Behavior
 	private Object[] _params;
 
 	private String _itemDescription;
-	
+
 	private int _addedWeight;
 
 	private boolean _requiredCompleted;

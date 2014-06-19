@@ -161,7 +161,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 						}
 						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
 						{
-							// TODO finish this branch
+							_unreachableBehaviors.add(triple._behavior);
+							invalidBehaviors.add(triple._behavior);
 						}
 					}
 				}
@@ -221,7 +222,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM
 					|| reason_ == ClayConstants.BEHAVIOR_FAILED_OBSOLETE)
 			{
-
 				_unassignedBehaviors.remove(behavior_);
 				_inProgressBehaviors.remove(behavior_);
 				_unreachableBehaviors.remove(behavior_);
