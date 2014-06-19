@@ -102,8 +102,11 @@ public class BehaviorWeightCalculator
 				}
 				if (pearlclayCount < manaBatteries.size())
 					finalWeight += 1000;
-				if (finalWeight <= 0)
-					finalWeight = 1;
+				else 
+				{
+					finalWeight = Integer.MIN_VALUE;
+					break;
+				}
 			}
 			else if (weightCondition.equals(ClayConstants.WC_HOLDING_ITEM))
 			{
