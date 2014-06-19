@@ -1,15 +1,11 @@
 package city.effects;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.List;
 
 import main.ClayConstants;
 import models.CityModel;
 
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
 
 import screens.AbstractScreen;
 import city.generics.entities.GolemEntity;
@@ -36,8 +32,6 @@ public class GolemEffect extends AbstractEffect
 					.getTextureID());
 			double x = golem.getX();
 			double y = golem.getY();
-			// if (!golem.getVisible())
-			// continue;
 
 			GL11.glBegin(GL11.GL_POLYGON);
 			GL11.glTexCoord2f(0, 0);
@@ -79,8 +73,8 @@ public class GolemEffect extends AbstractEffect
 		}
 	}
 
-	private final static int GOLEM_DEFAULT_WIDTH = 32;
-	private final static int GOLEM_DEFAULT_HEIGHT = 32;
+	private final static int GOLEM_DEFAULT_WIDTH = 30;
+	private final static int GOLEM_DEFAULT_HEIGHT = 30;
 
 	private final static float _drawRatioGolems = .6f;
 	private final static float _drawRatioItems = .6f;
