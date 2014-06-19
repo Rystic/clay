@@ -102,7 +102,8 @@
 		LesserManaCumulativeCost="0" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,ew" isStorage="false"
 		isSupport="false" GlobalGolemanityChange="0" StorageCapacity="0"
-		ConstructionItems="" UnlockedFromStart="true" Transform="flanked-support:clay-block,flanked-non-support:clay-block"
+		ConstructionItems="" UnlockedFromStart="true"
+		Transform="flanked-support:clay-block,flanked-non-support:clay-block"
 		tickStart="-1">
 		<State StateName="state-default" Graphic="base,rampRight.png"></State>
 		<State StateName="state-blocked-left-support" Graphic="base,rampLeft.png"></State>
@@ -205,20 +206,60 @@
 		isStorage="false" isSupport="true" GlobalGolemanityChange="0"
 		StorageCapacity="0" ConstructionItems="" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,CentreOfUnderstandingLeft2.png,e,CentreOfUnderstandingRight2.png"></State>
+		<State StateName="state-default"
+			Graphic="base,CentreOfUnderstandingLeft2.png,e,CentreOfUnderstandingRight2.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
-		<Building BuildingName="Foundry" BuildingTag="foundry"
+	<Building BuildingName="Foundry" BuildingTag="foundry"
 		BuildingDescription="Foundries are used to cast saturated mana into mana pipes. "
 		BuildTime="125" BuildingRequirements="base,clay-block" ExtraWeight=""
 		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
 		LesserManaCumulativeCost=".4" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
 		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
-		ConstructionItems="saturated-clay,saturated-clay,saturated-clay" UnlockedFromStart="true"
-		Transform="" tickStart="-1">
+		ConstructionItems="saturated-clay,saturated-clay,saturated-clay"
+		UnlockedFromStart="true" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,foundry.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Pearlery" BuildingTag="pearlery"
+		BuildingDescription="Pearleries are used to over-saturate clay. The result of draining sixteen saturated clay into one is Pearlclay, a very useful resource for mana-related construction."
+		BuildTime="125" BuildingRequirements="base,clay-block" ExtraWeight=""
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
+		LesserManaCumulativeCost=".4" isClaimable="false" isHouse="false"
+		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
+		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
+		ConstructionItems="mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe"
+		UnlockedFromStart="true" Transform="" tickStart="-1">
+		<State StateName="state-default" Graphic="base,pearlery.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Mana Battery" BuildingTag="mana-battery"
+		BuildingDescription="Mana Batteries increase the amount of greater mana the base produces. They are also used in a number of higher-level building patterns."
+		BuildTime="125" BuildingRequirements="base,clay-block" ExtraWeight=""
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
+		LesserManaCumulativeCost=".4" isClaimable="false" isHouse="false"
+		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
+		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
+		ConstructionItems="pearlclay,pearlclay" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
+		<State StateName="state-default" Graphic="base,manaBattery.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Pearlclay Studio" BuildingTag="pearlclay-studio"
+		BuildingDescription="Pearlclay Studios provide greater mana and can be used to produce pearlclay golems."
+		BuildTime="125" BuildingRequirements="base,sculptors-studio,e,mana-battery,w,mana-battery" ExtraWeight=""
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
+		LesserManaCumulativeCost=".4" isClaimable="false" isHouse="false"
+		isNatural="false" isPassable="true" Scalability="base,-,e,-,w,-" isStorage="false"
+		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
+		ConstructionItems="pearlclay" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
+		<State StateName="state-default" Graphic="base,pearlclayStudioMid.png,e,pearlclayStudioRight.png,w,pearlclayStudioLeft.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>

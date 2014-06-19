@@ -28,7 +28,8 @@ no-held-items-- signals that the tick should restart if the entity is holding no
 add-clay:int - Tells the golem to increase it's clay by the given amount.
 add-mana:int - Tells the golem to increase the city's mana by the given amount.
 build:building-entity,building-entity - Tells the golem to move to the first parameter, and start construction on the second parameter.
-create-golem:abstract-entity - creates a golem at the given entity.
+create-clay-golem:abstract-entity - creates a clay golem at the given entity.
+create-pearlclay-golem:abstract-entity - creates a pearlclay golem at the given entity.
 consume-claimed - consumes all claimed items the entity is holding.
 consume-claimed-construction:building-entity - consumes all claimed items the building is holding
 harvest-items-on-building:<building-entity> - queues harvest tasks for all items on a building.

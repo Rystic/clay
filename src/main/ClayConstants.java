@@ -17,6 +17,7 @@ public class ClayConstants
 
 	// Golem types
 	public static final String GOLEM_CLAY = "clay-golem";
+	public static final String GOLEM_PEARLCLAY = "pearlclay-golem";
 
 	// --Behavior Constants--
 	// Behavior Commands
@@ -29,7 +30,8 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_CLAIM_HOUSE = "claim-house";
 	public static final String BEHAVIOR_COMMAND_CLAIM_ITEMS = "claim-items";
 	public static final String BEHAVIOR_COMMAND_CLAIM_PARAMETER_ITEMS = "claim-parameter-items";
-	public static final String BEHAVIOR_COMMAND_CREATE_GOLEM = "create-golem";
+	public static final String BEHAVIOR_COMMAND_CREATE_CLAY_GOLEM = "create-clay-golem";
+	public static final String BEHAVIOR_COMMAND_CREATE_PEARLCLAY_GOLEM = "create-pearlclay-golem";
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED = "consume-claimed";
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED_CONSTRUCTION = "consume-claimed-construction";
 	public static final String BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_ITEM = "entity-not-holding-item";
@@ -50,7 +52,7 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_STORE_ITEM = "store-item";
 	public static final String BEHAVIOR_COMMAND_TAKE_ITEM = "take-item";
 	public static final String BEHAVIOR_COMMAND_TICK = "tick";
-	
+
 	// Behavior Description
 	public static final String BEHAVIOR_DESCRIPTION_TEXT = "text";
 	public static final String BEHAVIOR_DESCRIPTION_ITEM = "item";
@@ -63,7 +65,9 @@ public class ClayConstants
 
 	// Behavior Weight Conditions
 	public static final String WC_CALC_BUILDING = "calculate-extra-building-weight";
-	public static final String WC_CAN_BUILD_GOLEM = "can-build-golem";
+	public static final String WC_CAN_BUILD_CLAY_GOLEM = "can-build-clay-golem";
+	public static final String WC_CAN_BUILD_PEARLCLAY_GOLEM = "can-build-pearlclay-golem";
+
 	public static final String WC_CLOSEST_TO_POINT = "closest-to-point";
 	public static final String WC_HOLDING_ITEM = "holding-item";
 	public static final String WC_LOW_CLAY = "low-clay";

@@ -39,24 +39,24 @@ public class ResourceFamilyArea extends AbstractArea
 		}
 		Map<String, Integer> desiredRatios = _model.getItemRatios().get(
 				_familyName);
-		TextComponent header = new TextComponent(20, _startingY - 100,
-				_familyName + " Family");
+		TextComponent header = new TextComponent(20, _startingY - 100);
 		header.setTextColor(Color.yellow);
 		_components.add(header);
-		
+
 		int yPos = _startingY - 100;
-		
+
 		Map<String, Integer> itemFamily = _model.getItemInventory().get(
 				_familyName);
 		Map<String, Integer> currentRatios = _model.getCurrentItemRatios().get(
 				_familyName);
-		
+		int totalItems = 0;
 		for (String key : desiredRatios.keySet())
 		{
 			Integer itemCount = itemFamily == null ? null : itemFamily.get(key);
 			if (itemCount == null)
 				itemCount = 0;
-			Integer itemCurrentRatio = currentRatios == null ? null : currentRatios.get(key);
+			Integer itemCurrentRatio = currentRatios == null ? null : currentRatios
+					.get(key);
 			if (itemCurrentRatio == null)
 				itemCurrentRatio = 0;
 			GenericItem item = ItemData.getItem(key);
@@ -66,11 +66,13 @@ public class ResourceFamilyArea extends AbstractArea
 					item.getItemName() + " (" + itemCount + ")");
 			yPos -= 30;
 			TextComponent resourceRatio = new TextComponent(30, yPos - 30,
-					itemCurrentRatio + "%/"
-							+ desiredRatios.get(key).toString() + "% (desired)");
+					itemCurrentRatio + "%/" + desiredRatios.get(key).toString()
+							+ "% (desired)");
 			int diff = desiredRatios.get(key) - itemCurrentRatio;
-			if (diff >= 5) resourceRatio.setTextColor(Color.red);
-			else if (diff <= -5) resourceRatio.setTextColor(Color.green);
+			if (diff >= 5)
+				resourceRatio.setTextColor(Color.red);
+			else if (diff <= -5)
+				resourceRatio.setTextColor(Color.green);
 			_components.add(resourceIcon);
 			_components.add(resourceName);
 			_components.add(resourceRatio);
@@ -84,7 +86,9 @@ public class ResourceFamilyArea extends AbstractArea
 				_components.add(itemDecrease);
 			}
 			yPos -= 40;
+			totalItems += itemCount;
 		}
+		header.setText(_familyName + " Family (" + totalItems + ")");
 	}
 
 	private CityModel _model;

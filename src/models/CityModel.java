@@ -54,9 +54,9 @@ public class CityModel extends AbstractModel
 				_itemRatios.put(item.getItemFamily(), familyMap);
 			}
 			if (item.isFamilyHead())
-				familyMap.put(itemTag, 90);
+				familyMap.put(itemTag, 100);
 			else
-				familyMap.put(itemTag, 10);
+				familyMap.put(itemTag, 0);
 		}
 	}
 

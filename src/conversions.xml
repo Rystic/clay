@@ -5,6 +5,11 @@
 		ConversionTag="mana-pipe" ConversionBuilding="foundry"
 		ConversionInput="saturated-clay,saturated-clay" ConversionOutput="mana-pipe,mana-pipe,mana-pipe,inert-clay"></Conversion>
 
+	<Conversion ConversionName="Produce Pearlclay"
+		ConversionTag="pearlclay" ConversionBuilding="pearlery"
+		ConversionInput="saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay"
+		ConversionOutput="pearlclay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay"></Conversion>
+
 	<Conversion ConversionName="Produce Stoneware"
 		ConversionTag="stoneware-brick" ConversionBuilding="oven"
 		ConversionInput="inert-clay,mana-pipe,mana-pipe" ConversionOutput="stoneware-brick"></Conversion>

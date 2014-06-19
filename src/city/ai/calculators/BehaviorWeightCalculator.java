@@ -1,10 +1,12 @@
 package city.ai.calculators;
 
 import java.awt.Point;
+import java.util.List;
 import java.util.Queue;
 
 import main.ClayConstants;
 import screens.CityScreen;
+import city.generics.data.BuildingData;
 import city.generics.entities.BuildingEntity;
 import city.generics.entities.GolemEntity;
 import city.util.SearchUtil;
@@ -53,7 +55,8 @@ public class BehaviorWeightCalculator
 						finalWeight = 1;
 				}
 			}
-			else if (weightCondition.equals(ClayConstants.WC_CAN_BUILD_GOLEM))
+			else if (weightCondition
+					.equals(ClayConstants.WC_CAN_BUILD_CLAY_GOLEM))
 			{
 				CityScreen screen = (CityScreen) golem_.getHomeScreen();
 				BuildingEntity[][] tiles = screen.getModel().getTileValues();
@@ -74,6 +77,31 @@ public class BehaviorWeightCalculator
 				}
 				finalWeight += 50 + ((houseCount - screen.getModel()
 						.getGolemCount()) * 10);
+				if (finalWeight <= 0)
+					finalWeight = 1;
+			}
+			else if (weightCondition
+					.equals(ClayConstants.WC_CAN_BUILD_PEARLCLAY_GOLEM))
+			{
+				CityScreen screen = (CityScreen) golem_.getHomeScreen();
+				int pearlclayCount = 0;
+				List<GolemEntity> golems = screen.getModel().getGolems();
+				for (GolemEntity entity : golems)
+				{
+					if (entity.getGolemTag().equals(
+							ClayConstants.GOLEM_PEARLCLAY))
+						pearlclayCount++;
+				}
+				Integer buildingId = BuildingData.getBuildingByTag("mana-battery").getBuildingIdentifier();
+				List<BuildingEntity> manaBatteries = screen.getModel()
+						.getBuildingMap().get(buildingId);
+				if (manaBatteries == null)
+				{
+					finalWeight = Integer.MIN_VALUE;
+					break;
+				}
+				if (pearlclayCount < manaBatteries.size())
+					finalWeight += 1000;
 				if (finalWeight <= 0)
 					finalWeight = 1;
 			}
@@ -110,9 +138,10 @@ public class BehaviorWeightCalculator
 							passed = true;
 						else if (conditionAndParams[0]
 								.equals(ClayConstants.WC_NO_STORAGE))
-							passed = SearchUtil.getPathStatus(SearchUtil.searchStorage(
-									golem_,
-									golem_.getHomeScreen())) == ClayConstants.BEHAVIOR_PASSED;
+							passed = SearchUtil.getPathStatus(SearchUtil
+									.searchStorage(
+											golem_,
+											golem_.getHomeScreen())) == ClayConstants.BEHAVIOR_PASSED;
 						if (passed)
 						{
 							finalWeight *= multiplier;

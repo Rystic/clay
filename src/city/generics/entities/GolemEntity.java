@@ -319,6 +319,11 @@ public class GolemEntity extends AbstractEntity
 	{
 		return _claimedBuilding;
 	}
+	
+	public String getGolemTag()
+	{
+		return _golem.getGolemTag();
+	}
 
 	@Override
 	public CityModel getModel()

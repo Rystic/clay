@@ -27,7 +27,10 @@ public class GolemEffect extends AbstractEffect
 				continue;
 			float manaVal = (float) (golem.getMana() / 100);
 			float clayVal = (float) (golem.getClay() / 100);
-			GL11.glColor3f(manaVal, manaVal, clayVal);
+			if (golem.getGolemTag().equals("clay-golem"))
+				GL11.glColor3f(manaVal, manaVal, clayVal);
+			else
+				GL11.glColor3f(1f,1f,1f);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, golem.getCurrentTexture()
 					.getTextureID());
 			double x = golem.getX();

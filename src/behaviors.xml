@@ -33,11 +33,18 @@
 		code="seek-claimed-items,hide,consume-claimed,tick:125,show,add-clay:20"></Behavior>
 
 	<Behavior BehaviorName="Build Clay Golem" BehaviorTag="build-clay-golem"
-		BehaviorDescription="text:Constructing a clay golem." weight="can-build-golem"
+		BehaviorDescription="text:Constructing a clay golem." weight="can-build-clay-golem"
 		defaultParams="sculptors-studio" neededBehavior="false"
 		personalBehavior="true" limit="1" golemCost="clay:-2,mana:-4"
 		require="claim-generic-building:0,claim-items:inert-clay:saturated-clay:saturated-clay"
-		code="seek-claimed-items,consume-claimed,hide,tick:75,show,create-golem"></Behavior>
+		code="seek-claimed-items,consume-claimed,hide,tick:75,show,create-clay-golem"></Behavior>
+	
+		<Behavior BehaviorName="Build Pearlclay Golem" BehaviorTag="build-pearlclay-golem"
+		BehaviorDescription="text:Constructing a pearlclay golem." weight="can-build-pearlclay-golem"
+		defaultParams="pearlclay-studio" neededBehavior="false"
+		personalBehavior="true" limit="1" golemCost="clay:-2,mana:-4"
+		require="claim-generic-building:0,claim-items:pearlclay:pearlclay"
+		code="seek-claimed-items,consume-claimed,hide,tick:75,show,create-pearlclay-golem"></Behavior>
 
 	<Behavior BehaviorName="Conversion" BehaviorTag="conversion"
 		BehaviorDescription="text:Creating ,item:2,text:."
