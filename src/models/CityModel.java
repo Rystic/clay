@@ -88,14 +88,14 @@ public class CityModel extends AbstractModel
 
 	public boolean hasBuilding(GenericBuilding building_)
 	{
-		return getBuildingMap().get(building_.getBuildingIdentifier()) != null
-				&& !getBuildingMap().get(building_.getBuildingIdentifier())
+		return _buildingMap.get(building_.getBuildingIdentifier()) != null
+				&& !_buildingMap.get(building_.getBuildingIdentifier())
 						.isEmpty();
 	}
 
 	public int buildingCount(GenericBuilding building_)
 	{
-		return getBuildingMap().get(building_.getBuildingIdentifier()) == null ? 0 : getBuildingMap()
+		return _buildingMap.get(building_.getBuildingIdentifier()) == null ? 0 : _buildingMap
 				.get(building_.getBuildingIdentifier()).size();
 	}
 
@@ -110,6 +110,14 @@ public class CityModel extends AbstractModel
 	{
 		if (x_ > _xTileCount || y_ > _yTileCount || x_ < 0 || y_ < 0)
 			return;
+		BuildingEntity building = _tileValues[x_][y_];
+		if (building != null
+				&& !building.getBuildingTag().equals(
+						ClayConstants.DEFAULT_TILE_TYPE))
+		{
+			Integer identifier = building.getIdentifier();
+			_buildingMap.get(identifier).remove(building);
+		}
 		_tileValues[x_][y_] = new BuildingEntity(
 				BuildingData.getBuildingByTag("clay-block"), new Point(x_
 						* ClayConstants.TILE_X, y_ * ClayConstants.TILE_Y),
@@ -175,12 +183,12 @@ public class CityModel extends AbstractModel
 	{
 		return _itemRatios;
 	}
-	
+
 	public Map<String, Map<String, Integer>> getCurrentItemRatios()
 	{
 		return _currentItemRatios;
 	}
-	
+
 	public void setCurrentItemRatios(Map<String, Map<String, Integer>> currentItemRatios_)
 	{
 		_currentItemRatios = currentItemRatios_;
@@ -207,7 +215,6 @@ public class CityModel extends AbstractModel
 	private Map<String, Map<String, Integer>> _itemInventory;
 	private Map<String, Map<String, Integer>> _itemRatios;
 	private Map<String, Map<String, Integer>> _currentItemRatios;
-
 
 	private Map<Integer, List<BuildingEntity>> _buildingMap;
 
