@@ -34,8 +34,6 @@ public class BehaviorData
 				if (nNode.getNodeType() == Node.ELEMENT_NODE)
 				{
 					GenericBehavior behavior = new GenericBehavior(nNode);
-					if (behavior.isNeededBehavior())
-						_neededBehaviors.add(behavior);
 					if (behavior.isPersonalBehavior())
 						_personalBehaviors.add(behavior);
 					_allBehaviors.add(behavior);
@@ -43,7 +41,6 @@ public class BehaviorData
 				}
 			}
 			_wantedBehaviors.addAll(_personalBehaviors);
-			_wantedBehaviors.removeAll(_neededBehaviors);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -60,11 +57,6 @@ public class BehaviorData
 		return _allBehaviors;
 	}
 
-	public static List<GenericBehavior> getNeededBehaviors()
-	{
-		return _neededBehaviors;
-	}
-
 	public static List<GenericBehavior> getWantedBehaviors()
 	{
 		return _wantedBehaviors;
@@ -79,7 +71,6 @@ public class BehaviorData
 	public static final Map<String, GenericBehavior> _tagToBehavior = new HashMap<String, GenericBehavior>();
 
 	private static final List<GenericBehavior> _allBehaviors = new ArrayList<GenericBehavior>();
-	private static final List<GenericBehavior> _neededBehaviors = new ArrayList<GenericBehavior>();
 	private static final List<GenericBehavior> _wantedBehaviors = new ArrayList<GenericBehavior>();
 	private static final List<GenericBehavior> _personalBehaviors = new ArrayList<GenericBehavior>();
 

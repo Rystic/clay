@@ -1,9 +1,13 @@
 package city.generics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.opengl.Texture;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import city.generics.data.BehaviorData;
 import city.generics.util.FieldParser;
 
 public class GenericGolem
@@ -18,6 +22,13 @@ public class GenericGolem
 		_lowClayTexture = FieldParser.parseTexture(eElement.getAttribute("LowClayTexture"));
 		_lowManaTexture = FieldParser.parseTexture(eElement.getAttribute("LowManaTexture"));
 		_lowManaLClayTexture = FieldParser.parseTexture(eElement.getAttribute("LowManaLowClayTexture"));
+		
+		_neededBehaviors = new ArrayList<GenericBehavior>();
+		String[] neededBehaviors = eElement.getAttribute("NeededBehaviors").split(",");
+		for (String neededBehavior : neededBehaviors)
+		{
+			_neededBehaviors.add(BehaviorData.getBehavior(neededBehavior));
+		}
 		
 		_moveSpeed = FieldParser
 				.parseDouble(eElement.getAttribute("MoveSpeed"));
@@ -51,6 +62,11 @@ public class GenericGolem
 	public String getGolemTag()
 	{
 		return _golemTag;
+	}
+	
+	public List<GenericBehavior> getNeededBehaviors()
+	{
+		return _neededBehaviors;
 	}
 	
 	public Texture getDefaultTexture()
@@ -135,6 +151,8 @@ public class GenericGolem
 	private final Texture _lowClayTexture;
 	private final Texture _lowManaTexture;
 	private final Texture _lowManaLClayTexture;
+	
+	private List<GenericBehavior> _neededBehaviors;
 
 	private final double _moveSpeed;
 	private final double _moveVariation;

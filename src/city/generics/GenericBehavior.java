@@ -22,8 +22,6 @@ public class GenericBehavior
 		_require = eElement.getAttribute("require");
 		_weightConditions = eElement.getAttribute("weight");
 		_golemCost = eElement.getAttribute("golemCost");
-		_isNeededBehavior = FieldParser.parseBoolean(eElement
-				.getAttribute("neededBehavior"));
 		_isPersonalBehavior = FieldParser.parseBoolean(eElement
 				.getAttribute("personalBehavior"));
 		_limit = FieldParser.parseInt(eElement.getAttribute("limit"));
@@ -108,11 +106,6 @@ public class GenericBehavior
 		return _weightConditions;
 	}
 
-	public Boolean isNeededBehavior()
-	{
-		return _isNeededBehavior;
-	}
-
 	public Boolean isPersonalBehavior()
 	{
 		return _isPersonalBehavior;
@@ -131,7 +124,6 @@ public class GenericBehavior
 	private final String _weightConditions;
 	private final String _golemCost;
 	private final Integer _limit;
-	private final Boolean _isNeededBehavior;
 	private final Boolean _isPersonalBehavior;
 
 	private final Object[] _defaultParams;

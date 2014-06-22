@@ -46,7 +46,7 @@ public class ClayMain implements Runnable
 		BuildingData.init();
 		BehaviorData.init();
 		ItemData.init();
-		GolemData.init();
+		GolemData.init(); // Depends on BehaviorData.
 		ConversionData.init();
 		PlayerModel player = new PlayerModel();
 		_screen = new CityScreen(player);

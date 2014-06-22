@@ -1,55 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Behaviors>
 
-    	<Behavior BehaviorName="Construct Building" BehaviorTag="construct-building"
+	<Behavior BehaviorName="Construct Building" BehaviorTag="construct-building"
 		BehaviorDescription="text:Constructing ,building:1,text:." weight="closest-to-point,calculate-extra-building-weight"
-		defaultParams="" neededBehavior="false" personalBehavior="false"
-		limit="-1" golemCost="clay:-2"
+		defaultParams="" personalBehavior="false" limit="-1" golemCost="clay:-2"
 		require="entity-not-holding-unnecessary-item:0,claim-building:0,claim-construction-items:0"
 		code="seek-claimed-construction-items:0,seek:0,consume-claimed-construction:0,build:1"></Behavior>
 
 	<Behavior BehaviorName="Harvest" BehaviorTag="harvest"
 		BehaviorDescription="text:Harvesting ,item:1,text:." weight="closest-to-point"
-		defaultParams="" neededBehavior="false" personalBehavior="false"
-		limit="-1" golemCost="mana:-4"
+		defaultParams="" personalBehavior="false" limit="-1" golemCost="mana:-4"
 		require="entity-not-holding-item,storage-exists-from-entity:0" code="seek:0,take-item:0:1,seek-storage,store-item:1"></Behavior>
 
 	<Behavior BehaviorName="Store Items" BehaviorTag="store-items"
 		BehaviorDescription="text:Dropping off held items." weight="holding-item"
-		defaultParams="storage" neededBehavior="true" personalBehavior="true"
-		limit="-1" golemCost="" require="storage-exists-from-golem:0" code="seek-storage,store-all"></Behavior>
+		defaultParams="storage" personalBehavior="true" limit="-1" golemCost=""
+		require="storage-exists-from-golem:0" code="seek-storage,store-all"></Behavior>
 
 	<Behavior BehaviorName="Power Obelisk" BehaviorTag="power-obelisk"
 		BehaviorDescription="text:Powering an obelisk." weight="low-mana"
-		defaultParams="obelisk,inert-clay" neededBehavior="true"
-		personalBehavior="true" limit="-1" golemCost="clay:-2,mana:-2"
+		defaultParams="obelisk,inert-clay" personalBehavior="true" limit="-1"
+		golemCost="clay:-2,mana:-2"
 		require="entity-not-holding-item,claim-generic-building:0,claim-items:saturated-clay"
 		code="seek-claimed-items,consume-claimed,tick:50,add-mana:10,produce-item-on-golem:1"></Behavior>
 
-	<Behavior BehaviorName="Repair" BehaviorTag="repair" weight="low-clay"
-		BehaviorDescription="text:Repairing itself." defaultParams=""
-		neededBehavior="true" personalBehavior="true" limit="-1" golemCost="mana:-4"
+	<Behavior BehaviorName="Repair (Clay)" BehaviorTag="repair-clay"
+		weight="low-clay" BehaviorDescription="text:Repairing itself."
+		defaultParams="" personalBehavior="true" limit="-1" golemCost="mana:-4"
 		require="claim-house,claim-items:saturated-clay"
 		code="seek-claimed-items,hide,consume-claimed,tick:125,show,add-clay:20"></Behavior>
 
+	<Behavior BehaviorName="Repair (Pearlyclay)" BehaviorTag="repair-pearlclay"
+		weight="low-clay" BehaviorDescription="text:Repairing itself."
+		defaultParams="mana-battery,inert-clay" personalBehavior="true" limit="-1"
+		golemCost="mana:-2" require="claim-generic-building:0,claim-items:saturated-clay"
+		code="seek-claimed-items,consume-claimed,tick:50,add-clay:20,add-mana:5,produce-item-on-golem:1"></Behavior>
+
 	<Behavior BehaviorName="Build Clay Golem" BehaviorTag="build-clay-golem"
 		BehaviorDescription="text:Constructing a clay golem." weight="can-build-clay-golem"
-		defaultParams="sculptors-studio" neededBehavior="false"
-		personalBehavior="true" limit="1" golemCost="clay:-2,mana:-4"
+		defaultParams="sculptors-studio" personalBehavior="true" limit="1"
+		golemCost="clay:-2,mana:-4"
 		require="claim-generic-building:0,claim-items:inert-clay:saturated-clay:saturated-clay"
 		code="seek-claimed-items,consume-claimed,hide,tick:75,show,create-clay-golem"></Behavior>
-	
-		<Behavior BehaviorName="Build Pearlclay Golem" BehaviorTag="build-pearlclay-golem"
+
+	<Behavior BehaviorName="Build Pearlclay Golem" BehaviorTag="build-pearlclay-golem"
 		BehaviorDescription="text:Constructing a pearlclay golem." weight="can-build-pearlclay-golem"
-		defaultParams="pearlclay-studio" neededBehavior="false"
-		personalBehavior="true" limit="1" golemCost="clay:-2,mana:-4"
-		require="claim-generic-building:0,claim-items:pearlclay:pearlclay"
+		defaultParams="pearlclay-studio" personalBehavior="true" limit="1"
+		golemCost="clay:-2,mana:-4" require="claim-generic-building:0,claim-items:pearlclay:pearlclay"
 		code="seek-claimed-items,consume-claimed,hide,tick:75,show,create-pearlclay-golem"></Behavior>
 
 	<Behavior BehaviorName="Conversion" BehaviorTag="conversion"
-		BehaviorDescription="text:Creating ,item:2,text:."
-		weight="closest-to-point" defaultParams="" neededBehavior="false"
-		personalBehavior="false" limit="-1" golemCost="clay:-2,mana:-4"
+		BehaviorDescription="text:Creating ,item:2,text:." weight="closest-to-point"
+		defaultParams="" personalBehavior="false" limit="-1" golemCost="clay:-2,mana:-4"
 		require="claim-building:0,claim-parameter-items:1"
 		code="seek-claimed-items,consume-claimed,hide,tick:75,show,produce-items-on-building:2,harvest-items-on-building:0"></Behavior>
 

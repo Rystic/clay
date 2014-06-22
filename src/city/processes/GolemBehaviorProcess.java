@@ -86,7 +86,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			BehaviorTriple golemNeededBehavior = GolemBrain
 					.calculateBestBehavior(
 							golem,
-							BehaviorData.getNeededBehaviors(),
+							golem.getNeededBehaviors(),
 							true);
 			if (golemNeededBehavior != null)
 			{

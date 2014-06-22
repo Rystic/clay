@@ -2,14 +2,14 @@
 <Golems>
 
 	<Golem GolemName="Clay Golem" GolemTag="clay-golem" MoveSpeed="2"
-		MoveVariation="1" StartingMana="100" StartingClay="100"
+		MoveVariation="1" NeededBehaviors="repair-clay,power-obelisk,store-items" StartingMana="100" StartingClay="100"
 		StartingClayMaximum="100" MaximumMana="100" MaximumClay="150"
 		ManaLostOnMovement=".0001" LowManaThreshold="90" LowClayThreshold="60"
 		PersonalBehaviorChance="20" DefaultTexture="golem.png" LowClayTexture="lowClayGolem.png"
 		LowManaTexture="lowManaGolem.png" LowManaLowClayTexture="lowManaLowClayGolem.png"></Golem>
 
 		<Golem GolemName="Pearlclay Golem" GolemTag="pearlclay-golem" MoveSpeed="3"
-		MoveVariation="0" StartingMana="200" StartingClay="50"
+		MoveVariation="0" NeededBehaviors="repair-pearlclay,power-obelisk,store-items" StartingMana="200" StartingClay="50"
 		StartingClayMaximum="100" MaximumMana="100" MaximumClay="150"
 		ManaLostOnMovement=".0001" LowManaThreshold="100" LowClayThreshold="25"
 		PersonalBehaviorChance="80" DefaultTexture="pearlclayGolem.png" LowClayTexture="pearlclayLowClay.png"

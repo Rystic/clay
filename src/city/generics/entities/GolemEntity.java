@@ -8,11 +8,13 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import org.newdawn.slick.opengl.Texture;
-
 import main.ClayConstants;
 import models.CityModel;
+
+import org.newdawn.slick.opengl.Texture;
+
 import screens.AbstractScreen;
+import city.generics.GenericBehavior;
 import city.generics.GenericGolem;
 import city.generics.objects.Behavior;
 import city.generics.objects.Item;
@@ -323,6 +325,11 @@ public class GolemEntity extends AbstractEntity
 	public String getGolemTag()
 	{
 		return _golem.getGolemTag();
+	}
+	
+	public List<GenericBehavior> getNeededBehaviors()
+	{
+		return _golem.getNeededBehaviors();
 	}
 
 	@Override
