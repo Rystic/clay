@@ -252,7 +252,7 @@
 	</Building>
 	<Building BuildingName="Pearlclay Studio" BuildingTag="pearlclay-studio"
 		BuildingDescription="Pearlclay Studios provide greater mana and can be used to produce pearlclay golems."
-		BuildTime="125" BuildingRequirements="base,sculptors-studio,e,mana-battery,w,mana-battery" ExtraWeight=""
+		BuildTime="125" BuildingRequirements="base,mana-battery,e,mana-battery,w,mana-battery" ExtraWeight=""
 		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
 		LesserManaCumulativeCost=".4" isClaimable="false" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,-,e,-,w,-" isStorage="false"
