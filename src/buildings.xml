@@ -252,14 +252,28 @@
 	</Building>
 	<Building BuildingName="Pearlclay Studio" BuildingTag="pearlclay-studio"
 		BuildingDescription="Pearlclay Studios provide greater mana and can be used to produce pearlclay golems."
-		BuildTime="125" BuildingRequirements="base,mana-battery,e,mana-battery,w,mana-battery" ExtraWeight=""
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
-		LesserManaCumulativeCost=".4" isClaimable="false" isHouse="false"
-		isNatural="false" isPassable="true" Scalability="base,-,e,-,w,-" isStorage="false"
-		isSupport="true" GlobalGolemanityChange="0" StorageCapacity="0"
-		ConstructionItems="pearlclay" UnlockedFromStart="true"
+		BuildTime="125" BuildingRequirements="base,mana-battery,e,mana-battery,w,mana-battery"
+		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		LesserManaCost=".4" LesserManaCumulativeCost=".4" isClaimable="false"
+		isHouse="false" isNatural="false" isPassable="true" Scalability="base,-,e,-,w,-"
+		isStorage="false" isSupport="true" GlobalGolemanityChange="0"
+		StorageCapacity="0" ConstructionItems="pearlclay" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,pearlclayStudioMid.png,e,pearlclayStudioRight.png,w,pearlclayStudioLeft.png"></State>
+		<State StateName="state-default"
+			Graphic="base,pearlclayStudioMid.png,e,pearlclayStudioRight.png,w,pearlclayStudioLeft.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Kiln" BuildingTag="kiln"
+		BuildingDescription="Kilns are used for firing Earthenware Bricks, and to create Stoneware Golems."
+		BuildTime="125" BuildingRequirements="base,storage,e,storage,n,oven,ne,oven"
+		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		LesserManaCost=".1" LesserManaCumulativeCost=".1" isClaimable="false"
+		isHouse="false" isNatural="false" isPassable="true" Scalability="base,-,e,-,n,-,ne,-"
+		isStorage="false" isSupport="true" GlobalGolemanityChange="0"
+		StorageCapacity="0" ConstructionItems="" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
+		<State StateName="state-default" Graphic="base,kilnBottomLeft.png,e,kilnBottomRight.png,n,kilnTopLeft.png,ne,kilnTopRight.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
