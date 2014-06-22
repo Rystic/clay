@@ -55,6 +55,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	private void calculateBehavior()
 	{
 		List<Behavior> toBeAssigned = new ArrayList<Behavior>();
+		_unassignedBehaviors.addAll(_noAvailableGolems);
+		_noAvailableGolems.clear();
 		toBeAssigned.addAll(_unassignedBehaviors);
 		List<BehaviorTriple> behaviorScores = new ArrayList<BehaviorTriple>();
 		if (!toBeAssigned.isEmpty())
@@ -188,11 +190,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		_inProgressBehaviors.remove(behavior_);
 		if (behavior_.getAssigningBuilding() != null)
 			behavior_.getAssigningBuilding().removeActiveBehavior(behavior_);
-		if (!_noAvailableGolems.isEmpty())
-		{
-			_unassignedBehaviors.addAll(_noAvailableGolems);
-			_noAvailableGolems.clear();
-		}
 		if (!_noUnoccupiedBuildings.isEmpty())
 		{
 			_unassignedBehaviors.addAll(_noUnoccupiedBuildings);
@@ -243,8 +240,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		// TODO if there's ever a failure task for a building being interrupted
 		// mid-task, it needs to clear no unoccupied buildings
 		_inProgressBehaviors.remove(behavior_);
-		_unassignedBehaviors.addAll(_noAvailableGolems);
-		_noAvailableGolems.clear();
 	}
 
 	public void queueBehavior(Behavior behavior_)
