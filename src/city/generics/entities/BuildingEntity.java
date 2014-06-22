@@ -43,6 +43,13 @@ public class BuildingEntity extends AbstractEntity implements
 		_tickTime = _building.getTickStart();
 		_isBase = _position.equals(ClayConstants.DEFAULT_BUILDING_POSITION);
 		_activeBehaviors = new ArrayList<Behavior>();
+
+		if (_built
+				&& _isBase
+				&& _building.getBuildingTag().equals(
+						ClayConstants.DEFAULT_TILE_TYPE))
+			((CityModel) _model).addToBuildingMap(this);
+
 		EventBus.subscribe(MapUpdateEvent.class, this);
 	}
 
@@ -88,7 +95,7 @@ public class BuildingEntity extends AbstractEntity implements
 		return _texture;
 	}
 
-	public int getIdentifier()
+	public int getBuildingIdentifier()
 	{
 		return _building.getBuildingIdentifier();
 	}
@@ -209,6 +216,11 @@ public class BuildingEntity extends AbstractEntity implements
 		map.put(ClayConstants.EVENT_MAP_UPDATE, point);
 		if (isStorageAvailable())
 			map.put(ClayConstants.EVENT_STORAGE_AVAILABLE_UPDATE, true);
+		if (_isBase
+				&& !_building.getBuildingTag().equals(
+						ClayConstants.DEFAULT_TILE_TYPE))
+			((CityModel) _model).addToBuildingMap(this);
+
 		EventBus.publish(new MapUpdateEvent(_homeScreen, map));
 	}
 
@@ -544,7 +556,8 @@ public class BuildingEntity extends AbstractEntity implements
 			return false;
 		BuildingEntity entity = (BuildingEntity) o;
 		return entity.getPoint().equals(_point)
-				&& entity.getIdentifier() == _building.getBuildingIdentifier();
+				&& entity.getBuildingIdentifier() == _building
+						.getBuildingIdentifier();
 	}
 
 	@Override

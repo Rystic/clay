@@ -111,17 +111,32 @@ public class CityModel extends AbstractModel
 		if (x_ > _xTileCount || y_ > _yTileCount || x_ < 0 || y_ < 0)
 			return;
 		BuildingEntity building = _tileValues[x_][y_];
+
 		if (building != null
 				&& !building.getBuildingTag().equals(
-						ClayConstants.DEFAULT_TILE_TYPE))
+						ClayConstants.DEFAULT_TILE_TYPE)
+				&& building.isBaseTile() && building.isBuilt())
 		{
-			Integer identifier = building.getIdentifier();
+			Integer identifier = building.getBuildingIdentifier();
 			_buildingMap.get(identifier).remove(building);
 		}
 		_tileValues[x_][y_] = new BuildingEntity(
-				BuildingData.getBuildingByTag("clay-block"), new Point(x_
-						* ClayConstants.TILE_X, y_ * ClayConstants.TILE_Y),
-				_homeScreen, "base");
+				BuildingData.getBuildingByTag(ClayConstants.DEFAULT_TILE_TYPE),
+				new Point(x_ * ClayConstants.TILE_X, y_ * ClayConstants.TILE_Y),
+				_homeScreen, ClayConstants.DEFAULT_BUILDING_POSITION);
+	}
+
+	public void addToBuildingMap(BuildingEntity building_)
+	{
+
+		List<BuildingEntity> buildingList = _buildingMap.get(building_
+				.getBuildingIdentifier());
+		if (buildingList == null)
+		{
+			buildingList = new ArrayList<BuildingEntity>();
+			_buildingMap.put(building_.getBuildingIdentifier(), buildingList);
+		}
+		buildingList.add(building_);
 	}
 
 	public BuildingEntity[][] getTileValues()

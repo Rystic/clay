@@ -57,8 +57,6 @@ public class BuildingPlacementController extends AbstractProcess
 
 	private void placeBuilding(int x_, int y_)
 	{
-		Map<Integer, List<BuildingEntity>> buildingMap = _model
-				.getBuildingMap();
 		if (x_ >= ClayConstants.DEFAULT_MAP_WIDTH / ClayConstants.TILE_X)
 			return;
 		if (y_ > 0)
@@ -78,16 +76,6 @@ public class BuildingPlacementController extends AbstractProcess
 					_tileValues,
 					building.isSupport()))
 			{
-				if (_tileValues[x_][y_] != null)
-				{
-					if (buildingMap.get(_tileValues[x_][y_].getIdentifier()) != null)
-					{
-						buildingMap.get(_tileValues[x_][y_].getIdentifier())
-								.remove(_tileValues[x_][y_]);
-					}
-					else
-						return;
-				}
 				try
 				{
 					building.placeBuilding(location, _tileValues, _homeScreen);
@@ -96,16 +84,6 @@ public class BuildingPlacementController extends AbstractProcess
 					e_.printStackTrace();
 					return;
 				}
-				List<BuildingEntity> buildingList = buildingMap.get(building
-						.getBuildingIdentifier());
-				if (buildingList == null)
-				{
-					buildingList = new ArrayList<BuildingEntity>();
-					buildingMap.put(
-							building.getBuildingIdentifier(),
-							buildingList);
-				}
-				buildingList.add(_tileValues[x_][y_]);
 			}
 		}
 	}
@@ -119,7 +97,7 @@ public class BuildingPlacementController extends AbstractProcess
 			BuildingEntity building = _tileValues[x_][y_];
 			if (building != null && !building.isNatural())
 			{
-				_model.setSelectedBuilding(building.getIdentifier());
+				_model.setSelectedBuilding(building.getBuildingIdentifier());
 			}
 		}
 	}

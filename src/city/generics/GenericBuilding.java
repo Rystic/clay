@@ -38,10 +38,8 @@ public final class GenericBuilding
 
 		_extraWeightConditions = eElement.getAttribute("ExtraWeight");
 
-		_buildTime = FieldParser
-				.parseInt(eElement.getAttribute("BuildTime"));
-		_tickStart = FieldParser
-				.parseInt(eElement.getAttribute("tickStart"));
+		_buildTime = FieldParser.parseInt(eElement.getAttribute("BuildTime"));
+		_tickStart = FieldParser.parseInt(eElement.getAttribute("tickStart"));
 		_storageCapacity = FieldParser.parseInt(eElement
 				.getAttribute("StorageCapacity"));
 
@@ -59,8 +57,7 @@ public final class GenericBuilding
 
 		_isClaimable = FieldParser.parseBoolean(eElement
 				.getAttribute("isClaimable"));
-		_isHouse = FieldParser
-				.parseBoolean(eElement.getAttribute("isHouse"));
+		_isHouse = FieldParser.parseBoolean(eElement.getAttribute("isHouse"));
 		_isNatural = FieldParser.parseBoolean(eElement
 				.getAttribute("isNatural"));
 		_isPassable = FieldParser.parseBoolean(eElement
@@ -192,7 +189,8 @@ public final class GenericBuilding
 			if (!_transformCode.isEmpty())
 			{
 				GenericBuilding transformCheck = transform(p_, tiles_);
-				if (!transformCheck.equals(this)) return false;
+				if (!transformCheck.equals(this))
+					return false;
 			}
 			if (yDiff == 0)
 			{
@@ -206,19 +204,35 @@ public final class GenericBuilding
 			GenericBuilding building = BuildingData
 					.getBuildingByTag(_validPlacementMap.get(key));
 
-			if (tiles_[p_.x + xDiff][p_.y + yDiff] != null
-					&& tiles_[p_.x + xDiff][p_.y + yDiff].getIdentifier() == _buildingIdentifier)
+			if (p_.y + yDiff < 0
+					|| p_.y + yDiff >= (ClayConstants.DEFAULT_MAP_HEIGHT / ClayConstants.TILE_Y))
 			{
 				valid = false;
 				break;
 			}
-
-			if (building == null
-					|| (tiles_[p_.x + xDiff][p_.y + yDiff] != null
-							&& tiles_[p_.x + xDiff][p_.y + yDiff]
-									.getIdentifier() == building
-									.getBuildingIdentifier() && tiles_[p_.x
-							+ xDiff][p_.y + yDiff].isBuilt()))
+			if (p_.x + xDiff < 0
+					|| p_.x + xDiff >= (ClayConstants.DEFAULT_MAP_WIDTH / ClayConstants.TILE_X))
+			{
+				valid = false;
+				break;
+			}
+			if (tiles_[p_.x + xDiff][p_.y + yDiff] != null
+					&& tiles_[p_.x + xDiff][p_.y + yDiff]
+							.getBuildingIdentifier() == _buildingIdentifier)
+			{
+				valid = false;
+				break;
+			}
+			BuildingEntity tileBuilding = tiles_[p_.x + xDiff][p_.y + yDiff];
+			if (building == null)
+			{
+				if (tileBuilding == null
+						|| (tileBuilding != null && !tileBuilding.isNatural()))
+					continue;
+			}
+			else if (tileBuilding != null
+					&& tileBuilding.getBuildingIdentifier() == building
+							.getBuildingIdentifier() && tileBuilding.isBuilt())
 				continue;
 			valid = false;
 			break;
@@ -525,8 +539,8 @@ public final class GenericBuilding
 			{
 				BuildingEntity left = tiles_[p_.x - 1][p_.y];
 				BuildingEntity right = tiles_[p_.x + 1][p_.y];
-				if ((left == null || !left.isSupportBlock()) && (right == null
-						|| !right.isSupportBlock()))
+				if ((left == null || !left.isSupportBlock())
+						&& (right == null || !right.isSupportBlock()))
 				{
 					newBuilding = BuildingData
 							.getBuildingByTag(commandAndParams[1]);
