@@ -56,7 +56,7 @@ public class GolemPersonalityCalculator
 	{
 		int baseChance = INTENSITY_BASE_CHANCE;
 		byte intensity = 0;
-		while (_random.nextInt(100) > baseChance)
+		while (_random.nextInt(100) < baseChance)
 		{
 			intensity++;
 			baseChance -= INTENSITY_CHANCE_DECREASE;
