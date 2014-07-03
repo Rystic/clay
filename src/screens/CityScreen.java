@@ -111,7 +111,7 @@ public class CityScreen extends AbstractScreen
 		_cityModel.addGolem(
 				GolemData.getGolem(ClayConstants.GOLEM_CLAY),
 				placementX,
-				placementY);
+				placementY, null);
 	}
 
 	@Override

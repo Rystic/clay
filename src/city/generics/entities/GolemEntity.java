@@ -14,6 +14,7 @@ import models.CityModel;
 import org.newdawn.slick.opengl.Texture;
 
 import screens.AbstractScreen;
+import city.ai.calculators.GolemPersonalityCalculator;
 import city.generics.GenericBehavior;
 import city.generics.GenericGolem;
 import city.generics.objects.Behavior;
@@ -22,7 +23,7 @@ import city.generics.objects.Item;
 public class GolemEntity extends AbstractEntity
 {
 	public GolemEntity(GenericGolem golem_, int x_, int y_,
-			AbstractScreen homeScreen_)
+			AbstractScreen homeScreen_, GolemEntity parentGolem_)
 	{
 		super(new Point(x_, y_), homeScreen_);
 		_model = (CityModel) homeScreen_.getModel();
@@ -30,9 +31,29 @@ public class GolemEntity extends AbstractEntity
 		_moveInstructions = new ArrayBlockingQueue<Point>(256);
 		_ignoredPersonalBehaviors = new HashMap<String, Integer>();
 		_claimedBuilding = null;
+		
 		_mana = _golem.getStartingMana();
 		_clay = _golem.getStartingClay();
+		
+		_personality = GolemPersonalityCalculator.generatePersonality(
+				_homeScreen,
+				this,
+				parentGolem_);
+		_psychology = GolemPersonalityCalculator.generatePsychology(
+				_homeScreen,
+				this);
+		_intensity = GolemPersonalityCalculator.generateIntensity();
+		
+		System.out.println("personality: " + _personality + "   psychology: " + _psychology + "   intensity: " + _intensity);
+		
 		_maxSpeed = _golem.getMoveSpeed();
+		calculateMoveVariation();
+		
+		_visible = true;
+	}
+	
+	private void calculateMoveVariation()
+	{
 		if (_golem.getMoveVariation() > 0)
 		{
 			Random random = new Random();
@@ -56,7 +77,6 @@ public class GolemEntity extends AbstractEntity
 			}
 
 		}
-		_visible = true;
 	}
 
 	public void executeBehavior()
@@ -251,7 +271,7 @@ public class GolemEntity extends AbstractEntity
 	{
 		return _tickComplete;
 	}
-	
+
 	public Texture getCurrentTexture()
 	{
 		if (isLowClay())
@@ -266,7 +286,7 @@ public class GolemEntity extends AbstractEntity
 			return _golem.getLowManaTexture();
 		return _golem.getDefaultTexture();
 	}
-	
+
 	public void adjustMana(double value_)
 	{
 		_mana += value_;
@@ -321,15 +341,30 @@ public class GolemEntity extends AbstractEntity
 	{
 		return _claimedBuilding;
 	}
-	
+
 	public String getGolemTag()
 	{
 		return _golem.getGolemTag();
 	}
-	
+
 	public List<GenericBehavior> getNeededBehaviors()
 	{
 		return _golem.getNeededBehaviors();
+	}
+
+	public int getPersonality()
+	{
+		return _personality & 3;
+	}
+
+	public int getPsychology()
+	{
+		return _psychology & 3;
+	}
+
+	public int getIntensity()
+	{
+		return _intensity & 31;
 	}
 
 	@Override
@@ -356,8 +391,12 @@ public class GolemEntity extends AbstractEntity
 
 	private int _tickCount;
 	private int _tickCountRate;
-	private boolean _tickComplete;
 
+	private int _personality;
+	private int _psychology;
+	private int _intensity;
+
+	private boolean _tickComplete;
 	private boolean _visible;
 
 }

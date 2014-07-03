@@ -68,7 +68,6 @@ public class ClayMain implements Runnable
 		while (!Display.isCloseRequested())
 		{
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-
 			for (AbstractEffect effect : _screen.getEffects())
 			{
 				GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
@@ -88,6 +87,7 @@ public class ClayMain implements Runnable
 			{
 				process.execute();
 			}
+			GL11.glFlush();
 			Display.update();
 			Display.sync(60);
 		}
@@ -98,6 +98,8 @@ public class ClayMain implements Runnable
 	{
 		new ClayMain();
 	}
+
+	private int _sleepNanos = 500000;
 
 	private AbstractScreen _screen;
 

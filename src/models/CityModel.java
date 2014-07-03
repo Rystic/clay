@@ -75,10 +75,10 @@ public class CityModel extends AbstractModel
 		return _golemList.size();
 	}
 
-	public void addGolem(GenericGolem golem_, double x_, double y_)
+	public void addGolem(GenericGolem golem_, double x_, double y_, GolemEntity parentGolem_)
 	{
 		_newGolemList.add(new GolemEntity(golem_, (int) x_, (int) y_,
-				_homeScreen));
+				_homeScreen, parentGolem_));
 	}
 
 	public Map<Integer, List<BuildingEntity>> getBuildingMap()

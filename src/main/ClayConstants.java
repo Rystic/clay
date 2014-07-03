@@ -1,5 +1,8 @@
 package main;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ClayConstants
 {
 	// --Interface Constants--
@@ -63,6 +66,19 @@ public class ClayConstants
 	public static final String PERSONAL_BEHAVIOR_REPAIR = "repair";
 	public static final String PERSONAL_BEHAVIOR_POWER_OBELISK = "power-obelisk";
 
+	// Personalities
+	public static final byte PERSONALITY_NONE = 0;
+	public static final byte PERSONALITY_AMBITIOUS = 1;
+	public static final byte PERSONALITY_INGENIOUS = 2;
+	public static final byte PERSONALITY_CREATIVE  = 3;
+	
+	public static final byte PSYCHOLOGY_PARAGON  = 0;
+	public static final byte PSYCHOLOGY_ELITIST  = 1;
+	public static final byte PSYCHOLOGY_HARD_WORKING  = 2;
+	public static final byte PSYCHOLOGY_INFLUENTIAL  = 3;
+	
+	public static final Map<Integer, Byte> PERSONALITY_INTENSITY_MAP = new HashMap<Integer, Byte>();
+	
 	// Behavior Weight Conditions
 	public static final String WC_CALC_BUILDING = "calculate-extra-building-weight";
 	public static final String WC_CAN_BUILD_CLAY_GOLEM = "can-build-clay-golem";
