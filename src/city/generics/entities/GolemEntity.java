@@ -31,27 +31,23 @@ public class GolemEntity extends AbstractEntity
 		_moveInstructions = new ArrayBlockingQueue<Point>(256);
 		_ignoredPersonalBehaviors = new HashMap<String, Integer>();
 		_claimedBuilding = null;
-		
+
 		_mana = _golem.getStartingMana();
 		_clay = _golem.getStartingClay();
-		
-		_personality = GolemPersonalityCalculator.generatePersonality(
+		GolemPersonalityCalculator.buildPersonality(
 				_homeScreen,
 				this,
 				parentGolem_);
-		_psychology = GolemPersonalityCalculator.generatePsychology(
-				_homeScreen,
-				this);
-		_intensity = GolemPersonalityCalculator.generateIntensity();
-		
-		System.out.println("personality: " + _personality + "   psychology: " + _psychology + "   intensity: " + _intensity);
-		
+
+		System.out.println("personality: " + _personality + "   psychology: "
+				+ _psychology + "   intensity: " + _intensity);
+
 		_maxSpeed = _golem.getMoveSpeed();
 		calculateMoveVariation();
-		
+
 		_visible = true;
 	}
-	
+
 	private void calculateMoveVariation()
 	{
 		if (_golem.getMoveVariation() > 0)
@@ -365,6 +361,21 @@ public class GolemEntity extends AbstractEntity
 	public int getIntensity()
 	{
 		return _intensity & 31;
+	}
+
+	public void setPersonality(byte personality_)
+	{
+		_personality = personality_;
+	}
+
+	public void setPsychology(byte psychology_)
+	{
+		_psychology = psychology_;
+	}
+
+	public void setIntensity(byte intensity_)
+	{
+		_intensity = intensity_;
 	}
 
 	@Override

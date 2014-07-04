@@ -8,7 +8,24 @@ import city.generics.entities.GolemEntity;
 
 public class GolemPersonalityCalculator
 {
-	public static byte generatePersonality(AbstractScreen homeScreen_, GolemEntity childGolem_, GolemEntity parentGolem_)
+
+	public static void buildPersonality(AbstractScreen homeScreen_, GolemEntity childGolem_, GolemEntity parentGolem_)
+	{
+		childGolem_.setPersonality(generatePersonality(
+				homeScreen_,
+				childGolem_,
+				parentGolem_));
+		childGolem_.setPsychology(generatePsychology(
+				homeScreen_,
+				childGolem_,
+				parentGolem_));
+		childGolem_.setIntensity(generateIntensity(
+				homeScreen_,
+				childGolem_,
+				parentGolem_));
+	}
+
+	private static byte generatePersonality(AbstractScreen homeScreen_, GolemEntity childGolem_, GolemEntity parentGolem_)
 	{
 		// TODO pull from city stats
 		int ambitiousChance = 1;
@@ -20,7 +37,7 @@ public class GolemPersonalityCalculator
 		{
 			int parentPersonality = parentGolem_.getPersonality();
 			int parentPersonalityBonus = parentGolem_.getPsychology() == ClayConstants.PSYCHOLOGY_INFLUENTIAL ? parentGolem_
-					.getIntensity() : 1;
+					.getIntensity() + 1 : 1;
 			switch (parentPersonality)
 			{
 			case ClayConstants.PERSONALITY_AMBITIOUS:
@@ -46,16 +63,26 @@ public class GolemPersonalityCalculator
 		return ClayConstants.PERSONALITY_NONE;
 	}
 
-	public static byte generatePsychology(AbstractScreen homeScreen_, GolemEntity golem_)
+	private static byte generatePsychology(AbstractScreen homeScreen_, GolemEntity childGolem_, GolemEntity parentGolem_)
 	{
-		if (golem_.getPersonality() == ClayConstants.PERSONALITY_NONE) return 0;
+		if (childGolem_.getPersonality() == ClayConstants.PERSONALITY_NONE)
+			return 0;
 		return (byte) _random.nextInt(4);
 	}
-	
-	public static byte generateIntensity()
+
+	private static byte generateIntensity(AbstractScreen homeScreen_, GolemEntity childGolem_, GolemEntity parentGolem_)
 	{
 		int baseChance = INTENSITY_BASE_CHANCE;
 		byte intensity = 0;
+		if (childGolem_.getPersonality() == ClayConstants.PERSONALITY_NONE)
+			return 0;
+		if (parentGolem_ != null)
+		{
+			if (parentGolem_.getPsychology() == ClayConstants.PSYCHOLOGY_PARAGON)
+				baseChance += 20;
+			if (parentGolem_.getPersonality() == childGolem_.getPersonality())
+				intensity++;
+		}
 		while (_random.nextInt(100) < baseChance)
 		{
 			intensity++;
@@ -64,9 +91,8 @@ public class GolemPersonalityCalculator
 		return intensity;
 	}
 
-
 	private static final Random _random = new Random();
-	
+
 	private static final int INTENSITY_BASE_CHANCE = 50;
 	private static final int INTENSITY_CHANCE_DECREASE = 10;
 }
