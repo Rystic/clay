@@ -19,6 +19,18 @@ public class FieldParser
 		}
 		return DEFAULT_BOOL_VALUE;
 	}
+	
+	public static byte parseByte(String value_)
+	{
+		try
+		{
+			return Byte.parseByte(value_);
+		} catch (Exception e_)
+		{
+			e_.printStackTrace();
+		}
+		return DEFAULT_BYTE_VALUE;
+	}
 
 	public static int parseInt(String value_)
 	{
@@ -59,6 +71,7 @@ public class FieldParser
 	}
 	
 	private static final boolean DEFAULT_BOOL_VALUE = false;
+	private static final byte DEFAULT_BYTE_VALUE = 0;
 	private static final int DEFAULT_INTEGER_VALUE = 0;
 	private static final double DEFAULT_DOUBLE_VALUE = 0D;
 }

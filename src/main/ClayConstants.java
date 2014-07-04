@@ -71,7 +71,8 @@ public class ClayConstants
 	public static final byte PERSONALITY_AMBITIOUS = 1;
 	public static final byte PERSONALITY_INGENIOUS = 2;
 	public static final byte PERSONALITY_CREATIVE  = 3;
-	
+
+	public static final byte PSYCHOLOGY_NONE = -1;
 	public static final byte PSYCHOLOGY_PARAGON  = 0;
 	public static final byte PSYCHOLOGY_ELITIST  = 1;
 	public static final byte PSYCHOLOGY_HARD_WORKING  = 2;

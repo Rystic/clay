@@ -1,9 +1,15 @@
 package city.ai.calculators;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import main.ClayConstants;
+import models.CityModel;
 import screens.AbstractScreen;
+import city.generics.GenericBuilding;
+import city.generics.data.BuildingData;
+import city.generics.entities.BuildingEntity;
 import city.generics.entities.GolemEntity;
 
 public class GolemPersonalityCalculator
@@ -67,7 +73,45 @@ public class GolemPersonalityCalculator
 	{
 		if (childGolem_.getPersonality() == ClayConstants.PERSONALITY_NONE)
 			return 0;
-		return (byte) _random.nextInt(4);
+		CityModel model = (CityModel) homeScreen_.getModel();
+		Map<Integer, List<BuildingEntity>> buildingMap = model.getBuildingMap();
+		int paragonChance = 0;
+		int elitistChance = 0;
+		int hardWorkingChance = 1;
+		int influentialChance = 0;
+		for (Integer buildingId : buildingMap.keySet())
+		{
+			GenericBuilding building = BuildingData.getBuildingById(buildingId);
+			if (building.getPsychologyType() != ClayConstants.PSYCHOLOGY_NONE)
+			{
+				int influence = buildingMap.get(buildingId).size()
+						* building.getPsychologyInfluence();
+				switch (building.getPsychologyType())
+				{
+				case ClayConstants.PSYCHOLOGY_PARAGON:
+					paragonChance += influence;
+					break;
+				case ClayConstants.PSYCHOLOGY_ELITIST:
+					elitistChance += influence;
+					break;
+				case ClayConstants.PSYCHOLOGY_HARD_WORKING:
+					hardWorkingChance += influence;
+					break;
+				case ClayConstants.PSYCHOLOGY_INFLUENTIAL:
+					influentialChance += influence;
+					break;
+				}
+			}
+		}
+		int childPsychology = _random.nextInt(paragonChance + elitistChance
+				+ hardWorkingChance + influentialChance);
+		if (childPsychology < paragonChance)
+			return ClayConstants.PSYCHOLOGY_PARAGON;
+		if (childPsychology < paragonChance + elitistChance)
+			return ClayConstants.PSYCHOLOGY_ELITIST;
+		if (childPsychology < paragonChance + elitistChance + hardWorkingChance)
+			return ClayConstants.PSYCHOLOGY_HARD_WORKING;
+		return ClayConstants.PSYCHOLOGY_INFLUENTIAL;
 	}
 
 	private static byte generateIntensity(AbstractScreen homeScreen_, GolemEntity childGolem_, GolemEntity parentGolem_)

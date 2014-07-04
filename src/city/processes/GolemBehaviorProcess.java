@@ -225,6 +225,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				_noAvailableGolems.remove(behavior_);
 				_noMaterials.remove(behavior_);
 				_noStorageAvailable.remove(behavior_);
+				_noUnoccupiedBuildings.remove(behavior_);
+
 			}
 
 			if (reason_ == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)

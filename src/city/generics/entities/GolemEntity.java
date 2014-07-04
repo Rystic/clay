@@ -348,19 +348,19 @@ public class GolemEntity extends AbstractEntity
 		return _golem.getNeededBehaviors();
 	}
 
-	public int getPersonality()
+	public byte getPersonality()
 	{
-		return _personality & 3;
+		return _personality;
 	}
 
-	public int getPsychology()
+	public byte getPsychology()
 	{
-		return _psychology & 3;
+		return _psychology;
 	}
 
-	public int getIntensity()
+	public byte getIntensity()
 	{
-		return _intensity & 31;
+		return _intensity;
 	}
 
 	public void setPersonality(byte personality_)
@@ -403,9 +403,9 @@ public class GolemEntity extends AbstractEntity
 	private int _tickCount;
 	private int _tickCountRate;
 
-	private int _personality;
-	private int _psychology;
-	private int _intensity;
+	private byte _personality;
+	private byte _psychology;
+	private byte _intensity;
 
 	private boolean _tickComplete;
 	private boolean _visible;

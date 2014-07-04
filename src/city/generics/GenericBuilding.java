@@ -55,8 +55,6 @@ public final class GenericBuilding
 		_greaterManaCumulativeCost = FieldParser.parseDouble(eElement
 				.getAttribute("GreaterManaCumulativeCost"));
 
-		_isClaimable = FieldParser.parseBoolean(eElement
-				.getAttribute("isClaimable"));
 		_isHouse = FieldParser.parseBoolean(eElement.getAttribute("isHouse"));
 		_isNatural = FieldParser.parseBoolean(eElement
 				.getAttribute("isNatural"));
@@ -68,6 +66,11 @@ public final class GenericBuilding
 				.getAttribute("isSupport"));
 		_unlockedFromStart = FieldParser.parseBoolean(eElement
 				.getAttribute("UnlockedFromStart"));
+		
+		_psychologyType = FieldParser.parseByte(eElement
+				.getAttribute("PsychologyType"));
+		_psychologyInfluence = FieldParser.parseByte(eElement
+				.getAttribute("PsychologyInfluence"));
 
 		parseBuildingRequirements(eElement.getAttribute("BuildingRequirements"));
 		parseScalability(eElement.getAttribute("Scalability"));
@@ -673,11 +676,6 @@ public final class GenericBuilding
 		return _buildTime;
 	}
 
-	public boolean isClaimable()
-	{
-		return _isClaimable;
-	}
-
 	public boolean isHouse()
 	{
 		return _isHouse;
@@ -726,6 +724,16 @@ public final class GenericBuilding
 	public String getConstructionItems()
 	{
 		return _constructionItems;
+	}
+
+	public byte getPsychologyType()
+	{
+		return _psychologyType;
+	}
+	
+	public byte getPsychologyInfluence()
+	{
+		return _psychologyInfluence;
 	}
 
 	public boolean isValid(BuildingEntity building_)
@@ -779,7 +787,9 @@ public final class GenericBuilding
 	private final double _greaterManaCost;
 	private final double _greaterManaCumulativeCost;
 
-	private final boolean _isClaimable;
+	private final byte _psychologyType;
+	private final byte _psychologyInfluence;
+	
 	private final boolean _isHouse;
 	private final boolean _isNatural;
 	private final boolean _isPassable;
