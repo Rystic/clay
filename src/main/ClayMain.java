@@ -4,6 +4,7 @@ import models.CityModel;
 import models.PlayerModel;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
@@ -65,8 +66,12 @@ public class ClayMain implements Runnable
 				1,
 				-1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
+		getDelta();
+		lastFPS = getTime();
 		while (!Display.isCloseRequested())
 		{
+			updateFPS();
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 			for (AbstractEffect effect : _screen.getEffects())
 			{
@@ -88,8 +93,8 @@ public class ClayMain implements Runnable
 				process.execute();
 			}
 			GL11.glFlush();
-			Display.update();
 			Display.sync(60);
+			Display.update();
 		}
 		System.exit(0);
 	}
@@ -98,6 +103,35 @@ public class ClayMain implements Runnable
 	{
 		new ClayMain();
 	}
+
+	public long getTime()
+	{
+		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+	}
+
+	public int getDelta()
+	{
+		long time = getTime();
+		int delta = (int) (time - lastFrame);
+		lastFrame = time;
+
+		return delta;
+	}
+
+	public void updateFPS()
+	{
+		if (getTime() - lastFPS > 1000)
+		{
+			Display.setTitle("FPS: " + fps);
+			fps = 0; // reset the FPS counter
+			lastFPS += 1000; // add one second
+		}
+		fps++;
+	}
+
+	private long lastFrame;
+	private long fps;
+	private long lastFPS;
 
 	private int _sleepNanos = 500000;
 
