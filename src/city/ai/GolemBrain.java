@@ -23,6 +23,11 @@ public class GolemBrain
 		int bestWeight = Integer.MIN_VALUE;
 		for (GenericBehavior behavior : behaviors_)
 		{
+			String behaviorTag = behavior.getBehaviorTag();
+			if (golem_.getUnreachableBehaviors().contains(behaviorTag)) continue;
+			if (golem_.getNoMaterials().contains(behaviorTag)) continue;
+			if (golem_.getNoStorageAvailable().contains(behaviorTag)) continue;
+			if (golem_.getNoUnoccupiedBuildings().contains(behaviorTag)) continue;
 			int weight = BehaviorWeightCalculator.calculate(
 					golem_,
 					behavior.getWeightConditions(),

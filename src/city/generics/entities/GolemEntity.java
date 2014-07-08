@@ -1,6 +1,7 @@
 package city.generics.entities;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,11 @@ public class GolemEntity extends AbstractEntity
 		_moveInstructions = new ArrayBlockingQueue<Point>(256);
 		_ignoredPersonalBehaviors = new HashMap<String, Integer>();
 		_claimedBuilding = null;
+
+		_unreachableBehaviors = new ArrayList<String>();
+		_noMaterials = new ArrayList<String>();
+		_noStorageAvailable = new ArrayList<String>();
+		_noUnoccupiedBuildings = new ArrayList<String>();
 
 		_mana = _golem.getStartingMana();
 		_clay = _golem.getStartingClay();
@@ -141,7 +147,7 @@ public class GolemEntity extends AbstractEntity
 			_claimedBuilding = null;
 		}
 	}
-
+	
 	public boolean isActive()
 	{
 		return _currentBehavior != null;
@@ -378,6 +384,66 @@ public class GolemEntity extends AbstractEntity
 		_intensity = intensity_;
 	}
 
+	public List<String> getUnreachableBehaviors()
+	{
+		return _unreachableBehaviors;
+	}
+
+	public List<String> getNoMaterials()
+	{
+		return _noMaterials;
+	}
+
+	public List<String> getNoStorageAvailable()
+	{
+		return _noStorageAvailable;
+	}
+
+	public List<String> getNoUnoccupiedBuildings()
+	{
+		return _noUnoccupiedBuildings;
+	}
+
+	public void addUnreachableBehavior(Behavior behavior_)
+	{
+		_unreachableBehaviors.add(behavior_.getBehaviorTag());
+	}
+
+	public void addNoMaterialsBehavior(Behavior behavior_)
+	{
+		_noMaterials.add(behavior_.getBehaviorTag());
+	}
+
+	public void addNoStorageAvailableBehavior(Behavior behavior_)
+	{
+		_noStorageAvailable.add(behavior_.getBehaviorTag());
+	}
+
+	public void addNoUnoccupiedBuildingsBehavior(Behavior behavior_)
+	{
+		_noUnoccupiedBuildings.add(behavior_.getBehaviorTag());
+	}
+
+	public void clearUnreachableBehaviors()
+	{
+		_unreachableBehaviors.clear();
+	}
+
+	public void clearNoMaterialsBehaviors()
+	{
+		_noMaterials.clear();
+	}
+
+	public void clearNoStorageAvailableBehaviors()
+	{
+		_noStorageAvailable.clear();
+	}
+
+	public void clearNoUnoccupiedBuildingsBehaviors()
+	{
+		_noUnoccupiedBuildings.clear();
+	}
+
 	@Override
 	public CityModel getModel()
 	{
@@ -390,6 +456,11 @@ public class GolemEntity extends AbstractEntity
 
 	private CityModel _model;
 	private Behavior _currentBehavior;
+
+	private List<String> _unreachableBehaviors;
+	private List<String> _noMaterials;
+	private List<String> _noStorageAvailable;
+	private List<String> _noUnoccupiedBuildings;
 
 	private List<String> _commands;
 	private Queue<Point> _moveInstructions;

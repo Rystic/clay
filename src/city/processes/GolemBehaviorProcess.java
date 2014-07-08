@@ -63,6 +63,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		{
 			for (Behavior behavior : toBeAssigned)
 			{
+				if (behavior == null)
+					continue;
 				if (_clearInvalid)
 					behavior.clearInvalidEntities();
 				for (GolemEntity golem : _inactiveGolems)
@@ -118,6 +120,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				}
 			}
 		}
+
 		if (!behaviorScores.isEmpty())
 		{
 			BehaviorTriple[] scores = new BehaviorTriple[behaviorScores.size()];
@@ -136,6 +139,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 					{
 						triple._golem.setBehavior(triple._behavior);
 						triple._behavior.setBehaviorProcess(this);
+						triple._behavior.setAssigningGolem(triple._golem);
 						_inProgressBehaviors.add(triple._behavior);
 						invalidGolems.add(triple._golem);
 						invalidBehaviors.add(triple._behavior);
@@ -167,6 +171,23 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 							invalidBehaviors.add(triple._behavior);
 						}
 					}
+					else
+					{
+						if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
+							triple._golem
+									.addUnreachableBehavior(triple._behavior);
+						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
+							triple._golem
+									.addNoMaterialsBehavior(triple._behavior);
+						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
+							triple._golem
+									.addNoStorageAvailableBehavior(
+											triple._behavior);
+						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
+							triple._golem
+									.addNoUnoccupiedBuildingsBehavior(
+											triple._behavior);
+					}
 				}
 			}
 		}
@@ -179,7 +200,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 
 		for (Behavior behavior : _unassignedBehaviors)
 		{
-			behavior.increaseAddedWeight(ClayConstants.ADDED_WEIGHT_INCREASE);
+			if (behavior != null)
+				behavior.increaseAddedWeight(ClayConstants.ADDED_WEIGHT_INCREASE);
 		}
 		_noAvailableGolems.addAll(_unassignedBehaviors);
 		_unassignedBehaviors.clear();
@@ -194,6 +216,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		{
 			_unassignedBehaviors.addAll(_noUnoccupiedBuildings);
 			_noUnoccupiedBuildings.clear();
+			clearGolemsNoUnoccupiedBuildingsBehaviors();
 		}
 	}
 
@@ -201,16 +224,16 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	{
 		if (!behavior_.isPersonalTask())
 		{
-			if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
-			{
-				_noMaterials.add(behavior_);
-			}
-			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
+			if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
 			{
 				if (behavior_.allGolemsInvalid(_golemList))
 					_unreachableBehaviors.add(behavior_);
 				else
 					_unassignedBehaviors.add(behavior_);
+			}
+			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
+			{
+				_noMaterials.add(behavior_);
 			}
 			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
 			{
@@ -238,6 +261,19 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				_unassignedBehaviors.addAll(_noUnoccupiedBuildings);
 				_noUnoccupiedBuildings.clear();
 			}
+		}
+		else
+		{
+			if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
+				behavior_.getAssigningGolem().addUnreachableBehavior(behavior_);
+			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
+				behavior_.getAssigningGolem().addNoMaterialsBehavior(behavior_);
+			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
+				behavior_.getAssigningGolem().addNoStorageAvailableBehavior(
+						behavior_);
+			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
+				behavior_.getAssigningGolem().addNoUnoccupiedBuildingsBehavior(
+						behavior_);
 		}
 		// TODO if there's ever a failure task for a building being interrupted
 		// mid-task, it needs to clear no unoccupied buildings
@@ -276,18 +312,53 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			_clearInvalid = true;
 			_unassignedBehaviors.addAll(_unreachableBehaviors);
 			_unreachableBehaviors.clear();
+			clearGolemsUnreachableBehaviors();
 		}
 
 		if (event_.isItemUpdate())
 		{
 			_unassignedBehaviors.addAll(_noMaterials);
 			_noMaterials.clear();
+			clearGolemsNoMaterials();
 		}
 
 		if (event_.isStorageAvailable())
 		{
 			_unassignedBehaviors.addAll(_noStorageAvailable);
 			_noStorageAvailable.clear();
+			clearGolemsNoStorageAvailableBehaviors();
+		}
+	}
+
+	private void clearGolemsUnreachableBehaviors()
+	{
+		for (GolemEntity golem : _golemList)
+		{
+			golem.clearUnreachableBehaviors();
+		}
+	}
+
+	private void clearGolemsNoMaterials()
+	{
+		for (GolemEntity golem : _golemList)
+		{
+			golem.clearNoMaterialsBehaviors();
+		}
+	}
+
+	private void clearGolemsNoStorageAvailableBehaviors()
+	{
+		for (GolemEntity golem : _golemList)
+		{
+			golem.clearNoStorageAvailableBehaviors();
+		}
+	}
+
+	private void clearGolemsNoUnoccupiedBuildingsBehaviors()
+	{
+		for (GolemEntity golem : _golemList)
+		{
+			golem.clearNoUnoccupiedBuildingsBehaviors();
 		}
 	}
 

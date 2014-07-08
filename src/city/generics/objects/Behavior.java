@@ -185,6 +185,11 @@ public class Behavior
 	{
 		_assigningBuilding = assigningBuilding_;
 	}
+	
+	public void setAssigningGolem(GolemEntity assigningGolem_)
+	{
+		_assigningGolem = assigningGolem_;
+	}
 
 	public void setAssignedGolem(GolemEntity assignedGolem_)
 	{
@@ -194,6 +199,11 @@ public class Behavior
 	public BuildingEntity getAssigningBuilding()
 	{
 		return _assigningBuilding;
+	}
+	
+	public GolemEntity getAssigningGolem()
+	{
+		return _assigningGolem;
 	}
 
 	public GolemEntity getAssignedGolem()
@@ -243,7 +253,7 @@ public class Behavior
 		Behavior behavior = (Behavior) obj;
 		if (_assigningBuilding != null)
 		{
-			if (!_assigningBuilding.equals(behavior.getAssigningBuilding()))
+			if (behavior.getAssigningBuilding() == null || !_assigningBuilding.equals(behavior.getAssigningBuilding()))
 				return false;
 		}
 		else if (_assigningBuilding == null
@@ -256,6 +266,7 @@ public class Behavior
 	private GenericBehavior _behavior;
 
 	private BuildingEntity _assigningBuilding;
+	private GolemEntity _assigningGolem;
 	private GolemEntity _assignedGolem;
 
 	private Set<GolemEntity> _invalidEntities;

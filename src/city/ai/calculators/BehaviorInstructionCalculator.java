@@ -102,7 +102,7 @@ public class BehaviorInstructionCalculator
 					behaviorParams_);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_STORAGE))
-			complete = _seekStorage(executingEntity_);
+			complete = _seekStorage(executingEntity_, model);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SHOW))
 			complete = _show(executingEntity_);
@@ -209,7 +209,6 @@ public class BehaviorInstructionCalculator
 					passed = ClayConstants.BEHAVIOR_FAILED_NO_PATH;
 			}
 		}
-
 		return passed;
 	}
 
@@ -669,7 +668,7 @@ public class BehaviorInstructionCalculator
 		return false;
 	}
 
-	private static boolean _seekStorage(GolemEntity executingEntity_)
+	private static boolean _seekStorage(GolemEntity executingEntity_, CityModel model_)
 	{
 		BuildingEntity currentBuilding = executingEntity_.getModel()
 				.getTileValue(
@@ -684,9 +683,17 @@ public class BehaviorInstructionCalculator
 					executingEntity_.getHomeScreen());
 			int pathStatus = SearchUtil.getPathStatus(path);
 			if (pathStatus != ClayConstants.BEHAVIOR_PASSED)
-				executingEntity_.behaviorFailed(pathStatus);
+			{
+				if (!storageExists(model_))
+					executingEntity_
+							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_STORAGE);
+				else
+					executingEntity_.behaviorFailed(pathStatus);
+			}
 			else
+			{
 				executingEntity_.addMoveInstructions(path);
+			}
 		}
 		return false;
 	}
