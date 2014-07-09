@@ -77,6 +77,47 @@ public class BehaviorWeightCalculator
 				}
 				finalWeight += 50 + ((houseCount - screen.getModel()
 						.getGolemCount()) * 10);
+				if (golem_.getPsychology() == ClayConstants.PSYCHOLOGY_INFLUENTIAL)
+				{
+					finalWeight += 10 * (golem_.getIntensity() + 1);
+					int personality = golem_.getPersonality();
+					int personalityCount = 0;
+					int otherPersonalityCount = 0;
+					List<GolemEntity> cityGolems = golem_.getModel()
+							.getGolems();
+					for (GolemEntity golem : cityGolems)
+					{
+						if (golem.getPersonality() == personality)
+						{
+							personalityCount++;
+							continue;
+						}
+						if (personality == ClayConstants.PERSONALITY_CREATIVE
+								&& golem.getPersonality() == ClayConstants.PERSONALITY_AMBITIOUS)
+						{
+							otherPersonalityCount += 2;
+							continue;
+						}
+						if (personality == ClayConstants.PERSONALITY_AMBITIOUS
+								&& golem.getPersonality() == ClayConstants.PERSONALITY_CREATIVE)
+						{
+							otherPersonalityCount += 3;
+							continue;
+						}
+						if (personality != ClayConstants.PERSONALITY_NONE)
+						{
+							otherPersonalityCount++;
+							continue;
+						}
+					}
+					int result = otherPersonalityCount - personalityCount;
+					if (result > 0)
+					{
+						double multiplier = 1 + ((double)(golem_.getIntensity() + 1) / 10);
+						finalWeight *= multiplier;
+						finalWeight += 5 * result;
+					}
+				}
 				if (finalWeight <= 0)
 					finalWeight = 1;
 			}
@@ -92,7 +133,8 @@ public class BehaviorWeightCalculator
 							ClayConstants.GOLEM_PEARLCLAY))
 						pearlclayCount++;
 				}
-				Integer buildingId = BuildingData.getBuildingByTag("mana-battery").getBuildingIdentifier();
+				Integer buildingId = BuildingData.getBuildingByTag(
+						"mana-battery").getBuildingIdentifier();
 				List<BuildingEntity> manaBatteries = screen.getModel()
 						.getBuildingMap().get(buildingId);
 				if (manaBatteries == null)
@@ -102,7 +144,7 @@ public class BehaviorWeightCalculator
 				}
 				if (pearlclayCount < manaBatteries.size())
 					finalWeight += 1000;
-				else 
+				else
 				{
 					finalWeight = Integer.MIN_VALUE;
 					break;

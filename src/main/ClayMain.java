@@ -133,8 +133,6 @@ public class ClayMain implements Runnable
 	private long fps;
 	private long lastFPS;
 
-	private int _sleepNanos = 500000;
-
 	private AbstractScreen _screen;
 
 	public static PlayerModel _globalModel;

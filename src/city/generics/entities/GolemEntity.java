@@ -453,7 +453,7 @@ public class GolemEntity extends AbstractEntity
 	private GenericGolem _golem;
 
 	private Map<String, Integer> _ignoredPersonalBehaviors;
-
+	
 	private CityModel _model;
 	private Behavior _currentBehavior;
 
