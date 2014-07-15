@@ -38,8 +38,6 @@ public class GenericGolem
 				.getAttribute("StartingMana"));
 		_startingClay = FieldParser.parseDouble(eElement
 				.getAttribute("StartingClay"));
-		_startingClayMaximum = FieldParser.parseDouble(eElement
-				.getAttribute("StartingClayMaximum"));
 		_maximumMana = FieldParser.parseDouble(eElement
 				.getAttribute("MaximumMana"));
 		_maximumClay = FieldParser.parseDouble(eElement
@@ -109,11 +107,6 @@ public class GenericGolem
 		return _startingClay;
 	}
 
-	public double getStartingClayMaximum()
-	{
-		return _startingClayMaximum;
-	}
-
 	public double getMaximumMana()
 	{
 		return _maximumMana;
@@ -158,7 +151,6 @@ public class GenericGolem
 	private final double _moveVariation;
 	private final double _startingMana;
 	private final double _startingClay;
-	private final double _startingClayMaximum;
 	private final double _maximumMana;
 	private final double _maximumClay;
 	private final double _manaLostOnMovement;

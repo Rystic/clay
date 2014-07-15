@@ -21,7 +21,8 @@ public class ClayConstants
 	// Golem types
 	public static final String GOLEM_CLAY = "clay-golem";
 	public static final String GOLEM_PEARLCLAY = "pearlclay-golem";
-
+	public static final String GOLEM_STONEWARE = "stoneware-golem";
+	
 	// --Behavior Constants--
 	// Behavior Commands
 	public static final String BEHAVIOR_COMMAND_ADD_CLAY = "add-clay";
@@ -35,6 +36,7 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_CLAIM_PARAMETER_ITEMS = "claim-parameter-items";
 	public static final String BEHAVIOR_COMMAND_CREATE_CLAY_GOLEM = "create-clay-golem";
 	public static final String BEHAVIOR_COMMAND_CREATE_PEARLCLAY_GOLEM = "create-pearlclay-golem";
+	public static final String BEHAVIOR_COMMAND_CREATE_STONEWARE_GOLEM = "create-stoneware-golem";
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED = "consume-claimed";
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED_CONSTRUCTION = "consume-claimed-construction";
 	public static final String BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_ITEM = "entity-not-holding-item";
@@ -84,6 +86,8 @@ public class ClayConstants
 	public static final String WC_CALC_BUILDING = "calculate-extra-building-weight";
 	public static final String WC_CAN_BUILD_CLAY_GOLEM = "can-build-clay-golem";
 	public static final String WC_CAN_BUILD_PEARLCLAY_GOLEM = "can-build-pearlclay-golem";
+	public static final String WC_CAN_BUILD_STONEWARE_GOLEM = "can-build-stoneware-golem";
+
 
 	public static final String WC_CLOSEST_TO_POINT = "closest-to-point";
 	public static final String WC_HOLDING_ITEM = "holding-item";

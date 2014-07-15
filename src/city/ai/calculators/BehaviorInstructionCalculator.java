@@ -49,11 +49,23 @@ public class BehaviorInstructionCalculator
 					behaviorParams_);
 
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_CREATE_CLAY_GOLEM))
-			complete = _createClayGolem(executingEntity_, model);
+			complete = _createGolem(
+					executingEntity_,
+					model,
+					ClayConstants.GOLEM_CLAY);
 
 		else if (com
 				.equals(ClayConstants.BEHAVIOR_COMMAND_CREATE_PEARLCLAY_GOLEM))
-			complete = _createPearlclayGolem(executingEntity_, model);
+			complete = _createGolem(
+					executingEntity_,
+					model,
+					ClayConstants.GOLEM_PEARLCLAY);
+		else if (com
+				.equals(ClayConstants.BEHAVIOR_COMMAND_CREATE_STONEWARE_GOLEM))
+			complete = _createGolem(
+					executingEntity_,
+					model,
+					ClayConstants.GOLEM_STONEWARE);
 
 		else if (com
 				.equals(ClayConstants.BEHAVIOR_COMMAND_HARVEST_ITEMS_ON_BUILDING))
@@ -463,20 +475,10 @@ public class BehaviorInstructionCalculator
 		return true;
 	}
 
-	private static boolean _createClayGolem(GolemEntity executingEntity_, CityModel model_)
+	private static boolean _createGolem(GolemEntity executingEntity_, CityModel model_, String type_)
 	{
 		model_.addGolem(
-				GolemData.getGolem(ClayConstants.GOLEM_CLAY),
-				executingEntity_.getX(),
-				executingEntity_.getY(),
-				executingEntity_);
-		return true;
-	}
-
-	private static boolean _createPearlclayGolem(GolemEntity executingEntity_, CityModel model_)
-	{
-		model_.addGolem(
-				GolemData.getGolem(ClayConstants.GOLEM_PEARLCLAY),
+				GolemData.getGolem(type_),
 				executingEntity_.getX(),
 				executingEntity_.getY(),
 				executingEntity_);

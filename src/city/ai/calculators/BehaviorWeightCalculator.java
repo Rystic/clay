@@ -113,7 +113,8 @@ public class BehaviorWeightCalculator
 					int result = otherPersonalityCount - personalityCount;
 					if (result > 0)
 					{
-						double multiplier = 1 + ((double)(golem_.getIntensity() + 1) / 10);
+						double multiplier = 1 + ((double) (golem_
+								.getIntensity() + 1) / 10);
 						finalWeight *= multiplier;
 						finalWeight += 5 * result;
 					}
@@ -149,6 +150,42 @@ public class BehaviorWeightCalculator
 					finalWeight = Integer.MIN_VALUE;
 					break;
 				}
+			}
+			else if (weightCondition
+					.equals(ClayConstants.WC_CAN_BUILD_STONEWARE_GOLEM))
+			{
+				CityScreen screen = (CityScreen) golem_.getHomeScreen();
+				BuildingEntity[][] tiles = screen.getModel().getTileValues();
+				int houseCount = 0;
+				for (int i = 0; i < tiles.length; i++)
+				{
+					for (int j = 0; j < tiles[0].length; j++)
+					{
+						if (tiles[i][j] != null && tiles[i][j].isHouse()
+								&& tiles[i][j].isBuilt())
+							houseCount++;
+					}
+				}
+				if (screen.getModel().getGolemCount() >= houseCount)
+				{
+					finalWeight = Integer.MIN_VALUE;
+					break;
+				}
+				if (golem_.getPersonality() == ClayConstants.PERSONALITY_AMBITIOUS)
+				{
+					finalWeight += 150 + ((houseCount - screen.getModel()
+							.getGolemCount()) * 10);
+					finalWeight = golem_.getPsychology() == ClayConstants.PSYCHOLOGY_INFLUENTIAL ? finalWeight * 4 : finalWeight;
+				}
+				else if (golem_.getPersonality() == ClayConstants.PERSONALITY_CREATIVE)
+					finalWeight =  Integer.MIN_VALUE;
+				else
+				{
+					finalWeight += 25 + ((houseCount - screen.getModel()
+							.getGolemCount()) * 10);
+				}
+				if (finalWeight <= 0)
+					finalWeight = 1;
 			}
 			else if (weightCondition.equals(ClayConstants.WC_HOLDING_ITEM))
 			{

@@ -216,8 +216,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		{
 			_unassignedBehaviors.addAll(_noUnoccupiedBuildings);
 			_noUnoccupiedBuildings.clear();
-			clearGolemsNoUnoccupiedBuildingsBehaviors();
 		}
+		clearGolemsNoUnoccupiedBuildingsBehaviors();
 	}
 
 	public void behaviorFailed(Behavior behavior_, int reason_)

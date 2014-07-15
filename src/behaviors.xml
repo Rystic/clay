@@ -33,7 +33,8 @@
 	<Behavior BehaviorName="Repair (Pearlyclay)" BehaviorTag="repair-pearlclay"
 		weight="low-clay" BehaviorDescription="text:Repairing itself."
 		defaultParams="mana-battery,inert-clay" personalBehavior="true" limit="-1"
-		golemCost="mana:-2" require="entity-not-holding-item,claim-generic-building:0,claim-items:saturated-clay"
+		golemCost="mana:-2"
+		require="entity-not-holding-item,claim-generic-building:0,claim-items:saturated-clay"
 		code="seek-claimed-items,consume-claimed,tick:50,add-clay:20,add-mana:5,produce-item-on-golem:1"></Behavior>
 
 	<Behavior BehaviorName="Build Clay Golem" BehaviorTag="build-clay-golem"
@@ -44,10 +45,17 @@
 		code="seek-claimed-items,consume-claimed,hide,tick:75,show,create-clay-golem"></Behavior>
 
 	<Behavior BehaviorName="Build Pearlclay Golem" BehaviorTag="build-pearlclay-golem"
-		BehaviorDescription="text:Constructing a pearlclay golem." weight="can-build-pearlclay-golem"
+		BehaviorDescription="text:Constructing a pearlclay golem." weight="can-build-clay-golem"
 		defaultParams="pearlclay-studio" personalBehavior="true" limit="1"
-		golemCost="clay:-2,mana:-4" require="entity-not-holding-item,claim-generic-building:0,claim-items:pearlclay:pearlclay"
-		code="seek-claimed-items,consume-claimed,hide,tick:75,show,create-pearlclay-golem"></Behavior>
+		golemCost="clay:-2,mana:-4"
+		require="entity-not-holding-item,claim-generic-building:0,claim-items:pearlclay:pearlclay"
+		code="seek-claimed-items,consume-claimed,hide,tick:250,show,create-pearlclay-golem"></Behavior>
+
+	<Behavior BehaviorName="Build Stoneware Golem" BehaviorTag="build-stoneware-golem"
+		BehaviorDescription="text:Constructing a stoneware golem." weight="can-build-stoneware-golem"
+		defaultParams="kiln" personalBehavior="true" limit="1" golemCost="clay:-2,mana:-4"
+		require="entity-not-holding-item,claim-generic-building:0,claim-items:stoneware-brick:stoneware-brick:stoneware-brick:mana-pipe:mana-pipe:saturated-clay"
+		code="seek-claimed-items,consume-claimed,hide,tick:250,show,create-stoneware-golem"></Behavior>
 
 	<Behavior BehaviorName="Conversion" BehaviorTag="conversion"
 		BehaviorDescription="text:Creating ,item:2,text:." weight="closest-to-point"
