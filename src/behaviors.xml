@@ -45,7 +45,7 @@
 		code="seek-claimed-items,consume-claimed,hide,tick:75,show,create-clay-golem"></Behavior>
 
 	<Behavior BehaviorName="Build Pearlclay Golem" BehaviorTag="build-pearlclay-golem"
-		BehaviorDescription="text:Constructing a pearlclay golem." weight="can-build-clay-golem"
+		BehaviorDescription="text:Constructing a pearlclay golem." weight="can-build-pearlclay-golem"
 		defaultParams="pearlclay-studio" personalBehavior="true" limit="1"
 		golemCost="clay:-2,mana:-4"
 		require="entity-not-holding-item,claim-generic-building:0,claim-items:pearlclay:pearlclay"
