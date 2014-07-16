@@ -288,4 +288,18 @@
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
+		<Building BuildingName="Warrens" BuildingTag="warrens"
+		BuildingDescription="Warrens are used for the mass-production of golems. However, golems created out of warrens lack the individuality found in golems created in normal studios."
+		BuildTime="125" BuildingRequirements="base,house,e,house,n,house,ne,house"
+		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		LesserManaCost=".1" LesserManaCumulativeCost=".1" isHouse="false"
+		isNatural="false" isPassable="true" Scalability="base,-,e,-,n,-,ne,-"
+		isStorage="false" isSupport="true" StorageCapacity="0"
+		ConstructionItems="mana-pipe,mana-pipe,mana-pipe,mana-pipe" PsychologyType="2" PsychologyInfluence="20"
+		UnlockedFromStart="true" Transform="" tickStart="-1">
+		<State StateName="state-default"
+			Graphic="base,warrensBottomLeft.png,e,warrensBottomRight.png,n,warrensTopLeft.png,ne,warrensTopRight.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
 </Buildings>
