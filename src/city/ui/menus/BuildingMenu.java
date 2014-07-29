@@ -7,12 +7,14 @@ import city.ui.menus.areas.BuildingDescriptionArea;
 import city.ui.menus.areas.BuildingInformationArea;
 import city.ui.menus.areas.BuildingPatternArea;
 import city.ui.menus.areas.BuildingSliderArea;
+import city.ui.menus.areas.BuildingTabArea;
 
 public class BuildingMenu extends AbstractMenu
 {
 	public BuildingMenu(AbstractScreen homeScreen_)
 	{
 		super(homeScreen_);
+		//_buildingArea = new BuildingTabArea(homeScreen_);
 		_buildingSlider = new BuildingSliderArea(homeScreen_, 775);
 		_buildingPattern = new BuildingPatternArea(homeScreen_, 575);
 		_buildingInformation = new BuildingInformationArea(homeScreen_, 350);
@@ -45,6 +47,7 @@ public class BuildingMenu extends AbstractMenu
 			_buildingSlider.moveRight();
 	}
 
+	private BuildingTabArea _buildingArea;
 	private BuildingSliderArea _buildingSlider;
 	private BuildingPatternArea _buildingPattern;
 	private BuildingInformationArea _buildingInformation;

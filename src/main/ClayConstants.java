@@ -18,6 +18,7 @@ public class ClayConstants
 
 	public static final String DEFAULT_TILE_TYPE = "clay-block";
 
+	
 	// Golem types
 	public static final String GOLEM_CLAY = "clay-golem";
 	public static final String GOLEM_PEARLCLAY = "pearlclay-golem";
@@ -151,7 +152,7 @@ public class ClayConstants
 	public static final Integer EVENT_MAP_UPDATE = 0;
 	public static final Integer EVENT_ITEM_UPDATE = 1;
 	public static final Integer EVENT_STORAGE_AVAILABLE_UPDATE = 2;
-
+	
 	// --Search Conditions--
 	public static final int SEARCH_ENTITY = 0;
 	public static final int SEARCH_GENERIC_BUILDING = 1;

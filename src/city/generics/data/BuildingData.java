@@ -2,8 +2,12 @@ package city.generics.data;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -45,8 +49,23 @@ public class BuildingData
 							building);
 					_tagToBuilding.put(building.getBuildingTag(), building);
 					identifier++;
+
+					String menuCategory = building.getMenuCategory();
+					if (!menuCategory.isEmpty())
+					{
+						List<GenericBuilding> CategoryList = _CategoryToBuilding
+								.get(menuCategory);
+						if (CategoryList == null)
+						{
+							CategoryList = new ArrayList<GenericBuilding>();
+							_CategoryToBuilding.put(menuCategory, CategoryList);
+						}
+						CategoryList.add(building);
+					}
 				}
 			}
+			_buildingCategories.addAll(_CategoryToBuilding.keySet());
+			Collections.sort(_buildingCategories);
 			_unbuiltTexture = TextureLoader.getTexture(
 					"PNG",
 					new FileInputStream(new File("art/constructionBlock.png")));
@@ -64,6 +83,21 @@ public class BuildingData
 	public static GenericBuilding getBuildingByTag(String tag_)
 	{
 		return _tagToBuilding.get(tag_);
+	}
+
+	public static String getCategory(int index_)
+	{
+		return _buildingCategories.get(index_);
+	}
+	
+	public static int getCategoryCount()
+	{
+		return _buildingCategories.size();
+	}
+
+	public static List<GenericBuilding> getBuildingsInCategory(String Category_)
+	{
+		return _CategoryToBuilding.get(Category_);
 	}
 
 	public static void main(String[] args)
@@ -85,4 +119,7 @@ public class BuildingData
 
 	private static Map<Integer, GenericBuilding> _idToBuilding = new HashMap<Integer, GenericBuilding>();
 	private static Map<String, GenericBuilding> _tagToBuilding = new HashMap<String, GenericBuilding>();
+
+	private static Map<String, List<GenericBuilding>> _CategoryToBuilding = new HashMap<String, List<GenericBuilding>>();
+	private static List<String> _buildingCategories = new ArrayList<String>();
 }

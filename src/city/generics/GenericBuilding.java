@@ -35,6 +35,7 @@ public final class GenericBuilding
 		_buildingTag = eElement.getAttribute("BuildingTag");
 		_buildingIdentifier = identifier_;
 		_buildingDescription = eElement.getAttribute("BuildingDescription");
+		_menuCategory = eElement.getAttribute("MenuCategory");
 
 		_extraWeightConditions = eElement.getAttribute("ExtraWeight");
 
@@ -640,6 +641,11 @@ public final class GenericBuilding
 	{
 		return _buildingTag;
 	}
+	
+	public String getMenuCategory()
+	{
+		return _menuCategory;
+	}
 
 	public double getLesserManaCost()
 	{
@@ -772,6 +778,7 @@ public final class GenericBuilding
 	private final String _buildingTag;
 	private final int _buildingIdentifier;
 	private final String _buildingDescription;
+	private String _menuCategory;
 	private String _tickCompleteCode;
 	private String _tickResetCode;
 	private String _transformCode;

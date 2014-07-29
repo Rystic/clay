@@ -193,7 +193,8 @@ public class BuildingSliderArea extends AbstractArea
 		_fourthBuildingLabel.setText(getBuildingNameFromPointer(1));
 		_fifthBuildingLabel.setText(getBuildingNameFromPointer(2));
 
-		_selectedBuildingIdentifier = _buildings.get(_listPointer).getBuildingIdentifier();
+		_selectedBuildingIdentifier = _buildings.get(_listPointer)
+				.getBuildingIdentifier();
 	}
 
 	@Override
