@@ -34,13 +34,13 @@ public class ResourceFamilyArea extends AbstractArea
 		{
 			TextComponent title = new TextComponent(60, _startingY - 50,
 					"Resource Management");
-			title.setTextColor(Color.yellow);
+			title.setColor(Color.yellow);
 			_components.add(title);
 		}
 		Map<String, Integer> desiredRatios = _model.getItemRatios().get(
 				_familyName);
 		TextComponent header = new TextComponent(20, _startingY - 100);
-		header.setTextColor(Color.yellow);
+		header.setColor(Color.yellow);
 		_components.add(header);
 
 		int yPos = _startingY - 100;
@@ -70,9 +70,9 @@ public class ResourceFamilyArea extends AbstractArea
 							+ "% (desired)");
 			int diff = desiredRatios.get(key) - itemCurrentRatio;
 			if (diff >= 5)
-				resourceRatio.setTextColor(Color.red);
+				resourceRatio.setColor(Color.red);
 			else if (diff <= -5)
-				resourceRatio.setTextColor(Color.green);
+				resourceRatio.setColor(Color.green);
 			_components.add(resourceIcon);
 			_components.add(resourceName);
 			_components.add(resourceRatio);

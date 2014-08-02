@@ -3,6 +3,8 @@ package main;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.newdawn.slick.Color;
+
 public class ClayConstants
 {
 	// --Interface Constants--
@@ -162,6 +164,11 @@ public class ClayConstants
 	public static final int SEARCH_ITEM_GOAL_ONLY = 5;
 	public static final int SEARCH_HOUSE_GOAL_ONLY = 6;
 	public static final int SEARCH_EMPTY_GENERIC_BUILDING_GOAL_ONLY = 7;
+	
+	// --Text Colors--
+	public static final Color MENU_HEADER_COLOR = Color.yellow;
+	public static final Color HIGHLIGHTED_TEXT_COLOR = Color.yellow;
+	
 
 	// --Misc.--
 	public static final int ADDED_WEIGHT_INCREASE = 10;

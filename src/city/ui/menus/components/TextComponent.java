@@ -17,6 +17,13 @@ public class TextComponent extends AbstractComponent
 		super(x, y, 0, 0);
 		setText(text_);
 	}
+	
+	public TextComponent(int x, int y, String text_, Color textColor_)
+	{
+		super(x, y, 0, 0);
+		setText(text_);
+		setColor(textColor_);
+	}
 
 	public void setText(String text_)
 	{
@@ -31,12 +38,12 @@ public class TextComponent extends AbstractComponent
 		return _text;
 	}
 
-	public void setTextColor(Color textColor_)
+	public void setColor(Color textColor_)
 	{
 		_textColor = textColor_;
 	}
 
-	public Color getTextColor()
+	public Color getColor()
 	{
 		return _textColor == null ? DEFAULT_COLOR : _textColor;
 	}

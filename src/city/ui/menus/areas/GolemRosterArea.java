@@ -17,9 +17,9 @@ public class GolemRosterArea extends AbstractArea
 	{
 		super(homeScreen_);
 		_golemRosterLabel = new TextComponent(95, yPos_, "Golem Roster");
-		_golemRosterLabel.setTextColor(Color.yellow);
+		_golemRosterLabel.setColor(Color.yellow);
 		_golemCountLabel = new TextComponent(25, yPos_ - 35);
-		_golemCountLabel.setTextColor(Color.yellow);
+		_golemCountLabel.setColor(Color.yellow);
 		_golemList = ((CityScreen) homeScreen_).getModel().getGolems();
 		_yPos = yPos_;
 	}

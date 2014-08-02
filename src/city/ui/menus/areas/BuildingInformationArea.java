@@ -18,7 +18,7 @@ public class BuildingInformationArea extends AbstractArea
 		_yPos = yPos_;
 		_selectedBuilding = -1;
 		_buildingInformationLabel = new TextComponent(65, _yPos + 40, "Building Information");
-		_buildingInformationLabel.setTextColor(Color.yellow);
+		_buildingInformationLabel.setColor(Color.yellow);
 	}
 
 	@Override

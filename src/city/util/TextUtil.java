@@ -42,7 +42,7 @@ public class TextUtil
 	{
 		float xf = (float) _x;
 		float yf = (float) _y;
-		_font.drawString(xf, yf, _t.getText(), _t.getTextColor());
+		_font.drawString(xf, yf, _t.getText(), _t.getColor());
 		_font2.drawString(0, 0, "", Color.yellow); // If this line isn't here, nothing draws. I have no idea why.
 	}
 

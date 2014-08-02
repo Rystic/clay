@@ -31,9 +31,9 @@ public class CityInterfaceEffect extends AbstractEffect
 			{
 				TextComponent textComponent = (TextComponent) component;
 				GL11.glColor3f(
-						textComponent.getTextColor().getRed(),
-						textComponent.getTextColor().getGreen(),
-						textComponent.getTextColor().getBlue());
+						textComponent.getColor().getRed(),
+						textComponent.getColor().getGreen(),
+						textComponent.getColor().getBlue());
 				TextUtil.drawString(
 						textComponent,
 						(int) textComponent.getX()

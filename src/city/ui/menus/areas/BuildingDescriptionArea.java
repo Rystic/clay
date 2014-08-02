@@ -19,7 +19,7 @@ public class BuildingDescriptionArea extends AbstractArea
 		_selectedBuilding = -1;
 		_buildingDescriptionLabel = new TextComponent(70, _yPos + 40,
 				"Building Description");
-		_buildingDescriptionLabel.setTextColor(Color.yellow);
+		_buildingDescriptionLabel.setColor(Color.yellow);
 	}
 
 	@Override

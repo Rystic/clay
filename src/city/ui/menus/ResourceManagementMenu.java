@@ -2,6 +2,7 @@ package city.ui.menus;
 
 import models.CityModel;
 import screens.AbstractScreen;
+import city.ui.menus.areas.HeaderArea;
 import city.ui.menus.areas.ResourceFamilyArea;
 
 public class ResourceManagementMenu extends AbstractMenu
@@ -12,6 +13,7 @@ public class ResourceManagementMenu extends AbstractMenu
 		CityModel model = (CityModel) homeScreen_.getModel();
 		int yPos = 900;
 		boolean first = true;
+		_areas.add(new HeaderArea(_homeScreen, "Resource Management Menu"));
 		for (String key : model.getItemRatios().keySet())
 		{
 			_areas.add(new ResourceFamilyArea(homeScreen_, key, yPos, first));

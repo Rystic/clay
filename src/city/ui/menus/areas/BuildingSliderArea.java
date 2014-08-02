@@ -32,7 +32,7 @@ public class BuildingSliderArea extends AbstractArea
 
 		_buildingSliderLabel = new TextComponent(80, _yPos + 75,
 				"Building Selection");
-		_buildingSliderLabel.setTextColor(Color.yellow);
+		_buildingSliderLabel.setColor(Color.yellow);
 
 		_firstBuilding = new AbstractButton(40, _yPos, 35, 35)
 		{
@@ -97,11 +97,11 @@ public class BuildingSliderArea extends AbstractArea
 		_fifthBuildingLabel = new TextComponent(80, _yPos - 140,
 				getBuildingNameFromPointer(2));
 
-		_firstBuildingLabel.setTextColor(Color.white);
-		_secondBuildingLabel.setTextColor(Color.white);
-		_thirdBuildingLabel.setTextColor(Color.yellow);
-		_fourthBuildingLabel.setTextColor(Color.white);
-		_fifthBuildingLabel.setTextColor(Color.white);
+		_firstBuildingLabel.setColor(Color.white);
+		_secondBuildingLabel.setColor(Color.white);
+		_thirdBuildingLabel.setColor(Color.yellow);
+		_fourthBuildingLabel.setColor(Color.white);
+		_fifthBuildingLabel.setColor(Color.white);
 
 		_components.add(_buildingSliderLabel);
 

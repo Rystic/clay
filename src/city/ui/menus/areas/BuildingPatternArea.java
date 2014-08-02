@@ -21,7 +21,7 @@ public class BuildingPatternArea extends AbstractArea
 		_yPos = yPos_;
 		_selectedBuilding = -1;
 		_buildingPatternLabel = new TextComponent(85, _yPos, "Building Pattern");
-		_buildingPatternLabel.setTextColor(Color.yellow);
+		_buildingPatternLabel.setColor(Color.yellow);
 		_components.add(_buildingPatternLabel);
 	}
 
