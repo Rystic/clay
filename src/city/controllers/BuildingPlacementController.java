@@ -3,7 +3,6 @@ package city.controllers;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import main.ClayConstants;
 import models.CityModel;

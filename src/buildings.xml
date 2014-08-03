@@ -146,7 +146,7 @@
 	</Building>
 	<Building BuildingName="Sculptors' Studio" BuildingTag="sculptors-studio"
 		BuildingDescription="Sculptors' Studios are used to create more golems."
-		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Architecture" ExtraWeight=""
+		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Basic Needs" ExtraWeight=""
 		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
 		LesserManaCumulativeCost=".4" isHouse="false" isNatural="false"
 		isPassable="true" Scalability="base,-" isStorage="false" isSupport="true"
@@ -172,7 +172,7 @@
 	</Building>
 	<Building BuildingName="Deep Home" BuildingTag="deep-home"
 		BuildingDescription="Deep Homes generate mana so long as they're buried under other blocks."
-		BuildTime="125" BuildingRequirements="base,house" MenuCategory="Mana Production" ExtraWeight=""
+		BuildTime="125" BuildingRequirements="base,house" MenuCategory="Mana Pool" ExtraWeight=""
 		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".2"
 		LesserManaCumulativeCost=".2" isHouse="true" isNatural="false"
 		isPassable="true" Scalability="base,-" isStorage="false" isSupport="true"
@@ -249,7 +249,7 @@
 	</Building>
 	<Building BuildingName="Mana Battery" BuildingTag="mana-battery"
 		BuildingDescription="Mana Batteries increase the amount of greater mana the base produces. They are also used in a number of higher-level building patterns."
-		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Mana Production" ExtraWeight=""
+		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Mana Pool" ExtraWeight=""
 		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
 		LesserManaCumulativeCost=".4" isHouse="false" isNatural="false"
 		isPassable="true" Scalability="base,-" isStorage="false" isSupport="true"
@@ -263,7 +263,7 @@
 	<Building BuildingName="Pearlclay Studio" BuildingTag="pearlclay-studio"
 		BuildingDescription="Pearlclay Studios provide greater mana and can be used to produce pearlclay golems."
 		BuildTime="125" BuildingRequirements="base,mana-battery,e,mana-battery,w,mana-battery"
-		MenuCategory="" ExtraWeight="Mana Production" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		MenuCategory="Basic Needs" ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
 		LesserManaCost=".4" LesserManaCumulativeCost=".4" isHouse="false"
 		isNatural="false" isPassable="true" Scalability="base,-,e,-,w,-"
 		isStorage="false" isSupport="true" StorageCapacity="0"

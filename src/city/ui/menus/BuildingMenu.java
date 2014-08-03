@@ -1,54 +1,76 @@
 package city.ui.menus;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.lwjgl.input.Keyboard;
 
 import screens.AbstractScreen;
-import city.ui.menus.areas.BuildingDescriptionArea;
-import city.ui.menus.areas.BuildingInformationArea;
-import city.ui.menus.areas.BuildingPatternArea;
-import city.ui.menus.areas.BuildingSliderArea;
-import city.ui.menus.areas.BuildingTabArea;
 import city.ui.menus.areas.HeaderArea;
+import city.ui.menus.areas.buildingmenu.BuildingSelectionArea;
+import city.ui.menus.areas.buildingmenu.CategoryDescriptionArea;
+import city.ui.menus.areas.buildingmenu.CategorySelectionArea;
+import city.ui.menus.components.InterfaceBorderArea;
 
 public class BuildingMenu extends AbstractMenu
 {
 	public BuildingMenu(AbstractScreen homeScreen_)
 	{
 		super(homeScreen_);
-		_buildingTabArea = new BuildingTabArea(homeScreen_);
-//		_buildingSlider = new BuildingSliderArea(homeScreen_, 775);
-//		_buildingPattern = new BuildingPatternArea(homeScreen_, 575);
-//		_buildingInformation = new BuildingInformationArea(homeScreen_, 350);
-//		_buildingDescription = new BuildingDescriptionArea(homeScreen_, 175);
+
+		_categorySelectionArea = new CategorySelectionArea(_homeScreen,
+				DEFAULT_CATEGORY_LABELS, DEFAULT_HOTKEYS);
+		_categoryDescriptionArea = new CategoryDescriptionArea(_homeScreen,
+				DEFAULT_HOTKEYS);
+		_buildingSelectionArea = new BuildingSelectionArea(_homeScreen,
+				DEFAULT_HOTKEYS);
 
 		_areas.add(new HeaderArea(_homeScreen, "Building Menu"));
-		_areas.add(_buildingTabArea);
-//		_areas.add(_buildingPattern);
-//		_areas.add(_buildingInformation);
-//		_areas.add(_buildingDescription);
-		
-		_hotKeys.add(Keyboard.KEY_Q);
+		_areas.add(_categorySelectionArea);
+		_areas.add(_categoryDescriptionArea);
+		_areas.add(_buildingSelectionArea);
+		_areas.add(new InterfaceBorderArea(_homeScreen));
+
+		_hotKeys.addAll(DEFAULT_HOTKEYS.keySet());
 	}
 
 	@Override
 	public void handleKeyEvent(Integer key_)
 	{
-		if (key_ == Keyboard.KEY_Q)
-			_buildingTabArea.nextTab();
+		_categorySelectionArea.updateSelection(key_);
+		_categoryDescriptionArea.updateSelection(key_);
+		_buildingSelectionArea.updateCategorySelection(key_);
 	}
 
 	@Override
 	public void handleMouseWheel(boolean upwardScroll_)
 	{
-//		if (upwardScroll_)
-//			_buildingSlider.moveLeft();
-//		else
-//			_buildingSlider.moveRight();
+		 if (upwardScroll_)
+			 _buildingSelectionArea.updateBuildingSelection(-1);
+		 else
+			 _buildingSelectionArea.updateBuildingSelection(1);
+	}
+	
+	private static Map<String, String> DEFAULT_CATEGORY_LABELS = new LinkedHashMap<String, String>();
+	private static Map<Integer, String> DEFAULT_HOTKEYS = new HashMap<Integer, String>();
+
+	static
+	{
+		DEFAULT_CATEGORY_LABELS.put("(A) Architecture", "Architecture");
+		DEFAULT_CATEGORY_LABELS.put("(S) Basic Needs", "Basic Needs");
+		DEFAULT_CATEGORY_LABELS.put("(C) Conversions", "Conversions");
+		DEFAULT_CATEGORY_LABELS.put("(R) Culture", "Culture");
+		DEFAULT_CATEGORY_LABELS.put("(E) Mana Pool", "Mana Pool");
+
+		DEFAULT_HOTKEYS.put(Keyboard.KEY_A, "Architecture");
+		DEFAULT_HOTKEYS.put(Keyboard.KEY_S, "Basic Needs");
+		DEFAULT_HOTKEYS.put(Keyboard.KEY_C, "Conversions");
+		DEFAULT_HOTKEYS.put(Keyboard.KEY_R, "Culture");
+		DEFAULT_HOTKEYS.put(Keyboard.KEY_E, "Mana Pool");
 	}
 
-	private BuildingTabArea _buildingTabArea;
-	private BuildingSliderArea _buildingSlider;
-	private BuildingPatternArea _buildingPattern;
-	private BuildingInformationArea _buildingInformation;
-	private BuildingDescriptionArea _buildingDescription;
+	private BuildingSelectionArea _buildingSelectionArea;
+	private CategorySelectionArea _categorySelectionArea;
+	private CategoryDescriptionArea _categoryDescriptionArea;
 }

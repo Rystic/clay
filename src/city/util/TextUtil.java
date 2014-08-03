@@ -12,8 +12,6 @@ import city.ui.menus.components.TextComponent;
 @SuppressWarnings("deprecation")
 public class TextUtil
 {
-	private static TrueTypeFont _font;
-	private static TrueTypeFont _font2;
 
 	static
 	{
@@ -38,12 +36,32 @@ public class TextUtil
 
 	}
 
-	public static void drawString(TextComponent _t, int _x, int _y)
+	public static void drawString(TextComponent t_, int x_, int y_)
 	{
-		float xf = (float) _x;
-		float yf = (float) _y;
-		_font.drawString(xf, yf, _t.getText(), _t.getColor());
-		_font2.drawString(0, 0, "", Color.yellow); // If this line isn't here, nothing draws. I have no idea why.
+		float xf = (float) x_;
+		float yf = (float) y_;
+
+		String[] text = t_.getText().split(" ");
+		StringBuilder builder = new StringBuilder(30);
+		for (int i = 0; i < text.length; i++)
+		{
+			if (builder.length() + text[i].length() + 1 > MAX_LINE_LENGTH)
+			{
+				_font.drawString(xf, yf, builder.toString(), t_.getColor());
+				builder.setLength(0);
+				yf += LINE_BREAK_Y_INCREMENT;
+			}
+			builder.append(text[i]);
+			builder.append(" ");
+		}
+		_font.drawString(xf, yf, builder.toString(), t_.getColor());
+		_font2.drawString(0, 0, "", Color.yellow); // If this line isn't here,
+													// nothing draws. I have no
+													// idea why.
 	}
 
+	private static TrueTypeFont _font;
+	private static TrueTypeFont _font2;
+	private static final float LINE_BREAK_Y_INCREMENT = 24f;
+	private static final int MAX_LINE_LENGTH = 33;
 }

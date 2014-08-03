@@ -1,4 +1,4 @@
-package city.ui.menus.areas;
+package city.ui.menus.areas.buildingmenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.newdawn.slick.Color;
 import screens.AbstractScreen;
 import screens.CityScreen;
 import city.generics.data.BuildingData;
+import city.ui.menus.areas.AbstractArea;
 import city.ui.menus.components.TextComponent;
 
 public class BuildingDescriptionArea extends AbstractArea

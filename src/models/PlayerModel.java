@@ -32,6 +32,6 @@ public class PlayerModel
 	{
 		return _knownBuildings;
 	}
-
+	
 	private List<GenericBuilding> _knownBuildings;
 }

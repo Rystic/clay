@@ -1,4 +1,4 @@
-package city.ui.menus.areas;
+package city.ui.menus.areas.buildingmenu;
 
 import org.newdawn.slick.Color;
 
@@ -8,6 +8,7 @@ import city.generics.GenericBehavior;
 import city.generics.GenericBuilding;
 import city.generics.data.BehaviorData;
 import city.generics.data.BuildingData;
+import city.ui.menus.areas.AbstractArea;
 import city.ui.menus.components.TextComponent;
 
 public class BuildingInformationArea extends AbstractArea

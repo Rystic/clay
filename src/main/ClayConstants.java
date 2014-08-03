@@ -20,12 +20,11 @@ public class ClayConstants
 
 	public static final String DEFAULT_TILE_TYPE = "clay-block";
 
-	
 	// Golem types
 	public static final String GOLEM_CLAY = "clay-golem";
 	public static final String GOLEM_PEARLCLAY = "pearlclay-golem";
 	public static final String GOLEM_STONEWARE = "stoneware-golem";
-	
+
 	// --Behavior Constants--
 	// Behavior Commands
 	public static final String BEHAVIOR_COMMAND_ADD_CLAY = "add-clay";
@@ -75,22 +74,21 @@ public class ClayConstants
 	public static final byte PERSONALITY_NONE = 0;
 	public static final byte PERSONALITY_AMBITIOUS = 1;
 	public static final byte PERSONALITY_INGENIOUS = 2;
-	public static final byte PERSONALITY_CREATIVE  = 3;
+	public static final byte PERSONALITY_CREATIVE = 3;
 
 	public static final byte PSYCHOLOGY_NONE = -1;
-	public static final byte PSYCHOLOGY_PARAGON  = 0;
-	public static final byte PSYCHOLOGY_ELITIST  = 1;
-	public static final byte PSYCHOLOGY_HARD_WORKING  = 2;
-	public static final byte PSYCHOLOGY_INFLUENTIAL  = 3;
-	
+	public static final byte PSYCHOLOGY_PARAGON = 0;
+	public static final byte PSYCHOLOGY_ELITIST = 1;
+	public static final byte PSYCHOLOGY_HARD_WORKING = 2;
+	public static final byte PSYCHOLOGY_INFLUENTIAL = 3;
+
 	public static final Map<Integer, Byte> PERSONALITY_INTENSITY_MAP = new HashMap<Integer, Byte>();
-	
+
 	// Behavior Weight Conditions
 	public static final String WC_CALC_BUILDING = "calculate-extra-building-weight";
 	public static final String WC_CAN_BUILD_CLAY_GOLEM = "can-build-clay-golem";
 	public static final String WC_CAN_BUILD_PEARLCLAY_GOLEM = "can-build-pearlclay-golem";
 	public static final String WC_CAN_BUILD_STONEWARE_GOLEM = "can-build-stoneware-golem";
-
 
 	public static final String WC_CLOSEST_TO_POINT = "closest-to-point";
 	public static final String WC_HOLDING_ITEM = "holding-item";
@@ -154,7 +152,7 @@ public class ClayConstants
 	public static final Integer EVENT_MAP_UPDATE = 0;
 	public static final Integer EVENT_ITEM_UPDATE = 1;
 	public static final Integer EVENT_STORAGE_AVAILABLE_UPDATE = 2;
-	
+
 	// --Search Conditions--
 	public static final int SEARCH_ENTITY = 0;
 	public static final int SEARCH_GENERIC_BUILDING = 1;
@@ -164,12 +162,16 @@ public class ClayConstants
 	public static final int SEARCH_ITEM_GOAL_ONLY = 5;
 	public static final int SEARCH_HOUSE_GOAL_ONLY = 6;
 	public static final int SEARCH_EMPTY_GENERIC_BUILDING_GOAL_ONLY = 7;
-	
-	// --Text Colors--
-	public static final Color MENU_HEADER_COLOR = Color.yellow;
-	public static final Color HIGHLIGHTED_TEXT_COLOR = Color.yellow;
-	
 
+	// --Text Colors--
+	public static final Color M_MENU_HEADER_COLOR = Color.cyan;
+	public static final Color M_AREA_HEADER_COLOR = new Color(0, 200, 220);
+	public static final Color M_INTERFACE_BORDER_COLOR = new Color(0, 150, 150);
+	public static final Color M_HIGHLIGHTED_TEXT_COLOR = Color.cyan;
+	public static final Color M_UNHIGHLIGHTED_TEXT_COLOR = new Color(0, 75, 75);
+	public static final Color M_MORE_INFORMATION_COLOR = Color.green;
+
+	
 	// --Misc.--
 	public static final int ADDED_WEIGHT_INCREASE = 10;
 	public static final int ADDED_WEIGHT_CAP = 250;

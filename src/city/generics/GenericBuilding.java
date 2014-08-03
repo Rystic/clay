@@ -2,6 +2,7 @@ package city.generics;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,7 @@ import city.generics.util.FieldParser;
 import city.processes.GolemBehaviorProcess;
 import city.util.MapUpdateEvent;
 
-public final class GenericBuilding
+public final class GenericBuilding implements Comparator<GenericBuilding>
 {
 	public GenericBuilding(Node node_, int identifier_)
 	{
@@ -751,6 +752,12 @@ public final class GenericBuilding
 	{
 		return _validPlacementMap;
 	}
+	
+	@Override
+	public int compare(GenericBuilding gb1, GenericBuilding gb2)
+	{
+		return gb1.getBuildingName().compareTo(gb2.getBuildingName());
+	}
 
 	@Override
 	public boolean equals(Object obj)
@@ -760,13 +767,13 @@ public final class GenericBuilding
 		return _buildingIdentifier == ((GenericBuilding) obj)
 				.getBuildingIdentifier();
 	}
-
+	
 	@Override
 	public int hashCode()
 	{
 		return _buildingIdentifier;
 	}
-
+	
 	private final Map<String, Map<String, Texture>> _stateMap = new HashMap<String, Map<String, Texture>>();
 
 	private final Map<String, String> _validPlacementMap = new HashMap<String, String>();
@@ -804,4 +811,5 @@ public final class GenericBuilding
 	private final boolean _isSupport;
 
 	private final boolean _unlockedFromStart;
+
 }

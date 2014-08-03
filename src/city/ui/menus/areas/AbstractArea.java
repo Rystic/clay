@@ -20,7 +20,7 @@ public abstract class AbstractArea
 	}
 	
 	public abstract void update();
-		
+	
 	protected List<AbstractComponent> _components;
 	
 	protected AbstractScreen _homeScreen;

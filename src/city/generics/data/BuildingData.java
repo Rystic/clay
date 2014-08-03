@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -53,18 +53,32 @@ public class BuildingData
 					String menuCategory = building.getMenuCategory();
 					if (!menuCategory.isEmpty())
 					{
-						List<GenericBuilding> CategoryList = _CategoryToBuilding
+						List<GenericBuilding> CategoryList = _categoryToBuilding
 								.get(menuCategory);
 						if (CategoryList == null)
 						{
 							CategoryList = new ArrayList<GenericBuilding>();
-							_CategoryToBuilding.put(menuCategory, CategoryList);
+							_categoryToBuilding.put(menuCategory, CategoryList);
 						}
 						CategoryList.add(building);
 					}
 				}
+				for (String key : _categoryToBuilding.keySet())
+				{
+					Collections.sort(
+							_categoryToBuilding.get(key),
+							new Comparator<GenericBuilding>()
+							{
+								@Override
+								public int compare(GenericBuilding b1, GenericBuilding b2)
+								{
+									return b1.getBuildingName().compareTo(
+											b2.getBuildingName());
+								}
+							});
+				}
 			}
-			_buildingCategories.addAll(_CategoryToBuilding.keySet());
+			_buildingCategories.addAll(_categoryToBuilding.keySet());
 			Collections.sort(_buildingCategories);
 			_unbuiltTexture = TextureLoader.getTexture(
 					"PNG",
@@ -89,7 +103,7 @@ public class BuildingData
 	{
 		return _buildingCategories.get(index_);
 	}
-	
+
 	public static int getCategoryCount()
 	{
 		return _buildingCategories.size();
@@ -97,7 +111,7 @@ public class BuildingData
 
 	public static List<GenericBuilding> getBuildingsInCategory(String Category_)
 	{
-		return _CategoryToBuilding.get(Category_);
+		return _categoryToBuilding.get(Category_);
 	}
 
 	public static void main(String[] args)
@@ -120,6 +134,6 @@ public class BuildingData
 	private static Map<Integer, GenericBuilding> _idToBuilding = new HashMap<Integer, GenericBuilding>();
 	private static Map<String, GenericBuilding> _tagToBuilding = new HashMap<String, GenericBuilding>();
 
-	private static Map<String, List<GenericBuilding>> _CategoryToBuilding = new HashMap<String, List<GenericBuilding>>();
+	private static Map<String, List<GenericBuilding>> _categoryToBuilding = new HashMap<String, List<GenericBuilding>>();
 	private static List<String> _buildingCategories = new ArrayList<String>();
 }

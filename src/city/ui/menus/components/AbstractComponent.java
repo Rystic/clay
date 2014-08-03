@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import main.ClayConstants;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 public abstract class AbstractComponent
@@ -21,6 +22,16 @@ public abstract class AbstractComponent
 	public Texture getTexture()
 	{
 		return _texture;
+	}
+	
+	public void setColor(Color color_)
+	{
+		_color = color_;
+	}
+	
+	public Color getColor()
+	{
+		return _color;
 	}
 
 	public void setDrawRatio(float drawRatio_)
@@ -60,7 +71,7 @@ public abstract class AbstractComponent
 	
 	public void setX(int x_)
 	{
-		_bounds.x = x_;
+		_bounds.x = getConvertedY(x_);
 	}
 
 	public double getY()
@@ -70,7 +81,7 @@ public abstract class AbstractComponent
 	
 	public void setY(int y_)
 	{
-		_bounds.y = y_;
+		_bounds.y = getConvertedY(y_);
 	}
 	
 	private int getConvertedX(double x_)
@@ -86,5 +97,6 @@ public abstract class AbstractComponent
 	protected Rectangle _bounds;
 
 	protected Texture _texture;
+	protected Color _color;
 	protected float _drawRatio;
 }
