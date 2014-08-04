@@ -28,7 +28,7 @@ public class CategorySelectionArea extends AbstractArea
 		for (String label : _categoryLabels.keySet())
 		{
 			_components.add(new TextComponent(7, increment, label,
-					ClayConstants.M_UNHIGHLIGHTED_TEXT_COLOR));
+					ClayConstants.M_UNHIGHLIGHTED_COLOR));
 			increment += 3;
 		}
 		_components.add(new HorizontalLineComponent(increment + 1, 2));
@@ -55,7 +55,7 @@ public class CategorySelectionArea extends AbstractArea
 					continue;
 				textComponent
 						.setColor(_categoryLabels.get(textComponent.getText())
-								.equals(category_) ? ClayConstants.M_HIGHLIGHTED_TEXT_COLOR : ClayConstants.M_UNHIGHLIGHTED_TEXT_COLOR);
+								.equals(category_) ? ClayConstants.M_HIGHLIGHTED_COLOR : ClayConstants.M_UNHIGHLIGHTED_COLOR);
 			}
 		}
 	}

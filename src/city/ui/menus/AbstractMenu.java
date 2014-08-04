@@ -7,17 +7,21 @@ import java.util.List;
 import screens.AbstractScreen;
 import city.ui.events.InterfaceMouseEvent;
 import city.ui.menus.areas.AbstractArea;
+import city.ui.menus.areas.HeaderArea;
 import city.ui.menus.components.AbstractButton;
 import city.ui.menus.components.AbstractComponent;
+import city.ui.menus.components.InterfaceBorderArea;
 
 public abstract class AbstractMenu
 {
-	public AbstractMenu(AbstractScreen homeScreen_)
+	public AbstractMenu(AbstractScreen homeScreen_, String menuTitle_)
 	{
 		_homeScreen = homeScreen_;
 		_components = new ArrayList<AbstractComponent>();
 		_hotKeys = new ArrayList<Integer>();
 		_areas = new ArrayList<AbstractArea>();
+		_areas.add(new HeaderArea(_homeScreen, menuTitle_));
+		_areas.add(new InterfaceBorderArea(_homeScreen));
 	}
 
 	public void update()

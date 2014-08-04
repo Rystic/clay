@@ -1,7 +1,7 @@
 package city.generics.data;
 
 import java.io.File;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -52,5 +52,5 @@ public class ItemData
 		return _tagToItem.keySet();
 	}
 	
-	private static Map<String, GenericItem> _tagToItem = new HashMap<String, GenericItem>();
+	private static Map<String, GenericItem> _tagToItem = new LinkedHashMap<String, GenericItem>();
 }

@@ -21,7 +21,7 @@ public class CategoryDescriptionArea extends AbstractArea
 
 		_categoryHotkeys = categoryHotkeys_;
 		_categoryName = new TextComponent(5, 25, "testing!",
-				ClayConstants.M_MENU_HEADER_COLOR);
+				ClayConstants.M_AREA_HEADER_COLOR);
 		_categoryDescription = new TextComponent(5, 28, "testing!");
 		_buildingInfo = new TextComponent(5, 34,
 				"Press TAB to view building info.",

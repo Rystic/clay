@@ -7,17 +7,15 @@ import java.util.Map;
 import org.lwjgl.input.Keyboard;
 
 import screens.AbstractScreen;
-import city.ui.menus.areas.HeaderArea;
 import city.ui.menus.areas.buildingmenu.BuildingSelectionArea;
 import city.ui.menus.areas.buildingmenu.CategoryDescriptionArea;
 import city.ui.menus.areas.buildingmenu.CategorySelectionArea;
-import city.ui.menus.components.InterfaceBorderArea;
 
 public class BuildingMenu extends AbstractMenu
 {
 	public BuildingMenu(AbstractScreen homeScreen_)
 	{
-		super(homeScreen_);
+		super(homeScreen_, "Building Menu");
 
 		_categorySelectionArea = new CategorySelectionArea(_homeScreen,
 				DEFAULT_CATEGORY_LABELS, DEFAULT_HOTKEYS);
@@ -26,11 +24,9 @@ public class BuildingMenu extends AbstractMenu
 		_buildingSelectionArea = new BuildingSelectionArea(_homeScreen,
 				DEFAULT_HOTKEYS);
 
-		_areas.add(new HeaderArea(_homeScreen, "Building Menu"));
 		_areas.add(_categorySelectionArea);
 		_areas.add(_categoryDescriptionArea);
 		_areas.add(_buildingSelectionArea);
-		_areas.add(new InterfaceBorderArea(_homeScreen));
 
 		_hotKeys.addAll(DEFAULT_HOTKEYS.keySet());
 	}

@@ -167,12 +167,14 @@ public class ClayConstants
 	public static final Color M_MENU_HEADER_COLOR = Color.cyan;
 	public static final Color M_AREA_HEADER_COLOR = new Color(0, 200, 220);
 	public static final Color M_INTERFACE_BORDER_COLOR = new Color(0, 150, 150);
-	public static final Color M_HIGHLIGHTED_TEXT_COLOR = Color.cyan;
-	public static final Color M_UNHIGHLIGHTED_TEXT_COLOR = new Color(0, 75, 75);
+	public static final Color M_HIGHLIGHTED_COLOR = Color.cyan;
+	public static final Color M_UNHIGHLIGHTED_COLOR = new Color(0, 75, 75);
 	public static final Color M_MORE_INFORMATION_COLOR = Color.green;
+	public static final Color M_CLAY_RELATED = new Color(225, 175, 0);
 
-	
 	// --Misc.--
+	public static final String ITEM_FAMILY_MANA = "Mana";
+	public static final String ITEM_FAMILY_CLAY = "Clay";
 	public static final int ADDED_WEIGHT_INCREASE = 10;
 	public static final int ADDED_WEIGHT_CAP = 250;
 	public static final int NO_LIMIT = -1;

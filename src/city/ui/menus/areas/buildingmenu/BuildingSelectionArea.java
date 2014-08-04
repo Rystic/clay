@@ -85,7 +85,9 @@ public class BuildingSelectionArea extends AbstractArea
 		{
 			_components.clear();
 			_labels.clear();
-			int increment = 45;
+			_components.add(new TextComponent(5,
+					39, "Buildings", ClayConstants.M_AREA_HEADER_COLOR));
+			int increment = 46;
 			for (GenericBuilding building : _buildings)
 			{
 				SelectBuildingButton button = new SelectBuildingButton(5,
@@ -111,10 +113,10 @@ public class BuildingSelectionArea extends AbstractArea
 			{
 				if (i == _buildingListPointer)
 					_labels.get(i).setColor(
-							ClayConstants.M_HIGHLIGHTED_TEXT_COLOR);
+							ClayConstants.M_HIGHLIGHTED_COLOR);
 				else
 					_labels.get(i).setColor(
-							ClayConstants.M_UNHIGHLIGHTED_TEXT_COLOR);
+							ClayConstants.M_UNHIGHLIGHTED_COLOR);
 			}
 			_doBuildingSelectionUpdate = false;
 		}
