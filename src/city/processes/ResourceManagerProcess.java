@@ -31,14 +31,15 @@ public class ResourceManagerProcess extends AbstractProcess
 		if (_requiresUpdate)
 		{
 			Map<String, Map<String, Integer>> itemInventory = _model
-					.getItemInventory();
+					.getCurrentItemInventory();
 			Map<String, Map<String, Integer>> itemRatios = _model
-					.getItemRatios();
+					.getDesiredItemRatios();
 			Map<String, Map<String, Integer>> currentItemRatios = new HashMap<String, Map<String, Integer>>();
 			List<String> underQuotaItems = new ArrayList<String>();
 			for (String familyName : itemInventory.keySet())
 			{
 				Map<String, Integer> currentFamilyRatios = new HashMap<String, Integer>();
+				Map<String, Integer> desiredFamilyInventory = new HashMap<String, Integer>();
 				Map<String, Integer> familyRatios = itemRatios.get(familyName);
 				Integer total = 0;
 				Map<String, Integer> familyInventory = itemInventory
@@ -59,6 +60,11 @@ public class ResourceManagerProcess extends AbstractProcess
 							.get(item).doubleValue() : 0D;
 					Double percentage = 100 * (double) (itemCount / total);
 					currentFamilyRatios.put(item, percentage.intValue());
+					desiredFamilyInventory.put(
+							item,
+							(int) (((double) _model.getDesiredItemRatios()
+									.get(familyName).get(item) / 100)
+									* total));
 					if (percentage < familyRatios.get(item))
 						underQuotaItems.add(item);
 				}
@@ -113,6 +119,9 @@ public class ResourceManagerProcess extends AbstractProcess
 					}
 
 				}
+				_model.getDesiredItemInventory().put(
+						familyName,
+						desiredFamilyInventory);
 			}
 			_model.setCurrentItemRatios(currentItemRatios);
 		}

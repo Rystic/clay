@@ -34,8 +34,9 @@ public class CityModel extends AbstractModel
 		_buildingMap = new HashMap<Integer, List<BuildingEntity>>();
 		_selectedBuilding = BuildingData.getBuildingByTag("clay-block")
 				.getBuildingIdentifier();
-		_itemInventory = new HashMap<String, Map<String, Integer>>();
-		_itemRatios = new HashMap<String, Map<String, Integer>>();
+		_desiredItemInventory = new HashMap<String, Map<String, Integer>>();
+		_currentItemInventory = new HashMap<String, Map<String, Integer>>();
+		_desiredItemRatios = new HashMap<String, Map<String, Integer>>();
 		_currentItemRatios = new HashMap<String, Map<String, Integer>>();
 		initItems();
 	}
@@ -46,12 +47,12 @@ public class CityModel extends AbstractModel
 		for (String itemTag : items)
 		{
 			GenericItem item = ItemData.getItem(itemTag);
-			Map<String, Integer> familyMap = _itemRatios.get(item
-					.getItemFamily());
+			String itemFamily = item.getItemFamily();
+			Map<String, Integer> familyMap = _desiredItemRatios.get(itemFamily);
 			if (familyMap == null)
 			{
 				familyMap = new HashMap<String, Integer>();
-				_itemRatios.put(item.getItemFamily(), familyMap);
+				_desiredItemRatios.put(itemFamily, familyMap);
 			}
 			if (item.isFamilyHead())
 				familyMap.put(itemTag, 100);
@@ -183,20 +184,25 @@ public class CityModel extends AbstractModel
 	{
 		return _adjustedX;
 	}
-
-	public void updateItemInventory(Map<String, Map<String, Integer>> itemInventory_)
+	
+	public Map<String, Map<String, Integer>> getDesiredItemInventory()
 	{
-		_itemInventory = itemInventory_;
+		return _desiredItemInventory;
 	}
 
-	public Map<String, Map<String, Integer>> getItemInventory()
+	public void updateCurrentItemInventory(Map<String, Map<String, Integer>> currentItemInventory_)
 	{
-		return _itemInventory;
+		_currentItemInventory = currentItemInventory_;
 	}
 
-	public Map<String, Map<String, Integer>> getItemRatios()
+	public Map<String, Map<String, Integer>> getCurrentItemInventory()
 	{
-		return _itemRatios;
+		return _currentItemInventory;
+	}
+
+	public Map<String, Map<String, Integer>> getDesiredItemRatios()
+	{
+		return _desiredItemRatios;
 	}
 
 	public Map<String, Map<String, Integer>> getCurrentItemRatios()
@@ -227,8 +233,9 @@ public class CityModel extends AbstractModel
 	private int _xTileCount;
 	private int _yTileCount;
 
-	private Map<String, Map<String, Integer>> _itemInventory;
-	private Map<String, Map<String, Integer>> _itemRatios;
+	private Map<String, Map<String, Integer>> _desiredItemInventory;
+	private Map<String, Map<String, Integer>> _currentItemInventory;
+	private Map<String, Map<String, Integer>> _desiredItemRatios;
 	private Map<String, Map<String, Integer>> _currentItemRatios;
 
 	private Map<Integer, List<BuildingEntity>> _buildingMap;

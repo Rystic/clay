@@ -28,7 +28,7 @@ public class AdjustItemRatioButton extends AbstractButton
 	public void clicked()
 	{
 		GenericItem item = ItemData.getItem(_item);
-		Map<String, Integer> ratios = _model.getItemRatios().get(
+		Map<String, Integer> ratios = _model.getDesiredItemRatios().get(
 				item.getItemFamily());
 		Integer percentage = ratios.get(_item);
 		if (_increaseValue)
@@ -41,7 +41,6 @@ public class AdjustItemRatioButton extends AbstractButton
 		{
 			ratios.put(_item, percentage);
 		}
-
 	}
 
 	private boolean adjustParent(GenericItem item_, Map<String, Integer> ratios_)
