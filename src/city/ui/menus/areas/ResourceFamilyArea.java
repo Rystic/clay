@@ -45,8 +45,9 @@ public class ResourceFamilyArea extends AbstractArea
 				System.out.println("Item with tag " + itemTag
 						+ " read with unknown family.");
 		}
-		_components.add(new TextComponent(5, 5, "Mana Family",
-				ClayConstants.M_AREA_HEADER_COLOR));
+		_manaHeader = new TextComponent(5, 5, "Mana Family",
+				ClayConstants.M_AREA_HEADER_COLOR);
+		_components.add(_manaHeader);
 		int increment = 12;
 		boolean first = true;
 		for (GenericItem item : manaItems)
@@ -82,8 +83,9 @@ public class ResourceFamilyArea extends AbstractArea
 			}
 			increment += 10;
 		}
-		_components.add(new TextComponent(5, increment - 2, "Clay Family",
-				ClayConstants.M_CLAY_RELATED));
+		_clayHeader = new TextComponent(5, increment - 2, "Clay Family",
+				ClayConstants.M_CLAY_RELATED);
+		_components.add(_clayHeader);
 		increment += 5;
 		first = true;
 		for (GenericItem item : clayItems)
@@ -126,6 +128,8 @@ public class ResourceFamilyArea extends AbstractArea
 	public void update()
 	{
 		Set<String> items = _itemToCurrentStockLabel.keySet();
+		int manaTotalItems = 0;
+		int clayTotalItems = 0;
 		for (String itemTag : items)
 		{
 			GenericItem item = ItemData.getItem(itemTag);
@@ -149,9 +153,13 @@ public class ResourceFamilyArea extends AbstractArea
 				itemPercentage = "(0%)";
 			if (itemStock != null)
 			{
-				Object itemCount = itemStock.get(itemTag);
-				currentStock.setText((itemCount == null ? "0" : String
-						.valueOf(itemCount)) + " " + itemPercentage);
+				Integer itemCount = itemStock.get(itemTag);
+				if (itemCount == null) itemCount = 0;
+				currentStock.setText(itemCount + " " + itemPercentage);
+				if (familyName.equals(ClayConstants.ITEM_FAMILY_MANA))
+					manaTotalItems += itemCount;
+				else if (familyName.equals(ClayConstants.ITEM_FAMILY_CLAY))
+					clayTotalItems += itemCount;
 			}
 			else
 				currentStock.setText("0 " + itemPercentage);
@@ -178,75 +186,17 @@ public class ResourceFamilyArea extends AbstractArea
 				currentStock.setColor(Color.green);
 			else
 				currentStock.setColor(Color.white);
-
 		}
-		// _components.clear();
-		// if (_firstArea)
-		// {
-		// TextComponent title = new TextComponent(60, _startingY - 50,
-		// "Resource Management");
-		// title.setColor(Color.yellow);
-		// _components.add(title);
-		// }
-		// Map<String, Integer> desiredRatios = _model.getItemRatios().get(
-		// _familyName);
-		// TextComponent header = new TextComponent(20, _startingY - 100);
-		// header.setColor(Color.yellow);
-		// _components.add(header);
-		//
-		// int yPos = _startingY - 100;
-		//
-		// Map<String, Integer> itemFamily = _model.getItemInventory().get(
-		// _familyName);
-		// Map<String, Integer> currentRatios =
-		// _model.getCurrentItemRatios().get(
-		// _familyName);
-		// int totalItems = 0;
-		// for (String key : desiredRatios.keySet())
-		// {
-		// Integer itemCount = itemFamily == null ? null : itemFamily.get(key);
-		// if (itemCount == null)
-		// itemCount = 0;
-		// Integer itemCurrentRatio = currentRatios == null ? null :
-		// currentRatios
-		// .get(key);
-		// if (itemCurrentRatio == null)
-		// itemCurrentRatio = 0;
-		// GenericItem item = ItemData.getItem(key);
-		// ImageComponent resourceIcon = new ImageComponent(5, yPos - 60, 30,
-		// 30, item.getTexture());
-		// TextComponent resourceName = new TextComponent(30, yPos - 30,
-		// item.getItemName() + " (" + itemCount + ")");
-		// yPos -= 30;
-		// TextComponent resourceRatio = new TextComponent(30, yPos - 30,
-		// itemCurrentRatio + "%/" + desiredRatios.get(key).toString()
-		// + "% (desired)");
-		// int diff = desiredRatios.get(key) - itemCurrentRatio;
-		// if (diff >= 5)
-		// resourceRatio.setColor(Color.red);
-		// else if (diff <= -5)
-		// resourceRatio.setColor(Color.green);
-		// _components.add(resourceIcon);
-		// _components.add(resourceName);
-		// _components.add(resourceRatio);
-		// if (!item.isFamilyHead())
-		// {
-		// IncreaseItemRatioButton itemIncrease = new IncreaseItemRatioButton(
-		// 185, yPos - 50, 20, 20, _model, key);
-		// DecreaseItemRatioButton itemDecrease = new DecreaseItemRatioButton(
-		// 210, yPos - 50, 20, 20, _model, key);
-		// _components.add(itemIncrease);
-		// _components.add(itemDecrease);
-		// }
-		// yPos -= 40;
-		// totalItems += itemCount;
-		// }
-		// header.setText(_familyName + " Family (" + totalItems + ")");
+		_manaHeader.setText("Mana Family (" + manaTotalItems + " total items)");
+		_clayHeader.setText("Clay Family (" + clayTotalItems + " total items)");
 	}
 
 	private CityModel _model;
 
 	private Map<String, TextComponent> _itemToCurrentStockLabel;
 	private Map<String, TextComponent> _itemToDesiredStockLabel;
+
+	private TextComponent _manaHeader;
+	private TextComponent _clayHeader;
 
 }
