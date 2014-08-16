@@ -80,6 +80,35 @@ public class ResourceFamilyArea extends AbstractArea
 		_components.add(new TextComponent(5, increment - 2, "Clay Family",
 				ClayConstants.M_CLAY_RELATED));
 		increment += 5;
+		for (GenericItem item : clayItems)
+		{
+			ImageComponent icon = new ImageComponent(7, increment, 25, 25,
+					item.getTexture());
+			icon.setDrawRatio(.80f);
+			_components.add(icon);
+
+			_components.add(new TextComponent(6, increment - 3, "(   ) "
+					+ item.getItemName(), ClayConstants.M_AREA_HEADER_COLOR));
+			_components.add(new TextComponent(7, increment, "Current Stock: "));
+			_components.add(new TextComponent(7, increment + 3,
+					"Desired Stock: "));
+
+			TextComponent currentStock = new TextComponent(48, increment);
+			TextComponent desiredStock = new TextComponent(48, increment + 3);
+			_itemToCurrentStockLabel.put(item.getItemTag(), currentStock);
+			_itemToDesiredStockLabel.put(item.getItemTag(), desiredStock);
+			_components.add(currentStock);
+			_components.add(desiredStock);
+
+			IncreaseItemRatioButton increaseButton = new IncreaseItemRatioButton(
+					85, increment + 5, 20, 20, _model, item.getItemTag());
+			DecreaseItemRatioButton decreaseButton = new DecreaseItemRatioButton(
+					93, increment + 5, 20, 20, _model, item.getItemTag());
+			_components.add(increaseButton);
+			_components.add(decreaseButton);
+
+			increment += 10;
+		}
 	}
 
 	@Override
