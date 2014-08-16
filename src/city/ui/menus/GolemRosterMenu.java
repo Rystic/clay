@@ -8,7 +8,7 @@ public class GolemRosterMenu extends AbstractMenu
 	public GolemRosterMenu(AbstractScreen homeScreen_)
 	{
 		super(homeScreen_,  "Golem Roster Menu");
-		_areas.add(new GolemRosterArea(homeScreen_, 850));
+		_areas.add(new GolemRosterArea(homeScreen_));
 	}
 
 	@Override
