@@ -50,6 +50,11 @@ public class ResourceManagerProcess extends AbstractProcess
 				}
 				for (String item : familyRatios.keySet())
 				{
+					desiredFamilyInventory.put(
+							item,
+							(int) (((double) _model.getDesiredItemRatios()
+									.get(familyName).get(item) / 100)
+									* total));
 					if (!familyInventory.containsKey(item)
 							&& familyRatios.get(item) > 0)
 					{
@@ -60,11 +65,6 @@ public class ResourceManagerProcess extends AbstractProcess
 							.get(item).doubleValue() : 0D;
 					Double percentage = 100 * (double) (itemCount / total);
 					currentFamilyRatios.put(item, percentage.intValue());
-					desiredFamilyInventory.put(
-							item,
-							(int) (((double) _model.getDesiredItemRatios()
-									.get(familyName).get(item) / 100)
-									* total));
 					if (percentage < familyRatios.get(item))
 						underQuotaItems.add(item);
 				}

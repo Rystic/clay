@@ -48,6 +48,7 @@ public class ResourceFamilyArea extends AbstractArea
 		_components.add(new TextComponent(5, 5, "Mana Family",
 				ClayConstants.M_AREA_HEADER_COLOR));
 		int increment = 12;
+		boolean first = true;
 		for (GenericItem item : manaItems)
 		{
 			ImageComponent icon = new ImageComponent(7, increment, 25, 25,
@@ -68,18 +69,23 @@ public class ResourceFamilyArea extends AbstractArea
 			_components.add(currentStock);
 			_components.add(desiredStock);
 
-			IncreaseItemRatioButton increaseButton = new IncreaseItemRatioButton(
-					85, increment + 5, 20, 20, _model, item.getItemTag());
-			DecreaseItemRatioButton decreaseButton = new DecreaseItemRatioButton(
-					93, increment + 5, 20, 20, _model, item.getItemTag());
-			_components.add(increaseButton);
-			_components.add(decreaseButton);
-
+			if (first)
+				first = false;
+			else
+			{
+				IncreaseItemRatioButton increaseButton = new IncreaseItemRatioButton(
+						82, increment + 5, 20, 20, _model, item.getItemTag());
+				DecreaseItemRatioButton decreaseButton = new DecreaseItemRatioButton(
+						90, increment + 5, 20, 20, _model, item.getItemTag());
+				_components.add(increaseButton);
+				_components.add(decreaseButton);
+			}
 			increment += 10;
 		}
 		_components.add(new TextComponent(5, increment - 2, "Clay Family",
 				ClayConstants.M_CLAY_RELATED));
 		increment += 5;
+		first = true;
 		for (GenericItem item : clayItems)
 		{
 			ImageComponent icon = new ImageComponent(7, increment, 25, 25,
@@ -100,12 +106,17 @@ public class ResourceFamilyArea extends AbstractArea
 			_components.add(currentStock);
 			_components.add(desiredStock);
 
-			IncreaseItemRatioButton increaseButton = new IncreaseItemRatioButton(
-					85, increment + 5, 20, 20, _model, item.getItemTag());
-			DecreaseItemRatioButton decreaseButton = new DecreaseItemRatioButton(
-					93, increment + 5, 20, 20, _model, item.getItemTag());
-			_components.add(increaseButton);
-			_components.add(decreaseButton);
+			if (first)
+				first = false;
+			else
+			{
+				IncreaseItemRatioButton increaseButton = new IncreaseItemRatioButton(
+						82, increment + 5, 20, 20, _model, item.getItemTag());
+				DecreaseItemRatioButton decreaseButton = new DecreaseItemRatioButton(
+						90, increment + 5, 20, 20, _model, item.getItemTag());
+				_components.add(increaseButton);
+				_components.add(decreaseButton);
+			}
 
 			increment += 10;
 		}
@@ -128,14 +139,14 @@ public class ResourceFamilyArea extends AbstractArea
 			Map<String, Integer> desiredItemRatios = _model
 					.getDesiredItemRatios().get(familyName);
 
-			Map<String, Integer> itemStock = _model.getCurrentItemInventory().get(
-					familyName);
+			Map<String, Integer> itemStock = _model.getCurrentItemInventory()
+					.get(familyName);
 			String itemPercentage;
 			if (currentItemRatios != null)
 				itemPercentage = currentItemRatios.get(itemTag) != null ? "("
 						+ currentItemRatios.get(itemTag) + "%)" : "(0%)";
 			else
-				itemPercentage = "";
+				itemPercentage = "(0%)";
 			if (itemStock != null)
 			{
 				Object itemCount = itemStock.get(itemTag);
@@ -145,16 +156,19 @@ public class ResourceFamilyArea extends AbstractArea
 			else
 				currentStock.setText("0 " + itemPercentage);
 
-			Map<String, Integer> desiredFamilyItemCount = _model.getDesiredItemInventory().get(familyName);
+			Map<String, Integer> desiredFamilyItemCount = _model
+					.getDesiredItemInventory().get(familyName);
 			int desiredCount = 0;
 			if (desiredFamilyItemCount != null)
 			{
 				if (desiredFamilyItemCount.get(itemTag) != null)
 					desiredCount = desiredFamilyItemCount.get(itemTag);
 			}
-			desiredStock.setText(desiredCount + " (" + desiredItemRatios.get(itemTag) + "%)");
-			
-			Integer itemCurrentRatio = currentItemRatios != null ? currentItemRatios.get(itemTag) : null;
+			desiredStock.setText(desiredCount + " ("
+					+ desiredItemRatios.get(itemTag) + "%)");
+
+			Integer itemCurrentRatio = currentItemRatios != null ? currentItemRatios
+					.get(itemTag) : null;
 			if (itemCurrentRatio == null)
 				itemCurrentRatio = 0;
 			int diff = desiredItemRatios.get(itemTag) - itemCurrentRatio;
