@@ -30,6 +30,9 @@ public class GenericGolem
 			_neededBehaviors.add(BehaviorData.getBehavior(neededBehavior));
 		}
 		
+		_spriteSize = FieldParser.parseInt((eElement
+				.getAttribute("SpriteSize")));
+		
 		_moveSpeed = FieldParser
 				.parseDouble(eElement.getAttribute("MoveSpeed"));
 		_moveVariation = FieldParser.parseDouble(eElement
@@ -50,6 +53,8 @@ public class GenericGolem
 				.getAttribute("LowClayThreshold"));
 		_personalBehaviorChance = FieldParser.parseInt(eElement
 				.getAttribute("PersonalBehaviorChance"));
+		_textureScaling = FieldParser.parseDouble(eElement
+				.getAttribute("TextureScaling"));
 	}
 
 	public String getGolemName()
@@ -136,6 +141,16 @@ public class GenericGolem
 	{
 		return _personalBehaviorChance;
 	}
+	
+	public int getSpriteSize()
+	{
+		return _spriteSize;
+	}
+	
+	public double getTextureScaling()
+	{
+		return _textureScaling;
+	}
 
 	private final String _golemName;
 	private final String _golemTag;
@@ -147,6 +162,8 @@ public class GenericGolem
 	
 	private List<GenericBehavior> _neededBehaviors;
 
+	private int _spriteSize;
+	
 	private final double _moveSpeed;
 	private final double _moveVariation;
 	private final double _startingMana;
@@ -156,6 +173,7 @@ public class GenericGolem
 	private final double _manaLostOnMovement;
 	private final double _lowManaThreshold;
 	private final double _lowClayThreshold;
+	private final double _textureScaling;
 
 	private final int _personalBehaviorChance;
 

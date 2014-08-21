@@ -15,6 +15,8 @@ public class ClayConstants
 	public static final int DEFAULT_MAP_HEIGHT = 25 * ClayConstants.TILE_Y;
 
 	public static final int DEFAULT_INTERFACE_WIDTH = 300;
+	
+	public static final String DEFAULT_BUILDING_MENU_CATEGORY = "Architecture";
 
 	// Default Tile
 

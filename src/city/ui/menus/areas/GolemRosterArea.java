@@ -3,9 +3,6 @@ package city.ui.menus.areas;
 import java.util.List;
 
 import main.ClayConstants;
-
-import org.newdawn.slick.Color;
-
 import screens.AbstractScreen;
 import screens.CityScreen;
 import city.generics.entities.GolemEntity;

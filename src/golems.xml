@@ -5,7 +5,8 @@
 		MoveVariation="1" NeededBehaviors="repair-clay,power-obelisk,store-items"
 		StartingMana="100" StartingClay="100" MaximumMana="100" MaximumClay="150"
 		ManaLostOnMovement=".0001" LowManaThreshold="90" LowClayThreshold="60"
-		PersonalBehaviorChance="20" DefaultTexture="golem.png" LowClayTexture="lowClayGolem.png"
+		PersonalBehaviorChance="20" SpriteSize="30" TextureScaling=".6"
+		DefaultTexture="golem.png" LowClayTexture="lowClayGolem.png"
 		LowManaTexture="lowManaGolem.png" LowManaLowClayTexture="lowManaLowClayGolem.png"></Golem>
 
 	<Golem GolemName="Pearlclay Golem" GolemTag="pearlclay-golem"
@@ -13,15 +14,15 @@
 		NeededBehaviors="repair-pearlclay,power-obelisk,store-items"
 		StartingMana="200" StartingClay="50" MaximumMana="200" MaximumClay="150"
 		ManaLostOnMovement=".0001" LowManaThreshold="100" LowClayThreshold="25"
-		PersonalBehaviorChance="80" DefaultTexture="pearlclayGolem.png"
-		LowClayTexture="pearlclayLowClay.png" LowManaTexture="pearlclayLowMana.png"
-		LowManaLowClayTexture="pearlclayLowManaLowClay.png"></Golem>
+		PersonalBehaviorChance="80" SpriteSize="25" TextureScaling=".6"
+		DefaultTexture="pearlclayGolem.png" LowClayTexture="pearlclayLowClay.png"
+		LowManaTexture="pearlclayLowMana.png" LowManaLowClayTexture="pearlclayLowManaLowClay.png"></Golem>
 
 	<Golem GolemName="Stoneware Golem" GolemTag="stoneware-golem"
 		MoveSpeed="2" MoveVariation="0" NeededBehaviors="repair-clay,power-obelisk,store-items"
 		StartingMana="50" StartingClay="250" MaximumMana="100" MaximumClay="450"
 		ManaLostOnMovement=".0001" LowManaThreshold="20" LowClayThreshold="150"
-		PersonalBehaviorChance="0" DefaultTexture="stonewareGolem.png"
-		LowClayTexture="stonewareLowClay.png" LowManaTexture="stonewareLowMana.png"
-		LowManaLowClayTexture="stonewareLowManaLowClay.png"></Golem>
+		PersonalBehaviorChance="0" SpriteSize="40" TextureScaling=".80"
+		DefaultTexture="stonewareGolem.png" LowClayTexture="stonewareLowClay.png"
+		LowManaTexture="stonewareLowMana.png" LowManaLowClayTexture="stonewareLowManaLowClay.png"></Golem>
 </Golems>

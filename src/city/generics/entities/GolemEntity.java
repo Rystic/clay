@@ -378,7 +378,17 @@ public class GolemEntity extends AbstractEntity
 	{
 		return _intensity;
 	}
+	
+	public float getTextureScaling()
+	{
+		return (float) _golemTemplate.getTextureScaling();
+	}
 
+	public int getSpriteSize()
+	{
+		return _golemTemplate.getSpriteSize();
+	}
+	
 	public void setPersonality(byte personality_)
 	{
 		_personality = personality_;
@@ -453,7 +463,7 @@ public class GolemEntity extends AbstractEntity
 	{
 		_noUnoccupiedBuildings.clear();
 	}
-
+	
 	@Override
 	public CityModel getModel()
 	{

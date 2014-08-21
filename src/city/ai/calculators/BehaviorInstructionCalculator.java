@@ -780,11 +780,8 @@ public class BehaviorInstructionCalculator
 			takenFrom.consume(item);
 			return true;
 		}
-		else
-		{
-			executingEntity_
-					.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM);
-		}
+		executingEntity_
+				.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM);
 		return false;
 	}
 

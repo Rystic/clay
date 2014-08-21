@@ -26,8 +26,8 @@ public class BuildingSelectionArea extends AbstractArea
 		_labels = new ArrayList<TextComponent>();
 		_model = (CityModel) _homeScreen.getModel();
 
-		_buildings = BuildingData.getBuildingsInCategory("Architecture");
-		_category = "Architecture";
+		_buildings = BuildingData.getBuildingsInCategory(ClayConstants.DEFAULT_BUILDING_MENU_CATEGORY);
+		_category = ClayConstants.DEFAULT_BUILDING_MENU_CATEGORY;
 		_buildingListPointer = 0;
 	}
 

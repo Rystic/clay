@@ -35,20 +35,21 @@ public class GolemEffect extends AbstractEffect
 					.getTextureID());
 			double x = golem.getX();
 			double y = golem.getY();
-
+			float drawRatio = golem.getTextureScaling();
+			int size = golem.getSpriteSize();
 			GL11.glBegin(GL11.GL_POLYGON);
 			GL11.glTexCoord2f(0, 0);
 			GL11.glVertex2d(x, ClayConstants.DEFAULT_MAP_HEIGHT - y
-					- GOLEM_DEFAULT_HEIGHT);
-			GL11.glTexCoord2f(_drawRatioGolems, 0);
+					- size);
+			GL11.glTexCoord2f(drawRatio, 0);
 			GL11.glVertex2d(
-					x + GOLEM_DEFAULT_WIDTH,
-					ClayConstants.DEFAULT_MAP_HEIGHT - y - GOLEM_DEFAULT_HEIGHT);
-			GL11.glTexCoord2f(_drawRatioGolems, _drawRatioGolems);
+					x + size,
+					ClayConstants.DEFAULT_MAP_HEIGHT - y - size);
+			GL11.glTexCoord2f(drawRatio, drawRatio);
 			GL11.glVertex2d(
-					x + GOLEM_DEFAULT_WIDTH,
+					x + size,
 					ClayConstants.DEFAULT_MAP_HEIGHT - y);
-			GL11.glTexCoord2f(0, _drawRatioGolems);
+			GL11.glTexCoord2f(0, drawRatio);
 			GL11.glVertex2d(x, ClayConstants.DEFAULT_MAP_HEIGHT - y);
 			GL11.glEnd();
 			if (!golem.getCopyOfHeldItems().isEmpty())
@@ -59,15 +60,15 @@ public class GolemEffect extends AbstractEffect
 				GL11.glBegin(GL11.GL_POLYGON);
 				GL11.glTexCoord2f(0, 0);
 				GL11.glVertex2d(x, ClayConstants.DEFAULT_MAP_HEIGHT - y
-						- GOLEM_DEFAULT_HEIGHT);
+						- _itemDefaultSize);
 				GL11.glTexCoord2f(_drawRatioItems, 0);
 				GL11.glVertex2d(
-						x + GOLEM_DEFAULT_WIDTH,
+						x + _itemDefaultSize,
 						ClayConstants.DEFAULT_MAP_HEIGHT - y
-								- GOLEM_DEFAULT_HEIGHT);
+								- _itemDefaultSize);
 				GL11.glTexCoord2f(_drawRatioItems, _drawRatioItems);
 				GL11.glVertex2d(
-						x + GOLEM_DEFAULT_WIDTH,
+						x + _itemDefaultSize,
 						ClayConstants.DEFAULT_MAP_HEIGHT - y);
 				GL11.glTexCoord2f(0, _drawRatioItems);
 				GL11.glVertex2d(x, ClayConstants.DEFAULT_MAP_HEIGHT - y);
@@ -76,11 +77,9 @@ public class GolemEffect extends AbstractEffect
 		}
 	}
 
-	private final static int GOLEM_DEFAULT_WIDTH = 30;
-	private final static int GOLEM_DEFAULT_HEIGHT = 30;
-
-	private final static float _drawRatioGolems = .6f;
 	private final static float _drawRatioItems = .6f;
 
 	private List<GolemEntity> _golemList;
+	
+	private final int _itemDefaultSize = 30;
 }
