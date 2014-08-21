@@ -39,17 +39,17 @@ public class RainEffect extends AbstractEffect
 		{
 			GL11.glColor3f(0.0f, 0.0f, droplet._color);
 			double x = droplet._xPos;
-			double y = droplet._yPos;
+			double y = -droplet._yPos;
 			double size = droplet._size;
 			GL11.glBegin(GL11.GL_POLYGON);
 			GL11.glVertex2d(x, y);
 			GL11.glVertex2d(x - (.50 * size), y);
-			GL11.glVertex2d(x, y + (1.75 * size));
-			GL11.glVertex2d(x + 1, y + (1.75 * size));
+			GL11.glVertex2d(x, y - (1.75 * size));
+			GL11.glVertex2d(x + 1, y - (1.75 * size));
 
 			droplet.update();
 			GL11.glEnd();
-			if (droplet._yPos < -25)
+			if (droplet._yPos < -1000)
 			{
 				_deadDroplets.add(droplet);
 			}
@@ -65,9 +65,9 @@ public class RainEffect extends AbstractEffect
 		{
 			Random random = new Random();
 			_size = random.nextDouble() + 7;
-			_xPos = random.nextInt(ClayConstants.DEFAULT_MAP_WIDTH);
+			_xPos = random.nextInt(ClayConstants.DEFAULT_MAP_WIDTH + 50);
 			_yPos = ClayConstants.DEFAULT_MAP_HEIGHT;
-			_color = .75f + random.nextFloat();
+			_color = .88f + random.nextFloat();
 			_fallSpeed += 20 + random.nextInt(_dropletSpeedVariance);
 		}
 
@@ -75,7 +75,7 @@ public class RainEffect extends AbstractEffect
 		{
 			_xPos -= (_size / 3);
 			_yPos -= _fallSpeed;
-			_color -= .02f;
+			_color -= .01f;
 		}
 		
 		double _size;

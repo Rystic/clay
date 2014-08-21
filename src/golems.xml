@@ -14,7 +14,7 @@
 		NeededBehaviors="repair-pearlclay,power-obelisk,store-items"
 		StartingMana="200" StartingClay="50" MaximumMana="200" MaximumClay="150"
 		ManaLostOnMovement=".0001" LowManaThreshold="100" LowClayThreshold="25"
-		PersonalBehaviorChance="80" SpriteSize="25" TextureScaling=".6"
+		PersonalBehaviorChance="80" SpriteSize="35" TextureScaling=".8"
 		DefaultTexture="pearlclayGolem.png" LowClayTexture="pearlclayLowClay.png"
 		LowManaTexture="pearlclayLowMana.png" LowManaLowClayTexture="pearlclayLowManaLowClay.png"></Golem>
 
