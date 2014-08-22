@@ -18,7 +18,7 @@ public class BuildingMenu extends AbstractMenu
 		super(homeScreen_, "Building Menu");
 
 		_categorySelectionArea = new CategorySelectionArea(_homeScreen,
-				DEFAULT_CATEGORY_LABELS, DEFAULT_HOTKEYS);
+				DEFAULT_CATEGORY_LABELS, DEFAULT_HOTKEYS, this);
 		_categoryDescriptionArea = new CategoryDescriptionArea(_homeScreen,
 				DEFAULT_HOTKEYS);
 		_buildingSelectionArea = new BuildingSelectionArea(_homeScreen,

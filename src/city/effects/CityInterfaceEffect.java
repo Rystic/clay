@@ -8,6 +8,7 @@ import org.newdawn.slick.Color;
 
 import screens.AbstractScreen;
 import city.ui.menus.AbstractMenu;
+import city.ui.menus.components.AbstractButton;
 import city.ui.menus.components.AbstractComponent;
 import city.ui.menus.components.TextComponent;
 import city.util.TextUtil;
@@ -82,18 +83,27 @@ public class CityInterfaceEffect extends AbstractEffect
 				Color color = component.getColor();
 				GL11.glColor3f(color.r, color.g, color.b);
 				GL11.glBegin(GL11.GL_POLYGON);
-				GL11.glVertex2d(component.getX()
-						+ ClayConstants.DEFAULT_MAP_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT - component.getY());
-				GL11.glVertex2d(component.getX()
-						+ ClayConstants.DEFAULT_MAP_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT - component.getY()
-						+ component.getHeight());
-				GL11.glVertex2d(component.getX() + component.getWidth()
-						+ ClayConstants.DEFAULT_MAP_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT - component.getY()
-						+ component.getHeight());
-				GL11.glVertex2d(component.getX() + component.getWidth()
-						+ ClayConstants.DEFAULT_MAP_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT - component.getY());
+				GL11.glVertex2d(
+						component.getX() + ClayConstants.DEFAULT_MAP_WIDTH,
+						ClayConstants.DEFAULT_MAP_HEIGHT - component.getY());
+				GL11.glVertex2d(
+						component.getX() + ClayConstants.DEFAULT_MAP_WIDTH,
+						ClayConstants.DEFAULT_MAP_HEIGHT - component.getY()
+								+ component.getHeight());
+				GL11.glVertex2d(
+						component.getX() + component.getWidth()
+								+ ClayConstants.DEFAULT_MAP_WIDTH,
+						ClayConstants.DEFAULT_MAP_HEIGHT - component.getY()
+								+ component.getHeight());
+				GL11.glVertex2d(
+						component.getX() + component.getWidth()
+								+ ClayConstants.DEFAULT_MAP_WIDTH,
+						ClayConstants.DEFAULT_MAP_HEIGHT - component.getY());
 				GL11.glEnd();
 			}
+			else if (component instanceof AbstractButton
+					&& component.getTexture() == null)
+				continue; // invisible button
 			else
 				System.out.println("Got an undrawable component.");
 		}

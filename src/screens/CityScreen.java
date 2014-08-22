@@ -15,6 +15,7 @@ import city.effects.ArchitectureEffect;
 import city.effects.BackgroundEffect;
 import city.effects.CityInterfaceEffect;
 import city.effects.GolemEffect;
+import city.effects.RainEffect;
 import city.generics.data.BuildingData;
 import city.generics.data.GolemData;
 import city.generics.entities.BuildingEntity;
@@ -53,7 +54,7 @@ public class CityScreen extends AbstractScreen
 		_effects.add(new ArchitectureEffect(this));
 		_effects.add(new GolemEffect(this));
 		_effects.add(new CityInterfaceEffect(this));
-		// _effects.add(new CursorEffect(this));
+		_effects.add(new RainEffect(this));
 
 		for (AbstractEffect effect : _effects)
 		{
@@ -111,7 +112,8 @@ public class CityScreen extends AbstractScreen
 		_cityModel.addGolem(
 				GolemData.getGolem(ClayConstants.GOLEM_CLAY),
 				placementX,
-				placementY, null);
+				placementY,
+				null);
 	}
 
 	@Override

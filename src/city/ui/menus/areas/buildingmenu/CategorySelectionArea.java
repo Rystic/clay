@@ -6,7 +6,9 @@ import main.ClayConstants;
 import models.CityModel;
 import screens.AbstractScreen;
 import city.generics.data.BuildingData;
+import city.ui.menus.BuildingMenu;
 import city.ui.menus.areas.AbstractArea;
+import city.ui.menus.components.AbstractButton;
 import city.ui.menus.components.AbstractComponent;
 import city.ui.menus.components.HorizontalLineComponent;
 import city.ui.menus.components.TextComponent;
@@ -15,7 +17,7 @@ public class CategorySelectionArea extends AbstractArea
 {
 	public CategorySelectionArea(AbstractScreen homeScreen_,
 			Map<String, String> categoryLabels_,
-			Map<Integer, String> categoryHotkeys_)
+			Map<Integer, String> categoryHotkeys_, final BuildingMenu menu_)
 	{
 		super(homeScreen_);
 		_model = (CityModel) _homeScreen.getModel();
@@ -27,12 +29,29 @@ public class CategorySelectionArea extends AbstractArea
 		int increment = 8;
 		for (String label : _categoryLabels.keySet())
 		{
-			_components.add(new TextComponent(7, increment, label,
-					ClayConstants.M_UNHIGHLIGHTED_COLOR));
+			final TextComponent component = new TextComponent(7, increment, label,
+					ClayConstants.M_UNHIGHLIGHTED_COLOR);
+			AbstractButton button = new AbstractButton(7, increment + 2, 255, 20){
+
+				@Override
+				public void clicked()
+				{
+					String newCategory = _categoryLabels.get(component.getText());
+					for (Integer key : _categoryHotkeys.keySet())
+					{
+						if (_categoryHotkeys.get(key).equals(newCategory))
+						{
+							menu_.handleKeyEvent(key);
+							break;
+						}
+					}
+				}};
+				_components.add(button);
+			_components.add(component);
 			increment += 3;
 		}
 		_components.add(new HorizontalLineComponent(increment + 1, 2));
-		_category = "Architecure";
+		_category = ClayConstants.DEFAULT_BUILDING_MENU_CATEGORY;
 		_buildingIdentifier = -1;
 	}
 
