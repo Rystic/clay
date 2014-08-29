@@ -46,6 +46,15 @@ public class CityInterfaceEffect extends AbstractEffect
 			{
 				GL11.glBindTexture(GL11.GL_TEXTURE_2D, component.getTexture()
 						.getTextureID());
+				if (component.getColor() != null)
+				{
+					GL11.glColor3f(
+							component.getColor().r,
+							component.getColor().g,
+							component.getColor().b);
+				}
+				else
+					GL11.glColor3f(1f, 1f, 1f);
 				GL11.glBegin(GL11.GL_POLYGON);
 				GL11.glTexCoord2f(0, 0);
 

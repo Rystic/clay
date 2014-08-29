@@ -11,6 +11,7 @@ import screens.CityScreen;
 import city.generics.GenericBuilding;
 import city.generics.data.BuildingData;
 import city.ui.menus.areas.AbstractArea;
+import city.ui.menus.components.AbstractButton;
 import city.ui.menus.components.SelectBuildingButton;
 import city.ui.menus.components.TextComponent;
 
@@ -26,7 +27,8 @@ public class BuildingSelectionArea extends AbstractArea
 		_labels = new ArrayList<TextComponent>();
 		_model = (CityModel) _homeScreen.getModel();
 
-		_buildings = BuildingData.getBuildingsInCategory(ClayConstants.DEFAULT_BUILDING_MENU_CATEGORY);
+		_buildings = BuildingData
+				.getBuildingsInCategory(ClayConstants.DEFAULT_BUILDING_MENU_CATEGORY);
 		_category = ClayConstants.DEFAULT_BUILDING_MENU_CATEGORY;
 		_buildingListPointer = 0;
 	}
@@ -85,18 +87,46 @@ public class BuildingSelectionArea extends AbstractArea
 		{
 			_components.clear();
 			_labels.clear();
-			_components.add(new TextComponent(5,
-					39, "Buildings", ClayConstants.M_AREA_HEADER_COLOR));
+			_components.add(new TextComponent(5, 39, "Buildings",
+					ClayConstants.M_AREA_HEADER_COLOR));
 			int increment = 46;
-			for (GenericBuilding building : _buildings)
+			for (final GenericBuilding building : _buildings)
 			{
-				SelectBuildingButton button = new SelectBuildingButton(5,
-						increment, 30, 30, building);
-				button.setDrawRatio(.75f);
-				_components.add(button);
+				SelectBuildingButton buildingButton = new SelectBuildingButton(
+						5, increment, 30, 30, building)
+				{
+					@Override
+					public void clicked()
+					{
+						for (int i = 0; i < _buildings.size(); i++)
+						{
+							if (_buildings.get(i).equals(building))
+								_buildingListPointer = i;
+							_doBuildingSelectionUpdate = true;
+						}
+					}
+				};
+				buildingButton.setDrawRatio(.75f);
+				_components.add(buildingButton);
 				TextComponent textComponent = new TextComponent(20,
 						increment - 3, building.getBuildingName());
+				AbstractButton textButton = new AbstractButton(5, increment,
+						255, 20)
+				{
+
+					@Override
+					public void clicked()
+					{
+						for (int i = 0; i < _buildings.size(); i++)
+						{
+							if (_buildings.get(i).equals(building))
+								_buildingListPointer = i;
+							_doBuildingSelectionUpdate = true;
+						}
+					}
+				};
 				_labels.add(textComponent);
+				_components.add(textButton);
 				_components.add(textComponent);
 
 				increment += 5;
@@ -112,11 +142,10 @@ public class BuildingSelectionArea extends AbstractArea
 			for (int i = 0; i < _labels.size(); i++)
 			{
 				if (i == _buildingListPointer)
-					_labels.get(i).setColor(
-							ClayConstants.M_HIGHLIGHTED_COLOR);
+					_labels.get(i).setColor(ClayConstants.M_HIGHLIGHTED_COLOR);
 				else
-					_labels.get(i).setColor(
-							ClayConstants.M_UNHIGHLIGHTED_COLOR);
+					_labels.get(i)
+							.setColor(ClayConstants.M_UNHIGHLIGHTED_COLOR);
 			}
 			_doBuildingSelectionUpdate = false;
 		}

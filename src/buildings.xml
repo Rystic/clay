@@ -158,7 +158,7 @@
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Chute" BuildingTag="chute"
-		BuildingDescription="Chutes are used for descending. They're cheaper than ladders, but only go down."
+		BuildingDescription="Chutes are used for upward and downward movement. They're cheaper than ladders, but can only be built from the top down. Their top halves can only be used for descent, and bottom halves only for ascent."
 		BuildTime="40" BuildingRequirements="base,clay-block,s,clay-block"
 		MenuCategory="Architecture" ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
 		LesserManaCost="1.0" LesserManaCumulativeCost="1.0" isHouse="false"
@@ -207,7 +207,7 @@
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Centre of Understanding" BuildingTag="centre-of-understanding"
-		BuildingDescription="Ovens cook clay into stoneware bricks."
+		BuildingDescription="Centres of Understanding are used by your golems to advance their technology."
 		BuildTime="125" BuildingRequirements="base,house,e,sculptors-studio"
 		MenuCategory="Culture" ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
 		LesserManaCost=".1" LesserManaCumulativeCost=".1" isHouse="false"

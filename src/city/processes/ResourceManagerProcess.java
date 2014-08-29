@@ -101,7 +101,7 @@ public class ResourceManagerProcess extends AbstractProcess
 					for (BuildingEntity conversionBuilding : buildings)
 					{
 						if (conversionBuilding.isBuilt()
-								&& !conversionBuilding.hasActiveBehavior())
+								&& !conversionBuilding.hasActiveBehavior() && conversionBuilding.getCopyOfHeldItems().isEmpty())
 						{
 							conversionParams[0] = conversionBuilding;
 							Behavior conversionBehavior = new Behavior(

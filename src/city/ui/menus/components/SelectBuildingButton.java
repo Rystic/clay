@@ -38,7 +38,7 @@ public class SelectBuildingButton extends AbstractButton
 	@Override
 	public void clicked()
 	{
-		
+		System.out.println("So this is working?");
 	}
 
 	private GenericBuilding _building;

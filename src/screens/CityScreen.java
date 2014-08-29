@@ -53,8 +53,8 @@ public class CityScreen extends AbstractScreen
 		_effects.add(new BackgroundEffect(this));
 		_effects.add(new ArchitectureEffect(this));
 		_effects.add(new GolemEffect(this));
-		_effects.add(new CityInterfaceEffect(this));
 		_effects.add(new RainEffect(this));
+		_effects.add(new CityInterfaceEffect(this));
 
 		for (AbstractEffect effect : _effects)
 		{

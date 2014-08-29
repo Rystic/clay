@@ -11,6 +11,8 @@ public abstract class AbstractComponent
 {
 	public AbstractComponent(int x_, int y_, int width_, int height_)
 	{
+		_unconvertedX = x_;
+		_unconvertedY = y_;
 		_bounds = new Rectangle(getConvertedX(x_), getConvertedY(y_), width_, height_);
 	}
 	
@@ -71,7 +73,8 @@ public abstract class AbstractComponent
 	
 	public void setX(int x_)
 	{
-		_bounds.x = getConvertedY(x_);
+		_unconvertedX = x_;
+		_bounds.x = getConvertedX(x_);
 	}
 
 	public double getY()
@@ -81,7 +84,18 @@ public abstract class AbstractComponent
 	
 	public void setY(int y_)
 	{
+		_unconvertedY = y_;
 		_bounds.y = getConvertedY(y_);
+	}
+	
+	public int getUnconvertedX()
+	{
+		return _unconvertedX;
+	}
+	
+	public int getUnconvertedY()
+	{
+		return _unconvertedY;
 	}
 	
 	private int getConvertedX(double x_)
@@ -99,4 +113,7 @@ public abstract class AbstractComponent
 	protected Texture _texture;
 	protected Color _color;
 	protected float _drawRatio;
+	
+	private int _unconvertedX;
+	private int _unconvertedY;
 }
