@@ -180,34 +180,27 @@ public class BehaviorWeightCalculator
 	{
 		int weight = 0;
 		CityScreen screen = (CityScreen) golem_.getHomeScreen();
-		BuildingEntity[][] tiles = screen.getModel().getTileValues();
-		int houseCount = 0;
-		for (int i = 0; i < tiles.length; i++)
+		int stonewareCount = 0;
+		List<GolemEntity> golems = screen.getModel().getGolems();
+		for (GolemEntity entity : golems)
 		{
-			for (int j = 0; j < tiles[0].length; j++)
-			{
-				if (tiles[i][j] != null && tiles[i][j].isHouse()
-						&& tiles[i][j].isBuilt())
-					houseCount++;
-			}
+			if (entity.getGolemTag().equals(ClayConstants.GOLEM_STONEWARE))
+				stonewareCount++;
 		}
-		if (screen.getModel().getGolemCount() >= houseCount)
-		{
-			return Integer.MIN_VALUE;
-		}
-		if (golem_.getPersonality() == ClayConstants.PERSONALITY_AMBITIOUS)
-		{
-			weight += 150 + ((houseCount - screen.getModel().getGolemCount()) * 10);
-			weight = golem_.getPsychology() == ClayConstants.PSYCHOLOGY_INFLUENTIAL ? weight * 4 : weight;
-		}
-		else if (golem_.getPersonality() == ClayConstants.PERSONALITY_CREATIVE)
+		Integer buildingId = BuildingData.getBuildingByTag("kiln")
+				.getBuildingIdentifier();
+		List<BuildingEntity> kilns = screen.getModel().getBuildingMap()
+				.get(buildingId);
+		if (kilns == null || stonewareCount > kilns.size() * 2)
 			weight = Integer.MIN_VALUE;
 		else
 		{
-			weight += 25 + ((houseCount - screen.getModel().getGolemCount()) * 10);
+			int weightMultiplier = 1;
+			if (golem_.getPersonality() == ClayConstants.PERSONALITY_AMBITIOUS)
+				weightMultiplier += 3;
+			weight = ((kilns.size() * 2) - stonewareCount) * 10
+					* weightMultiplier;
 		}
-		if (weight <= 0)
-			weight = 1;
 		return weight;
 	}
 
