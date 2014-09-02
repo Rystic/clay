@@ -2,13 +2,13 @@
 <Buildings>
 	<Building BuildingName="Clay Block" BuildingTag="clay-block"
 		BuildingDescription="Clay Blocks can be molded into other buildings."
-		BuildTime="0" BuildingRequirements="base,none" MenuCategory="Architecture" ExtraWeight=""
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
-		LesserManaCumulativeCost="0" isHouse="false" isNatural="false"
-		isPassable="true" Scalability="base,-" isStorage="false" isSupport="true"
-		StorageCapacity="0" ConstructionItems="" PsychologyType="-1"
-		PsychologyInfluence="0" UnlockedFromStart="true" Transform=""
-		tickStart="-1">
+		BuildTime="0" BuildingRequirements="base,none" MenuCategory="Architecture"
+		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		LesserManaCost=".1" LesserManaCumulativeCost="0" isHouse="false"
+		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
+		isSupport="true" StorageCapacity="0" ConstructionItems=""
+		PsychologyType="-1" PsychologyInfluence="0" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigClayBlock.png"></State>
 		<State StateName="state-adjacent:natural-clay" Graphic="base,bigManaClay.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
@@ -17,8 +17,8 @@
 	<Building BuildingName="Dirt Block" BuildingTag="dirt-block"
 		BuildingDescription="It's dirt. Dirt is
 		boring." BuildTime="0"
-		BuildingRequirements="base,none" MenuCategory="" ExtraWeight="" GreaterManaCost="0"
-		GreaterManaCumulativeCost="0" LesserManaCost="0"
+		BuildingRequirements="base,none" MenuCategory="" ExtraWeight=""
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost="0"
 		LesserManaCumulativeCost="0" isHouse="false" isNatural="true"
 		isPassable="false" Scalability="base,-" isStorage="false" isSupport="true"
 		StorageCapacity="0" ConstructionItems="" PsychologyType="-1"
@@ -44,21 +44,22 @@
 	</Building>
 	<Building BuildingName="Natural Clay" BuildingTag="natural-clay"
 		BuildingDescription="Natural clay reduces the mana cost of any adjacent buildings to 0."
-		BuildTime="0" BuildingRequirements="base,none" MenuCategory="" ExtraWeight=""
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost="0"
-		LesserManaCumulativeCost="0" isHouse="false" isNatural="true"
-		isPassable="false" Scalability="base,-" isStorage="false" isSupport="true"
-		StorageCapacity="0" ConstructionItems="" PsychologyType="-1"
-		PsychologyInfluence="0" UnlockedFromStart="false" Transform=""
-		tickStart="-1">
+		BuildTime="0" BuildingRequirements="base,none" MenuCategory=""
+		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		LesserManaCost="0" LesserManaCumulativeCost="0" isHouse="false"
+		isNatural="true" isPassable="false" Scalability="base,-" isStorage="false"
+		isSupport="true" StorageCapacity="0" ConstructionItems=""
+		PsychologyType="-1" PsychologyInfluence="0" UnlockedFromStart="false"
+		Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigClay.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="House" BuildingTag="house"
 		BuildingDescription="Houses provide a place for golems to repair themselves."
-		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Basic Needs" ExtraWeight="low-clay:2"
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Basic Needs"
+		ExtraWeight="low-clay:2" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost=".1" isHouse="true" isNatural="false"
 		isPassable="true" Scalability="base,-" isStorage="false" isSupport="true"
 		StorageCapacity="0" ConstructionItems="" PsychologyType="-1"
@@ -71,8 +72,9 @@
 	</Building>
 	<Building BuildingName="Crucible" BuildingTag="crucible"
 		BuildingDescription="Crucibles are used to siphon mana from the ground, as well as collect natural clay."
-		BuildTime="25" BuildingRequirements="base,clay-block" MenuCategory="Basic Needs" ExtraWeight="low-mana:2"
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		BuildTime="25" BuildingRequirements="base,clay-block" MenuCategory="Basic Needs"
+		ExtraWeight="low-mana:2" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".2"
 		LesserManaCumulativeCost="0" isHouse="false" isNatural="false"
 		isPassable="true" Scalability="base,-" isStorage="false" isSupport="false"
 		StorageCapacity="0" ConstructionItems="" PsychologyType="2"
@@ -90,8 +92,9 @@
 	</Building>
 	<Building BuildingName="Storage" BuildingTag="storage"
 		BuildingDescription="Storages hold items." BuildTime="10"
-		BuildingRequirements="base,clay-block" MenuCategory="Architecture" ExtraWeight="no-storage:8"
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		BuildingRequirements="base,clay-block" MenuCategory="Architecture"
+		ExtraWeight="no-storage:8" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".2"
 		LesserManaCumulativeCost="0" isHouse="false" isNatural="false"
 		isPassable="true" Scalability="base,-" isStorage="true" isSupport="true"
 		StorageCapacity="40" ConstructionItems="" PsychologyType="-1"
@@ -104,12 +107,12 @@
 	</Building>
 	<Building BuildingName="Ramp" BuildingTag="ramp"
 		BuildingDescription="Ramps can be used to ascend floors." BuildTime="10"
-		BuildingRequirements="base,clay-block" MenuCategory="Architecture" ExtraWeight="" GreaterManaCost="0"
-		GreaterManaCumulativeCost="0" LesserManaCost=".2"
-		LesserManaCumulativeCost="0" isHouse="false" isNatural="false"
-		isPassable="true" Scalability="base,ew" isStorage="false" isSupport="false"
-		StorageCapacity="0" ConstructionItems="" PsychologyType="-1"
-		PsychologyInfluence="0" UnlockedFromStart="true"
+		BuildingRequirements="base,clay-block" MenuCategory="Architecture"
+		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		LesserManaCost=".2" LesserManaCumulativeCost="0" isHouse="false"
+		isNatural="false" isPassable="true" Scalability="base,ew" isStorage="false"
+		isSupport="false" StorageCapacity="0" ConstructionItems=""
+		PsychologyType="-1" PsychologyInfluence="0" UnlockedFromStart="true"
 		Transform="flanked-support:clay-block,flanked-non-support:clay-block"
 		tickStart="-1">
 		<State StateName="state-default" Graphic="base,rampRight.png"></State>
@@ -133,24 +136,24 @@
 	</Building>
 	<Building BuildingName="Ladder" BuildingTag="ladder"
 		BuildingDescription="Ladders are used for vertical movement, but come at a high cost."
-		BuildTime="40" BuildingRequirements="base,clay-block" MenuCategory="Architecture" ExtraWeight=""
-		GreaterManaCost=".1" GreaterManaCumulativeCost="0" LesserManaCost=".1"
-		LesserManaCumulativeCost="0" isHouse="false" isNatural="false"
-		isPassable="true" Scalability="base,ns" isStorage="false" isSupport="true"
-		StorageCapacity="0" ConstructionItems="" PsychologyType="-1"
-		PsychologyInfluence="0" UnlockedFromStart="true" Transform=""
-		tickStart="-1">
+		BuildTime="40" BuildingRequirements="base,clay-block" MenuCategory="Architecture"
+		ExtraWeight="" GreaterManaCost=".1" GreaterManaCumulativeCost="0"
+		LesserManaCost=".1" LesserManaCumulativeCost="0" isHouse="false"
+		isNatural="false" isPassable="true" Scalability="base,ns" isStorage="false"
+		isSupport="true" StorageCapacity="0" ConstructionItems=""
+		PsychologyType="-1" PsychologyInfluence="0" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigLadder.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Sculptors' Studio" BuildingTag="sculptors-studio"
 		BuildingDescription="Sculptors' Studios are used to create more golems."
-		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Basic Needs" ExtraWeight=""
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
-		LesserManaCumulativeCost=".4" isHouse="false" isNatural="false"
-		isPassable="true" Scalability="base,-" isStorage="false" isSupport="true"
-		StorageCapacity="0" ConstructionItems="saturated-clay,inert-clay"
+		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Basic Needs"
+		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		LesserManaCost=".4" LesserManaCumulativeCost=".4" isHouse="false"
+		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
+		isSupport="true" StorageCapacity="0" ConstructionItems="saturated-clay,inert-clay"
 		PsychologyType="3" PsychologyInfluence="5" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigStudio.png"></State>
@@ -160,23 +163,24 @@
 	<Building BuildingName="Chute" BuildingTag="chute"
 		BuildingDescription="Chutes are used for upward and downward movement. They're cheaper than ladders, but can only be built from the top down. Their top halves can only be used for descent, and bottom halves only for ascent."
 		BuildTime="40" BuildingRequirements="base,clay-block,s,clay-block"
-		MenuCategory="Architecture" ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
-		LesserManaCost="1.0" LesserManaCumulativeCost="1.0" isHouse="false"
-		isNatural="false" isPassable="true" Scalability="base,-,s,ns"
-		isStorage="false" isSupport="true" StorageCapacity="0"
-		ConstructionItems="" PsychologyType="-1" PsychologyInfluence="0"
-		UnlockedFromStart="true" Transform="" tickStart="-1">
+		MenuCategory="Architecture" ExtraWeight="" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost="1.0"
+		LesserManaCumulativeCost="1.0" isHouse="false" isNatural="false"
+		isPassable="true" Scalability="base,-,s,ns" isStorage="false"
+		isSupport="true" StorageCapacity="0" ConstructionItems=""
+		PsychologyType="-1" PsychologyInfluence="0" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigChute.png,s,bigChuteBottom.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Deep Home" BuildingTag="deep-home"
 		BuildingDescription="Deep Homes generate mana so long as they're buried under other blocks."
-		BuildTime="125" BuildingRequirements="base,house" MenuCategory="Mana Pool" ExtraWeight=""
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".2"
-		LesserManaCumulativeCost=".2" isHouse="true" isNatural="false"
-		isPassable="true" Scalability="base,-" isStorage="false" isSupport="true"
-		StorageCapacity="0"
+		BuildTime="125" BuildingRequirements="base,house" MenuCategory="Mana Pool"
+		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		LesserManaCost=".2" LesserManaCumulativeCost=".2" isHouse="true"
+		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
+		isSupport="true" StorageCapacity="0"
 		ConstructionItems="mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe"
 		PsychologyType="1" PsychologyInfluence="2" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
@@ -196,12 +200,13 @@
 	<Building BuildingName="Oven" BuildingTag="oven"
 		BuildingDescription="Ovens cook clay into stoneware bricks."
 		BuildTime="125" BuildingRequirements="base,crucible,e,crucible"
-		MenuCategory="Conversions" ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
-		LesserManaCost=".1" LesserManaCumulativeCost=".1" isHouse="false"
-		isNatural="false" isPassable="true" Scalability="base,-,e,-"
-		isStorage="false" isSupport="false" StorageCapacity="0"
-		ConstructionItems="" PsychologyType="2" PsychologyInfluence="3"
-		UnlockedFromStart="true" Transform="" tickStart="-1">
+		MenuCategory="Conversions" ExtraWeight="" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
+		isPassable="true" Scalability="base,-,e,-" isStorage="false"
+		isSupport="false" StorageCapacity="0" ConstructionItems=""
+		PsychologyType="2" PsychologyInfluence="3" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,bigOvenLeft.png,e,bigOvenRight.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
@@ -209,12 +214,13 @@
 	<Building BuildingName="Centre of Understanding" BuildingTag="centre-of-understanding"
 		BuildingDescription="Centres of Understanding are used by your golems to advance their technology."
 		BuildTime="125" BuildingRequirements="base,house,e,sculptors-studio"
-		MenuCategory="Culture" ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
-		LesserManaCost=".1" LesserManaCumulativeCost=".1" isHouse="false"
-		isNatural="false" isPassable="true" Scalability="base,-,e,-"
-		isStorage="false" isSupport="true" StorageCapacity="0"
-		ConstructionItems="" PsychologyType="0" PsychologyInfluence="3"
-		UnlockedFromStart="true" Transform="" tickStart="-1">
+		MenuCategory="Culture" ExtraWeight="" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
+		isPassable="true" Scalability="base,-,e,-" isStorage="false"
+		isSupport="true" StorageCapacity="0" ConstructionItems=""
+		PsychologyType="0" PsychologyInfluence="3" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
 		<State StateName="state-default"
 			Graphic="base,CentreOfUnderstandingLeft2.png,e,CentreOfUnderstandingRight2.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
@@ -222,11 +228,12 @@
 	</Building>
 	<Building BuildingName="Foundry" BuildingTag="foundry"
 		BuildingDescription="Foundries are used to cast saturated mana into mana pipes. "
-		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Conversions" ExtraWeight=""
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
-		LesserManaCumulativeCost=".4" isHouse="false" isNatural="false"
-		isPassable="true" Scalability="base,-" isStorage="false" isSupport="true"
-		StorageCapacity="0" ConstructionItems="saturated-clay,saturated-clay,saturated-clay"
+		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Conversions"
+		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		LesserManaCost=".4" LesserManaCumulativeCost=".4" isHouse="false"
+		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
+		isSupport="true" StorageCapacity="0"
+		ConstructionItems="saturated-clay,saturated-clay,saturated-clay"
 		PsychologyType="2" PsychologyInfluence="2" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,foundry.png"></State>
@@ -235,11 +242,11 @@
 	</Building>
 	<Building BuildingName="Pearlery" BuildingTag="pearlery"
 		BuildingDescription="Pearleries are used to over-saturate clay. The result of draining sixteen saturated clay into one is Pearlclay, a very useful resource for mana-related construction."
-		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Conversions" ExtraWeight=""
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
-		LesserManaCumulativeCost=".4" isHouse="false" isNatural="false"
-		isPassable="true" Scalability="base,-" isStorage="false" isSupport="true"
-		StorageCapacity="0"
+		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Conversions"
+		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		LesserManaCost=".4" LesserManaCumulativeCost=".4" isHouse="false"
+		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
+		isSupport="true" StorageCapacity="0"
 		ConstructionItems="mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe"
 		PsychologyType="2" PsychologyInfluence="2" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
@@ -249,11 +256,11 @@
 	</Building>
 	<Building BuildingName="Mana Battery" BuildingTag="mana-battery"
 		BuildingDescription="Mana Batteries increase the amount of greater mana the base produces. They are also used in a number of higher-level building patterns."
-		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Mana Pool" ExtraWeight=""
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
-		LesserManaCumulativeCost=".4" isHouse="false" isNatural="false"
-		isPassable="true" Scalability="base,-" isStorage="false" isSupport="true"
-		StorageCapacity="0" ConstructionItems="pearlclay,pearlclay"
+		BuildTime="125" BuildingRequirements="base,clay-block" MenuCategory="Mana Pool"
+		ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
+		LesserManaCost=".4" LesserManaCumulativeCost=".4" isHouse="false"
+		isNatural="false" isPassable="true" Scalability="base,-" isStorage="false"
+		isSupport="true" StorageCapacity="0" ConstructionItems="pearlclay,pearlclay"
 		PsychologyType="1" PsychologyInfluence="3" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,manaBattery.png"></State>
@@ -263,12 +270,13 @@
 	<Building BuildingName="Pearlclay Studio" BuildingTag="pearlclay-studio"
 		BuildingDescription="Pearlclay Studios provide greater mana and can be used to produce pearlclay golems."
 		BuildTime="125" BuildingRequirements="base,mana-battery,e,mana-battery,w,mana-battery"
-		MenuCategory="Basic Needs" ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
-		LesserManaCost=".4" LesserManaCumulativeCost=".4" isHouse="false"
-		isNatural="false" isPassable="true" Scalability="base,-,e,-,w,-"
-		isStorage="false" isSupport="true" StorageCapacity="0"
-		ConstructionItems="pearlclay" PsychologyType="3" PsychologyInfluence="5"
-		UnlockedFromStart="true" Transform="" tickStart="-1">
+		MenuCategory="Basic Needs" ExtraWeight="" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".4"
+		LesserManaCumulativeCost=".4" isHouse="false" isNatural="false"
+		isPassable="true" Scalability="base,-,e,-,w,-" isStorage="false"
+		isSupport="true" StorageCapacity="0" ConstructionItems="pearlclay"
+		PsychologyType="3" PsychologyInfluence="5" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
 		<State StateName="state-default"
 			Graphic="base,pearlclayStudioMid.png,e,pearlclayStudioRight.png,w,pearlclayStudioLeft.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
@@ -277,28 +285,45 @@
 	<Building BuildingName="Kiln" BuildingTag="kiln"
 		BuildingDescription="Kilns are used for firing Earthenware Bricks, and to create Stoneware Golems."
 		BuildTime="125" BuildingRequirements="base,storage,e,storage,n,oven,ne,oven"
-		MenuCategory="Conversions" ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
-		LesserManaCost=".1" LesserManaCumulativeCost=".1" isHouse="false"
-		isNatural="false" isPassable="true" Scalability="base,-,e,-,n,-,ne,-"
-		isStorage="false" isSupport="true" StorageCapacity="0"
-		ConstructionItems="" PsychologyType="3" PsychologyInfluence="5"
-		UnlockedFromStart="true" Transform="" tickStart="-1">
+		MenuCategory="Conversions" ExtraWeight="" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
+		isPassable="true" Scalability="base,-,e,-,n,-,ne,-" isStorage="false"
+		isSupport="true" StorageCapacity="0" ConstructionItems=""
+		PsychologyType="3" PsychologyInfluence="5" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
 		<State StateName="state-default"
 			Graphic="base,kilnBottomLeft.png,e,kilnBottomRight.png,n,kilnTopLeft.png,ne,kilnTopRight.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
-		<Building BuildingName="Warrens" BuildingTag="warrens"
+	<Building BuildingName="Warrens" BuildingTag="warrens"
 		BuildingDescription="Warrens are used for the mass-production of golems. However, golems created out of warrens lack the individuality found in golems created in normal studios."
 		BuildTime="125" BuildingRequirements="base,house,e,house,n,house,ne,house"
-		MenuCategory="Culture" ExtraWeight="" GreaterManaCost="0" GreaterManaCumulativeCost="0"
-		LesserManaCost=".1" LesserManaCumulativeCost=".1" isHouse="false"
-		isNatural="false" isPassable="true" Scalability="base,-,e,-,n,-,ne,-"
-		isStorage="false" isSupport="true" StorageCapacity="0"
-		ConstructionItems="mana-pipe,mana-pipe,mana-pipe,mana-pipe" PsychologyType="2" PsychologyInfluence="20"
-		UnlockedFromStart="true" Transform="" tickStart="-1">
+		MenuCategory="Culture" ExtraWeight="" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
+		isPassable="true" Scalability="base,-,e,-,n,-,ne,-" isStorage="false"
+		isSupport="true" StorageCapacity="0"
+		ConstructionItems="mana-pipe,mana-pipe,mana-pipe,mana-pipe"
+		PsychologyType="2" PsychologyInfluence="20" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
 		<State StateName="state-default"
 			Graphic="base,warrensBottomLeft.png,e,warrensBottomRight.png,n,warrensTopLeft.png,ne,warrensTopRight.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
+	<Building BuildingName="Crèche" BuildingTag="creche"
+		BuildingDescription="Crèches are used to build golems, like Sculptors' Studios. However, the creation time and resource cost are increased, in exchange for higher-quality golems."
+		BuildTime="125" BuildingRequirements="base,sculptors-studio"
+		MenuCategory="Culture" ExtraWeight="" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
+		isPassable="true" Scalability="base,-,e,-,n,-,ne,-" isStorage="false"
+		isSupport="true" StorageCapacity="0" ConstructionItems="pearlclay"
+		PsychologyType="0" PsychologyInfluence="10" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
+		<State StateName="state-default" Graphic="base,creche.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
