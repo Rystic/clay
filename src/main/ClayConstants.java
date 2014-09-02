@@ -84,7 +84,7 @@ public class ClayConstants
 	public static final byte PSYCHOLOGY_HARD_WORKING = 2;
 	public static final byte PSYCHOLOGY_INFLUENTIAL = 3;
 
-	public static final Map<Integer, Byte> PERSONALITY_INTENSITY_MAP = new HashMap<Integer, Byte>();
+	public static final Map<Integer, Byte> PERSONALITY_GOLEMANITY_MAP = new HashMap<Integer, Byte>();
 
 	// Behavior Weight Conditions
 	public static final String WC_CALC_BUILDING = "calculate-extra-building-weight";

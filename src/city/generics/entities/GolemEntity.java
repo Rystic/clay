@@ -46,7 +46,7 @@ public class GolemEntity extends AbstractEntity
 				parentGolem_);
 
 		System.out.println("personality: " + _personality + "   psychology: "
-				+ _psychology + "   intensity: " + _intensity);
+				+ _psychology + "   golemanity: " + _golemanity);
 
 		_maxSpeed = _golemTemplate.getMoveSpeed();
 		calculateMoveVariation();
@@ -374,9 +374,9 @@ public class GolemEntity extends AbstractEntity
 		return _psychology;
 	}
 
-	public byte getIntensity()
+	public byte getGolemanity()
 	{
-		return _intensity;
+		return _golemanity;
 	}
 	
 	public float getTextureScaling()
@@ -399,9 +399,9 @@ public class GolemEntity extends AbstractEntity
 		_psychology = psychology_;
 	}
 
-	public void setIntensity(byte intensity_)
+	public void setGolemanity(byte golemanity_)
 	{
-		_intensity = intensity_;
+		_golemanity = golemanity_;
 	}
 
 	public List<String> getUnreachableBehaviors()
@@ -496,7 +496,7 @@ public class GolemEntity extends AbstractEntity
 
 	private byte _personality;
 	private byte _psychology;
-	private byte _intensity;
+	private byte _golemanity;
 
 	private boolean _tickComplete;
 	private boolean _visible;

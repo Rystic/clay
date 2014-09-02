@@ -71,7 +71,7 @@ public class BehaviorWeightCalculator
 		weight += 50 + ((houseCount - screen.getModel().getGolemCount()) * 10);
 		if (golem_.getPsychology() == ClayConstants.PSYCHOLOGY_INFLUENTIAL)
 		{
-			weight += 10 * (golem_.getIntensity() + 1);
+			weight += 10 * (golem_.getGolemanity() + 1);
 			int personality = golem_.getPersonality();
 			int personalityCount = 0;
 			int otherPersonalityCount = 0;
@@ -104,7 +104,7 @@ public class BehaviorWeightCalculator
 			int result = otherPersonalityCount - personalityCount;
 			if (result > 0)
 			{
-				double multiplier = 1 + ((double) (golem_.getIntensity() + 1) / 10);
+				double multiplier = 1 + ((double) (golem_.getGolemanity() + 1) / 10);
 				weight *= multiplier;
 				weight += 5 * result;
 			}

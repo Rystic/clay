@@ -25,7 +25,7 @@ public class GolemPersonalityCalculator
 				homeScreen_,
 				childGolem_,
 				parentGolem_));
-		childGolem_.setIntensity(generateIntensity(
+		childGolem_.setGolemanity(generateGolemanity(
 				homeScreen_,
 				childGolem_,
 				parentGolem_));
@@ -43,7 +43,7 @@ public class GolemPersonalityCalculator
 		{
 			int parentPersonality = parentGolem_.getPersonality();
 			int parentPersonalityBonus = parentGolem_.getPsychology() == ClayConstants.PSYCHOLOGY_INFLUENTIAL ? parentGolem_
-					.getIntensity() + 1 : 1;
+					.getGolemanity() + 1 : 1;
 			switch (parentPersonality)
 			{
 			case ClayConstants.PERSONALITY_AMBITIOUS:
@@ -114,10 +114,10 @@ public class GolemPersonalityCalculator
 		return ClayConstants.PSYCHOLOGY_INFLUENTIAL;
 	}
 
-	private static byte generateIntensity(AbstractScreen homeScreen_, GolemEntity childGolem_, GolemEntity parentGolem_)
+	private static byte generateGolemanity(AbstractScreen homeScreen_, GolemEntity childGolem_, GolemEntity parentGolem_)
 	{
-		int baseChance = INTENSITY_BASE_CHANCE;
-		byte intensity = 0;
+		int baseChance = GOLEMANITY_BASE_CHANCE;
+		byte golemanity = 0;
 		if (childGolem_.getPersonality() == ClayConstants.PERSONALITY_NONE)
 			return 0;
 		if (parentGolem_ != null)
@@ -125,18 +125,18 @@ public class GolemPersonalityCalculator
 			if (parentGolem_.getPsychology() == ClayConstants.PSYCHOLOGY_PARAGON)
 				baseChance += 20;
 			if (parentGolem_.getPersonality() == childGolem_.getPersonality())
-				intensity++;
+				golemanity++;
 		}
 		while (_random.nextInt(100) < baseChance)
 		{
-			intensity++;
-			baseChance -= INTENSITY_CHANCE_DECREASE;
+			golemanity++;
+			baseChance -= GOLEMANITY_CHANCE_DECREASE;
 		}
-		return intensity;
+		return golemanity;
 	}
 
 	private static final Random _random = new Random();
 
-	private static final int INTENSITY_BASE_CHANCE = 50;
-	private static final int INTENSITY_CHANCE_DECREASE = 10;
+	private static final int GOLEMANITY_BASE_CHANCE = 50;
+	private static final int GOLEMANITY_CHANCE_DECREASE = 10;
 }
