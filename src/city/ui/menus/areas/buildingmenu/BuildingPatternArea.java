@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import main.ClayConstants;
+import models.CityModel;
 
 import org.newdawn.slick.Color;
 
@@ -14,7 +15,7 @@ import city.generics.GenericBuilding;
 import city.generics.data.BuildingData;
 import city.ui.menus.areas.AbstractArea;
 import city.ui.menus.components.AbstractComponent;
-import city.ui.menus.components.ImageComponent;
+import city.ui.menus.components.SelectBuildingButton;
 import city.ui.menus.components.TextComponent;
 
 public class BuildingPatternArea extends AbstractArea
@@ -61,15 +62,22 @@ public class BuildingPatternArea extends AbstractArea
 							xDiff -= 11;
 					}
 				}
-				GenericBuilding building = BuildingData
+				final GenericBuilding building = BuildingData
 						.getBuildingByTag(placementMap.get(key));
 				if (building != null)
 				{
-					ImageComponent tc = new ImageComponent(15 + xDiff,
-							25 + yDiff, ClayConstants.TILE_X,
-							ClayConstants.TILE_Y, building.getTexture(
-									ClayConstants.T_STATE_DEFAULT,
-									ClayConstants.DEFAULT_BUILDING_POSITION));
+					SelectBuildingButton tc = new SelectBuildingButton(
+							15 + xDiff, 25 + yDiff, ClayConstants.TILE_X,
+							ClayConstants.TILE_Y, building)
+					{
+						@Override
+						public void clicked()
+						{
+							CityModel model = ((CityModel)_homeScreen.getModel());
+							model.setSelectedBuilding(building.getBuildingIdentifier());
+						}
+					};
+					tc.setDrawRatio(.77f);
 					if (base)
 						tc.setColor(_unhighlightedColor);
 					tempComponents.add(tc);
