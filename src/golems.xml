@@ -19,10 +19,20 @@
 		LowManaTexture="pearlclayLowMana.png" LowManaLowClayTexture="pearlclayLowManaLowClay.png"></Golem>
 
 	<Golem GolemName="Stoneware Golem" GolemTag="stoneware-golem"
-		MoveSpeed="2" MoveVariation="0" NeededBehaviors="repair-stoneware,power-obelisk,store-items"
+		MoveSpeed="2" MoveVariation="0"
+		NeededBehaviors="repair-stoneware,power-obelisk,store-items"
 		StartingMana="50" StartingClay="250" MaximumMana="100" MaximumClay="450"
 		ManaLostOnMovement=".0001" LowManaThreshold="20" LowClayThreshold="150"
 		PersonalBehaviorChance="0" SpriteSize="40" TextureScaling=".80"
 		DefaultTexture="stonewareGolem.png" LowClayTexture="stonewareLowClay.png"
 		LowManaTexture="stonewareLowMana.png" LowManaLowClayTexture="stonewareLowManaLowClay.png"></Golem>
+	
+	<Golem GolemName="Warrens Golem" GolemTag="warrens-golem"
+		MoveSpeed="2" MoveVariation="0"
+		NeededBehaviors="repair-clay,power-obelisk,store-items"
+		StartingMana="50" StartingClay="50" MaximumMana="75" MaximumClay="75"
+		ManaLostOnMovement=".0001" LowManaThreshold="25" LowClayThreshold="25"
+		PersonalBehaviorChance="0" SpriteSize="30" TextureScaling=".80"
+		DefaultTexture="warrensGolem.png" LowClayTexture="warrensGolemLowClay.png"
+		LowManaTexture="warrensGolemLowMana.png" LowManaLowClayTexture="warrensGolemLowManaLowClay.png"></Golem>
 </Golems>

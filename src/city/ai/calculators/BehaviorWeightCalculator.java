@@ -30,6 +30,9 @@ public class BehaviorWeightCalculator
 			else if (weightCondition
 					.equals(ClayConstants.WC_CAN_BUILD_STONEWARE_GOLEM))
 				addedWeight = _canBuildStonewareGolem(golem_, params_);
+			else if (weightCondition
+					.equals(ClayConstants.WC_CAN_BUILD_WARRENS_GOLEM))
+				addedWeight = _canBuildWarrensGolem(golem_, params_);
 			else if (weightCondition.equals(ClayConstants.WC_CLOSEST_TO_POINT))
 				addedWeight = _closestToPoint(golem_, params_);
 			else if (weightCondition.equals(ClayConstants.WC_HOLDING_ITEM))
@@ -199,6 +202,36 @@ public class BehaviorWeightCalculator
 			if (golem_.getPersonality() == ClayConstants.PERSONALITY_AMBITIOUS)
 				weightMultiplier += 3;
 			weight = ((kilns.size() * 2) - stonewareCount) * 10
+					* weightMultiplier;
+		}
+		return weight;
+	}
+	
+	private static int _canBuildWarrensGolem(GolemEntity golem_, Object[] params_)
+	{
+		if (golem_.getPersonality() == ClayConstants.PERSONALITY_CREATIVE)
+			return  Integer.MIN_VALUE;
+		int weight = 0;
+		CityScreen screen = (CityScreen) golem_.getHomeScreen();
+		int warrensGolemCount = 0;
+		List<GolemEntity> golems = screen.getModel().getGolems();
+		for (GolemEntity entity : golems)
+		{
+			if (entity.getGolemTag().equals(ClayConstants.GOLEM_WARRENS))
+				warrensGolemCount++;
+		}
+		Integer buildingId = BuildingData.getBuildingByTag("warrens")
+				.getBuildingIdentifier();
+		List<BuildingEntity> warrens = screen.getModel().getBuildingMap()
+				.get(buildingId);
+		if (warrens == null || warrensGolemCount > warrens.size() * 4)
+			weight = Integer.MIN_VALUE;
+		else
+		{
+			int weightMultiplier = 1;
+			if (golem_.getPersonality() == ClayConstants.PERSONALITY_AMBITIOUS)
+				weightMultiplier += 3;
+			weight = ((warrens.size() * 4) - warrensGolemCount) * 10
 					* weightMultiplier;
 		}
 		return weight;

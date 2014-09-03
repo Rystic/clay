@@ -68,6 +68,13 @@ public class BehaviorInstructionCalculator
 					ClayConstants.GOLEM_STONEWARE);
 
 		else if (com
+				.equals(ClayConstants.BEHAVIOR_COMMAND_CREATE_WARRENS_GOLEM))
+			complete = _createGolem(
+					executingEntity_,
+					model,
+					ClayConstants.GOLEM_WARRENS);
+		
+		else if (com
 				.equals(ClayConstants.BEHAVIOR_COMMAND_HARVEST_ITEMS_ON_BUILDING))
 			complete = _harvestItemsOnBuilding(
 					executingEntity_,
