@@ -53,6 +53,7 @@ public class CategorySelectionArea extends AbstractArea
 		_components.add(new HorizontalLineComponent(increment + 1, 2));
 		_category = ClayConstants.DEFAULT_BUILDING_MENU_CATEGORY;
 		_buildingIdentifier = -1;
+		updateHighlight(_category);
 	}
 
 	public void updateSelection(int key_)
