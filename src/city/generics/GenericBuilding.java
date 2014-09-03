@@ -68,7 +68,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 				.getAttribute("isSupport"));
 		_unlockedFromStart = FieldParser.parseBoolean(eElement
 				.getAttribute("UnlockedFromStart"));
-		
+
 		_psychologyType = FieldParser.parseByte(eElement
 				.getAttribute("PsychologyType"));
 		_psychologyInfluence = FieldParser.parseByte(eElement
@@ -231,8 +231,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 			BuildingEntity tileBuilding = tiles_[p_.x + xDiff][p_.y + yDiff];
 			if (building == null)
 			{
-				if (tileBuilding == null
-						|| (tileBuilding != null && !tileBuilding.isNatural()))
+				if (tileBuilding == null)
 					continue;
 			}
 			else if (tileBuilding != null
@@ -642,7 +641,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	{
 		return _buildingTag;
 	}
-	
+
 	public String getMenuCategory()
 	{
 		return _menuCategory;
@@ -737,7 +736,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	{
 		return _psychologyType;
 	}
-	
+
 	public byte getPsychologyInfluence()
 	{
 		return _psychologyInfluence;
@@ -752,7 +751,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	{
 		return _validPlacementMap;
 	}
-	
+
 	@Override
 	public int compare(GenericBuilding gb1, GenericBuilding gb2)
 	{
@@ -767,13 +766,13 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		return _buildingIdentifier == ((GenericBuilding) obj)
 				.getBuildingIdentifier();
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
 		return _buildingIdentifier;
 	}
-	
+
 	private final Map<String, Map<String, Texture>> _stateMap = new HashMap<String, Map<String, Texture>>();
 
 	private final Map<String, String> _validPlacementMap = new HashMap<String, String>();
@@ -803,7 +802,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 
 	private final byte _psychologyType;
 	private final byte _psychologyInfluence;
-	
+
 	private final boolean _isHouse;
 	private final boolean _isNatural;
 	private final boolean _isPassable;
