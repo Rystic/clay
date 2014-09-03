@@ -1,5 +1,7 @@
 package city.ui.menus.areas.buildingmenu;
 
+import org.newdawn.slick.Color;
+
 import main.ClayConstants;
 import screens.AbstractScreen;
 import screens.CityScreen;
@@ -30,6 +32,12 @@ public class BuildingDescriptionArea extends AbstractArea
 			_components
 					.add(new TextComponent(5, 61, BuildingData.getBuildingById(
 							selectedBuilding).getBuildingDescription()));
+			_components.add(new TextComponent(5, 91,
+					"Press TAB to view building menu.", Color.green));
+			_components.add(new TextComponent(5, 94,
+					"Press 'A' to view Attributes.", Color.green));
+			_components.add(new TextComponent(5, 97, "Press 'L' to view Lore.",
+					Color.green));
 		}
 	}
 

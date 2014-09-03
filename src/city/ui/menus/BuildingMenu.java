@@ -8,6 +8,7 @@ import org.lwjgl.input.Keyboard;
 
 import screens.AbstractScreen;
 import city.ui.menus.areas.buildingmenu.BuildResourceCostArea;
+import city.ui.menus.areas.buildingmenu.BuildingAttributeArea;
 import city.ui.menus.areas.buildingmenu.BuildingDescriptionArea;
 import city.ui.menus.areas.buildingmenu.BuildingPatternArea;
 import city.ui.menus.areas.buildingmenu.BuildingSelectionArea;
@@ -33,6 +34,8 @@ public class BuildingMenu extends AbstractMenu
 		_buildingResourceCostArea = new BuildResourceCostArea(_homeScreen);
 		_buildingDescriptionArea = new BuildingDescriptionArea(_homeScreen);
 
+		_buildingAttributeArea = new BuildingAttributeArea(_homeScreen);
+
 		_areas.add(_categorySelectionArea);
 		_areas.add(_categoryDescriptionArea);
 		_areas.add(_buildingSelectionArea);
@@ -46,16 +49,19 @@ public class BuildingMenu extends AbstractMenu
 	{
 		if (Keyboard.KEY_TAB == key_)
 		{
-			_buildingInfo = !_buildingInfo;
+			if (!_buildingAttribute)
+				_buildingInfo = !_buildingInfo;
 			if (_buildingInfo)
 			{
 				_areas.remove(_categorySelectionArea);
 				_areas.remove(_categoryDescriptionArea);
 				_areas.remove(_buildingSelectionArea);
+				_areas.remove(_buildingAttributeArea);
 
 				_areas.add(_buildingPatternArea);
 				_areas.add(_buildingResourceCostArea);
 				_areas.add(_buildingDescriptionArea);
+				_buildingAttribute = false;
 			}
 			else
 			{
@@ -66,13 +72,25 @@ public class BuildingMenu extends AbstractMenu
 				_areas.remove(_buildingPatternArea);
 				_areas.remove(_buildingResourceCostArea);
 				_areas.remove(_buildingDescriptionArea);
+
 			}
 		}
 		else
 		{
-			_categorySelectionArea.updateSelection(key_);
-			_categoryDescriptionArea.updateSelection(key_);
-			_buildingSelectionArea.updateCategorySelection(key_);
+			if (!_buildingInfo)
+			{
+				_categorySelectionArea.updateSelection(key_);
+				_categoryDescriptionArea.updateSelection(key_);
+				_buildingSelectionArea.updateCategorySelection(key_);
+			}
+			else if (Keyboard.KEY_A == key_ && !_buildingAttribute)
+			{
+				_areas.remove(_buildingPatternArea);
+				_areas.remove(_buildingResourceCostArea);
+				_areas.remove(_buildingDescriptionArea);
+				_areas.add(_buildingAttributeArea);
+				_buildingAttribute = true;
+			}
 		}
 	}
 
@@ -111,5 +129,8 @@ public class BuildingMenu extends AbstractMenu
 	private BuildResourceCostArea _buildingResourceCostArea;
 	private BuildingDescriptionArea _buildingDescriptionArea;
 
+	private BuildingAttributeArea _buildingAttributeArea;
+
 	private boolean _buildingInfo;
+	private boolean _buildingAttribute;
 }

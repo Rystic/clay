@@ -24,7 +24,7 @@ public class BackgroundEffect extends AbstractEffect
 		try
 		{
 			_skyTexture = TextureLoader.getTexture("JPG", new FileInputStream(
-					new File("art/sky3.jpg")));
+					new File("art/rainy.jpg")));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
