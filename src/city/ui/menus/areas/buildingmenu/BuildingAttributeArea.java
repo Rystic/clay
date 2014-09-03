@@ -1,15 +1,14 @@
 package city.ui.menus.areas.buildingmenu;
 
-import main.ClayConstants;
-
 import org.newdawn.slick.Color;
 
 import screens.AbstractScreen;
 import screens.CityScreen;
 import city.generics.GenericBuilding;
 import city.generics.data.BuildingData;
+import city.generics.util.FieldParser;
 import city.ui.menus.areas.AbstractArea;
-import city.ui.menus.components.HorizontalLineComponent;
+import city.ui.menus.components.ImageComponent;
 import city.ui.menus.components.TextComponent;
 
 public class BuildingAttributeArea extends AbstractArea
@@ -44,29 +43,39 @@ public class BuildingAttributeArea extends AbstractArea
 					.getBuildingById(selectedBuilding);
 			if (building.isSupport())
 			{
-				_components.add(new TextComponent(5, increment,
+				addBullet(increment);
+				_components.add(new TextComponent(8, increment,
 						"Can support structures."));
 			}
 			else
 			{
-				_components.add(new TextComponent(5, increment,
+				addBullet(increment);
+				_components.add(new TextComponent(8, increment,
 						"Cannot support structures."));
 			}
 			increment += 3;
 			if (building.isHouse())
 			{
-				_components.add(new TextComponent(5, increment,
+				addBullet(increment);
+				_components.add(new TextComponent(8, increment,
 						"Can be used for repairs by clay golems."));
 				increment += 3;
 			}
 			if (building.isStorage())
 			{
-				_components.add(new TextComponent(5, increment,
+				addBullet(increment);
+				_components.add(new TextComponent(8, increment,
 						"Storage capacity of " + building.getStorageCapacity()
 								+ ".", Color.yellow));
 				increment += 3;
 			}
 		}
+	}
+	
+	private void addBullet(int increment_)
+	{
+		_components.add(new ImageComponent(0, increment_ + 3, 28, 28, FieldParser.parseTexture("menuBullet.png")));
+
 	}
 
 	private int _selectedBuilding;

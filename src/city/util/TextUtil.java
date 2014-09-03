@@ -36,11 +36,13 @@ public class TextUtil
 
 	}
 
-	public static void drawString(TextComponent t_, int x_, int y_)
+	public static int drawString(TextComponent t_, int x_, int y_)
 	{
 		float xf = (float) x_;
 		float yf = (float) y_;
 
+		int lines = 1;
+		
 		String[] text = t_.getText().split(" ");
 		StringBuilder builder = new StringBuilder(30);
 		for (int i = 0; i < text.length; i++)
@@ -50,6 +52,7 @@ public class TextUtil
 				_font.drawString(xf, yf, builder.toString(), t_.getColor());
 				builder.setLength(0);
 				yf += LINE_BREAK_Y_INCREMENT;
+				lines++;
 			}
 			builder.append(text[i]);
 			builder.append(" ");
@@ -58,6 +61,7 @@ public class TextUtil
 		_font2.drawString(0, 0, "", Color.yellow); // If this line isn't here,
 													// nothing draws. I have no
 													// idea why.
+		return lines;
 	}
 
 	private static TrueTypeFont _font;
