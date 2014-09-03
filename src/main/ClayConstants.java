@@ -45,6 +45,7 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_CREATE_WARRENS_GOLEM = "create-warrens-golem";
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED = "consume-claimed";
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED_CONSTRUCTION = "consume-claimed-construction";
+	public static final String BEHAVIOR_COMMAND_DECONSTRUCT = "deconstruct";
 	public static final String BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_ITEM = "entity-not-holding-item";
 	public static final String BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_UNNECESSARY_ITEM = "entity-not-holding-unnecessary-item";
 	public static final String BEHAVIOR_COMMAND_HARVEST_ITEMS_ON_BUILDING = "harvest-items-on-building";

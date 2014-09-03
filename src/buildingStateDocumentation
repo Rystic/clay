@@ -30,8 +30,11 @@ add-mana:int - Tells the golem to increase the city's mana by the given amount.
 build:building-entity,building-entity - Tells the golem to move to the first parameter, and start construction on the second parameter.
 create-clay-golem:abstract-entity - creates a clay golem at the given entity.
 create-pearlclay-golem:abstract-entity - creates a pearlclay golem at the given entity.
+create-stoneware-golem:abstract-entity - creates a stoneware golem at the given entity.
+create-warrens-golem:abstract-entity - creates a warrens golem at the given entity.
 consume-claimed - consumes all claimed items the entity is holding.
 consume-claimed-construction:building-entity - consumes all claimed items the building is holding
+deconstruct:building-entity - converts the building and all its parts into clay blocks. 
 harvest-items-on-building:<building-entity> - queues harvest tasks for all items on a building.
 hide - Hides the golem until a show command, the behavior finishes, or the behavior fails.
 produce-items-on-building:<item-tag,item-tag...item-tag> - Produces items on the executing golem's claimed building.

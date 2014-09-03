@@ -38,7 +38,7 @@ public class BuildingPlacementController extends AbstractProcess
 			if (leftClick)
 				destroyBuilding(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
 			else
-				highlightBuilding(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
+				highlightBuildingForDeletion(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
 
 		}
 		else if (leftClick)
@@ -113,12 +113,15 @@ public class BuildingPlacementController extends AbstractProcess
 					&& !building.getBuildingTag().equals(
 							ClayConstants.DEFAULT_TILE_TYPE))
 			{
-				building.deleteBuilding();
+				if (!building.isBuilt())
+					building.deleteBuilding();
+				else
+					building.markForDeletion(true);
 			}
 		}
 	}
 
-	private void highlightBuilding(int x_, int y_)
+	private void highlightBuildingForDeletion(int x_, int y_)
 	{
 		if (x_ >= ClayConstants.DEFAULT_MAP_WIDTH / ClayConstants.TILE_X)
 			return;
@@ -130,7 +133,7 @@ public class BuildingPlacementController extends AbstractProcess
 					&& !building.getBuildingTag().equals(
 							ClayConstants.DEFAULT_TILE_TYPE))
 			{
-				building.highlightAll();
+				building.highlightAllForDeletion();
 			}
 		}
 	}

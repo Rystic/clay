@@ -15,10 +15,12 @@ import org.newdawn.slick.opengl.Texture;
 
 import screens.AbstractScreen;
 import city.generics.GenericBuilding;
+import city.generics.data.BehaviorData;
 import city.generics.data.BuildingData;
 import city.generics.objects.Behavior;
 import city.generics.objects.Item;
 import city.processes.BuildingTickProcess;
+import city.processes.GolemBehaviorProcess;
 import city.processes.StorageInventoryProcess;
 import city.util.MapUpdateEvent;
 
@@ -49,6 +51,8 @@ public class BuildingEntity extends AbstractEntity implements
 				&& _building.getBuildingTag().equals(
 						ClayConstants.DEFAULT_TILE_TYPE))
 			((CityModel) _model).addToBuildingMap(this);
+
+		_markedForDeletion = false;
 
 		EventBus.subscribe(MapUpdateEvent.class, this);
 	}
@@ -266,6 +270,29 @@ public class BuildingEntity extends AbstractEntity implements
 	public void setAllTiles(List<BuildingEntity> allBuildingTiles_)
 	{
 		_allBuildingTiles = allBuildingTiles_;
+	}
+
+	public void markForDeletion(boolean first_)
+	{
+		if (_markedForDeletion) return;
+		_markedForDeletion = true;
+		if (!first_) return;
+		if (_allBuildingTiles == null)
+		{
+			_allBuildingTiles = new ArrayList<BuildingEntity>();
+			_allBuildingTiles.add(this);
+		}
+		BuildingTickProcess tickProcess = (BuildingTickProcess) _homeScreen
+				.getProcess(BuildingTickProcess.class);
+		for (BuildingEntity building : _allBuildingTiles)
+		{
+			building.releaseAll();
+			tickProcess.unregister(building);
+			building.markForDeletion(false);
+		}
+		GolemBehaviorProcess behaviorProcess = (GolemBehaviorProcess) _homeScreen
+				.getProcess(GolemBehaviorProcess.class);
+		behaviorProcess.queueBehavior(new Behavior(BehaviorData.getBehavior("deconstruct-building"), this));
 	}
 
 	public void deleteBuilding()
@@ -526,27 +553,27 @@ public class BuildingEntity extends AbstractEntity implements
 		_activeBehaviors.removeAll(obsoleteBehaviors);
 	}
 
-	public void highlightAll()
+	public void highlightAllForDeletion()
 	{
 		if (_allBuildingTiles == null)
-			setHighlighted(true);
+			setHighlightedForDeletion(true);
 		else
 		{
 			for (BuildingEntity building : _allBuildingTiles)
 			{
-				building.setHighlighted(true);
+				building.setHighlightedForDeletion(true);
 			}
 		}
 	}
 
-	public void setHighlighted(boolean isHighlighted_)
+	public void setHighlightedForDeletion(boolean isHighlighted_)
 	{
 		_isHighlighted = isHighlighted_;
 	}
 
 	public boolean isHighlighted()
 	{
-		return _isHighlighted;
+		return _markedForDeletion || _isHighlighted;
 	}
 
 	@Override
@@ -590,5 +617,6 @@ public class BuildingEntity extends AbstractEntity implements
 	private boolean _tickReset;
 	private boolean _isBase;
 	private boolean _isHighlighted;
+	private boolean _markedForDeletion;
 
 }

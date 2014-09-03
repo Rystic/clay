@@ -33,7 +33,7 @@ public class ArchitectureEffect extends AbstractEffect
 					if (tile.isHighlighted())
 					{
 						GL11.glColor3f(0.75f, 0.0f, .0f);
-						tile.setHighlighted(false);
+						tile.setHighlightedForDeletion(false);
 					}
 					GL11.glBindTexture(GL11.GL_TEXTURE_2D, tile.getTexture()
 							.getTextureID());

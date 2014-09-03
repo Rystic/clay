@@ -74,6 +74,12 @@ public class BehaviorInstructionCalculator
 					model,
 					ClayConstants.GOLEM_WARRENS);
 		
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_DECONSTRUCT))
+			complete = _deconstruct(
+					executingEntity_,
+					commandAndParams,
+					behaviorParams_);
+		
 		else if (com
 				.equals(ClayConstants.BEHAVIOR_COMMAND_HARVEST_ITEMS_ON_BUILDING))
 			complete = _harvestItemsOnBuilding(
@@ -492,6 +498,20 @@ public class BehaviorInstructionCalculator
 		return true;
 	}
 
+	private static boolean _deconstruct(GolemEntity executingEntity_, String[] commandAndParams_, Object[] behaviorParams_)
+	{
+		BuildingEntity entity = (BuildingEntity) behaviorParams_[Integer
+				.parseInt(commandAndParams_[1])];
+		if (executingEntity_.isTickComplete())
+		{
+			entity.deleteBuilding();
+			return true;
+		}
+		else
+			executingEntity_.setTickAndRate(entity.getBuildTime(), 1);
+		return false;
+	}
+	
 	private static boolean _entityNotHoldingItem(GolemEntity executingEntity_)
 	{
 		return executingEntity_.getCopyOfHeldItems().isEmpty();
