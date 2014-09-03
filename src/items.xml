@@ -6,6 +6,10 @@
 	<Item ItemName="Stoneware Brick" ItemTag="stoneware-brick"
 		Texture="itemStonewareBrick.png" ItemFamily="Clay" Parent="inert-clay"
 		Children=""></Item>
+	
+		<Item ItemName="Casing" ItemTag="casing"
+		Texture="itemCasing.png" ItemFamily="Clay" Parent="stoneware-brick"
+		Children=""></Item>
 
 	<Item ItemName="Saturated Clay" ItemTag="saturated-clay" Texture="itemSaturatedClay.png"
 		ItemFamily="Mana" Parent="" Children="mana-pipe"></Item>

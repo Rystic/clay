@@ -67,7 +67,7 @@
 		<Behavior BehaviorName="Build Warrens Golem" BehaviorTag="build-warrens-golem"
 		BehaviorDescription="text:Constructing warrens golems." weight="can-build-warrens-golem"
 		defaultParams="warrens" personalBehavior="true" limit="1" golemCost="clay:-2,mana:-4"
-		require="entity-not-holding-item,claim-generic-building:0,claim-items:inert-clay:inert-clay:inert-clay:saturated-clay"
+		require="entity-not-holding-item,claim-generic-building:0,claim-items:casing:casing:casing:casing:saturated-clay"
 		code="seek-claimed-items,consume-claimed,hide,tick:250,show,create-warrens-golem,create-warrens-golem,create-warrens-golem,create-warrens-golem"></Behavior>
 
 	<Behavior BehaviorName="Conversion" BehaviorTag="conversion"

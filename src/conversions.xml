@@ -12,6 +12,11 @@
 
 	<Conversion ConversionName="Produce Stoneware"
 		ConversionTag="stoneware-brick" ConversionBuilding="oven"
-		ConversionInput="inert-clay,mana-pipe,mana-pipe" ConversionOutput="stoneware-brick"></Conversion>
+		ConversionInput="inert-clay,inert-clay,mana-pipe" ConversionOutput="stoneware-brick"></Conversion>
+
+	<Conversion ConversionName="Produce Casing" ConversionTag="casing"
+		ConversionBuilding="kiln"
+		ConversionInput="stoneware-brick,stoneware-brick,mana-pipe,mana-pipe"
+		ConversionOutput="casing"></Conversion>
 
 </Conversions>
