@@ -34,7 +34,8 @@ create-stoneware-golem:abstract-entity - creates a stoneware golem at the given 
 create-warrens-golem:abstract-entity - creates a warrens golem at the given entity.
 consume-claimed - consumes all claimed items the entity is holding.
 consume-claimed-construction:building-entity - consumes all claimed items the building is holding
-deconstruct:building-entity - converts the building and all its parts into clay blocks. 
+deconstruct:building-entity - converts the building and all its parts into clay blocks.
+generate-heat:<integer> - generates <integer> heat on all parts of the building, and half heat on adjacent buildings.
 harvest-items-on-building:<building-entity> - queues harvest tasks for all items on a building.
 hide - Hides the golem until a show command, the behavior finishes, or the behavior fails.
 produce-items-on-building:<item-tag,item-tag...item-tag> - Produces items on the executing golem's claimed building.

@@ -21,6 +21,7 @@ import city.generics.objects.Behavior;
 import city.generics.objects.Item;
 import city.processes.BuildingTickProcess;
 import city.processes.GolemBehaviorProcess;
+import city.processes.HeatTickProcess;
 import city.processes.StorageInventoryProcess;
 import city.util.MapUpdateEvent;
 
@@ -53,6 +54,7 @@ public class BuildingEntity extends AbstractEntity implements
 			((CityModel) _model).addToBuildingMap(this);
 
 		_markedForDeletion = false;
+		_heat = 0;
 
 		EventBus.subscribe(MapUpdateEvent.class, this);
 	}
@@ -274,9 +276,11 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public void markForDeletion(boolean first_)
 	{
-		if (_markedForDeletion) return;
+		if (_markedForDeletion)
+			return;
 		_markedForDeletion = true;
-		if (!first_) return;
+		if (!first_)
+			return;
 		if (_allBuildingTiles == null)
 		{
 			_allBuildingTiles = new ArrayList<BuildingEntity>();
@@ -292,13 +296,16 @@ public class BuildingEntity extends AbstractEntity implements
 		}
 		GolemBehaviorProcess behaviorProcess = (GolemBehaviorProcess) _homeScreen
 				.getProcess(GolemBehaviorProcess.class);
-		behaviorProcess.queueBehavior(new Behavior(BehaviorData.getBehavior("deconstruct-building"), this));
+		behaviorProcess.queueBehavior(new Behavior(BehaviorData
+				.getBehavior("deconstruct-building"), this));
 	}
 
 	public void deleteBuilding()
 	{
-		BuildingTickProcess process = (BuildingTickProcess) _homeScreen
+		BuildingTickProcess behaviorTickProcess = (BuildingTickProcess) _homeScreen
 				.getProcess(BuildingTickProcess.class);
+		HeatTickProcess heatTickProcess = (HeatTickProcess) _homeScreen
+				.getProcess(HeatTickProcess.class);
 		CityModel model = (CityModel) _homeScreen.getModel();
 		if (_heldItems.size() > 0)
 		{
@@ -321,7 +328,8 @@ public class BuildingEntity extends AbstractEntity implements
 		for (BuildingEntity building : _allBuildingTiles)
 		{
 			building.releaseAll();
-			process.unregister(building);
+			behaviorTickProcess.unregister(building);
+			heatTickProcess.unregister(building);
 			model.clearTile(building.getGridX(), building.getGridY());
 		}
 
@@ -571,9 +579,76 @@ public class BuildingEntity extends AbstractEntity implements
 		_isHighlighted = isHighlighted_;
 	}
 
-	public boolean isHighlighted()
+	public boolean isHighlightedForDeletion()
 	{
 		return _markedForDeletion || _isHighlighted;
+	}
+
+	public void heatTick()
+	{
+		if (_heat > 0)
+			_heat--;
+	}
+
+	public void addHeatAll(int heat_)
+	{
+		if (_allBuildingTiles == null)
+		{
+			addHeat(heat_);
+			addHeatAdjacent(heat_ / 2);
+		}
+		else
+		{
+			for (BuildingEntity building : _allBuildingTiles)
+			{
+				building.addHeat(heat_);
+				building.addHeatAdjacent(heat_ / 2);
+			}
+		}
+	}
+
+	private void addHeatAdjacent(int heat_)
+	{
+		BuildingEntity[][] tiles = ((CityModel) _model).getTileValues();
+		int x = getGridX();
+		int y = getGridY();
+		if (x - 1 >= 0 && tiles[x - 1][y] != null)
+		{
+			if (_allBuildingTiles == null || !_allBuildingTiles.contains(tiles[x - 1][y]))
+				tiles[x - 1][y].addHeat(heat_);
+		}
+		if (x + 1 < tiles.length && tiles[x + 1][y] != null)
+		{
+			if (_allBuildingTiles == null || !_allBuildingTiles.contains(tiles[x + 1][y]))
+				tiles[x + 1][y].addHeat(heat_);
+		}
+		if (y - 1 >= 0 && tiles[x][y - 1] != null)
+		{
+			if (_allBuildingTiles == null || !_allBuildingTiles.contains(tiles[x][y - 1]))
+				tiles[x][y - 1].addHeat(heat_);
+		}
+		if (y + 1 < tiles[0].length && tiles[x][y + 1] != null)
+		{
+			if (_allBuildingTiles == null || !_allBuildingTiles.contains(tiles[x][y + 1]))
+				tiles[x][y + 1].addHeat(heat_);
+		}
+	}
+
+	private void addHeat(int heat_)
+	{
+		((HeatTickProcess) _homeScreen.getProcess(HeatTickProcess.class))
+				.register(this);
+		_heat += heat_;
+	}
+
+	public boolean isHeated()
+	{
+		return _heat > 0;
+	}
+
+	public boolean isOverheated()
+	{
+		return _heat >= _building.getFirstHeatThreshold();
 	}
 
 	@Override
@@ -612,6 +687,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	private int _buildTime;
 	private int _tickTime;
+	private int _heat;
 
 	private boolean _built;
 	private boolean _tickReset;

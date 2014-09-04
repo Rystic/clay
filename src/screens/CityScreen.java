@@ -22,6 +22,7 @@ import city.generics.entities.BuildingEntity;
 import city.processes.BuildingTickProcess;
 import city.processes.GolemBehaviorProcess;
 import city.processes.GolemMaintenanceProcess;
+import city.processes.HeatTickProcess;
 import city.processes.ResourceManagerProcess;
 import city.processes.StorageInventoryProcess;
 import city.ui.menus.AbstractMenu;
@@ -71,6 +72,7 @@ public class CityScreen extends AbstractScreen
 		_processes.add(new BuildingTickProcess(this));
 		_processes.add(new ResourceManagerProcess(this));
 		_processes.add(new StorageInventoryProcess(this));
+		_processes.add(new HeatTickProcess(this));
 	}
 
 	public void initTerrain()

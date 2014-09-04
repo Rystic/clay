@@ -6,12 +6,11 @@
 		defaultParams="" personalBehavior="false" limit="-1" golemCost="clay:-2"
 		require="entity-not-holding-unnecessary-item:0,claim-building:0,claim-construction-items:0"
 		code="seek-claimed-construction-items:0,seek:0,consume-claimed-construction:0,build:1"></Behavior>
-	
-		<Behavior BehaviorName="Deconstruct Building" BehaviorTag="deconstruct-building"
+
+	<Behavior BehaviorName="Deconstruct Building" BehaviorTag="deconstruct-building"
 		BehaviorDescription="text:Deconstructing ,building:0,text:." weight="closest-to-point,calculate-extra-building-weight"
 		defaultParams="" personalBehavior="false" limit="-1" golemCost="clay:-2"
-		require="entity-not-holding-item,claim-building:0"
-		code="seek:0,deconstruct:0"></Behavior>
+		require="entity-not-holding-item,claim-building:0" code="seek:0,deconstruct:0"></Behavior>
 
 	<Behavior BehaviorName="Harvest" BehaviorTag="harvest"
 		BehaviorDescription="text:Harvesting ,item:1,text:." weight="closest-to-point"
@@ -42,11 +41,10 @@
 		golemCost="mana:-2"
 		require="entity-not-holding-item,claim-generic-building:0,claim-items:saturated-clay"
 		code="seek-claimed-items,consume-claimed,tick:50,add-clay:20,add-mana:5,produce-item-on-golem:1"></Behavior>
-	
-		<Behavior BehaviorName="Repair (Stoneware)" BehaviorTag="repair-stoneware"
+
+	<Behavior BehaviorName="Repair (Stoneware)" BehaviorTag="repair-stoneware"
 		weight="low-clay" BehaviorDescription="text:Repairing itself."
-		defaultParams="kiln" personalBehavior="true" limit="-1"
-		golemCost="mana:-2"
+		defaultParams="kiln" personalBehavior="true" limit="-1" golemCost="mana:-2"
 		require="entity-not-holding-item,claim-generic-building:0,claim-items:saturated-clay:stoneware-brick"
 		code="seek-claimed-items,consume-claimed,tick:80,add-clay:80,"></Behavior>
 
@@ -69,10 +67,11 @@
 		defaultParams="kiln" personalBehavior="true" limit="1" golemCost="clay:-2,mana:-4"
 		require="entity-not-holding-item,claim-generic-building:0,claim-items:stoneware-brick:stoneware-brick:stoneware-brick:mana-pipe:mana-pipe:saturated-clay"
 		code="seek-claimed-items,consume-claimed,hide,tick:250,show,create-stoneware-golem"></Behavior>
-	
-		<Behavior BehaviorName="Build Warrens Golem" BehaviorTag="build-warrens-golem"
+
+	<Behavior BehaviorName="Build Warrens Golem" BehaviorTag="build-warrens-golem"
 		BehaviorDescription="text:Constructing warrens golems." weight="can-build-warrens-golem"
-		defaultParams="warrens" personalBehavior="true" limit="1" golemCost="clay:-2,mana:-4"
+		defaultParams="warrens" personalBehavior="true" limit="1"
+		golemCost="clay:-2,mana:-4"
 		require="entity-not-holding-item,claim-generic-building:0,claim-items:casing:casing:casing:casing:saturated-clay"
 		code="seek-claimed-items,consume-claimed,hide,tick:250,show,create-warrens-golem,create-warrens-golem,create-warrens-golem,create-warrens-golem"></Behavior>
 
@@ -80,6 +79,6 @@
 		BehaviorDescription="text:Creating ,item:2,text:." weight="closest-to-point"
 		defaultParams="" personalBehavior="false" limit="-1" golemCost="clay:-2,mana:-4"
 		require="entity-not-holding-item,claim-building:0,claim-parameter-items:1"
-		code="seek-claimed-items,consume-claimed,hide,tick:75,show,produce-items-on-building:2,harvest-items-on-building:0"></Behavior>
+		code="seek-claimed-items,consume-claimed,hide,tick:75,show,produce-items-on-building:2,harvest-items-on-building:0,generate-heat:3"></Behavior>
 
 </Behaviors>

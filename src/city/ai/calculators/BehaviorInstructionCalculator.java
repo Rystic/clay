@@ -73,13 +73,18 @@ public class BehaviorInstructionCalculator
 					executingEntity_,
 					model,
 					ClayConstants.GOLEM_WARRENS);
-		
+
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_DECONSTRUCT))
 			complete = _deconstruct(
 					executingEntity_,
 					commandAndParams,
 					behaviorParams_);
-		
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_GENERATE_HEAT))
+			complete = _generateHeat(
+					executingEntity_,
+					model,
+					commandAndParams,
+					behaviorParams_);
 		else if (com
 				.equals(ClayConstants.BEHAVIOR_COMMAND_HARVEST_ITEMS_ON_BUILDING))
 			complete = _harvestItemsOnBuilding(
@@ -511,7 +516,7 @@ public class BehaviorInstructionCalculator
 			executingEntity_.setTickAndRate(entity.getBuildTime(), 1);
 		return false;
 	}
-	
+
 	private static boolean _entityNotHoldingItem(GolemEntity executingEntity_)
 	{
 		return executingEntity_.getCopyOfHeldItems().isEmpty();
@@ -529,6 +534,15 @@ public class BehaviorInstructionCalculator
 
 		return constructionItems.contains(items.get(0).getTag());
 
+	}
+
+	private static boolean _generateHeat(GolemEntity executingEntity_, CityModel model_, String[] commandAndParams_, Object[] behaviorParams_)
+	{
+		BuildingEntity building = executingEntity_.getClaimedBuilding();
+		int heat = (Integer) behaviorParams_[Integer
+				.parseInt(commandAndParams_[1])];
+		building.addHeatAll(heat);
+		return true;
 	}
 
 	private static boolean _harvestItemsOnBuilding(GolemEntity executingEntity_, String[] commandAndParams_, Object[] behaviorParams_)

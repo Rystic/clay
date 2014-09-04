@@ -3,6 +3,8 @@ package city.generics;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import city.generics.util.FieldParser;
+
 public class GenericConversion
 {
 	public GenericConversion(Node node_)
@@ -13,6 +15,8 @@ public class GenericConversion
 		_conversionBuilding = eElement.getAttribute("ConversionBuilding");
 		_conversionInput = eElement.getAttribute("ConversionInput");
 		_converstionOutput = eElement.getAttribute("ConversionOutput");
+		
+		_heat = FieldParser.parseInt(eElement.getAttribute("Heat"));
 	}
 	
 	public String getConversionName()
@@ -39,10 +43,17 @@ public class GenericConversion
 	{
 		return _converstionOutput;
 	}
+	
+	public int getHeat()
+	{
+		return _heat;
+	}
 
 	private final String _conversionName;
 	private final String _conversionTag;
 	private final String _conversionBuilding;
 	private final String _conversionInput;
 	private final String _converstionOutput;
+	
+	private final int _heat;
 }

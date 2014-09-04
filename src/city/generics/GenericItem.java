@@ -15,8 +15,7 @@ public class GenericItem
 		_itemTag = eElement.getAttribute("ItemTag");
 		_itemFamily = eElement.getAttribute("ItemFamily");
 		_parent = eElement.getAttribute("Parent");
-		_texture = FieldParser
-				.parseTexture(eElement.getAttribute("Texture"));
+		_texture = FieldParser.parseTexture(eElement.getAttribute("Texture"));
 	}
 
 	public String getItemName()
@@ -43,7 +42,7 @@ public class GenericItem
 	{
 		return _parent.isEmpty();
 	}
-	
+
 	public String getParentTag()
 	{
 		return _parent;
@@ -56,4 +55,5 @@ public class GenericItem
 	private final String _itemFamily;
 
 	private final String _parent;
+
 }

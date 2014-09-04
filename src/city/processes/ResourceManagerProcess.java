@@ -95,9 +95,10 @@ public class ResourceManagerProcess extends AbstractProcess
 							.get(building.getBuildingIdentifier());
 					if (buildings == null || buildings.size() == 0)
 						continue;
-					Object[] conversionParams = new Object[3];
+					Object[] conversionParams = new Object[4];
 					conversionParams[1] = conversion.getConversionInput();
 					conversionParams[2] = conversion.getConverstionOutput();
+					conversionParams[3] = conversion.getHeat();
 					for (BuildingEntity conversionBuilding : buildings)
 					{
 						if (conversionBuilding.isBuilt()

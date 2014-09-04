@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Items>
 	<Item ItemName="Inert Clay" ItemTag="inert-clay" Texture="itemInertClay.png"
-		ItemFamily="Clay" Parent="" Children="stoneware-brick"></Item>
+		ItemFamily="Clay"  Parent=""></Item>
 
 	<Item ItemName="Stoneware Brick" ItemTag="stoneware-brick"
-		Texture="itemStonewareBrick.png" ItemFamily="Clay" Parent="inert-clay"
-		Children=""></Item>
-	
-		<Item ItemName="Casing" ItemTag="casing"
-		Texture="itemCasing.png" ItemFamily="Clay" Parent="stoneware-brick"
-		Children=""></Item>
+		Texture="itemStonewareBrick.png" ItemFamily="Clay" Parent="inert-clay"></Item>
+
+	<Item ItemName="Casing" ItemTag="casing" Texture="itemCasing.png"
+		ItemFamily="Clay" Parent="inert-clay"></Item>
 
 	<Item ItemName="Saturated Clay" ItemTag="saturated-clay" Texture="itemSaturatedClay.png"
-		ItemFamily="Mana" Parent="" Children="mana-pipe"></Item>
+		ItemFamily="Mana" Parent=""></Item>
 
 	<Item ItemName="Mana Pipe" ItemTag="mana-pipe" Texture="itemManaPipes.png"
-		ItemFamily="Mana" Parent="saturated-clay" Children=""></Item>
-	
+		ItemFamily="Mana"  Parent="saturated-clay"></Item>
+
 	<Item ItemName="Pearlclay" ItemTag="pearlclay" Texture="itemPearlclay.png"
-		ItemFamily="Mana" Parent="saturated-clay" Children=""></Item>
+		ItemFamily="Mana" Parent="saturated-clay"></Item>
 
 </Items>

@@ -3,20 +3,20 @@
 
 	<Conversion ConversionName="Produce Mana Pipe"
 		ConversionTag="mana-pipe" ConversionBuilding="foundry"
-		ConversionInput="saturated-clay,saturated-clay" ConversionOutput="mana-pipe,mana-pipe,mana-pipe,inert-clay"></Conversion>
+		ConversionInput="saturated-clay,saturated-clay" ConversionOutput="mana-pipe,mana-pipe,mana-pipe,inert-clay" Heat="50"></Conversion>
 
 	<Conversion ConversionName="Produce Pearlclay"
 		ConversionTag="pearlclay" ConversionBuilding="pearlery"
 		ConversionInput="saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay,saturated-clay"
-		ConversionOutput="pearlclay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay"></Conversion>
+		ConversionOutput="pearlclay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay,inert-clay" Heat="50"></Conversion>
 
 	<Conversion ConversionName="Produce Stoneware"
 		ConversionTag="stoneware-brick" ConversionBuilding="oven"
-		ConversionInput="inert-clay,inert-clay,mana-pipe" ConversionOutput="stoneware-brick"></Conversion>
+		ConversionInput="inert-clay,inert-clay,mana-pipe" ConversionOutput="stoneware-brick" Heat="150"></Conversion>
 
 	<Conversion ConversionName="Produce Casing" ConversionTag="casing"
 		ConversionBuilding="kiln"
 		ConversionInput="stoneware-brick,stoneware-brick,mana-pipe,mana-pipe"
-		ConversionOutput="casing"></Conversion>
+		ConversionOutput="casing" Heat="200"></Conversion>
 
 </Conversions>

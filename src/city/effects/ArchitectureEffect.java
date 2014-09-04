@@ -30,10 +30,17 @@ public class ArchitectureEffect extends AbstractEffect
 				BuildingEntity tile = _tileValues[i / TILE_X][j / TILE_Y];
 				if (tile != null)
 				{
-					if (tile.isHighlighted())
+					if (tile.isHighlightedForDeletion())
 					{
-						GL11.glColor3f(0.75f, 0.0f, .0f);
+						GL11.glColor3f(0.75f, .0f, .0f);
 						tile.setHighlightedForDeletion(false);
+					}
+					else if (tile.isHeated())
+					{
+						if (tile.isOverheated())
+							GL11.glColor3f(0.75f, 0.25f, .25f);
+						else
+							GL11.glColor3f(0.75f, 0.50f, .50f);
 					}
 					GL11.glBindTexture(GL11.GL_TEXTURE_2D, tile.getTexture()
 							.getTextureID());

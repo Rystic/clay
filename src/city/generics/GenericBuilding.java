@@ -47,6 +47,13 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 
 		_transformCode = eElement.getAttribute("Transform");
 		_constructionItems = eElement.getAttribute("ConstructionItems");
+		
+		_maxHeatDamage = FieldParser.parseInt(eElement.getAttribute("MaxHeatDamage"));
+		
+		String[] heatThresholds =  eElement.getAttribute("HeatThresholds").split(",");
+		_firstHeatThreshold = Integer.parseInt(heatThresholds[0]);
+		_secondHeatThreshold = Integer.parseInt(heatThresholds[1]);
+		_thirdHeadThreshold = Integer.parseInt(heatThresholds[2]);
 
 		_lesserManaCost = FieldParser.parseDouble(eElement
 				.getAttribute("LesserManaCost"));
@@ -656,6 +663,26 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	{
 		return _lesserManaCumulativeCost;
 	}
+	
+	public int getMaxHeatDamage()
+	{
+		return _maxHeatDamage;
+	}
+	
+	public int getFirstHeatThreshold()
+	{
+		return _firstHeatThreshold;
+	}
+	
+	public int getSecondHeatThreshold()
+	{
+		return _secondHeatThreshold;
+	}
+	
+	public int getThirdHeadThreshold()
+	{
+		return _thirdHeadThreshold;
+	}
 
 	public double getGreaterManaCost()
 	{
@@ -795,6 +822,11 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	private final int _tickStart;
 	private final int _storageCapacity;
 
+	private final int _maxHeatDamage;
+	private final int _firstHeatThreshold;
+	private final int _secondHeatThreshold;
+	private final int _thirdHeadThreshold;
+	
 	private final double _lesserManaCost;
 	private final double _lesserManaCumulativeCost;
 	private final double _greaterManaCost;
