@@ -42,7 +42,7 @@ public class BehaviorWeightCalculator
 			else if (weightCondition.equals(ClayConstants.WC_LOW_CLAY))
 				addedWeight = _lowClay(golem_);
 			else if (weightCondition.equals(ClayConstants.WC_CALC_BUILDING))
-				addedWeight = _calculateExtraBuildingWeight(golem_, params_);
+				addedWeight = _calculateExtraBuildingWeight(golem_, params_, finalWeight);
 			if (addedWeight == Integer.MIN_VALUE)
 				return addedWeight;
 			finalWeight += addedWeight;
@@ -67,7 +67,15 @@ public class BehaviorWeightCalculator
 					houseCount++;
 			}
 		}
-		if (screen.getModel().getGolemCount() >= houseCount)
+		
+		int clayCount = 0;
+		List<GolemEntity> golems = screen.getModel().getGolems();
+		for (GolemEntity entity : golems)
+		{
+			if (entity.getGolemTag().equals(ClayConstants.GOLEM_CLAY))
+				clayCount++;
+		}
+		if (clayCount >= houseCount)
 		{
 			return Integer.MIN_VALUE;
 		}
@@ -117,9 +125,8 @@ public class BehaviorWeightCalculator
 		return weight;
 	}
 
-	private static int _calculateExtraBuildingWeight(GolemEntity golem_, Object[] params_)
+	private static int _calculateExtraBuildingWeight(GolemEntity golem_, Object[] params_, int addedWeight_)
 	{
-		int weight = 0;
 		BuildingEntity entity = (BuildingEntity) params_[0];
 		String extraWeight = entity.getExtraWeight();
 		if (!extraWeight.isEmpty())
@@ -146,10 +153,10 @@ public class BehaviorWeightCalculator
 									golem_,
 									golem_.getHomeScreen())) == ClayConstants.BEHAVIOR_PASSED;
 				if (passed)
-					weight *= multiplier;
+					addedWeight_ *= multiplier;
 			}
 		}
-		return weight;
+		return addedWeight_;
 	}
 	private static int _canBuildPearlclayGolem(GolemEntity golem_, Object[] params_)
 	{
