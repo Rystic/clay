@@ -46,7 +46,7 @@
 		weight="low-clay" BehaviorDescription="text:Repairing itself."
 		defaultParams="kiln" personalBehavior="true" limit="-1" golemCost="mana:-2"
 		require="entity-not-holding-item,claim-generic-building:0,claim-items:saturated-clay:stoneware-brick"
-		code="seek-claimed-items,consume-claimed,tick:80,add-clay:80,"></Behavior>
+		code="seek-claimed-items,hide,consume-claimed,tick:80,show,add-clay:80,"></Behavior>
 
 	<Behavior BehaviorName="Build Clay Golem" BehaviorTag="build-clay-golem"
 		BehaviorDescription="text:Constructing a clay golem." weight="can-build-clay-golem"
