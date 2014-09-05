@@ -35,7 +35,7 @@ public class ArchitectureEffect extends AbstractEffect
 						GL11.glColor3f(0.75f, .0f, .0f);
 						tile.setHighlightedForDeletion(false);
 					}
-					else if (tile.isHeated())
+					else if (tile.isHeatedIncludeHeatDamage())
 					{
 						if (tile.isOverheated())
 							GL11.glColor3f(0.75f, 0.25f, .25f);

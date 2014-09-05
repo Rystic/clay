@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import main.ClayConstants;
 import models.CityModel;
@@ -584,12 +585,6 @@ public class BuildingEntity extends AbstractEntity implements
 		return _markedForDeletion || _isHighlighted;
 	}
 
-	public void heatTick()
-	{
-		if (_heat > 0)
-			_heat--;
-	}
-
 	public void addHeatAll(int heat_)
 	{
 		if (_allBuildingTiles == null)
@@ -638,10 +633,25 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		((HeatTickProcess) _homeScreen.getProcess(HeatTickProcess.class))
 				.register(this);
+		if (isOverheated())
+		{
+			_heatDamage += heat_;
+		}
 		_heat += heat_;
 	}
+	
+	public void heatTick()
+	{
+		if (_heat > _heatDamage)
+			_heat--;
+	}
 
-	public boolean isHeated()
+	public boolean isHeatedExcludeHeatDamage()
+	{
+		return _heat > _heatDamage;
+	}
+	
+	public boolean isHeatedIncludeHeatDamage()
 	{
 		return _heat > 0;
 	}
@@ -688,6 +698,7 @@ public class BuildingEntity extends AbstractEntity implements
 	private int _buildTime;
 	private int _tickTime;
 	private int _heat;
+	private int _heatDamage;
 
 	private boolean _built;
 	private boolean _tickReset;
