@@ -114,7 +114,7 @@ public class BuildingPlacementController extends AbstractProcess
 							ClayConstants.DEFAULT_TILE_TYPE))
 			{
 				if (!building.isBuilt())
-					building.deleteBuilding();
+					building.deconstructBuilding();
 				else
 					building.markForDeletion(true);
 			}

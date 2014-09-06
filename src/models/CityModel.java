@@ -109,6 +109,16 @@ public class CityModel extends AbstractModel
 
 	public void clearTile(int x_, int y_)
 	{
+		editTile(x_, y_, false);
+	}
+
+	public void deconstructTile(int x_, int y_)
+	{
+		editTile(x_, y_, true);
+	}
+	
+	private void editTile(int x_, int y_, boolean deconstruct_)
+	{
 		if (x_ > _xTileCount || y_ > _yTileCount || x_ < 0 || y_ < 0)
 			return;
 		BuildingEntity building = _tileValues[x_][y_];
@@ -120,6 +130,10 @@ public class CityModel extends AbstractModel
 		{
 			Integer identifier = building.getBuildingIdentifier();
 			_buildingMap.get(identifier).remove(building);
+		}
+		if (deconstruct_)
+		{
+			// TODO handle multitile buildings.
 		}
 		_tileValues[x_][y_] = new BuildingEntity(
 				BuildingData.getBuildingByTag(ClayConstants.DEFAULT_TILE_TYPE),
@@ -184,7 +198,7 @@ public class CityModel extends AbstractModel
 	{
 		return _adjustedX;
 	}
-	
+
 	public Map<String, Map<String, Integer>> getDesiredItemInventory()
 	{
 		return _desiredItemInventory;

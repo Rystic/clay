@@ -303,6 +303,21 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public void deleteBuilding()
 	{
+		removeBuilding(false);
+	}
+
+	public void deconstructBuilding()
+	{
+		removeBuilding(true);
+	}
+	
+	public String getBuildingPatternForTile()
+	{
+		return _building.getValidPlacementMap().get(_position);
+	}
+
+	private void removeBuilding(boolean deconstruct_)
+	{
 		BuildingTickProcess behaviorTickProcess = (BuildingTickProcess) _homeScreen
 				.getProcess(BuildingTickProcess.class);
 		HeatTickProcess heatTickProcess = (HeatTickProcess) _homeScreen
@@ -331,7 +346,10 @@ public class BuildingEntity extends AbstractEntity implements
 			building.releaseAll();
 			behaviorTickProcess.unregister(building);
 			heatTickProcess.unregister(building);
-			model.clearTile(building.getGridX(), building.getGridY());
+			if (deconstruct_)
+				model.deconstructTile(building.getGridX(), building.getGridY());
+			else
+				model.clearTile(building.getGridX(), building.getGridY());
 		}
 
 	}
@@ -609,22 +627,26 @@ public class BuildingEntity extends AbstractEntity implements
 		int y = getGridY();
 		if (x - 1 >= 0 && tiles[x - 1][y] != null)
 		{
-			if (_allBuildingTiles == null || !_allBuildingTiles.contains(tiles[x - 1][y]))
+			if (_allBuildingTiles == null
+					|| !_allBuildingTiles.contains(tiles[x - 1][y]))
 				tiles[x - 1][y].addHeat(heat_);
 		}
 		if (x + 1 < tiles.length && tiles[x + 1][y] != null)
 		{
-			if (_allBuildingTiles == null || !_allBuildingTiles.contains(tiles[x + 1][y]))
+			if (_allBuildingTiles == null
+					|| !_allBuildingTiles.contains(tiles[x + 1][y]))
 				tiles[x + 1][y].addHeat(heat_);
 		}
 		if (y - 1 >= 0 && tiles[x][y - 1] != null)
 		{
-			if (_allBuildingTiles == null || !_allBuildingTiles.contains(tiles[x][y - 1]))
+			if (_allBuildingTiles == null
+					|| !_allBuildingTiles.contains(tiles[x][y - 1]))
 				tiles[x][y - 1].addHeat(heat_);
 		}
 		if (y + 1 < tiles[0].length && tiles[x][y + 1] != null)
 		{
-			if (_allBuildingTiles == null || !_allBuildingTiles.contains(tiles[x][y + 1]))
+			if (_allBuildingTiles == null
+					|| !_allBuildingTiles.contains(tiles[x][y + 1]))
 				tiles[x][y + 1].addHeat(heat_);
 		}
 	}
@@ -639,7 +661,7 @@ public class BuildingEntity extends AbstractEntity implements
 		}
 		_heat += heat_;
 	}
-	
+
 	public void heatTick()
 	{
 		if (_heat > _heatDamage)
@@ -650,7 +672,7 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return _heat > _heatDamage;
 	}
-	
+
 	public boolean isHeatedIncludeHeatDamage()
 	{
 		return _heat > 0;
