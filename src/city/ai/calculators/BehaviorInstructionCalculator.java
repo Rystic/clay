@@ -541,7 +541,7 @@ public class BehaviorInstructionCalculator
 		BuildingEntity building = executingEntity_.getClaimedBuilding();
 		int heat = (Integer) behaviorParams_[Integer
 				.parseInt(commandAndParams_[1])];
-		building.addHeatAll(heat);
+		building.permeateHeat(heat);
 		return true;
 	}
 

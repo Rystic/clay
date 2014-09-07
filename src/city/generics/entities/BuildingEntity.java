@@ -3,9 +3,12 @@ package city.generics.entities;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import main.ClayConstants;
 import models.CityModel;
@@ -310,7 +313,7 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		removeBuilding(true);
 	}
-	
+
 	public String getBuildingPatternForTile()
 	{
 		return _building.getValidPlacementMap().get(_position);
@@ -603,19 +606,54 @@ public class BuildingEntity extends AbstractEntity implements
 		return _markedForDeletion || _isHighlighted;
 	}
 
-	public void addHeatAll(int heat_)
+	public void permeateHeat(int heat_)
 	{
+		Queue<BuildingEntity> openSet = new ArrayBlockingQueue<BuildingEntity>(
+				256);
+		Set<BuildingEntity> closedSet = new HashSet<BuildingEntity>();
+		Map<BuildingEntity, Integer> degreeFromSource = new HashMap<BuildingEntity, Integer>();
 		if (_allBuildingTiles == null)
-		{
-			addHeat(heat_);
-			addHeatAdjacent(heat_ / 2);
-		}
+			openSet.add(this);
 		else
+			openSet.addAll(_allBuildingTiles);
+		for (BuildingEntity building : openSet)
 		{
-			for (BuildingEntity building : _allBuildingTiles)
+			degreeFromSource.put(building, 0);
+		}
+
+		BuildingEntity[][] tiles = ((CityModel) _model).getTileValues();
+		while (!openSet.isEmpty())
+		{
+			BuildingEntity building = openSet.poll();
+			if (openSet.contains(building) || closedSet.contains(building))
+				continue;
+			closedSet.add(building);
+			int x = building.getGridX();
+			int y = building.getGridY();
+			int prevDegree = degreeFromSource.get(building);
+			int addedHeat = heat_ / (prevDegree + 1);
+			if (addedHeat < 30)
+				continue;
+			building.addHeat(addedHeat);
+			if (x - 1 >= 0 && tiles[x - 1][y] != null)
 			{
-				building.addHeat(heat_);
-				building.addHeatAdjacent(heat_ / 2);
+				degreeFromSource.put(tiles[x - 1][y], prevDegree + 1);
+				openSet.add(tiles[x - 1][y]);
+			}
+			if (x + 1 < tiles.length && tiles[x + 1][y] != null)
+			{
+				degreeFromSource.put(tiles[x + 1][y], prevDegree + 1);
+				openSet.add(tiles[x + 1][y]);
+			}
+			if (y - 1 >= 0 && tiles[x][y - 1] != null)
+			{
+				degreeFromSource.put(tiles[x][y - 1], prevDegree + 1);
+				openSet.add(tiles[x][y - 1]);
+			}
+			if (y + 1 < tiles[0].length && tiles[x][y + 1] != null)
+			{
+				degreeFromSource.put(tiles[x][y + 1], prevDegree + 1);
+				openSet.add(tiles[x][y + 1]);
 			}
 		}
 	}
@@ -658,6 +696,8 @@ public class BuildingEntity extends AbstractEntity implements
 		if (isOverheated())
 		{
 			_heatDamage += heat_;
+			if (_heatDamage > _building.getThirdHeadThreshold())
+				deleteBuilding();
 		}
 		_heat += heat_;
 	}
