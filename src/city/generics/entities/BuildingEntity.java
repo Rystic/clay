@@ -612,6 +612,7 @@ public class BuildingEntity extends AbstractEntity implements
 				256);
 		Set<BuildingEntity> closedSet = new HashSet<BuildingEntity>();
 		Map<BuildingEntity, Integer> degreeFromSource = new HashMap<BuildingEntity, Integer>();
+		Map<BuildingEntity, Integer> rawHeat = new HashMap<BuildingEntity, Integer>();
 		if (_allBuildingTiles == null)
 			openSet.add(this);
 		else
@@ -619,6 +620,7 @@ public class BuildingEntity extends AbstractEntity implements
 		for (BuildingEntity building : openSet)
 		{
 			degreeFromSource.put(building, 0);
+			rawHeat.put(building, heat_);
 		}
 
 		BuildingEntity[][] tiles = ((CityModel) _model).getTileValues();
@@ -631,61 +633,38 @@ public class BuildingEntity extends AbstractEntity implements
 			int x = building.getGridX();
 			int y = building.getGridY();
 			int prevDegree = degreeFromSource.get(building);
-			int addedHeat = heat_ / (prevDegree + 1);
-			if (addedHeat < 30)
+			int heat = rawHeat.get(building);
+			boolean isBuilt = building.isBuilt();
+			int addedHeat = (heat / (prevDegree + 1))
+					- (isBuilt ? _building.getHeatResistance() : 0);
+			if (addedHeat <= (isBuilt ? _building.getInsulation() : 0))
 				continue;
 			building.addHeat(addedHeat);
-			if (x - 1 >= 0 && tiles[x - 1][y] != null)
+			if (x - 1 >= 0 && tiles[x - 1][y] != null  && !openSet.contains(tiles[x - 1][y]))
 			{
 				degreeFromSource.put(tiles[x - 1][y], prevDegree + 1);
+				rawHeat.put(tiles[x - 1][y], heat - (isBuilt ? building.getHeatAbsorb() : 0));
 				openSet.add(tiles[x - 1][y]);
+
 			}
-			if (x + 1 < tiles.length && tiles[x + 1][y] != null)
+			if (x + 1 < tiles.length && tiles[x + 1][y] != null  && !openSet.contains(tiles[x + 1][y]))
 			{
 				degreeFromSource.put(tiles[x + 1][y], prevDegree + 1);
+				rawHeat.put(tiles[x + 1][y], heat - (isBuilt ? building.getHeatAbsorb() : 0));
 				openSet.add(tiles[x + 1][y]);
 			}
-			if (y - 1 >= 0 && tiles[x][y - 1] != null)
+			if (y - 1 >= 0 && tiles[x][y - 1] != null  && !openSet.contains(tiles[x][y - 1]))
 			{
 				degreeFromSource.put(tiles[x][y - 1], prevDegree + 1);
+				rawHeat.put(tiles[x][y - 1], heat - (isBuilt ? building.getHeatAbsorb() : 0));
 				openSet.add(tiles[x][y - 1]);
 			}
-			if (y + 1 < tiles[0].length && tiles[x][y + 1] != null)
+			if (y + 1 < tiles[0].length && tiles[x][y + 1] != null && !openSet.contains(tiles[x][y + 1]))
 			{
 				degreeFromSource.put(tiles[x][y + 1], prevDegree + 1);
+				rawHeat.put(tiles[x][y + 1], heat - (isBuilt ? building.getHeatAbsorb() : 0));
 				openSet.add(tiles[x][y + 1]);
 			}
-		}
-	}
-
-	private void addHeatAdjacent(int heat_)
-	{
-		BuildingEntity[][] tiles = ((CityModel) _model).getTileValues();
-		int x = getGridX();
-		int y = getGridY();
-		if (x - 1 >= 0 && tiles[x - 1][y] != null)
-		{
-			if (_allBuildingTiles == null
-					|| !_allBuildingTiles.contains(tiles[x - 1][y]))
-				tiles[x - 1][y].addHeat(heat_);
-		}
-		if (x + 1 < tiles.length && tiles[x + 1][y] != null)
-		{
-			if (_allBuildingTiles == null
-					|| !_allBuildingTiles.contains(tiles[x + 1][y]))
-				tiles[x + 1][y].addHeat(heat_);
-		}
-		if (y - 1 >= 0 && tiles[x][y - 1] != null)
-		{
-			if (_allBuildingTiles == null
-					|| !_allBuildingTiles.contains(tiles[x][y - 1]))
-				tiles[x][y - 1].addHeat(heat_);
-		}
-		if (y + 1 < tiles[0].length && tiles[x][y + 1] != null)
-		{
-			if (_allBuildingTiles == null
-					|| !_allBuildingTiles.contains(tiles[x][y + 1]))
-				tiles[x][y + 1].addHeat(heat_);
 		}
 	}
 
@@ -721,6 +700,11 @@ public class BuildingEntity extends AbstractEntity implements
 	public boolean isOverheated()
 	{
 		return _heat >= _building.getFirstHeatThreshold();
+	}
+
+	public int getHeatAbsorb()
+	{
+		return _building.getHeatAbsorb();
 	}
 
 	@Override
