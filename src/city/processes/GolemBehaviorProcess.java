@@ -2,7 +2,9 @@ package city.processes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import main.ClayConstants;
 import models.CityModel;
@@ -34,6 +36,11 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		_noAvailableGolems = new ArrayList<Behavior>();
 		_noStorageAvailable = new ArrayList<Behavior>();
 		_noUnoccupiedBuildings = new ArrayList<Behavior>();
+
+		_failedBehaviors = new ArrayBlockingQueue<FinishedBehavior>(256);
+		_completedBehaviors = new ArrayBlockingQueue<FinishedBehavior>(256);
+		_mapEvents = new ArrayBlockingQueue<MapUpdateEvent>(256);
+
 		EventBus.subscribe(MapUpdateEvent.class, this);
 	}
 
@@ -50,6 +57,12 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		}
 		if (_inactiveGolems.size() > 0)
 			calculateBehavior();
+		if (!_failedBehaviors.isEmpty())
+			handleFailedBehaviors();
+		if (!_completedBehaviors.isEmpty())
+			handleCompletedBehaviors();
+		if (!_mapEvents.isEmpty())
+			 handleMapEvents();
 	}
 
 	private void calculateBehavior()
@@ -181,12 +194,10 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 									.addNoMaterialsBehavior(triple._behavior);
 						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
 							triple._golem
-									.addNoStorageAvailableBehavior(
-											triple._behavior);
+									.addNoStorageAvailableBehavior(triple._behavior);
 						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
 							triple._golem
-									.addNoUnoccupiedBuildingsBehavior(
-											triple._behavior);
+									.addNoUnoccupiedBuildingsBehavior(triple._behavior);
 					}
 				}
 			}
@@ -206,8 +217,41 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		_noAvailableGolems.addAll(_unassignedBehaviors);
 		_unassignedBehaviors.clear();
 	}
+	
+	public void queueBehavior(Behavior behavior_)
+	{
+		behavior_.setBehaviorProcess(this);
+		_unassignedBehaviors.add(behavior_);
+	}
+
+	public int getBehaviorCount(String behaviorTag_)
+	{
+		int count = 0;
+		for (GolemEntity golem : _golemList)
+		{
+			Behavior behavior = golem.getCurrentBehavior();
+			if (behavior != null
+					&& behavior.getBehaviorTag().equals(behaviorTag_))
+				count++;
+		}
+		return count;
+	}
 
 	public void behaviorComplete(Behavior behavior_)
+	{
+		_completedBehaviors.add(new FinishedBehavior(behavior_, ClayConstants.BEHAVIOR_PASSED));
+	}
+	
+	private void handleCompletedBehaviors()
+	{
+		while (!_completedBehaviors.isEmpty())
+		{
+			FinishedBehavior completedBehavior = _completedBehaviors.poll();
+			updateCompletedBehaviorLists(completedBehavior._behavior);
+		}
+	}
+
+	private void updateCompletedBehaviorLists(Behavior behavior_)
 	{
 		_inProgressBehaviors.remove(behavior_);
 		if (behavior_.getAssigningBuilding() != null)
@@ -221,6 +265,20 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	}
 
 	public void behaviorFailed(Behavior behavior_, int reason_)
+	{
+		_failedBehaviors.add(new FinishedBehavior(behavior_, reason_));
+	}
+	
+	private void handleFailedBehaviors()
+	{
+		while (!_failedBehaviors.isEmpty())
+		{
+			FinishedBehavior failedBehavior = _failedBehaviors.poll();
+			updateFailedBehaviorLists(failedBehavior._behavior, failedBehavior._reason);
+		}
+	}
+	
+	private void updateFailedBehaviorLists(Behavior behavior_, int reason_)
 	{
 		if (!behavior_.isPersonalTask())
 		{
@@ -249,7 +307,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				_noMaterials.remove(behavior_);
 				_noStorageAvailable.remove(behavior_);
 				_noUnoccupiedBuildings.remove(behavior_);
-
 			}
 
 			if (reason_ == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
@@ -280,27 +337,21 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		_inProgressBehaviors.remove(behavior_);
 	}
 
-	public void queueBehavior(Behavior behavior_)
-	{
-		behavior_.setBehaviorProcess(this);
-		_unassignedBehaviors.add(behavior_);
-	}
-
-	public int getBehaviorCount(String behaviorTag_)
-	{
-		int count = 0;
-		for (GolemEntity golem : _golemList)
-		{
-			Behavior behavior = golem.getCurrentBehavior();
-			if (behavior != null
-					&& behavior.getBehaviorTag().equals(behaviorTag_))
-				count++;
-		}
-		return count;
-	}
-
 	@Override
 	public void onEvent(MapUpdateEvent event_)
+	{
+		_mapEvents.add(event_);
+	}
+	
+	private void handleMapEvents()
+	{
+		while (!_mapEvents.isEmpty())
+		{
+			updateMapEventLists(_mapEvents.poll());
+		}
+	}
+	
+	private void updateMapEventLists(MapUpdateEvent event_)
 	{
 		// TODO make sure it's the home screen
 		if (event_.getPoints() != null)
@@ -362,10 +413,26 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		}
 	}
 
+	private class FinishedBehavior
+	{
+		public FinishedBehavior(Behavior behavior_, int reason_)
+		{
+			_behavior = behavior_;
+			_reason = reason_;
+		}
+
+		Behavior _behavior;
+		int _reason;
+	}
+
 	private Random _random = new Random();
 
 	private List<GolemEntity> _golemList;
 	private List<GolemEntity> _inactiveGolems;
+
+	private Queue<FinishedBehavior> _failedBehaviors;
+	private Queue<FinishedBehavior> _completedBehaviors;
+	private Queue<MapUpdateEvent> _mapEvents;
 
 	private volatile List<Behavior> _unassignedBehaviors;
 	private List<Behavior> _inProgressBehaviors;
