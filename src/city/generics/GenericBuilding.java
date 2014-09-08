@@ -48,6 +48,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		_transformCode = eElement.getAttribute("Transform");
 		_constructionItems = eElement.getAttribute("ConstructionItems");
 
+		_coolingRate = FieldParser.parseInt(eElement.getAttribute("CoolingRate"));
 		_heatAbsorb = FieldParser.parseInt(eElement.getAttribute("HeatAbsorb"));
 		_insulation = FieldParser.parseInt(eElement.getAttribute("Insulation"));
 		_heatResistance = FieldParser.parseInt(eElement
@@ -668,6 +669,11 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		return _lesserManaCumulativeCost;
 	}
 	
+	public int getCoolingRate()
+	{
+		return _coolingRate;
+	}
+	
 	public int getHeatAbsorb()
 	{
 		return _heatAbsorb;
@@ -836,6 +842,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	private final int _tickStart;
 	private final int _storageCapacity;
 
+	private final int _coolingRate;
 	private final int _heatAbsorb;
 	private final int _insulation;
 	private final int _heatResistance;

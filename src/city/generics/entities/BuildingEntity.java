@@ -680,6 +680,11 @@ public class BuildingEntity extends AbstractEntity implements
 		}
 		_heat += heat_;
 	}
+	
+	public int getCoolingRate()
+	{
+		return _building.getCoolingRate();
+	}
 
 	public void heatTick()
 	{

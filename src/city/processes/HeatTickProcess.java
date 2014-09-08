@@ -21,13 +21,13 @@ public class HeatTickProcess extends AbstractProcess
 	public void execute()
 	{
 		_noHeatBuildings.clear();
-		for (BuildingEntity entity : _buildings)
+		for (BuildingEntity building : _buildings)
 		{
-			if (_heatDecreaseChance.nextInt(100) <= 30)
+			if (_heatDecreaseChance.nextInt(100) <= building.getCoolingRate())
 			{
-				entity.heatTick();
-				if (!entity.isHeatedExcludeHeatDamage())
-					_noHeatBuildings.add(entity);
+				building.heatTick();
+				if (!building.isHeatedExcludeHeatDamage())
+					_noHeatBuildings.add(building);
 			}
 		}
 		_buildings.removeAll(_noHeatBuildings);
