@@ -52,6 +52,7 @@ public class GolemEntity extends AbstractEntity
 		calculateMoveVariation();
 
 		_visible = true;
+		_facingRight = true;
 	}
 
 	private void calculateMoveVariation()
@@ -181,12 +182,14 @@ public class GolemEntity extends AbstractEntity
 		if (xDestination > _location.x)
 		{
 			_location.x += moveSpeed;
+			_facingRight = true;
 			if (_location.x > xDestination)
 				_location.setLocation(xDestination, _location.y);
 		}
 		else if (xDestination < _location.x)
 		{
 			_location.x -= moveSpeed;
+			_facingRight = false;
 			if (_location.x < xDestination)
 				_location.setLocation(xDestination, _location.y);
 		}
@@ -464,6 +467,11 @@ public class GolemEntity extends AbstractEntity
 		_noUnoccupiedBuildings.clear();
 	}
 	
+	public boolean isFacingRight()
+	{
+		return _facingRight;
+	}
+	
 	@Override
 	public CityModel getModel()
 	{
@@ -500,5 +508,6 @@ public class GolemEntity extends AbstractEntity
 
 	private boolean _tickComplete;
 	private boolean _visible;
+	private boolean _facingRight;
 
 }
