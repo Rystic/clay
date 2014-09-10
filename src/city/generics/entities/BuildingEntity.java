@@ -321,6 +321,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	private void removeBuilding(boolean deconstruct_)
 	{
+		//TODO cancel active behaviors
 		BuildingTickProcess behaviorTickProcess = (BuildingTickProcess) _homeScreen
 				.getProcess(BuildingTickProcess.class);
 		HeatTickProcess heatTickProcess = (HeatTickProcess) _homeScreen
@@ -391,6 +392,7 @@ public class BuildingEntity extends AbstractEntity implements
 				golemFailed = true;
 			behavior.obsolete();
 		}
+		_activeBehaviors.clear();
 
 		if (_claimingGolem != null && !golemFailed)
 		{
@@ -670,6 +672,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	private void addHeat(int heat_)
 	{
+		if (isNatural()) return;
 		((HeatTickProcess) _homeScreen.getProcess(HeatTickProcess.class))
 				.register(this);
 		if (isOverheated())
@@ -718,9 +721,19 @@ public class BuildingEntity extends AbstractEntity implements
 		if (!(o instanceof BuildingEntity))
 			return false;
 		BuildingEntity entity = (BuildingEntity) o;
-		return entity.getPoint().equals(_point)
-				&& entity.getBuildingIdentifier() == _building
-						.getBuildingIdentifier();
+		if (entity.getPoint().equals(_point))
+		{
+			 if (entity.getBuildingIdentifier() == _building
+						.getBuildingIdentifier())
+			 {
+				 return true;
+			 }
+			 else
+			 {
+				 System.out.println("Mapping Error. Expecting " + entity.getBuildingName() + " on tile " + entity.getPoint() + ". Instead, found " + _building.getBuildingName());
+			 }
+		}
+		return false;
 	}
 
 	@Override
