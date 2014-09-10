@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Items>
 	<Item ItemName="Inert Clay" ItemTag="inert-clay" Texture="itemInertClay.png"
-		ItemFamily="Clay"  Parent=""></Item>
+		ItemFamily="Clay" Parent=""></Item>
 
 	<Item ItemName="Stoneware Brick" ItemTag="stoneware-brick"
 		Texture="itemStonewareBrick.png" ItemFamily="Clay" Parent="inert-clay"></Item>
@@ -13,9 +13,12 @@
 		ItemFamily="Mana" Parent=""></Item>
 
 	<Item ItemName="Mana Pipe" ItemTag="mana-pipe" Texture="itemManaPipes.png"
-		ItemFamily="Mana"  Parent="saturated-clay"></Item>
+		ItemFamily="Mana" Parent="saturated-clay"></Item>
 
 	<Item ItemName="Pearlclay" ItemTag="pearlclay" Texture="itemPearlclay.png"
+		ItemFamily="Mana" Parent="saturated-clay"></Item>
+
+	<Item ItemName="Sealant" ItemTag="sealant" Texture="itemSealant.png"
 		ItemFamily="Mana" Parent="saturated-clay"></Item>
 
 </Items>
