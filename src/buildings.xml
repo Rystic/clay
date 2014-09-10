@@ -356,8 +356,8 @@
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
-	<Building BuildingName="Insulation" BuildingTag="insulation"
-		BuildingDescription="Insulation blocks and absorbs heat." BuildTime="125"
+	<Building BuildingName="Insulated Clay Block" BuildingTag="insulated-clay-block"
+		BuildingDescription="Insulated clay blocks absorb heat and block it from spreading." BuildTime="125"
 		BuildingRequirements="base,clay-block" MenuCategory="Architecture"
 		ExtraWeight="" CoolingRate="30" HeatAbsorb="40" Insulation="90" HeatResistance="70"
 		HeatThresholds="200,400,800" GreaterManaCost="0"
