@@ -33,6 +33,9 @@ public class GenericGolem
 		_spriteSize = FieldParser.parseInt((eElement
 				.getAttribute("SpriteSize")));
 		
+		_heatResistance = FieldParser.parseInt((eElement
+				.getAttribute("HeatResistance")));
+		
 		_moveSpeed = FieldParser
 				.parseDouble(eElement.getAttribute("MoveSpeed"));
 		_moveVariation = FieldParser.parseDouble(eElement
@@ -147,6 +150,11 @@ public class GenericGolem
 		return _spriteSize;
 	}
 	
+	public int getHeatResistance()
+	{
+		return _heatResistance;
+	}
+	
 	public double getTextureScaling()
 	{
 		return _textureScaling;
@@ -160,9 +168,10 @@ public class GenericGolem
 	private final Texture _lowManaTexture;
 	private final Texture _lowManaLClayTexture;
 	
-	private List<GenericBehavior> _neededBehaviors;
+	private final List<GenericBehavior> _neededBehaviors;
 
-	private int _spriteSize;
+	private final int _spriteSize;
+	private final int _heatResistance;
 	
 	private final double _moveSpeed;
 	private final double _moveVariation;
