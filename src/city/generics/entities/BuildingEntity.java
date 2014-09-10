@@ -675,7 +675,7 @@ public class BuildingEntity extends AbstractEntity implements
 		if (isNatural()) return;
 		((HeatTickProcess) _homeScreen.getProcess(HeatTickProcess.class))
 				.register(this);
-		if (isOverheated())
+		if (isOverheated() && !_building.getBuildingTag().equals(ClayConstants.DEFAULT_TILE_TYPE))
 		{
 			_heatDamage += heat_;
 			if (_heatDamage > _building.getThirdHeadThreshold())
