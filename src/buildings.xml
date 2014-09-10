@@ -372,4 +372,19 @@
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
+		<Building BuildingName="Presser" BuildingTag="presser"
+		BuildingDescription="Pressers are one of the first mechanical structures developed by the golems. They can crush saturated clay into a semi-liquid, Sealant."
+		BuildTime="125" BuildingRequirements="base,clay-block,n,clay-block,nn,clay-block,nnn,clay-block"
+		MenuCategory="Conversions" ExtraWeight="" CoolingRate="30" HeatAbsorb="0" Insulation="30"
+		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
+		isPassable="true" Scalability="base,-,n,-,nn,-,nnn,-" isStorage="false"
+		isSupport="true" StorageCapacity="0" ConstructionItems="stoneware-brick,mana-pipe,mana-pipe"
+		PsychologyType="0" PsychologyInfluence="10" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
+		<State StateName="state-default" Graphic="base,presser1.png,n,presser2.png,nn,presser3.png,nnn,presser4.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
 </Buildings>
