@@ -48,6 +48,12 @@
 		require="entity-not-holding-item,claim-generic-building:0,claim-items:saturated-clay:stoneware-brick"
 		code="seek-claimed-items,hide,consume-claimed,tick:80,show,add-clay:80,"></Behavior>
 
+	<Behavior BehaviorName="Repair (Earthenware)" BehaviorTag="repair-earthenware"
+		weight="low-clay" BehaviorDescription="text:Repairing itself."
+		defaultParams="kiln" personalBehavior="true" limit="-1" golemCost="mana:-2"
+		require="entity-not-holding-item,claim-generic-building:0,claim-items:saturated-clay:earthenware-brick"
+		code="seek-claimed-items,hide,consume-claimed,tick:80,show,add-clay:80,"></Behavior>
+
 	<Behavior BehaviorName="Build Clay Golem" BehaviorTag="build-clay-golem"
 		BehaviorDescription="text:Constructing a clay golem." weight="can-build-clay-golem"
 		defaultParams="sculptors-studio" personalBehavior="true" limit="1"
@@ -67,6 +73,12 @@
 		defaultParams="kiln" personalBehavior="true" limit="1" golemCost="clay:-2,mana:-4"
 		require="entity-not-holding-item,claim-generic-building:0,claim-items:stoneware-brick:stoneware-brick:stoneware-brick:mana-pipe:mana-pipe:saturated-clay"
 		code="seek-claimed-items,consume-claimed,hide,tick:250,show,create-stoneware-golem"></Behavior>
+
+	<Behavior BehaviorName="Build Earthenware Golem" BehaviorTag="build-earthenware-golem"
+		BehaviorDescription="text:Constructing an earthenware golem." weight="can-build-earthenware-golem"
+		defaultParams="kiln" personalBehavior="true" limit="1" golemCost="clay:-2,mana:-4"
+		require="entity-not-holding-item,claim-generic-building:0,claim-items:earthenware-brick,earthenware-brick,earthenware-brick,mana-pipe,mana-pipe,saturated-clay"
+		code="seek-claimed-items,consume-claimed,hide,tick:250,show,create-earthenware-golem"></Behavior>
 
 	<Behavior BehaviorName="Build Warrens Golem" BehaviorTag="build-warrens-golem"
 		BehaviorDescription="text:Constructing warrens golems." weight="can-build-warrens-golem"

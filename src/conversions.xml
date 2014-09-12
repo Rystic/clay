@@ -27,4 +27,9 @@
 		ConversionInput="casing,saturated-clay,saturated-clay,saturated-clay"
 		ConversionOutput="sealant" Heat="200"></Conversion>
 
+	<Conversion ConversionName="Produce Earthenware Brick"
+		ConversionTag="earthenware-brick" ConversionBuilding="oven"
+		ConversionInput="saturated-clay,saturated-clay,mana-pipe,casing"
+		ConversionOutput="earthenware-brick,casing" Heat="1500"></Conversion>
+
 </Conversions>

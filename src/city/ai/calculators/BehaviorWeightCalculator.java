@@ -31,6 +31,9 @@ public class BehaviorWeightCalculator
 					.equals(ClayConstants.WC_CAN_BUILD_STONEWARE_GOLEM))
 				addedWeight = _canBuildStonewareGolem(golem_, params_);
 			else if (weightCondition
+					.equals(ClayConstants.WC_CAN_BUILD_EARTHENWARE_GOLEM))
+				addedWeight = _canBuildEarthenwareGolem(golem_, params_);
+			else if (weightCondition
 					.equals(ClayConstants.WC_CAN_BUILD_WARRENS_GOLEM))
 				addedWeight = _canBuildWarrensGolem(golem_, params_);
 			else if (weightCondition.equals(ClayConstants.WC_CLOSEST_TO_POINT))
@@ -209,6 +212,36 @@ public class BehaviorWeightCalculator
 			if (golem_.getPersonality() == ClayConstants.PERSONALITY_AMBITIOUS)
 				weightMultiplier += 3;
 			weight = ((kilns.size() * 2) - stonewareCount) * 10
+					* weightMultiplier;
+		}
+		return weight;
+	}
+	
+	private static int _canBuildEarthenwareGolem(GolemEntity golem_, Object[] params_)
+	{
+		int weight = 0;
+		CityScreen screen = (CityScreen) golem_.getHomeScreen();
+		int kilnGolemCount = 0;
+		List<GolemEntity> golems = screen.getModel().getGolems();
+		for (GolemEntity entity : golems)
+		{
+				kilnGolemCount++;
+				if (entity.getGolemTag().equals(ClayConstants.GOLEM_STONEWARE))
+			if (entity.getGolemTag().equals(ClayConstants.GOLEM_EARTHENWARE))
+				kilnGolemCount++;
+		}
+		Integer buildingId = BuildingData.getBuildingByTag("kiln")
+				.getBuildingIdentifier();
+		List<BuildingEntity> kilns = screen.getModel().getBuildingMap()
+				.get(buildingId);
+		if (kilns == null || kilnGolemCount > kilns.size() * 3)
+			weight = Integer.MIN_VALUE;
+		else
+		{
+			int weightMultiplier = 1;
+			if (golem_.getPersonality() == ClayConstants.PERSONALITY_AMBITIOUS)
+				weightMultiplier += 3;
+			weight = ((kilns.size() * 3) - kilnGolemCount) * 10
 					* weightMultiplier;
 		}
 		return weight;

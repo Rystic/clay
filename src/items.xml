@@ -21,4 +21,6 @@
 	<Item ItemName="Sealant" ItemTag="sealant" Texture="itemSealant.png"
 		ItemFamily="Mana" Parent="saturated-clay"></Item>
 
+	<Item ItemName="Earthenware Brick" ItemTag="earthenware-brick"
+		Texture="itemEarthenwareBrick.png" ItemFamily="Mana" Parent="saturated-clay"></Item>
 </Items>

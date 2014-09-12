@@ -26,6 +26,7 @@ public class ClayConstants
 	public static final String GOLEM_CLAY = "clay-golem";
 	public static final String GOLEM_PEARLCLAY = "pearlclay-golem";
 	public static final String GOLEM_STONEWARE = "stoneware-golem";
+	public static final String GOLEM_EARTHENWARE = "earthenware-golem";
 	public static final String GOLEM_WARRENS = "warrens-golem";
 
 	// --Behavior Constants--
@@ -95,6 +96,7 @@ public class ClayConstants
 	public static final String WC_CAN_BUILD_CLAY_GOLEM = "can-build-clay-golem";
 	public static final String WC_CAN_BUILD_PEARLCLAY_GOLEM = "can-build-pearlclay-golem";
 	public static final String WC_CAN_BUILD_STONEWARE_GOLEM = "can-build-stoneware-golem";
+	public static final String WC_CAN_BUILD_EARTHENWARE_GOLEM = "can-build-earthenware-golem";
 	public static final String WC_CAN_BUILD_WARRENS_GOLEM = "can-build-warrens-golem";
 
 	public static final String WC_CLOSEST_TO_POINT = "closest-to-point";
