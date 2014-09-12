@@ -32,6 +32,7 @@ public class CityModel extends AbstractModel
 		_newGolemList = new ArrayList<GolemEntity>();
 		_mana = 0;
 		_buildingMap = new HashMap<Integer, List<BuildingEntity>>();
+		_golemMap = new HashMap<String, List<GolemEntity>>();
 		_selectedBuilding = BuildingData.getBuildingByTag("clay-block")
 				.getBuildingIdentifier();
 		_desiredItemInventory = new HashMap<String, Map<String, Integer>>();
@@ -78,8 +79,17 @@ public class CityModel extends AbstractModel
 
 	public void addGolem(GenericGolem golem_, double x_, double y_, GolemEntity parentGolem_)
 	{
-		_newGolemList.add(new GolemEntity(golem_, (int) x_, (int) y_,
-				_homeScreen, parentGolem_));
+		GolemEntity golem = new GolemEntity(golem_, (int) x_, (int) y_,
+				_homeScreen, parentGolem_);
+		String golemTag = golem.getGolemTag();
+		List<GolemEntity> golemList = _golemMap.get(golemTag);
+		if (golemList == null)
+		{
+			golemList = new ArrayList<GolemEntity>();
+			_golemMap.put(golemTag, golemList);
+		}
+		golemList.add(golem);
+		_newGolemList.add(golem);
 	}
 
 	public Map<Integer, List<BuildingEntity>> getBuildingMap()
@@ -99,6 +109,16 @@ public class CityModel extends AbstractModel
 		return _buildingMap.get(building_.getBuildingIdentifier()) == null ? 0 : _buildingMap
 				.get(building_.getBuildingIdentifier()).size();
 	}
+	
+	public int golemTypeCount(String golemTag_)
+	{
+		return _golemMap.get(golemTag_).size();
+	}
+	
+	public List<GolemEntity> getGolemsByType(String golemTag_)
+	{
+		return _golemMap.get(golemTag_);
+	}
 
 	public BuildingEntity getTileValue(int x_, int y_)
 	{
@@ -116,7 +136,7 @@ public class CityModel extends AbstractModel
 	{
 		editTile(x_, y_, true);
 	}
-	
+
 	private void editTile(int x_, int y_, boolean deconstruct_)
 	{
 		if (x_ > _xTileCount || y_ > _yTileCount || x_ < 0 || y_ < 0)
@@ -253,5 +273,6 @@ public class CityModel extends AbstractModel
 	private Map<String, Map<String, Integer>> _currentItemRatios;
 
 	private Map<Integer, List<BuildingEntity>> _buildingMap;
+	private Map<String, List<GolemEntity>> _golemMap;
 
 }
