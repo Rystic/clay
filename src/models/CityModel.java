@@ -110,8 +110,9 @@ public class CityModel extends AbstractModel
 				.get(building_.getBuildingIdentifier()).size();
 	}
 	
-	public int golemTypeCount(String golemTag_)
+	public int getGolemTypeCount(String golemTag_)
 	{
+		if (_golemMap.get(golemTag_) == null) return 0;
 		return _golemMap.get(golemTag_).size();
 	}
 	

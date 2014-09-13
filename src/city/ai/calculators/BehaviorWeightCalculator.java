@@ -13,12 +13,10 @@ import city.util.SearchUtil;
 
 public class BehaviorWeightCalculator
 {
-
 	public static int calculate(GolemEntity golem_, String weightConditions_, Object[] params_)
 	{
 		int finalWeight = 0;
 		String[] weightConditions = weightConditions_.split(",");
-
 		for (String weightCondition : weightConditions)
 		{
 			int addedWeight = 0;
@@ -45,7 +43,10 @@ public class BehaviorWeightCalculator
 			else if (weightCondition.equals(ClayConstants.WC_LOW_CLAY))
 				addedWeight = _lowClay(golem_);
 			else if (weightCondition.equals(ClayConstants.WC_CALC_BUILDING))
-				addedWeight = _calculateExtraBuildingWeight(golem_, params_, finalWeight);
+				addedWeight = _calculateExtraBuildingWeight(
+						golem_,
+						params_,
+						finalWeight);
 			if (addedWeight == Integer.MIN_VALUE)
 				return addedWeight;
 			finalWeight += addedWeight;
@@ -70,14 +71,9 @@ public class BehaviorWeightCalculator
 					houseCount++;
 			}
 		}
-		
-		int clayCount = 0;
-		List<GolemEntity> golems = screen.getModel().getGolems();
-		for (GolemEntity entity : golems)
-		{
-			if (entity.getGolemTag().equals(ClayConstants.GOLEM_CLAY))
-				clayCount++;
-		}
+
+		int clayCount = screen.getModel().getGolemTypeCount(
+				ClayConstants.GOLEM_CLAY);
 		if (clayCount >= houseCount)
 		{
 			return Integer.MIN_VALUE;
@@ -138,11 +134,9 @@ public class BehaviorWeightCalculator
 			for (String condition : conditions)
 			{
 				String[] conditionAndParams = condition.split(":");
-				Integer multiplier = Integer
-						.parseInt(conditionAndParams[1]);
+				Integer multiplier = Integer.parseInt(conditionAndParams[1]);
 				boolean passed = false;
-				if (conditionAndParams[0]
-						.equals(ClayConstants.WC_LOW_MANA)
+				if (conditionAndParams[0].equals(ClayConstants.WC_LOW_MANA)
 						&& golem_.isLowMana())
 					passed = true;
 				else if (conditionAndParams[0]
@@ -151,27 +145,22 @@ public class BehaviorWeightCalculator
 					passed = true;
 				else if (conditionAndParams[0]
 						.equals(ClayConstants.WC_NO_STORAGE))
-					passed = SearchUtil.getPathStatus(SearchUtil
-							.searchStorage(
-									golem_,
-									golem_.getHomeScreen())) == ClayConstants.BEHAVIOR_PASSED;
+					passed = SearchUtil.getPathStatus(SearchUtil.searchStorage(
+							golem_,
+							golem_.getHomeScreen())) == ClayConstants.BEHAVIOR_PASSED;
 				if (passed)
 					addedWeight_ *= multiplier;
 			}
 		}
 		return addedWeight_;
 	}
+
 	private static int _canBuildPearlclayGolem(GolemEntity golem_, Object[] params_)
 	{
 		int weight = 0;
 		CityScreen screen = (CityScreen) golem_.getHomeScreen();
-		int pearlclayCount = 0;
-		List<GolemEntity> golems = screen.getModel().getGolems();
-		for (GolemEntity entity : golems)
-		{
-			if (entity.getGolemTag().equals(ClayConstants.GOLEM_PEARLCLAY))
-				pearlclayCount++;
-		}
+		int pearlclayCount = screen.getModel().getGolemTypeCount(
+				ClayConstants.GOLEM_PEARLCLAY);
 		Integer buildingId = BuildingData.getBuildingByTag("mana-battery")
 				.getBuildingIdentifier();
 		List<BuildingEntity> manaBatteries = screen.getModel().getBuildingMap()
@@ -193,13 +182,8 @@ public class BehaviorWeightCalculator
 	{
 		int weight = 0;
 		CityScreen screen = (CityScreen) golem_.getHomeScreen();
-		int stonewareCount = 0;
-		List<GolemEntity> golems = screen.getModel().getGolems();
-		for (GolemEntity entity : golems)
-		{
-			if (entity.getGolemTag().equals(ClayConstants.GOLEM_STONEWARE))
-				stonewareCount++;
-		}
+		int stonewareCount = screen.getModel().getGolemTypeCount(
+				ClayConstants.GOLEM_STONEWARE);
 		Integer buildingId = BuildingData.getBuildingByTag("kiln")
 				.getBuildingIdentifier();
 		List<BuildingEntity> kilns = screen.getModel().getBuildingMap()
@@ -216,20 +200,15 @@ public class BehaviorWeightCalculator
 		}
 		return weight;
 	}
-	
+
 	private static int _canBuildEarthenwareGolem(GolemEntity golem_, Object[] params_)
 	{
 		int weight = 0;
 		CityScreen screen = (CityScreen) golem_.getHomeScreen();
-		int kilnGolemCount = 0;
-		List<GolemEntity> golems = screen.getModel().getGolems();
-		for (GolemEntity entity : golems)
-		{
-				kilnGolemCount++;
-				if (entity.getGolemTag().equals(ClayConstants.GOLEM_STONEWARE))
-			if (entity.getGolemTag().equals(ClayConstants.GOLEM_EARTHENWARE))
-				kilnGolemCount++;
-		}
+		int kilnGolemCount = screen.getModel().getGolemTypeCount(
+				ClayConstants.GOLEM_STONEWARE)
+				+ screen.getModel().getGolemTypeCount(
+						ClayConstants.GOLEM_EARTHENWARE);
 		Integer buildingId = BuildingData.getBuildingByTag("kiln")
 				.getBuildingIdentifier();
 		List<BuildingEntity> kilns = screen.getModel().getBuildingMap()
@@ -246,20 +225,15 @@ public class BehaviorWeightCalculator
 		}
 		return weight;
 	}
-	
+
 	private static int _canBuildWarrensGolem(GolemEntity golem_, Object[] params_)
 	{
 		if (golem_.getPersonality() == ClayConstants.PERSONALITY_CREATIVE)
-			return  Integer.MIN_VALUE;
+			return Integer.MIN_VALUE;
 		int weight = 0;
 		CityScreen screen = (CityScreen) golem_.getHomeScreen();
-		int warrensGolemCount = 0;
-		List<GolemEntity> golems = screen.getModel().getGolems();
-		for (GolemEntity entity : golems)
-		{
-			if (entity.getGolemTag().equals(ClayConstants.GOLEM_WARRENS))
-				warrensGolemCount++;
-		}
+		int warrensGolemCount = screen.getModel().getGolemTypeCount(
+				ClayConstants.GOLEM_WARRENS);
 		Integer buildingId = BuildingData.getBuildingByTag("warrens")
 				.getBuildingIdentifier();
 		List<BuildingEntity> warrens = screen.getModel().getBuildingMap()
