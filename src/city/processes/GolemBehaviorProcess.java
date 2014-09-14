@@ -76,6 +76,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		{
 			for (Behavior behavior : toBeAssigned)
 			{
+				// TODO everything that fails is being treated as unreachable. New list is needed to handle buildings with multiple active behaviors.
 				if (behavior == null)
 					continue;
 				if (_clearInvalid)
@@ -308,7 +309,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				_noStorageAvailable.remove(behavior_);
 				_noUnoccupiedBuildings.remove(behavior_);
 			}
-
+			// TODO maybe make a map event for unoccupied/multi-active task buildings?
 			if (reason_ == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
 			{
 				_noUnoccupiedBuildings.add(behavior_);

@@ -98,6 +98,7 @@ public class Behavior
 			if (count >= _behavior.getLimit())
 				return Integer.MIN_VALUE;
 		}
+		if (_assigningBuilding != null && _assigningBuilding.isInUse()) return Integer.MIN_VALUE;
 		return BehaviorWeightCalculator.calculate(
 				golem_,
 				_behavior.getWeightConditions(),

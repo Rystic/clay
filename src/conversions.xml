@@ -30,6 +30,6 @@
 	<Conversion ConversionName="Produce Earthenware Brick"
 		ConversionTag="earthenware-brick" ConversionBuilding="oven"
 		ConversionInput="saturated-clay,saturated-clay,mana-pipe,casing"
-		ConversionOutput="earthenware-brick,casing" Heat="1500"></Conversion>
+		ConversionOutput="earthenware-brick,casing" Heat="250"></Conversion>
 
 </Conversions>

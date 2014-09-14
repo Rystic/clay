@@ -15,6 +15,7 @@ import city.generics.data.BuildingData;
 import city.generics.data.ConversionData;
 import city.generics.entities.BuildingEntity;
 import city.generics.objects.Behavior;
+import city.generics.objects.ConversionBehavior;
 
 public class ResourceManagerProcess extends AbstractProcess
 {
@@ -102,10 +103,10 @@ public class ResourceManagerProcess extends AbstractProcess
 					for (BuildingEntity conversionBuilding : buildings)
 					{
 						if (conversionBuilding.isBuilt()
-								&& !conversionBuilding.hasActiveBehavior() && conversionBuilding.getCopyOfHeldItems().isEmpty())
+								&& !conversionBuilding.hasActiveConversion(underQuotaItem) && conversionBuilding.getCopyOfHeldItems().isEmpty())
 						{
 							conversionParams[0] = conversionBuilding;
-							Behavior conversionBehavior = new Behavior(
+							Behavior conversionBehavior = new ConversionBehavior(underQuotaItem,
 									BehaviorData
 											.getBehavior(ClayConstants.BEHAVIOR_CONVERSION),
 									conversionParams);

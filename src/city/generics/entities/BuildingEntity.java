@@ -22,6 +22,7 @@ import city.generics.GenericBuilding;
 import city.generics.data.BehaviorData;
 import city.generics.data.BuildingData;
 import city.generics.objects.Behavior;
+import city.generics.objects.ConversionBehavior;
 import city.generics.objects.Item;
 import city.processes.BuildingTickProcess;
 import city.processes.GolemBehaviorProcess;
@@ -50,7 +51,8 @@ public class BuildingEntity extends AbstractEntity implements
 		_tickTime = _building.getTickStart();
 		_isBase = _position.equals(ClayConstants.DEFAULT_BUILDING_POSITION);
 		_activeBehaviors = new ArrayList<Behavior>();
-
+		_activeConversions = new HashSet<String>();
+		
 		if (_built
 				&& _isBase
 				&& _building.getBuildingTag().equals(
@@ -321,7 +323,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	private void removeBuilding(boolean deconstruct_)
 	{
-		//TODO cancel active behaviors
+		// TODO cancel active behaviors
 		BuildingTickProcess behaviorTickProcess = (BuildingTickProcess) _homeScreen
 				.getProcess(BuildingTickProcess.class);
 		HeatTickProcess heatTickProcess = (HeatTickProcess) _homeScreen
@@ -344,10 +346,19 @@ public class BuildingEntity extends AbstractEntity implements
 			_allBuildingTiles = new ArrayList<BuildingEntity>();
 			_allBuildingTiles.add(this);
 		}
-
+		boolean printActiveLog = false;
 		for (BuildingEntity building : _allBuildingTiles)
 		{
+			if (building._activeBehaviors.size() > 0)
+				printActiveLog = true;
 			building.releaseAll();
+			if (printActiveLog)
+				System.out.println("Remaining active behaviors: "
+						+ building._activeBehaviors.size());
+			if (building._activeBehaviors.size() > 0)
+			{
+				System.out.println("u fuking wot m8");
+			}
 			behaviorTickProcess.unregister(building);
 			heatTickProcess.unregister(building);
 			if (deconstruct_)
@@ -460,11 +471,20 @@ public class BuildingEntity extends AbstractEntity implements
 	public void addActiveBehavior(Behavior behavior_)
 	{
 		_activeBehaviors.add(behavior_);
+		if (behavior_ instanceof ConversionBehavior)
+			_activeConversions.add(((ConversionBehavior) behavior_).getConversionKey());
 	}
 
 	public void removeActiveBehavior(Behavior behavior_)
 	{
 		_activeBehaviors.remove(behavior_);
+		if (behavior_ instanceof ConversionBehavior)
+			_activeConversions.remove(((ConversionBehavior) behavior_).getConversionKey());
+	}
+	
+	public boolean hasActiveConversion(String conversionKey_)
+	{
+		return _activeConversions.contains(conversionKey_);
 	}
 
 	public boolean hasActiveBehavior()
@@ -642,29 +662,41 @@ public class BuildingEntity extends AbstractEntity implements
 			if (addedHeat <= (isBuilt ? _building.getInsulation() : 0))
 				continue;
 			building.addHeat(addedHeat);
-			if (x - 1 >= 0 && tiles[x - 1][y] != null  && !openSet.contains(tiles[x - 1][y]))
+			if (x - 1 >= 0 && tiles[x - 1][y] != null
+					&& !openSet.contains(tiles[x - 1][y]))
 			{
 				degreeFromSource.put(tiles[x - 1][y], prevDegree + 1);
-				rawHeat.put(tiles[x - 1][y], heat - (isBuilt ? building.getHeatAbsorb() : 0));
+				rawHeat.put(
+						tiles[x - 1][y],
+						heat - (isBuilt ? building.getHeatAbsorb() : 0));
 				openSet.add(tiles[x - 1][y]);
 
 			}
-			if (x + 1 < tiles.length && tiles[x + 1][y] != null  && !openSet.contains(tiles[x + 1][y]))
+			if (x + 1 < tiles.length && tiles[x + 1][y] != null
+					&& !openSet.contains(tiles[x + 1][y]))
 			{
 				degreeFromSource.put(tiles[x + 1][y], prevDegree + 1);
-				rawHeat.put(tiles[x + 1][y], heat - (isBuilt ? building.getHeatAbsorb() : 0));
+				rawHeat.put(
+						tiles[x + 1][y],
+						heat - (isBuilt ? building.getHeatAbsorb() : 0));
 				openSet.add(tiles[x + 1][y]);
 			}
-			if (y - 1 >= 0 && tiles[x][y - 1] != null  && !openSet.contains(tiles[x][y - 1]))
+			if (y - 1 >= 0 && tiles[x][y - 1] != null
+					&& !openSet.contains(tiles[x][y - 1]))
 			{
 				degreeFromSource.put(tiles[x][y - 1], prevDegree + 1);
-				rawHeat.put(tiles[x][y - 1], heat - (isBuilt ? building.getHeatAbsorb() : 0));
+				rawHeat.put(
+						tiles[x][y - 1],
+						heat - (isBuilt ? building.getHeatAbsorb() : 0));
 				openSet.add(tiles[x][y - 1]);
 			}
-			if (y + 1 < tiles[0].length && tiles[x][y + 1] != null && !openSet.contains(tiles[x][y + 1]))
+			if (y + 1 < tiles[0].length && tiles[x][y + 1] != null
+					&& !openSet.contains(tiles[x][y + 1]))
 			{
 				degreeFromSource.put(tiles[x][y + 1], prevDegree + 1);
-				rawHeat.put(tiles[x][y + 1], heat - (isBuilt ? building.getHeatAbsorb() : 0));
+				rawHeat.put(
+						tiles[x][y + 1],
+						heat - (isBuilt ? building.getHeatAbsorb() : 0));
 				openSet.add(tiles[x][y + 1]);
 			}
 		}
@@ -672,10 +704,13 @@ public class BuildingEntity extends AbstractEntity implements
 
 	private void addHeat(int heat_)
 	{
-		if (isNatural()) return;
+		if (isNatural())
+			return;
 		((HeatTickProcess) _homeScreen.getProcess(HeatTickProcess.class))
 				.register(this);
-		if (isOverheated() && !_building.getBuildingTag().equals(ClayConstants.DEFAULT_TILE_TYPE))
+		if (isOverheated()
+				&& !_building.getBuildingTag().equals(
+						ClayConstants.DEFAULT_TILE_TYPE))
 		{
 			_heatDamage += heat_;
 			if (_heatDamage > _building.getThirdHeadThreshold())
@@ -683,7 +718,7 @@ public class BuildingEntity extends AbstractEntity implements
 		}
 		_heat += heat_;
 	}
-	
+
 	public int getCoolingRate()
 	{
 		return _building.getCoolingRate();
@@ -723,15 +758,17 @@ public class BuildingEntity extends AbstractEntity implements
 		BuildingEntity entity = (BuildingEntity) o;
 		if (entity.getPoint().equals(_point))
 		{
-			 if (entity.getBuildingIdentifier() == _building
-						.getBuildingIdentifier())
-			 {
-				 return true;
-			 }
-			 else
-			 {
-				 System.out.println("Mapping Error. Expecting " + entity.getBuildingName() + " on tile " + entity.getPoint() + ". Instead, found " + _building.getBuildingName());
-			 }
+			if (entity.getBuildingIdentifier() == _building
+					.getBuildingIdentifier())
+			{
+				return true;
+			}
+			else
+			{
+				// System.out.println("Mapping Error. Expecting " +
+				// entity.getBuildingName() + " on tile " + entity.getPoint() +
+				// ". Instead, found " + _building.getBuildingName());
+			}
 		}
 		return false;
 	}
@@ -747,6 +784,8 @@ public class BuildingEntity extends AbstractEntity implements
 	private List<BuildingEntity> _allBuildingTiles;
 
 	private List<Behavior> _activeBehaviors;
+	
+	private Set<String> _activeConversions;
 
 	private final Point _point;
 
