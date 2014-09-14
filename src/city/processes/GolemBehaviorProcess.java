@@ -55,6 +55,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			else
 				_inactiveGolems.add(golem);
 		}
+		// TODO calculate needed behaviors before other behaviors.
 		if (_inactiveGolems.size() > 0)
 			calculateBehavior();
 		if (!_failedBehaviors.isEmpty())

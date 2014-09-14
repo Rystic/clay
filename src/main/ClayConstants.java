@@ -43,6 +43,7 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_CREATE_CLAY_GOLEM = "create-clay-golem";
 	public static final String BEHAVIOR_COMMAND_CREATE_PEARLCLAY_GOLEM = "create-pearlclay-golem";
 	public static final String BEHAVIOR_COMMAND_CREATE_STONEWARE_GOLEM = "create-stoneware-golem";
+	public static final String BEHAVIOR_COMMAND_CREATE_EARTHENWARE_GOLEM = "create-earthenware-golem";
 	public static final String BEHAVIOR_COMMAND_CREATE_WARRENS_GOLEM = "create-warrens-golem";
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED = "consume-claimed";
 	public static final String BEHAVIOR_COMMAND_CONSUME_CLAIMED_CONSTRUCTION = "consume-claimed-construction";
