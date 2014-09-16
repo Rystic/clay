@@ -68,6 +68,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 
 	private void calculateBehavior()
 	{
+		List<BehaviorTriple> behaviorScores = new ArrayList<BehaviorTriple>();
 		for (GolemEntity golem : _inactiveGolems)
 		{
 			calculateNeededBehaviors(golem);
@@ -90,6 +91,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 						golemWantedBehavior._weight += golem
 								.getPersonalBehaviorWeight(behaviorTag);
 						golem.addPersonalBehaviorWeight(behaviorTag);
+						behaviorScores.add(golemWantedBehavior);
 					}
 				}
 			}
@@ -98,7 +100,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		_unassignedBehaviors.addAll(_noAvailableGolems);
 		_noAvailableGolems.clear();
 		toBeAssigned.addAll(_unassignedBehaviors);
-		List<BehaviorTriple> behaviorScores = new ArrayList<BehaviorTriple>();
 
 		if (!toBeAssigned.isEmpty())
 		{
