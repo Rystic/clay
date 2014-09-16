@@ -16,7 +16,7 @@ public class GolemBrain
 	 * low mana low clay
 	 */
 
-	public static BehaviorTriple calculateBestBehavior(GolemEntity golem_, List<GenericBehavior> behaviors_, boolean isNeededBehavior_)
+	public static BehaviorTriple calculateBestBehavior(GolemEntity golem_, List<GenericBehavior> behaviors_, boolean isNeededBehavior)
 	{
 		// TODO don't spin on this
 		Behavior bestBehavior = null;
@@ -44,7 +44,7 @@ public class GolemBrain
 		}
 		if (bestBehavior != null)
 		{
-			return new BehaviorTriple(golem_, bestBehavior, isNeededBehavior_ ? Integer.MAX_VALUE : bestWeight);
+			return new BehaviorTriple(golem_, bestBehavior, isNeededBehavior ? Integer.MAX_VALUE : bestWeight);
 		}
 		return null;
 	}
