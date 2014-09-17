@@ -29,6 +29,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		super(homeScreen_);
 		_golemList = ((CityModel) homeScreen_.getModel()).getGolems();
 		_inactiveGolems = new ArrayList<GolemEntity>();
+		_neededBehaviorsGolems = new ArrayList<GolemEntity>();
 		_unassignedBehaviors = new ArrayList<Behavior>();
 		_inProgressBehaviors = new ArrayList<Behavior>();
 		_unreachableBehaviors = new ArrayList<Behavior>();
@@ -55,7 +56,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			else
 				_inactiveGolems.add(golem);
 		}
-		// TODO calculate needed behaviors before other behaviors.
 		if (_inactiveGolems.size() > 0)
 			calculateBehavior();
 		if (!_failedBehaviors.isEmpty())
@@ -72,7 +72,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		for (GolemEntity golem : _inactiveGolems)
 		{
 			calculateNeededBehaviors(golem);
-			if (_inactiveGolems.isEmpty()) return;
 			if (!golem.isActive())
 			{
 				int addPersonalTask = _random.nextInt(100);
@@ -96,6 +95,9 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				}
 			}
 		}
+		_inactiveGolems.removeAll(_neededBehaviorsGolems);
+		_neededBehaviorsGolems.clear();
+		if (_inactiveGolems.isEmpty()) return;
 		List<Behavior> toBeAssigned = new ArrayList<Behavior>();
 		_unassignedBehaviors.addAll(_noAvailableGolems);
 		_noAvailableGolems.clear();
@@ -231,7 +233,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				triple._behavior.setBehaviorProcess(this);
 				triple._behavior.setAssigningGolem(triple._golem);
 				_inProgressBehaviors.add(triple._behavior);
-				_inactiveGolems.remove(golem_);
+				_neededBehaviorsGolems.add(golem_);
 			}
 			else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
 				triple._golem.addUnreachableBehavior(triple._behavior);
@@ -460,6 +462,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 
 	private List<GolemEntity> _golemList;
 	private List<GolemEntity> _inactiveGolems;
+	private List<GolemEntity> _neededBehaviorsGolems;
+
 
 	private Queue<FinishedBehavior> _failedBehaviors;
 	private Queue<FinishedBehavior> _completedBehaviors;

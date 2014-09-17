@@ -80,6 +80,8 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 				.getAttribute("isSupport"));
 		_unlockedFromStart = FieldParser.parseBoolean(eElement
 				.getAttribute("UnlockedFromStart"));
+		_isBridge  = FieldParser.parseBoolean(eElement
+				.getAttribute("isBridge"));
 
 		_psychologyType = FieldParser.parseByte(eElement
 				.getAttribute("PsychologyType"));
@@ -171,7 +173,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 				{
 					if (key.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
 					{
-						if (tiles_[p_.x][p_.y + 1] != null)
+						if (tiles_[p_.x][p_.y + 1] != null && !tiles_[p_.x][p_.y + 1].isBridge())
 						{
 							valid = _validPlacementMap.keySet().contains("n");
 						}
@@ -209,7 +211,9 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 				if (!transformCheck.equals(this))
 					return false;
 			}
-			if (yDiff == 0)
+			GenericBuilding building = BuildingData
+					.getBuildingByTag(_validPlacementMap.get(key));
+			if (yDiff == 0 && building != null)
 			{
 				BuildingEntity ground = tiles_[p_.x + xDiff][p_.y - 1];
 				if (ground == null || !ground.isSupportBlock())
@@ -218,8 +222,6 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 					break;
 				}
 			}
-			GenericBuilding building = BuildingData
-					.getBuildingByTag(_validPlacementMap.get(key));
 
 			if (p_.y + yDiff < 0
 					|| p_.y + yDiff >= (ClayConstants.DEFAULT_MAP_HEIGHT / ClayConstants.TILE_Y))
@@ -753,6 +755,11 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	{
 		return _isSupport;
 	}
+	
+	public boolean isBridge()
+	{
+		return _isBridge;
+	}
 
 	public int getStorageCapacity()
 	{
@@ -863,6 +870,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	private final boolean _isPassable;
 	private final boolean _isStorage;
 	private final boolean _isSupport;
+	private final boolean _isBridge;
 
 	private final boolean _unlockedFromStart;
 

@@ -52,7 +52,7 @@ public class BuildingEntity extends AbstractEntity implements
 		_isBase = _position.equals(ClayConstants.DEFAULT_BUILDING_POSITION);
 		_activeBehaviors = new ArrayList<Behavior>();
 		_activeConversions = new HashSet<String>();
-		
+
 		if (_built
 				&& _isBase
 				&& _building.getBuildingTag().equals(
@@ -130,6 +130,11 @@ public class BuildingEntity extends AbstractEntity implements
 	public boolean isSupportBlock()
 	{
 		return _building.isSupport();
+	}
+
+	public boolean isBridge()
+	{
+		return isBuilt() && _building.isBridge();
 	}
 
 	public boolean isUpwardScalable()
@@ -472,16 +477,18 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		_activeBehaviors.add(behavior_);
 		if (behavior_ instanceof ConversionBehavior)
-			_activeConversions.add(((ConversionBehavior) behavior_).getConversionKey());
+			_activeConversions.add(((ConversionBehavior) behavior_)
+					.getConversionKey());
 	}
 
 	public void removeActiveBehavior(Behavior behavior_)
 	{
 		_activeBehaviors.remove(behavior_);
 		if (behavior_ instanceof ConversionBehavior)
-			_activeConversions.remove(((ConversionBehavior) behavior_).getConversionKey());
+			_activeConversions.remove(((ConversionBehavior) behavior_)
+					.getConversionKey());
 	}
-	
+
 	public boolean hasActiveConversion(String conversionKey_)
 	{
 		return _activeConversions.contains(conversionKey_);
@@ -713,7 +720,7 @@ public class BuildingEntity extends AbstractEntity implements
 						ClayConstants.DEFAULT_TILE_TYPE))
 		{
 			_heatDamage += heat_;
-			if (_heatDamage > _building.getThirdHeadThreshold())
+			if (_heatDamage > _building.getThirdHeadThreshold() && !isBridge())
 				deleteBuilding();
 		}
 		_heat += heat_;
@@ -784,7 +791,7 @@ public class BuildingEntity extends AbstractEntity implements
 	private List<BuildingEntity> _allBuildingTiles;
 
 	private List<Behavior> _activeBehaviors;
-	
+
 	private Set<String> _activeConversions;
 
 	private final Point _point;

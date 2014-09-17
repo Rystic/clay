@@ -306,10 +306,14 @@ public class SearchUtil
 
 	private static boolean isHorizontalMoveValid(int direction_, Point p_, BuildingEntity tiles_[][])
 	{
-		if (tiles_[p_.x + direction_][p_.y - 1] == null)
-			return false;
-		if (!tiles_[p_.x + direction_][p_.y - 1].isSupportBlock())
-			return false;
+		if (tiles_[p_.x + direction_][p_.y] == null
+				|| !tiles_[p_.x + direction_][p_.y].isBridge())
+		{
+			if (tiles_[p_.x + direction_][p_.y - 1] == null)
+				return false;
+			if (!tiles_[p_.x + direction_][p_.y - 1].isSupportBlock())
+				return false;
+		}
 		if (tiles_[p_.x + direction_][p_.y] == null)
 			return true;
 		if (tiles_[p_.x + direction_][p_.y].isPassable())

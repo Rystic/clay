@@ -161,7 +161,6 @@ public class GolemEntity extends AbstractEntity
 
 	public void updatePosition()
 	{
-		// TODO make sure path didn't get obstructed
 		Point destination = _moveInstructions.peek();
 		double xDestination = destination.x;
 		double yDestination = destination.y;
