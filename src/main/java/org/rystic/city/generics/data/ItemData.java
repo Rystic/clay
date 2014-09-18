@@ -17,7 +17,7 @@ public class ItemData
 {
 	public static void init()
 	{
-		File fXmlFile = new File("src/items.xml");
+		File fXmlFile = new File("src/main/data/items.xml");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		try

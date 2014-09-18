@@ -1,7 +1,6 @@
 package org.rystic.city.generics.data;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,8 +15,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
 import org.rystic.city.generics.GenericBuilding;
+import org.rystic.city.generics.util.FieldParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -26,7 +25,7 @@ public class BuildingData
 {
 	public static void init()
 	{
-		File fXmlFile = new File("src/buildings.xml");
+		File fXmlFile = new File("src/main/data/buildings.xml");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		int identifier = 0;
@@ -79,9 +78,7 @@ public class BuildingData
 			}
 			_buildingCategories.addAll(_categoryToBuilding.keySet());
 			Collections.sort(_buildingCategories);
-			_unbuiltTexture = TextureLoader.getTexture(
-					"PNG",
-					new FileInputStream(new File("art/constructionBlock.png")));
+			_unbuiltTexture = FieldParser.parseTexture("constructionBlock.png");
 		} catch (Exception e)
 		{
 			e.printStackTrace();

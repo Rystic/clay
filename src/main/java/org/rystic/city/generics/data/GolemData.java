@@ -16,7 +16,7 @@ public class GolemData
 {
 	public static void init()
 	{
-		File fXmlFile = new File("src/golems.xml");
+		File fXmlFile = new File("src/main/data/golems.xml");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		try

@@ -61,7 +61,7 @@ public class FieldParser
 		try
 		{
 			return TextureLoader.getTexture("PNG", new FileInputStream(
-					new File("art/" + value_)));
+					new File("src/main/art/" + value_)));
 		} catch (Exception e_)
 		{
 			e_.printStackTrace();

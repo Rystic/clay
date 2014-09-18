@@ -16,7 +16,7 @@ public class ConversionData
 {
 	public static void init()
 	{
-		File fXmlFile = new File("src/conversions.xml");
+		File fXmlFile = new File("src/main/data/conversions.xml");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		try
