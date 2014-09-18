@@ -55,7 +55,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 		if (_built
 				&& _isBase
-				&& _building.getBuildingTag().equals(
+				&& !_building.getBuildingTag().equals(
 						ClayConstants.DEFAULT_TILE_TYPE))
 			((CityModel) _model).addToBuildingMap(this);
 
