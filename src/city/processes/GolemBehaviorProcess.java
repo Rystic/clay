@@ -110,8 +110,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				// TODO everything that fails is being treated as unreachable.
 				// New list is needed to handle buildings with multiple active
 				// behaviors.
-				if (behavior == null)
-					continue;
 				if (_clearInvalid)
 					behavior.clearInvalidEntities();
 				for (GolemEntity golem : _inactiveGolems)
