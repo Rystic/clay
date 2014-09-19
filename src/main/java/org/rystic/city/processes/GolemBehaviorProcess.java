@@ -95,12 +95,13 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		}
 		_inactiveGolems.removeAll(_neededBehaviorsGolems);
 		_neededBehaviorsGolems.clear();
-		if (_inactiveGolems.isEmpty()) return;
+		if (_inactiveGolems.isEmpty())
+			return;
 		List<Behavior> toBeAssigned = new ArrayList<Behavior>();
 		_unassignedBehaviors.addAll(_noAvailableGolems);
 		_noAvailableGolems.clear();
 		toBeAssigned.addAll(_unassignedBehaviors);
-		
+
 		if (!toBeAssigned.isEmpty())
 		{
 			for (Behavior behavior : toBeAssigned)
@@ -328,6 +329,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM
 					|| reason_ == ClayConstants.BEHAVIOR_FAILED_OBSOLETE)
 			{
+				if (!behavior_.isHarvestTask())
+					System.out.println(behavior_.getBehaviorTag() + " " + reason_);
 				_unassignedBehaviors.remove(behavior_);
 				_inProgressBehaviors.remove(behavior_);
 				_unreachableBehaviors.remove(behavior_);
@@ -459,7 +462,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	private List<GolemEntity> _golemList;
 	private List<GolemEntity> _inactiveGolems;
 	private List<GolemEntity> _neededBehaviorsGolems;
-
 
 	private Queue<FinishedBehavior> _failedBehaviors;
 	private Queue<FinishedBehavior> _completedBehaviors;

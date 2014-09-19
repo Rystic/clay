@@ -23,14 +23,12 @@ public class CityInterfaceController extends AbstractProcess
 		_cityScreen = (CityScreen) _homeScreen;
 		_pressedKeys = new ArrayList<Integer>();
 		_model = _cityScreen.getModel();
-		_menuPointer = 0;
 	}
 
 	@Override
 	public void execute()
 	{
-		List<AbstractMenu> menus = _cityScreen.getMenus();
-		AbstractMenu menu = menus.get(_menuPointer);
+		AbstractMenu menu = _model.getSelectedMenu();
 		for (Integer key : menu.getHotKeys())
 		{
 			if (!_pressedKeys.contains(key) && Keyboard.isKeyDown(key))
@@ -74,8 +72,6 @@ public class CityInterfaceController extends AbstractProcess
 		else if (!Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 			_spaceDown = false;
 	}
-
-	private int _menuPointer;
 
 	private boolean _leftMouseDown;
 	private boolean _spaceDown;
