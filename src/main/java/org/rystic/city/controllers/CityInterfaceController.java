@@ -68,10 +68,7 @@ public class CityInterfaceController extends AbstractProcess
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !_spaceDown)
 		{
-			_menuPointer++;
-			if (_menuPointer == menus.size())
-				_menuPointer = 0;
-			_model.setSelectedMenu(menus.get(_menuPointer));
+			_model.moveMenuRight();
 			_spaceDown = true;
 		}
 		else if (!Keyboard.isKeyDown(Keyboard.KEY_SPACE))

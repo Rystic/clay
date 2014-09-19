@@ -17,6 +17,7 @@ import org.rystic.city.generics.entities.GolemEntity;
 import org.rystic.city.ui.menus.AbstractMenu;
 import org.rystic.main.ClayConstants;
 import org.rystic.screens.AbstractScreen;
+import org.rystic.screens.CityScreen;
 
 public class CityModel extends AbstractModel
 {
@@ -39,6 +40,7 @@ public class CityModel extends AbstractModel
 		_currentItemInventory = new HashMap<String, Map<String, Integer>>();
 		_desiredItemRatios = new HashMap<String, Map<String, Integer>>();
 		_currentItemRatios = new HashMap<String, Map<String, Integer>>();
+		_menuPointer = 0;
 		initItems();
 	}
 
@@ -109,13 +111,14 @@ public class CityModel extends AbstractModel
 		return _buildingMap.get(building_.getBuildingIdentifier()) == null ? 0 : _buildingMap
 				.get(building_.getBuildingIdentifier()).size();
 	}
-	
+
 	public int getGolemTypeCount(String golemTag_)
 	{
-		if (_golemMap.get(golemTag_) == null) return 0;
+		if (_golemMap.get(golemTag_) == null)
+			return 0;
 		return _golemMap.get(golemTag_).size();
 	}
-	
+
 	public List<GolemEntity> getGolemsByType(String golemTag_)
 	{
 		return _golemMap.get(golemTag_);
@@ -250,6 +253,24 @@ public class CityModel extends AbstractModel
 		_currentItemRatios = currentItemRatios_;
 	}
 
+	public void moveMenuRight()
+	{
+		List<AbstractMenu> menus = ((CityScreen) _homeScreen).getMenus();
+		_menuPointer++;
+		if (_menuPointer == menus.size())
+			_menuPointer = 0;
+		setSelectedMenu(menus.get(_menuPointer));
+	}
+
+	public void moveMenuLeft()
+	{
+		List<AbstractMenu> menus = ((CityScreen) _homeScreen).getMenus();
+		_menuPointer--;
+		if (_menuPointer == -1)
+			_menuPointer = menus.size() - 1;
+		setSelectedMenu(menus.get(_menuPointer));
+	}
+
 	// Architecture
 	private BuildingEntity[][] _tileValues;
 
@@ -258,6 +279,7 @@ public class CityModel extends AbstractModel
 	private List<GolemEntity> _newGolemList;
 
 	private int _mana;
+	private int _menuPointer;
 
 	// Interface
 	private AbstractMenu _selectedMenu;

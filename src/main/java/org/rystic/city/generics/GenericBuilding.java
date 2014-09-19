@@ -178,7 +178,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 					}
 					else
 					{
-						if (tiles_[p_.x + xDiff][p_.y + yDiff + 1] != null)
+						if (tiles_[p_.x + xDiff][p_.y + yDiff + 1] != null && !tiles_[p_.x + xDiff][p_.y + yDiff + 1].isBridge())
 						{
 							StringBuilder nBuilder = new StringBuilder("n");
 							StringBuilder ewBuilder = new StringBuilder();
