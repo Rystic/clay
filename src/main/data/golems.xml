@@ -10,7 +10,7 @@
 		LowManaTexture="lowManaGolem.png" LowManaLowClayTexture="lowManaLowClayGolem.png"></Golem>
 
 	<Golem GolemName="Pearlclay Golem" GolemTag="pearlclay-golem"
-		MoveSpeed="4" MoveVariation="0"
+		MoveSpeed="3" MoveVariation=".5"
 		NeededBehaviors="repair-pearlclay,power-obelisk,store-items"
 		StartingMana="250" StartingClay="50" MaximumMana="200" MaximumClay="150"
 		ManaLostOnMovement=".0001" LowManaThreshold="100" LowClayThreshold="25"
