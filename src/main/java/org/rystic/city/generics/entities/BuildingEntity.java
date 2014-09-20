@@ -50,6 +50,7 @@ public class BuildingEntity extends AbstractEntity implements
 		_isBase = _position.equals(ClayConstants.DEFAULT_BUILDING_POSITION);
 		_activeBehaviors = new ArrayList<Behavior>();
 		_activeConversions = new HashSet<String>();
+		_allBuildingTiles = new ArrayList<BuildingEntity>();
 
 		if (_built
 				&& _isBase
@@ -188,7 +189,7 @@ public class BuildingEntity extends AbstractEntity implements
 	private boolean isBuilt(boolean firstSearch_)
 	{
 		boolean tileIsBuilt = _built;
-		if (_allBuildingTiles != null && tileIsBuilt && firstSearch_)
+		if (_allBuildingTiles.size() > 1 && tileIsBuilt && firstSearch_)
 		{
 			for (BuildingEntity building : _allBuildingTiles)
 			{
@@ -290,11 +291,6 @@ public class BuildingEntity extends AbstractEntity implements
 		_markedForDeletion = true;
 		if (!first_)
 			return;
-		if (_allBuildingTiles == null)
-		{
-			_allBuildingTiles = new ArrayList<BuildingEntity>();
-			_allBuildingTiles.add(this);
-		}
 		BuildingTickProcess tickProcess = (BuildingTickProcess) _homeScreen
 				.getProcess(BuildingTickProcess.class);
 		for (BuildingEntity building : _allBuildingTiles)
@@ -343,11 +339,6 @@ public class BuildingEntity extends AbstractEntity implements
 			((StorageInventoryProcess) _homeScreen
 					.getProcess(StorageInventoryProcess.class))
 					.requestInventoryUpdate();
-		}
-		if (_allBuildingTiles == null)
-		{
-			_allBuildingTiles = new ArrayList<BuildingEntity>();
-			_allBuildingTiles.add(this);
 		}
 		boolean printActiveLog = false;
 		for (BuildingEntity building : _allBuildingTiles)
@@ -612,14 +603,9 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public void highlightAllForDeletion()
 	{
-		if (_allBuildingTiles == null)
-			setHighlightedForDeletion(true);
-		else
+		for (BuildingEntity building : _allBuildingTiles)
 		{
-			for (BuildingEntity building : _allBuildingTiles)
-			{
-				building.setHighlightedForDeletion(true);
-			}
+			building.setHighlightedForDeletion(true);
 		}
 	}
 
@@ -640,10 +626,7 @@ public class BuildingEntity extends AbstractEntity implements
 		Set<BuildingEntity> closedSet = new HashSet<BuildingEntity>();
 		Map<BuildingEntity, Integer> degreeFromSource = new HashMap<BuildingEntity, Integer>();
 		Map<BuildingEntity, Integer> rawHeat = new HashMap<BuildingEntity, Integer>();
-		if (_allBuildingTiles == null)
-			openSet.add(this);
-		else
-			openSet.addAll(_allBuildingTiles);
+		openSet.addAll(_allBuildingTiles);
 		for (BuildingEntity building : openSet)
 		{
 			degreeFromSource.put(building, 0);

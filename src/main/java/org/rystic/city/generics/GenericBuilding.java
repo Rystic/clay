@@ -46,7 +46,8 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		_transformCode = eElement.getAttribute("Transform");
 		_constructionItems = eElement.getAttribute("ConstructionItems");
 
-		_coolingRate = FieldParser.parseInt(eElement.getAttribute("CoolingRate"));
+		_coolingRate = FieldParser.parseInt(eElement
+				.getAttribute("CoolingRate"));
 		_heatAbsorb = FieldParser.parseInt(eElement.getAttribute("HeatAbsorb"));
 		_insulation = FieldParser.parseInt(eElement.getAttribute("Insulation"));
 		_heatResistance = FieldParser.parseInt(eElement
@@ -78,8 +79,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 				.getAttribute("isSupport"));
 		_unlockedFromStart = FieldParser.parseBoolean(eElement
 				.getAttribute("UnlockedFromStart"));
-		_isBridge  = FieldParser.parseBoolean(eElement
-				.getAttribute("isBridge"));
+		_isBridge = FieldParser.parseBoolean(eElement.getAttribute("isBridge"));
 
 		_psychologyType = FieldParser.parseByte(eElement
 				.getAttribute("PsychologyType"));
@@ -171,14 +171,17 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 				{
 					if (key.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
 					{
-						if (tiles_[p_.x][p_.y + 1] != null && !tiles_[p_.x][p_.y + 1].isBridge())
+						if (tiles_[p_.x][p_.y + 1] != null
+								&& !tiles_[p_.x][p_.y + 1].isBridge())
 						{
 							valid = _validPlacementMap.keySet().contains("n");
 						}
 					}
 					else
 					{
-						if (tiles_[p_.x + xDiff][p_.y + yDiff + 1] != null && !tiles_[p_.x + xDiff][p_.y + yDiff + 1].isBridge())
+						if (tiles_[p_.x + xDiff][p_.y + yDiff + 1] != null
+								&& !tiles_[p_.x + xDiff][p_.y + yDiff + 1]
+										.isBridge())
 						{
 							StringBuilder nBuilder = new StringBuilder("n");
 							StringBuilder ewBuilder = new StringBuilder();
@@ -305,16 +308,11 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 			}
 		}
 		List<Point> points = new ArrayList<Point>();
-		if (newBuildings.size() > 1)
+		for (BuildingEntity entity : newBuildings)
 		{
-			for (BuildingEntity entity : newBuildings)
-			{
-				entity.setAllTiles(newBuildings);
-				points.add(entity.getPoint());
-			}
+			entity.setAllTiles(newBuildings);
+			points.add(entity.getPoint());
 		}
-		else
-			points.add(new Point(newBuildings.get(0).getPoint()));
 
 		Map<Integer, Object> map = new HashMap<Integer, Object>();
 		map.put(ClayConstants.EVENT_MAP_UPDATE, points);
@@ -668,12 +666,12 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	{
 		return _lesserManaCumulativeCost;
 	}
-	
+
 	public int getCoolingRate()
 	{
 		return _coolingRate;
 	}
-	
+
 	public int getHeatAbsorb()
 	{
 		return _heatAbsorb;
@@ -753,7 +751,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	{
 		return _isSupport;
 	}
-	
+
 	public boolean isBridge()
 	{
 		return _isBridge;
