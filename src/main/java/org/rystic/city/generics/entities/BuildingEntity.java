@@ -161,11 +161,6 @@ public class BuildingEntity extends AbstractEntity implements
 		return _claimingGolem != null;
 	}
 
-	public boolean isValid()
-	{
-		return _building.isValid(this);
-	}
-
 	public boolean isNatural()
 	{
 		return _building.isNatural();
