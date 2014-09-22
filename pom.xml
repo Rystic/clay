@@ -47,19 +47,14 @@
       <groupId>org.bushe</groupId>
       <artifactId>eventbus</artifactId>
       <version>1.4</version>
-    </dependency>
-    
+    </dependency>    
     <dependency>
       <groupId>slick_util</groupId>  
-       <artifactId>slick_util</artifactId>  
-       <version>1.0</version> 
-       <scope>system</scope>
-       <systemPath>${project.basedir}/src/main/resources/slick_utils/slick-util.jar</systemPath>
+      <artifactId>slick_util</artifactId>  
+      <version>1.0</version> 
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/resources/slick_utils/slick-util.jar</systemPath>
     </dependency>
-
-
-    
-
     <dependency>
       <groupId>java3d</groupId>
       <artifactId>vecmath</artifactId>
