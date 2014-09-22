@@ -89,6 +89,14 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		parseBuildingRequirements(eElement.getAttribute("BuildingRequirements"));
 		parseScalability(eElement.getAttribute("Scalability"));
 
+		_buildTiles = new ArrayList<String>();
+		
+		for (String tile : eElement.getAttribute("BuildTiles")
+				.split(","))
+		{
+			_buildTiles.add(tile);
+		}
+		
 		_stateOrder = new ArrayList<String>();
 		NodeList children = node_.getChildNodes();
 		for (int i = 0; i < children.getLength(); i++)
@@ -829,6 +837,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	private final Map<String, String> _scalabilityMap = new HashMap<String, String>();
 
 	private final List<String> _stateOrder;
+	private final List<String> _buildTiles;
 
 	private final String _buildingName;
 	private final String _buildingTag;

@@ -7,6 +7,12 @@
 		require="entity-not-holding-unnecessary-item:0,claim-building:0,claim-construction-items:0"
 		code="seek-claimed-construction-items:0,seek:0,consume-claimed-construction:0,build:1"></Behavior>
 
+	<Behavior BehaviorName="Construct Building Non-Base Tile" BehaviorTag="construct-building-non-base-tile"
+		BehaviorDescription="text:Constructing ,building:1,text:." weight="closest-to-point,calculate-extra-building-weight"
+		defaultParams="" personalBehavior="false" limit="-1" golemCost="clay:-2"
+		require="entity-not-holding-unnecessary-item:0,claim-building:1,claim-construction-items:0"
+		code="seek-claimed-construction-items:0,seek:1,consume-claimed-construction:0,build:1"></Behavior>
+
 	<Behavior BehaviorName="Deconstruct Building" BehaviorTag="deconstruct-building"
 		BehaviorDescription="text:Deconstructing ,building:0,text:." weight="closest-to-point,calculate-extra-building-weight"
 		defaultParams="" personalBehavior="false" limit="-1" golemCost="clay:-2"
