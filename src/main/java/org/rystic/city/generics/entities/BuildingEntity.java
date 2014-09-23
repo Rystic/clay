@@ -150,6 +150,11 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return isBuilt() && _building.getScalableDiagonal(_position);
 	}
+	
+	public String getPosition()
+	{
+		return _position;
+	}
 
 	public boolean isPassable()
 	{

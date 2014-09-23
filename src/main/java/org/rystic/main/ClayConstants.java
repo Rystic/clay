@@ -172,6 +172,7 @@ public class ClayConstants
 	public static final int SEARCH_ITEM_GOAL_ONLY = 5;
 	public static final int SEARCH_HOUSE_GOAL_ONLY = 6;
 	public static final int SEARCH_EMPTY_GENERIC_BUILDING_GOAL_ONLY = 7;
+	public static final int SEARCH_ENTITIES = 8;
 
 	// --Text Colors--
 	public static final Color M_MENU_HEADER_COLOR = Color.cyan;

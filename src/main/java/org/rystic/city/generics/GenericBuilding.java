@@ -305,13 +305,16 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		{
 			GolemBehaviorProcess behaviorProcess = ((GolemBehaviorProcess) homeScreen_
 					.getProcess(GolemBehaviorProcess.class));
+			List<BuildingEntity> buildableLocations = new ArrayList<BuildingEntity>();
 			for (BuildingEntity entity : newBuildings)
 			{
+				if (_buildTiles.contains(entity.getPosition()))
+					buildableLocations.add(entity);
 				Behavior constructionBehavior = new Behavior(
 						BehaviorData.getBehavior("construct-building"),
 						tiles_[p_.x][p_.y], entity);
-				constructionBehavior.setAssigningBuilding(entity);
-				entity.addActiveBehavior(constructionBehavior);
+				//constructionBehavior.setAssigningBuilding(entity);
+				//entity.addActiveBehavior(constructionBehavior);
 				behaviorProcess.queueBehavior(constructionBehavior);
 			}
 		}

@@ -30,6 +30,16 @@ public class SearchUtil
 				buildingEntity_);
 		return path;
 	}
+	
+	public static Queue<Point> searchBuildingEntities(AbstractEntity entity_, AbstractScreen abstractScreen_, List<BuildingEntity> buildingEntities_)
+	{
+		Queue<Point> path = SearchUtil.search(
+				entity_,
+				entity_.getHomeScreen(),
+				ClayConstants.SEARCH_ENTITIES,
+				buildingEntities_);
+		return path;
+	}
 
 	public static Queue<Point> searchGenericBuilding(AbstractEntity entity_, AbstractScreen abstractScreen_, String buildingTag_)
 	{
@@ -99,6 +109,7 @@ public class SearchUtil
 		return path;
 	}
 
+	@SuppressWarnings("unchecked")
 	private static Queue<Point> search(AbstractEntity entity_, AbstractScreen abstractScreen_, Object... params_)
 	{
 		Set<Point> closedSet = new HashSet<Point>();
@@ -144,6 +155,10 @@ public class SearchUtil
 				if (searchType == ClayConstants.SEARCH_ENTITY)
 				{
 					isGoal = tile.equals(params_[1]);
+				}
+				else if (searchType == ClayConstants.SEARCH_ENTITIES)
+				{
+					isGoal = ((List<BuildingEntity>)params_[1]).contains(tile);
 				}
 				else if (searchType == ClayConstants.SEARCH_GENERIC_BUILDING
 						|| searchType == ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY)
