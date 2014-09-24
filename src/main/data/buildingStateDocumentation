@@ -44,6 +44,7 @@ produce-item-on-golem:<item-tag> - Produces an item on the executing golem.
 seek:abstract-entity - Tells the golem to seek the given parameter on the map.
 seek-claimed-construction-items - Tells the golem to seek the items for the building under construction.
 seek-claimed-items - Tells the golem to gather the claimed items for the building it has claimed.
+seek-entities:list<abstract-entity> - Tells the golem to seek one of the given parameters.
 seek-generic-building:building-tag - Tells the golem to seek a building of the given type on the map.
 seek-storage - Tells the golem to find a storage building with available space.
 show - Reveals a golem made invisible with 'hide'

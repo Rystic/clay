@@ -116,6 +116,12 @@ public class BehaviorInstructionCalculator
 					commandAndParams,
 					behaviorParams_);
 
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_ENTITIES))
+			complete = _seekEntities(
+					executingEntity_,
+					commandAndParams,
+					behaviorParams_);
+
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_CLAIMED_ITEMS))
 			complete = _seekClaimedItems(executingEntity_, model);
 
@@ -536,7 +542,7 @@ public class BehaviorInstructionCalculator
 		if (items.isEmpty() || constructionItems.isEmpty())
 			return true;
 
-		return constructionItems.contains(items.get(0).getTag());
+		return constructionItems.contains(items.get(0).getTag()); //TODO one of the spots to fix if golems want to hold multiple items.
 
 	}
 
@@ -611,6 +617,28 @@ public class BehaviorInstructionCalculator
 			else
 				executingEntity_.addMoveInstructions(path);
 		}
+		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static boolean _seekEntities(GolemEntity executingEntity_, String[] commandAndParams_, Object[] behaviorParams_)
+	{
+		List<BuildingEntity> entities = ((List<BuildingEntity>) behaviorParams_[Integer
+				.parseInt(commandAndParams_[1])]);
+		for (BuildingEntity entity : entities)
+		{
+		if (executingEntity_.getPoint().equals(entity.getPoint()))
+			return true;
+		}
+			Queue<Point> path = SearchUtil.searchBuildingEntities(
+					executingEntity_,
+					executingEntity_.getHomeScreen(),
+					entities);
+			int pathStatus = SearchUtil.getPathStatus(path);
+			if (pathStatus != ClayConstants.BEHAVIOR_PASSED)
+				executingEntity_.behaviorFailed(pathStatus);
+			else
+				executingEntity_.addMoveInstructions(path);
 		return false;
 	}
 
