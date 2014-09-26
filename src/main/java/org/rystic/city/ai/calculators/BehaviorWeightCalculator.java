@@ -36,6 +36,8 @@ public class BehaviorWeightCalculator
 				addedWeight = _canBuildWarrensGolem(golem_, params_);
 			else if (weightCondition.equals(ClayConstants.WC_CLOSEST_TO_POINT))
 				addedWeight = _closestToPoint(golem_, params_);
+			else if (weightCondition.equals(ClayConstants.WC_CLOSEST_TO_CONSTRUCTION_POINT))
+				addedWeight = _closestToPointConstructionPoint(golem_, params_);
 			else if (weightCondition.equals(ClayConstants.WC_HOLDING_ITEM))
 				addedWeight = _holdingItem(golem_);
 			else if (weightCondition.equals(ClayConstants.WC_LOW_MANA))
@@ -266,6 +268,24 @@ public class BehaviorWeightCalculator
 			weight = 1;
 		return weight;
 	}
+	
+	@SuppressWarnings("unchecked")
+	private static int _closestToPointConstructionPoint(GolemEntity golem_, Object[] params_)
+	{
+		int weight = 0;
+		List<BuildingEntity> entity = (List<BuildingEntity>) params_[1];
+		Queue<Point> path = SearchUtil.searchBuildingEntitiesGoalOnly(
+				golem_,
+				golem_.getHomeScreen(),
+				entity);
+		if (path.size() == 0)
+			return Integer.MIN_VALUE;
+		weight += 50 - path.size();
+		if (weight <= 0)
+			weight = 1;
+		return weight;
+	}
+
 
 	private static int _holdingItem(GolemEntity golem_)
 	{

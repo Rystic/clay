@@ -403,7 +403,7 @@
 		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
 		isBridge="true" isPassable="true" Scalability="base,-,e,-,ee,-"
-		BuildTiles="base" isStorage="false" isSupport="true" StorageCapacity="0"
+		BuildTiles="base,ee" isStorage="false" isSupport="true" StorageCapacity="0"
 		ConstructionItems="" PsychologyType="0" PsychologyInfluence="10"
 		UnlockedFromStart="true" Transform="" tickStart="-1">
 		<State StateName="state-default" Graphic="base,skyway1.png,e,skyway2.png,ee,skyway3.png"></State>

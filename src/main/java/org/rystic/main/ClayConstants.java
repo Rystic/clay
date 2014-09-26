@@ -58,9 +58,11 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_SEEK = "seek";
 	public static final String BEHAVIOR_COMMAND_SEEK_CLAIMED_CONSTRUCTION_ITEMS = "seek-claimed-construction-items";
 	public static final String BEHAVIOR_COMMAND_SEEK_CLAIMED_ITEMS = "seek-claimed-items";
+	public static final String BEHAVIOR_COMMAND_SEEK_CONSTRUCTION_BUILDING = "seek-construction-building";
 	public static final String BEHAVIOR_COMMAND_SEEK_ENTITIES = "seek-entities";
 	public static final String BEHAVIOR_COMMAND_SEEK_GENERIC_BUILDING = "seek-generic-building";
 	public static final String BEHAVIOR_COMMAND_SEEK_STORAGE = "seek-storage";
+	public static final String BEHAVIOR_COMMAND_SET_CONSTRUCTION_BUILDING = "set-construction-building";
 	public static final String BEHAVIOR_COMMAND_SHOW = "show";
 	public static final String BEHAVIOR_COMMAND_STORAGE_EXISTS_FROM_ENTITY = "storage-exists-from-entity";
 	public static final String BEHAVIOR_COMMAND_STORAGE_EXISTS_FROM_GOLEM = "storage-exists-from-golem";
@@ -101,7 +103,9 @@ public class ClayConstants
 	public static final String WC_CAN_BUILD_EARTHENWARE_GOLEM = "can-build-earthenware-golem";
 	public static final String WC_CAN_BUILD_WARRENS_GOLEM = "can-build-warrens-golem";
 
+	//TODO add new construction behavior info in building documentation
 	public static final String WC_CLOSEST_TO_POINT = "closest-to-point";
+	public static final String WC_CLOSEST_TO_CONSTRUCTION_POINT = "closest-to-construction-point";
 	public static final String WC_HOLDING_ITEM = "holding-item";
 	public static final String WC_LOW_CLAY = "low-clay";
 	public static final String WC_LOW_MANA = "low-mana";
@@ -173,7 +177,7 @@ public class ClayConstants
 	public static final int SEARCH_ITEM_GOAL_ONLY = 5;
 	public static final int SEARCH_HOUSE_GOAL_ONLY = 6;
 	public static final int SEARCH_EMPTY_GENERIC_BUILDING_GOAL_ONLY = 7;
-	public static final int SEARCH_ENTITIES = 8;
+	public static final int SEARCH_ENTITIES_GOAL_ONLY = 8;
 
 	// --Text Colors--
 	public static final Color M_MENU_HEADER_COLOR = Color.cyan;

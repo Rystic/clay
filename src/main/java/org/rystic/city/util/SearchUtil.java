@@ -31,12 +31,12 @@ public class SearchUtil
 		return path;
 	}
 	
-	public static Queue<Point> searchBuildingEntities(AbstractEntity entity_, AbstractScreen abstractScreen_, List<BuildingEntity> buildingEntities_)
+	public static Queue<Point> searchBuildingEntitiesGoalOnly(AbstractEntity entity_, AbstractScreen abstractScreen_, List<BuildingEntity> buildingEntities_)
 	{
 		Queue<Point> path = SearchUtil.search(
 				entity_,
 				entity_.getHomeScreen(),
-				ClayConstants.SEARCH_ENTITIES,
+				ClayConstants.SEARCH_ENTITIES_GOAL_ONLY,
 				buildingEntities_);
 		return path;
 	}
@@ -156,7 +156,7 @@ public class SearchUtil
 				{
 					isGoal = tile.equals(params_[1]);
 				}
-				else if (searchType == ClayConstants.SEARCH_ENTITIES)
+				else if (searchType == ClayConstants.SEARCH_ENTITIES_GOAL_ONLY)
 				{
 					isGoal = ((List<BuildingEntity>)params_[1]).contains(tile);
 				}
@@ -296,7 +296,8 @@ public class SearchUtil
 
 		if (searchType == ClayConstants.SEARCH_GENERIC_BUILDING_GOAL_ONLY
 				|| searchType == ClayConstants.SEARCH_ITEM_GOAL_ONLY
-				|| searchType == ClayConstants.SEARCH_HOUSE_GOAL_ONLY)
+				|| searchType == ClayConstants.SEARCH_HOUSE_GOAL_ONLY
+				|| searchType == ClayConstants.SEARCH_ENTITIES_GOAL_ONLY)
 		{
 			resultQueue.add(finalGoal);
 			return resultQueue;

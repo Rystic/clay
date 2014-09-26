@@ -37,8 +37,10 @@ public class BuildingPatternArea extends AbstractArea
 			_components.clear();
 			_components.add(_buildingPatternLabel);
 			_selectedBuilding = selectedBuilding;
-			Map<String, String> placementMap = BuildingData.getBuildingById(
-					_selectedBuilding).getValidPlacementMap();
+			GenericBuilding selectedGenericBuilding = BuildingData
+					.getBuildingById(_selectedBuilding);
+			Map<String, String> placementMap = selectedGenericBuilding
+					.getValidPlacementMap();
 			List<AbstractComponent> tempComponents = new ArrayList<AbstractComponent>();
 			for (String key : placementMap.keySet())
 			{
@@ -71,12 +73,14 @@ public class BuildingPatternArea extends AbstractArea
 						@Override
 						public void clicked()
 						{
-							CityModel model = ((CityModel)_homeScreen.getModel());
-							model.setSelectedBuilding(building.getBuildingIdentifier());
+							CityModel model = ((CityModel) _homeScreen
+									.getModel());
+							model.setSelectedBuilding(building
+									.getBuildingIdentifier());
 						}
 					};
 					tc.setDrawRatio(.77f);
-					if (base)
+					if (selectedGenericBuilding.getConstructionTiles().contains(key))
 						tc.setColor(_unhighlightedColor);
 					tempComponents.add(tc);
 				}

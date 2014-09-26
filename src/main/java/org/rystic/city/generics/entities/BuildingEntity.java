@@ -323,6 +323,7 @@ public class BuildingEntity extends AbstractEntity implements
 	private void removeBuilding(boolean deconstruct_)
 	{
 		// TODO cancel active behaviors
+		// Behaviors are not properly obsoleting. This can be observed by starting construction on a Skyway, then deleting it before it finishes.
 		BuildingTickProcess behaviorTickProcess = (BuildingTickProcess) _homeScreen
 				.getProcess(BuildingTickProcess.class);
 		HeatTickProcess heatTickProcess = (HeatTickProcess) _homeScreen
@@ -340,19 +341,12 @@ public class BuildingEntity extends AbstractEntity implements
 					.getProcess(StorageInventoryProcess.class))
 					.requestInventoryUpdate();
 		}
-		boolean printActiveLog = false;
+		for (Behavior behavior : _activeBehaviors)
+		{
+			behavior.obsolete();
+		}
 		for (BuildingEntity building : _allBuildingTiles)
 		{
-			if (building._activeBehaviors.size() > 0)
-				printActiveLog = true;
-			building.releaseAll();
-			if (printActiveLog)
-				System.out.println("Remaining active behaviors: "
-						+ building._activeBehaviors.size());
-			if (building._activeBehaviors.size() > 0)
-			{
-				System.out.println("u fuking wot m8");
-			}
 			behaviorTickProcess.unregister(building);
 			heatTickProcess.unregister(building);
 			if (deconstruct_)
@@ -737,6 +731,16 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return _building.getHeatAbsorb();
 	}
+	
+	public void setConstructionBuilding(BuildingEntity constructionBuilding_)
+	{
+		_constructionBuilding = constructionBuilding_;
+	}
+	
+	public BuildingEntity getConstructionBuilding()
+	{
+		return _constructionBuilding;
+	}
 
 	@Override
 	public boolean equals(Object o)
@@ -782,6 +786,8 @@ public class BuildingEntity extends AbstractEntity implements
 	private GolemEntity _claimingGolem;
 
 	private List<Item> _claimedItems;
+	
+	private BuildingEntity _constructionBuilding;
 
 	private String _position;
 	private String _state;

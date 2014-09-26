@@ -47,6 +47,8 @@ seek-claimed-items - Tells the golem to gather the claimed items for the buildin
 seek-entities:list<abstract-entity> - Tells the golem to seek one of the given parameters.
 seek-generic-building:building-tag - Tells the golem to seek a building of the given type on the map.
 seek-storage - Tells the golem to find a storage building with available space.
+set-construction-building:buildingEntity:List<BuildingEntity> - Looks for a construction building to use for building the structure.
+
 show - Reveals a golem made invisible with 'hide'
 store-all - Takes all items from the executing entity and puts them in the building the executing entity is on.
 store-item:item-tag - Takes the item from the executing entity and puts it in the building the executing entity is on.
@@ -64,7 +66,7 @@ calculate-extra-building-weight:BuildingEntity - multiplies the weight if the go
 
 **Require:
 claim-building:building-entity - Tells the golem to claim the given building.
-claim-construction-items:building-entity - Claims the items required to construct the building.
+claim-construction-items - Claims the items required to construct the building.
 claim-generic-building:building-tag - Tells the golem to find a building and declare it in use.
 claim-house = Claims a building marked as a house.
 claim-items:item-tag,item-tag...item-tag - Tells the golem to claim the selected items, and bring them to the claimed building.

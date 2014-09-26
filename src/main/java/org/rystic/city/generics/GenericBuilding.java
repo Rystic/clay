@@ -310,11 +310,14 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 			{
 				if (_buildTiles.contains(entity.getPosition()))
 					buildableLocations.add(entity);
+			}
+			for (BuildingEntity entity : newBuildings)
+			{
 				Behavior constructionBehavior = new Behavior(
 						BehaviorData.getBehavior("construct-building"),
-						tiles_[p_.x][p_.y], entity);
-				//constructionBehavior.setAssigningBuilding(entity);
-				//entity.addActiveBehavior(constructionBehavior);
+						entity, buildableLocations);
+				entity.addActiveBehavior(constructionBehavior);
+				constructionBehavior.setAssigningBuilding(entity);
 				behaviorProcess.queueBehavior(constructionBehavior);
 			}
 		}
@@ -787,6 +790,8 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	{
 		return _extraWeightConditions;
 	}
+	
+	
 
 	public String getConstructionItems()
 	{
@@ -811,6 +816,11 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	public Map<String, String> getValidPlacementMap()
 	{
 		return _validPlacementMap;
+	}
+	
+	public List<String> getConstructionTiles()
+	{
+		return _buildTiles;
 	}
 
 	@Override
