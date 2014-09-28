@@ -322,8 +322,6 @@ public class BuildingEntity extends AbstractEntity implements
 
 	private void removeBuilding(boolean deconstruct_)
 	{
-		// TODO cancel active behaviors
-		// Behaviors are not properly obsoleting. This can be observed by starting construction on a Skyway, then deleting it before it finishes.
 		BuildingTickProcess behaviorTickProcess = (BuildingTickProcess) _homeScreen
 				.getProcess(BuildingTickProcess.class);
 		HeatTickProcess heatTickProcess = (HeatTickProcess) _homeScreen
@@ -341,14 +339,11 @@ public class BuildingEntity extends AbstractEntity implements
 					.getProcess(StorageInventoryProcess.class))
 					.requestInventoryUpdate();
 		}
-		for (Behavior behavior : _activeBehaviors)
-		{
-			behavior.obsolete();
-		}
 		for (BuildingEntity building : _allBuildingTiles)
 		{
 			behaviorTickProcess.unregister(building);
 			heatTickProcess.unregister(building);
+			building.releaseAll();
 			if (deconstruct_)
 				model.deconstructTile(building.getGridX(), building.getGridY());
 			else
