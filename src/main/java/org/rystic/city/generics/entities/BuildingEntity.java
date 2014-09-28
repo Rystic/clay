@@ -291,12 +291,8 @@ public class BuildingEntity extends AbstractEntity implements
 		_markedForDeletion = true;
 		if (!first_)
 			return;
-		BuildingTickProcess tickProcess = (BuildingTickProcess) _homeScreen
-				.getProcess(BuildingTickProcess.class);
 		for (BuildingEntity building : _allBuildingTiles)
 		{
-			building.releaseAll();
-			tickProcess.unregister(building);
 			building.markForDeletion(false);
 		}
 		GolemBehaviorProcess behaviorProcess = (GolemBehaviorProcess) _homeScreen
