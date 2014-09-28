@@ -98,7 +98,8 @@ public class Behavior
 			if (count >= _behavior.getLimit())
 				return Integer.MIN_VALUE;
 		}
-		if (_assigningBuilding != null && _assigningBuilding.isInUse()) return Integer.MIN_VALUE;
+		if (_assigningBuilding != null && _assigningBuilding.isInUse())
+			return Integer.MIN_VALUE;
 		return BehaviorWeightCalculator.calculate(
 				golem_,
 				_behavior.getWeightConditions(),
@@ -186,11 +187,6 @@ public class Behavior
 	{
 		_assigningBuilding = assigningBuilding_;
 	}
-	
-	public void setAssigningGolem(GolemEntity assigningGolem_)
-	{
-		_assigningGolem = assigningGolem_;
-	}
 
 	public void setAssignedGolem(GolemEntity assignedGolem_)
 	{
@@ -201,17 +197,12 @@ public class Behavior
 	{
 		return _assigningBuilding;
 	}
-	
-	public GolemEntity getAssigningGolem()
-	{
-		return _assigningGolem;
-	}
 
 	public GolemEntity getAssignedGolem()
 	{
 		return _assignedGolem;
 	}
-
+	
 	public boolean checkIfHarvestObsolete()
 	{
 		if (!_isHarvestTask)
@@ -224,26 +215,18 @@ public class Behavior
 
 	public void obsolete()
 	{
-		try
+		if (_assignedGolem != null)
 		{
-			if (_assignedGolem != null)
-			{
-				if (!this.equals(_assignedGolem.getCurrentBehavior()))
-				{
-					throw new Exception(
-							"Obsolete behavior trying to cancel a different behavior.");
-				}
-				_assignedGolem
-						.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_OBSOLETE);
-			}
-			else
-				_behaviorProcess.behaviorFailed(
-						this,
-						ClayConstants.BEHAVIOR_FAILED_OBSOLETE);
-		} catch (Exception e_)
-		{
-			e_.printStackTrace();
+			if (!this.equals(_assignedGolem.getCurrentBehavior()))
+				System.out
+						.println("Obsolete behavior trying to cancel a different behavior.");
+			_assignedGolem
+					.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_OBSOLETE);
 		}
+		else
+			_behaviorProcess.behaviorFailed(
+					this,
+					ClayConstants.BEHAVIOR_FAILED_OBSOLETE);
 	}
 
 	@Override
@@ -254,7 +237,9 @@ public class Behavior
 		Behavior behavior = (Behavior) obj;
 		if (_assigningBuilding != null)
 		{
-			if (behavior.getAssigningBuilding() == null || !_assigningBuilding.equals(behavior.getAssigningBuilding()))
+			if (behavior.getAssigningBuilding() == null
+					|| !_assigningBuilding.equals(behavior
+							.getAssigningBuilding()))
 				return false;
 		}
 		else if (_assigningBuilding == null
@@ -267,7 +252,6 @@ public class Behavior
 	private GenericBehavior _behavior;
 
 	private BuildingEntity _assigningBuilding;
-	private GolemEntity _assigningGolem;
 	private GolemEntity _assignedGolem;
 
 	private Set<GolemEntity> _invalidEntities;

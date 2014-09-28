@@ -373,14 +373,14 @@ public class BehaviorInstructionCalculator
 			{
 				if (!itemExists(model_, searchItem))
 				{
-					building.releaseItems();
+					building.releaseClaimedItems();
 					executingEntity_
 							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS);
 					return ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS;
 				}
 				else
 				{
-					building.releaseItems();
+					building.releaseClaimedItems();
 					executingEntity_
 							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
 					return ClayConstants.BEHAVIOR_FAILED_NO_PATH;
@@ -423,14 +423,14 @@ public class BehaviorInstructionCalculator
 			{
 				if (!itemExists(model_, searchItem))
 				{
-					building.releaseItems();
+					building.releaseClaimedItems();
 					executingEntity_
 							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS);
 					return ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS;
 				}
 				else
 				{
-					building.releaseItems();
+					building.releaseClaimedItems();
 					executingEntity_
 							.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
 					return ClayConstants.BEHAVIOR_FAILED_NO_PATH;

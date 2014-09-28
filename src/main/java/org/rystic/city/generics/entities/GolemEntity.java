@@ -105,7 +105,6 @@ public class GolemEntity extends AbstractEntity
 	{
 		_ignoredPersonalBehaviors.remove(behavior_.getBehaviorTag());
 		_currentBehavior = behavior_;
-		_currentBehavior.setAssignedGolem(this);
 		_commands = _currentBehavior.getCommands();
 	}
 
@@ -124,7 +123,7 @@ public class GolemEntity extends AbstractEntity
 			_visible = true;
 			if (_claimedBuilding != null)
 			{
-				_claimedBuilding.releaseItems();
+				_claimedBuilding.releaseClaimedItems();
 				_claimedBuilding.setClaimingGolem(null);
 				_claimedBuilding = null;
 			}
@@ -141,7 +140,7 @@ public class GolemEntity extends AbstractEntity
 		_visible = true;
 		if (_claimedBuilding != null)
 		{
-			_claimedBuilding.releaseItems();
+			_claimedBuilding.releaseClaimedItems();
 			_claimedBuilding.setClaimingGolem(null);
 			_claimedBuilding = null;
 		}

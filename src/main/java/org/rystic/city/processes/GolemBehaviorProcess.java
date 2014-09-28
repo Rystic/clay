@@ -147,7 +147,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 					{
 						triple._golem.setBehavior(triple._behavior);
 						triple._behavior.setBehaviorProcess(this);
-						triple._behavior.setAssigningGolem(triple._golem);
+						triple._behavior.setAssignedGolem(triple._golem);
 						_inProgressBehaviors.add(triple._behavior);
 						invalidGolems.add(triple._golem);
 						invalidBehaviors.add(triple._behavior);
@@ -228,7 +228,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			{
 				triple._golem.setBehavior(triple._behavior);
 				triple._behavior.setBehaviorProcess(this);
-				triple._behavior.setAssigningGolem(triple._golem);
+				triple._behavior.setAssignedGolem(triple._golem);
 				_inProgressBehaviors.add(triple._behavior);
 				_neededBehaviorsGolems.add(golem_);
 			}
@@ -330,7 +330,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 					|| reason_ == ClayConstants.BEHAVIOR_FAILED_OBSOLETE)
 			{
 				if (!behavior_.isHarvestTask())
-					System.out.println(behavior_.getBehaviorTag() + " " + reason_);
+					System.out.println(behavior_.getBehaviorTag() + " "
+							+ reason_);
 				_unassignedBehaviors.remove(behavior_);
 				_inProgressBehaviors.remove(behavior_);
 				_unreachableBehaviors.remove(behavior_);
@@ -354,14 +355,14 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		else
 		{
 			if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
-				behavior_.getAssigningGolem().addUnreachableBehavior(behavior_);
+				behavior_.getAssignedGolem().addUnreachableBehavior(behavior_);
 			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
-				behavior_.getAssigningGolem().addNoMaterialsBehavior(behavior_);
+				behavior_.getAssignedGolem().addNoMaterialsBehavior(behavior_);
 			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
-				behavior_.getAssigningGolem().addNoStorageAvailableBehavior(
+				behavior_.getAssignedGolem().addNoStorageAvailableBehavior(
 						behavior_);
 			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
-				behavior_.getAssigningGolem().addNoUnoccupiedBuildingsBehavior(
+				behavior_.getAssignedGolem().addNoUnoccupiedBuildingsBehavior(
 						behavior_);
 		}
 		// TODO if there's ever a failure task for a building being interrupted

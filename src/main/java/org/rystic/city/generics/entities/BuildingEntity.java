@@ -150,7 +150,7 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return isBuilt() && _building.getScalableDiagonal(_position);
 	}
-	
+
 	public String getPosition()
 	{
 		return _position;
@@ -284,6 +284,11 @@ public class BuildingEntity extends AbstractEntity implements
 		_allBuildingTiles = allBuildingTiles_;
 	}
 
+	public String getBuildingPatternForTile()
+	{
+		return _building.getValidPlacementMap().get(_position);
+	}
+
 	public void markForDeletion(boolean first_)
 	{
 		if (_markedForDeletion)
@@ -303,26 +308,46 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public void deleteBuilding()
 	{
-		removeBuilding(false);
+		if (!_building.getBuildingTag().equals(ClayConstants.DEFAULT_TILE_TYPE))
+		{
+			for (BuildingEntity entity_ : _allBuildingTiles)
+				entity_.removeBuilding(false);
+		}
 	}
 
 	public void deconstructBuilding()
 	{
-		removeBuilding(true);
-	}
-
-	public String getBuildingPatternForTile()
-	{
-		return _building.getValidPlacementMap().get(_position);
+		if (!_building.getBuildingTag().equals(ClayConstants.DEFAULT_TILE_TYPE))
+		{
+			for (BuildingEntity entity_ : _allBuildingTiles)
+				entity_.removeBuilding(true);
+		}
 	}
 
 	private void removeBuilding(boolean deconstruct_)
+	{
+		unregisterAll();
+		releaseAll();
+		
+		CityModel model = (CityModel) _homeScreen.getModel();
+		if (deconstruct_)
+			model.deconstructTile(getGridX(), getGridY());
+		else
+			model.clearTile(getGridX(), getGridY());
+	}
+
+	private void unregisterAll()
 	{
 		BuildingTickProcess behaviorTickProcess = (BuildingTickProcess) _homeScreen
 				.getProcess(BuildingTickProcess.class);
 		HeatTickProcess heatTickProcess = (HeatTickProcess) _homeScreen
 				.getProcess(HeatTickProcess.class);
-		CityModel model = (CityModel) _homeScreen.getModel();
+		behaviorTickProcess.unregister(this);
+		heatTickProcess.unregister(this);
+	}
+
+	private void releaseAll()
+	{
 		if (_heldItems.size() > 0)
 		{
 			for (Item item : _heldItems)
@@ -335,17 +360,27 @@ public class BuildingEntity extends AbstractEntity implements
 					.getProcess(StorageInventoryProcess.class))
 					.requestInventoryUpdate();
 		}
-		for (BuildingEntity building : _allBuildingTiles)
-		{
-			behaviorTickProcess.unregister(building);
-			heatTickProcess.unregister(building);
-			building.releaseAll();
-			if (deconstruct_)
-				model.deconstructTile(building.getGridX(), building.getGridY());
-			else
-				model.clearTile(building.getGridX(), building.getGridY());
-		}
 
+		releaseClaimedItems();
+
+		for (Behavior behavior : _activeBehaviors)
+		{
+			behavior.obsolete();
+		}
+		
+		_claimingGolem = null;
+		
+		_activeBehaviors.clear();
+
+	}
+
+	public void releaseClaimedItems()
+	{
+		for (Item item : _claimedItems)
+		{
+			item.release();
+		}
+		_claimedItems.clear();
 	}
 
 	public void claimedItemDestroyed()
@@ -356,43 +391,6 @@ public class BuildingEntity extends AbstractEntity implements
 		}
 		_claimingGolem
 				.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM);
-	}
-
-	public void releaseItems()
-	{
-		for (Item item : _claimedItems)
-		{
-			item.release();
-		}
-		_claimedItems.clear();
-	}
-
-	public void releaseAll()
-	{
-		for (Item item : _claimedItems)
-		{
-			item.release();
-		}
-
-		boolean golemFailed = false;
-		for (Behavior behavior : _activeBehaviors)
-		{
-			if (behavior.getAssignedGolem() != null
-					&& behavior.getAssignedGolem().equals(_claimingGolem))
-				golemFailed = true;
-			behavior.obsolete();
-		}
-		_activeBehaviors.clear();
-
-		if (_claimingGolem != null && !golemFailed)
-		{
-			_claimingGolem
-					.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_OBSOLETE);
-		}
-
-		_claimedItems.clear();
-		_claimingGolem = null;
-
 	}
 
 	public void setClaimingGolem(GolemEntity claimingGolem_)
@@ -722,12 +720,12 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return _building.getHeatAbsorb();
 	}
-	
+
 	public void setConstructionBuilding(BuildingEntity constructionBuilding_)
 	{
 		_constructionBuilding = constructionBuilding_;
 	}
-	
+
 	public BuildingEntity getConstructionBuilding()
 	{
 		return _constructionBuilding;
@@ -777,7 +775,7 @@ public class BuildingEntity extends AbstractEntity implements
 	private GolemEntity _claimingGolem;
 
 	private List<Item> _claimedItems;
-	
+
 	private BuildingEntity _constructionBuilding;
 
 	private String _position;
