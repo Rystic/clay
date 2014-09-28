@@ -396,7 +396,7 @@
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Skyway" BuildingTag="skyway"
-		BuildingDescription="Skyways provide a way to build over support tiles."
+		BuildingDescription="Skyways provide a way to build over non-support tiles."
 		BuildTime="125" BuildingRequirements="base,clay-block,e,none,ee,clay-block"
 		MenuCategory="Architecture" ExtraWeight="" CoolingRate="30"
 		HeatAbsorb="0" Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
