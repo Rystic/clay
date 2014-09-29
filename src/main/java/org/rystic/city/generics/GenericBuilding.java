@@ -90,13 +90,12 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		parseScalability(eElement.getAttribute("Scalability"));
 
 		_buildTiles = new ArrayList<String>();
-		
-		for (String tile : eElement.getAttribute("BuildTiles")
-				.split(","))
+
+		for (String tile : eElement.getAttribute("BuildTiles").split(","))
 		{
 			_buildTiles.add(tile);
 		}
-		
+
 		_stateOrder = new ArrayList<String>();
 		NodeList children = node_.getChildNodes();
 		for (int i = 0; i < children.getLength(); i++)
@@ -155,21 +154,21 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 			return false;
 
 		boolean valid = true;
-		for (String key : _validPlacementMap.keySet())
+		for (String position : _validPlacementMap.keySet())
 		{
 			int xDiff = 0;
 			int yDiff = 0;
-			if (!key.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
+			if (!position.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
 			{
-				for (int j = 0; j < key.length(); j++)
+				for (int i = 0; i < position.length(); i++)
 				{
-					if (key.charAt(j) == 'n')
+					if (position.charAt(i) == 'n')
 						yDiff++;
-					else if (key.charAt(j) == 's')
+					else if (position.charAt(i) == 's')
 						yDiff--;
-					else if (key.charAt(j) == 'e')
+					else if (position.charAt(i) == 'e')
 						xDiff++;
-					else if (key.charAt(j) == 'w')
+					else if (position.charAt(i) == 'w')
 						xDiff--;
 				}
 			}
@@ -177,7 +176,8 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 			{
 				if (p_.y < tiles_[0].length - 1)
 				{
-					if (key.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
+					if (position
+							.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
 					{
 						if (tiles_[p_.x][p_.y + 1] != null
 								&& !tiles_[p_.x][p_.y + 1].isBridge())
@@ -193,7 +193,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 						{
 							StringBuilder nBuilder = new StringBuilder("n");
 							StringBuilder ewBuilder = new StringBuilder();
-							for (char c : key.toCharArray())
+							for (char c : position.toCharArray())
 							{
 								if (c == 'n')
 									nBuilder.append("n");
@@ -220,8 +220,10 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 				if (!transformCheck.equals(this))
 					return false;
 			}
+			String[] buildingTagAndPosition = _validPlacementMap.get(position)
+					.split(":");
 			GenericBuilding building = BuildingData
-					.getBuildingByTag(_validPlacementMap.get(key));
+					.getBuildingByTag(buildingTagAndPosition[0]);
 			if (yDiff == 0 && building != null)
 			{
 				BuildingEntity ground = tiles_[p_.x + xDiff][p_.y - 1];
@@ -244,14 +246,13 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 				valid = false;
 				break;
 			}
-			if (tiles_[p_.x + xDiff][p_.y + yDiff] != null
-					&& tiles_[p_.x + xDiff][p_.y + yDiff]
-							.getBuildingIdentifier() == _buildingIdentifier)
+			BuildingEntity tileBuilding = tiles_[p_.x + xDiff][p_.y + yDiff];
+			if (tileBuilding != null
+					&& tileBuilding.getBuildingIdentifier() == _buildingIdentifier)
 			{
 				valid = false;
 				break;
 			}
-			BuildingEntity tileBuilding = tiles_[p_.x + xDiff][p_.y + yDiff];
 			if (building == null)
 			{
 				if (tileBuilding == null)
@@ -259,7 +260,10 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 			}
 			else if (tileBuilding != null
 					&& tileBuilding.getBuildingIdentifier() == building
-							.getBuildingIdentifier() && tileBuilding.isBuilt())
+							.getBuildingIdentifier()
+					&& tileBuilding.isBuilt()
+					&& tileBuilding.getPosition().equals(
+							buildingTagAndPosition[1]))
 				continue;
 			valid = false;
 			break;
@@ -267,7 +271,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		return valid;
 	}
 
-	public void placeBuilding(Point p_, BuildingEntity[][] tiles_, AbstractScreen homeScreen_)
+	public void placeBuilding(Point p_, BuildingEntity[][] tiles_, AbstractScreen homeScreen_, boolean forcePlace_)
 			throws Exception
 	{
 		List<BuildingEntity> newBuildings = new ArrayList<BuildingEntity>();
@@ -293,7 +297,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 						xDiff--;
 				}
 			}
-			if (tiles_[p_.x + xDiff][p_.y + yDiff] != null)
+			if (!forcePlace_ && tiles_[p_.x + xDiff][p_.y + yDiff] != null)
 				tiles_[p_.x + xDiff][p_.y + yDiff].deleteBuilding();
 			tiles_[p_.x + xDiff][p_.y + yDiff] = new BuildingEntity(this,
 					new Point((p_.x + xDiff) * ClayConstants.TILE_X,
@@ -314,8 +318,8 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 			for (BuildingEntity entity : newBuildings)
 			{
 				Behavior constructionBehavior = new Behavior(
-						BehaviorData.getBehavior("construct-building"),
-						entity, buildableLocations);
+						BehaviorData.getBehavior("construct-building"), entity,
+						buildableLocations);
 				entity.addActiveBehavior(constructionBehavior);
 				constructionBehavior.setAssigningBuilding(entity);
 				behaviorProcess.queueBehavior(constructionBehavior);
@@ -790,8 +794,6 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	{
 		return _extraWeightConditions;
 	}
-	
-	
 
 	public String getConstructionItems()
 	{
@@ -817,7 +819,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	{
 		return _validPlacementMap;
 	}
-	
+
 	public List<String> getConstructionTiles()
 	{
 		return _buildTiles;

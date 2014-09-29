@@ -531,7 +531,7 @@ public class BehaviorInstructionCalculator
 				.parseInt(commandAndParams_[1])];
 		if (executingEntity_.isTickComplete())
 		{
-			entity.deleteBuilding();
+			entity.deconstructBuilding();
 			return true;
 		}
 		else

@@ -320,7 +320,9 @@ public class BuildingEntity extends AbstractEntity implements
 		if (!_building.getBuildingTag().equals(ClayConstants.DEFAULT_TILE_TYPE))
 		{
 			for (BuildingEntity entity_ : _allBuildingTiles)
+			{
 				entity_.removeBuilding(true);
+			}
 		}
 	}
 
@@ -328,7 +330,6 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		unregisterAll();
 		releaseAll();
-		
 		CityModel model = (CityModel) _homeScreen.getModel();
 		if (deconstruct_)
 			model.deconstructTile(getGridX(), getGridY());
@@ -367,9 +368,9 @@ public class BuildingEntity extends AbstractEntity implements
 		{
 			behavior.obsolete();
 		}
-		
+
 		_claimingGolem = null;
-		
+
 		_activeBehaviors.clear();
 
 	}

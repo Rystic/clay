@@ -62,13 +62,16 @@ public class BuildingPatternArea extends AbstractArea
 							xDiff -= 11;
 					}
 				}
+				String[] buildingTagAndPosition = placementMap.get(key).split(
+						":");
 				final GenericBuilding building = BuildingData
-						.getBuildingByTag(placementMap.get(key));
+						.getBuildingByTag(buildingTagAndPosition[0]);
 				if (building != null)
 				{
 					SelectBuildingButton tc = new SelectBuildingButton(
 							15 + xDiff, 25 + yDiff, ClayConstants.TILE_X,
-							ClayConstants.TILE_Y, building)
+							ClayConstants.TILE_Y, building,
+							buildingTagAndPosition[1])
 					{
 						@Override
 						public void clicked()
@@ -80,7 +83,8 @@ public class BuildingPatternArea extends AbstractArea
 						}
 					};
 					tc.setDrawRatio(.77f);
-					if (selectedGenericBuilding.getConstructionTiles().contains(key))
+					if (selectedGenericBuilding.getConstructionTiles()
+							.contains(key))
 						tc.setColor(_unhighlightedColor);
 					tempComponents.add(tc);
 				}
@@ -104,7 +108,7 @@ public class BuildingPatternArea extends AbstractArea
 					highComponent = component;
 				}
 			}
-			int xOffset = 10 - edgeComponent.getUnconvertedX();
+			int xOffset = 35 - edgeComponent.getUnconvertedX();
 			int yOffset = 20 - highComponent.getUnconvertedY();
 			for (AbstractComponent component : tempComponents)
 			{

@@ -11,6 +11,15 @@ public class SelectBuildingButton extends AbstractButton
 			GenericBuilding building_)
 	{
 		super(x_, y_, width_, height_);
+		_position = ClayConstants.DEFAULT_BUILDING_POSITION;
+		setGenericBuilding(building_);
+	}
+	
+	public SelectBuildingButton(int x_, int y_, int width_, int height_,
+			GenericBuilding building_, String position_)
+	{
+		super(x_, y_, width_, height_);
+		_position = position_;
 		setGenericBuilding(building_);
 	}
 	
@@ -18,7 +27,7 @@ public class SelectBuildingButton extends AbstractButton
 	public Texture getTexture()
 	{
 		if (_building == null) return BuildingData._unbuiltTexture;
-		return _building.getTexture(ClayConstants.T_STATE_DEFAULT, ClayConstants.DEFAULT_BUILDING_POSITION);
+		return _building.getTexture(ClayConstants.T_STATE_DEFAULT, _position);
 	}
 	
 	public int getIdentifier()
@@ -30,7 +39,6 @@ public class SelectBuildingButton extends AbstractButton
 	public void setGenericBuilding(GenericBuilding building_)
 	{
 		_building = building_;
-		setTexture(_building.getTexture(ClayConstants.T_STATE_DEFAULT, ClayConstants.DEFAULT_BUILDING_POSITION));
 	}
 
 	@Override
@@ -39,4 +47,5 @@ public class SelectBuildingButton extends AbstractButton
 	}
 
 	private GenericBuilding _building;
+	private String _position;
 }

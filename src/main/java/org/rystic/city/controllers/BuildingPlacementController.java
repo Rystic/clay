@@ -22,6 +22,7 @@ public class BuildingPlacementController extends AbstractProcess
 		_model = (CityModel) homeScreen_.getModel();
 		_tileValues = _model.getTileValues();
 		_recentlyCreatedClayBlocks = new ArrayList<Point>();
+		_leftClickReleased = true;
 	}
 
 	@Override
@@ -33,10 +34,14 @@ public class BuildingPlacementController extends AbstractProcess
 		if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
 		{
-			if (leftClick)
+			if (_leftClickReleased && leftClick)
 				destroyBuilding(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
 			else
+			{
+				if (!leftClick)
+					_leftClickReleased = true;
 				highlightBuildingForDeletion(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
+			}
 
 		}
 		else if (leftClick)
@@ -45,6 +50,7 @@ public class BuildingPlacementController extends AbstractProcess
 		}
 		else
 		{
+			_leftClickReleased = true;
 			_recentlyCreatedClayBlocks.clear();
 			if (Mouse.isButtonDown(1))
 				copyBuilding(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
@@ -54,6 +60,7 @@ public class BuildingPlacementController extends AbstractProcess
 
 	private void placeBuilding(int x_, int y_)
 	{
+		_leftClickReleased = false;
 		if (x_ >= ClayConstants.DEFAULT_MAP_WIDTH / ClayConstants.TILE_X)
 			return;
 		if (y_ > 0)
@@ -75,7 +82,7 @@ public class BuildingPlacementController extends AbstractProcess
 			{
 				try
 				{
-					building.placeBuilding(location, _tileValues, _homeScreen);
+					building.placeBuilding(location, _tileValues, _homeScreen, false);
 				} catch (Exception e_)
 				{
 					e_.printStackTrace();
@@ -101,6 +108,7 @@ public class BuildingPlacementController extends AbstractProcess
 
 	private void destroyBuilding(int x_, int y_)
 	{
+		_leftClickReleased = false;
 		if (x_ >= ClayConstants.DEFAULT_MAP_WIDTH / ClayConstants.TILE_X)
 			return;
 		if (y_ > 0)
@@ -141,6 +149,7 @@ public class BuildingPlacementController extends AbstractProcess
 
 	private BuildingEntity[][] _tileValues;
 	private List<Point> _recentlyCreatedClayBlocks;
+	private boolean _leftClickReleased;
 
 	private CityModel _model;
 

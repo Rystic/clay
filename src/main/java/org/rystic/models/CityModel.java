@@ -157,12 +157,45 @@ public class CityModel extends AbstractModel
 		}
 		if (deconstruct_)
 		{
-			// TODO handle multitile buildings.
+			BuildingEntity previousBuilding = _tileValues[x_][y_];
+			String position = previousBuilding.getPosition();
+			GenericBuilding genericBuilding = BuildingData
+					.getBuildingByTag(previousBuilding.getBuildingTag());
+			Map<String, String> validPlacementMap = genericBuilding
+					.getValidPlacementMap();
+
+			String[] buildingTagAndPosition = validPlacementMap.get(position)
+					.split(":");
+			if (buildingTagAndPosition[1]
+					.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
+			{
+				try
+				{
+					if (buildingTagAndPosition[0].equals("none"))
+						_tileValues[x_][y_] = null;
+					else
+						BuildingData
+								.getBuildingByTag(buildingTagAndPosition[0])
+								.placeBuilding(
+										new Point(x_, y_),
+										_tileValues,
+										_homeScreen,
+										true);
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
 		}
-		_tileValues[x_][y_] = new BuildingEntity(
-				BuildingData.getBuildingByTag(ClayConstants.DEFAULT_TILE_TYPE),
-				new Point(x_ * ClayConstants.TILE_X, y_ * ClayConstants.TILE_Y),
-				_homeScreen, ClayConstants.DEFAULT_BUILDING_POSITION);
+		else
+		{
+			_tileValues[x_][y_] = new BuildingEntity(
+					BuildingData
+							.getBuildingByTag(ClayConstants.DEFAULT_TILE_TYPE),
+					new Point(x_ * ClayConstants.TILE_X, y_
+							* ClayConstants.TILE_Y), _homeScreen,
+					ClayConstants.DEFAULT_BUILDING_POSITION);
+		}
 	}
 
 	public void addToBuildingMap(BuildingEntity building_)
