@@ -468,7 +468,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	private Queue<FinishedBehavior> _completedBehaviors;
 	private Queue<MapUpdateEvent> _mapEvents;
 
-	private volatile List<Behavior> _unassignedBehaviors;
+	private  List<Behavior> _unassignedBehaviors;
 	private List<Behavior> _inProgressBehaviors;
 	private List<Behavior> _unreachableBehaviors;
 	private List<Behavior> _noMaterials;
