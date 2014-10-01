@@ -55,6 +55,7 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_HIDE = "hide";
 	public static final String BEHAVIOR_COMMAND_PRODUCE_ITEMS_ON_BUILDING = "produce-items-on-building";
 	public static final String BEHAVIOR_COMMAND_PRODUCE_ITEM_ON_GOLEM = "produce-item-on-golem";
+	public static final String BEHAVIOR_COMMAND_REPAIR_HEAT_DAMAGE = "repair-heat-damage";
 	public static final String BEHAVIOR_COMMAND_SEEK = "seek";
 	public static final String BEHAVIOR_COMMAND_SEEK_CLAIMED_CONSTRUCTION_ITEMS = "seek-claimed-construction-items";
 	public static final String BEHAVIOR_COMMAND_SEEK_CLAIMED_ITEMS = "seek-claimed-items";

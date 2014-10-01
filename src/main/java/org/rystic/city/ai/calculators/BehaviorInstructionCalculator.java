@@ -110,18 +110,25 @@ public class BehaviorInstructionCalculator
 					commandAndParams,
 					behaviorParams_);
 
+		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_REPAIR_HEAT_DAMAGE))
+			complete = _repairHeatDamage(
+					executingEntity_,
+					commandAndParams,
+					behaviorParams_);
+
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK))
 			complete = _seek(
 					executingEntity_,
 					commandAndParams,
 					behaviorParams_);
 
-		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_CONSTRUCTION_BUILDING))
+		else if (com
+				.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_CONSTRUCTION_BUILDING))
 			complete = _seekConstructionBuilding(
 					executingEntity_,
 					commandAndParams,
 					behaviorParams_);
-		
+
 		else if (com.equals(ClayConstants.BEHAVIOR_COMMAND_SEEK_ENTITIES))
 			complete = _seekEntities(
 					executingEntity_,
@@ -598,6 +605,13 @@ public class BehaviorInstructionCalculator
 		return true;
 	}
 
+	private static boolean _repairHeatDamage(GolemEntity executingEntity_, String[] commandAndParams_, Object[] behaviorParams_)
+	{
+		BuildingEntity building = (BuildingEntity) behaviorParams_[Integer
+				.parseInt(commandAndParams_[1])];
+		return true;
+	}
+
 	private static boolean _produceItemsOnBuilding(GolemEntity executingEntity_, String[] commandAndParams_, Object[] behaviorParams_)
 	{
 		String[] items = ((String) behaviorParams_[Integer
@@ -638,7 +652,7 @@ public class BehaviorInstructionCalculator
 		}
 		return false;
 	}
-	
+
 	private static boolean _seekConstructionBuilding(GolemEntity executingEntity_, String[] commandAndParams_, Object[] behaviorParams_)
 	{
 		BuildingEntity entity = ((BuildingEntity) behaviorParams_[Integer
@@ -659,7 +673,6 @@ public class BehaviorInstructionCalculator
 		}
 		return false;
 	}
-
 
 	@SuppressWarnings("unchecked")
 	private static boolean _seekEntities(GolemEntity executingEntity_, String[] commandAndParams_, Object[] behaviorParams_)

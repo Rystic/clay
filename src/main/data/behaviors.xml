@@ -2,7 +2,8 @@
 <Behaviors>
 
 	<Behavior BehaviorName="Construct Building" BehaviorTag="construct-building"
-		BehaviorDescription="text:Constructing ,building:0,text:." weight="closest-to-construction-point,calculate-extra-building-weight"
+		BehaviorDescription="text:Constructing ,building:0,text:."
+		weight="closest-to-construction-point,calculate-extra-building-weight"
 		defaultParams="" personalBehavior="false" limit="-1" golemCost="clay:-2"
 		require="entity-not-holding-unnecessary-item:0,set-construction-building:0:1,claim-construction-items:0"
 		code="seek-claimed-construction-items:0,seek-construction-building:0,consume-claimed-construction:0,build:0"></Behavior>
@@ -92,5 +93,11 @@
 		defaultParams="" personalBehavior="false" limit="-1" golemCost="clay:-2,mana:-4"
 		require="entity-not-holding-item,claim-building:0,claim-parameter-items:1"
 		code="seek-claimed-items,consume-claimed,hide,tick:75,show,produce-items-on-building:2,harvest-items-on-building:0,generate-heat:3"></Behavior>
+
+	<Behavior BehaviorName="Repair Heat Damage" BehaviorTag="repair-heat-damage"
+		BehaviorDescription="text:Sealing heat damage." weight="closest-to-point"
+		defaultParams="" personalBehavior="false" limit="-1" golemCost="clay:-2,mana:-4"
+		require="entity-not-holding-item,claim-building:0,claim-items:sealant"
+		code="seek-claimed-items,consume-claimed,tick:100,repair-heat-damage:0"></Behavior>
 
 </Behaviors>

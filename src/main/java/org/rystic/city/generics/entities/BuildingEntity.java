@@ -372,7 +372,8 @@ public class BuildingEntity extends AbstractEntity implements
 		_claimingGolem = null;
 
 		_activeBehaviors.clear();
-
+		_activeConversions.clear();
+		//TODO make sure active conversions map is clearing.
 	}
 
 	public void releaseClaimedItems()
@@ -687,6 +688,25 @@ public class BuildingEntity extends AbstractEntity implements
 			_heatDamage += heat_;
 			if (_heatDamage > _building.getThirdHeadThreshold() && !isBridge())
 				deleteBuilding();
+			boolean activeHeatDamageRepair = false;
+			for (Behavior behavior : _activeBehaviors)
+			{
+				if (behavior.getBehaviorTag().equals("repair-heat-damage"))
+				{
+					activeHeatDamageRepair = true;
+					break;
+				}
+			}
+			if (!activeHeatDamageRepair)
+			{
+				GolemBehaviorProcess gbp = (GolemBehaviorProcess) _homeScreen
+						.getProcess(GolemBehaviorProcess.class);
+				Behavior behavior = new Behavior(
+						BehaviorData.getBehavior("repair-heat-damage"), this);
+				behavior.setAssigningBuilding(this);
+				_activeBehaviors.add(behavior);
+				gbp.queueBehavior(behavior);
+			}
 		}
 		_heat += heat_;
 	}
@@ -700,6 +720,14 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		if (_heat > _heatDamage)
 			_heat--;
+	}
+
+	public void repairHeatDamage()
+	{
+		if (_heatDamage < _building.getFirstHeatThreshold())
+			_heatDamage = 0;
+		else if (_heatDamage < _building.getSecondHeatThreshold())
+			_heatDamage = _building.getFirstHeatThreshold();
 	}
 
 	public boolean isHeatedExcludeHeatDamage()
