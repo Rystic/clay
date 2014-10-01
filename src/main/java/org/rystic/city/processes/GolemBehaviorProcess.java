@@ -54,14 +54,14 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			else
 				_inactiveGolems.add(golem);
 		}
+		if (!_mapEvents.isEmpty())
+			handleMapEvents();
 		if (_inactiveGolems.size() > 0)
 			calculateBehavior();
 		if (!_failedBehaviors.isEmpty())
 			handleFailedBehaviors();
 		if (!_completedBehaviors.isEmpty())
 			handleCompletedBehaviors();
-		if (!_mapEvents.isEmpty())
-			handleMapEvents();
 	}
 
 	private void calculateBehavior()
