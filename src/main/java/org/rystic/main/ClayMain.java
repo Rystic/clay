@@ -121,8 +121,8 @@ public class ClayMain implements Runnable
 		if (getTime() - lastFPS > 1000)
 		{
 			Display.setTitle("FPS: " + fps);
-			if (fps < 60)
-				System.out.println("FPS DROP: " + fps);
+//			if (fps < 60)
+//				System.out.println("FPS DROP: " + fps);
 			fps = 0; // reset the FPS counter
 			lastFPS += 1000; // add one second
 		}
