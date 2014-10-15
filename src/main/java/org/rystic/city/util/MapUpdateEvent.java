@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.List;
 import java.util.Map;
 
+import org.rystic.city.generics.entities.BuildingEntity;
 import org.rystic.main.ClayConstants;
 import org.rystic.screens.AbstractScreen;
 
@@ -30,6 +31,12 @@ public class MapUpdateEvent
 		if (params_.containsKey(ClayConstants.EVENT_STORAGE_AVAILABLE_UPDATE))
 			_storageAvailable = (boolean) params_
 					.get(ClayConstants.EVENT_STORAGE_AVAILABLE_UPDATE);
+
+		if (params_.containsKey(ClayConstants.EVENT_BUILDING_UNCLAIMED))
+		{
+			_unclaimedBuilding = (BuildingEntity) params_
+					.get(ClayConstants.EVENT_BUILDING_UNCLAIMED);
+		}
 	}
 
 	public AbstractScreen getHomeScreen()
@@ -52,9 +59,16 @@ public class MapUpdateEvent
 		return _storageAvailable;
 	}
 
+	public BuildingEntity getUnclaimedBuilding()
+	{
+		return _unclaimedBuilding;
+	}
+
 	private AbstractScreen _homeScreen;
 
 	private List<Point> _points;
+
+	private BuildingEntity _unclaimedBuilding;
 
 	private boolean _itemUpdate;
 

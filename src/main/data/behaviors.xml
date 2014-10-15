@@ -97,7 +97,7 @@
 	<Behavior BehaviorName="Repair Heat Damage" BehaviorTag="repair-heat-damage"
 		BehaviorDescription="text:Sealing heat damage." weight="closest-to-point"
 		defaultParams="" personalBehavior="false" limit="-1" golemCost="clay:-2,mana:-4"
-		require="entity-not-holding-item,claim-building:0,claim-items:sealant"
+		require="entity-not-holding-item,claim-building:0,claim-items:saturated-clay"
 		code="seek-claimed-items,consume-claimed,tick:100,repair-heat-damage:0"></Behavior>
 
 </Behaviors>

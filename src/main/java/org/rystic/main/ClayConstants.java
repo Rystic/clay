@@ -8,8 +8,8 @@ import org.newdawn.slick.Color;
 public class ClayConstants
 {
 	// --Interface Constants--
-	public static final int TILE_X = 35;
-	public static final int TILE_Y = 35;
+	public static final int TILE_X = 32;
+	public static final int TILE_Y = 32;
 
 	public static final int DEFAULT_MAP_WIDTH = 40 * ClayConstants.TILE_X;
 	public static final int DEFAULT_MAP_HEIGHT = 25 * ClayConstants.TILE_Y;
@@ -121,7 +121,8 @@ public class ClayConstants
 	public static final int BEHAVIOR_FAILED_OBSOLETE = 4;
 	public static final int BEHAVIOR_FAILED_INVALID_GOLEM = 5;
 	public static final int BEHAVIOR_FAILED_LIMIT_REACHED = 6;
-	public static final int BEHAVIOR_FAILED_BUILDING_OCCUPIED = 7;
+	public static final int BEHAVIOR_FAILED_ASSIGNING_BUILDING_CLAIMED = 7;
+	public static final int BEHAVIOR_FAILED_NO_UNOCCUPIED_GENERIC_BUILDING = 8;
 
 	// Specific Behaviors
 	public static final String BEHAVIOR_HARVEST = "harvest";
@@ -168,6 +169,7 @@ public class ClayConstants
 	public static final Integer EVENT_MAP_UPDATE = 0;
 	public static final Integer EVENT_ITEM_UPDATE = 1;
 	public static final Integer EVENT_STORAGE_AVAILABLE_UPDATE = 2;
+	public static final Integer EVENT_BUILDING_UNCLAIMED = 3;
 
 	// --Search Conditions--
 	public static final int SEARCH_ENTITY = 0;

@@ -187,6 +187,10 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 					}
 					else
 					{
+						if (p_.x + xDiff > tiles_.length || p_.y + yDiff > tiles_.length)
+						{
+							return false;
+						}
 						if (tiles_[p_.x + xDiff][p_.y + yDiff + 1] != null
 								&& !tiles_[p_.x + xDiff][p_.y + yDiff + 1]
 										.isBridge())
@@ -224,15 +228,6 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 					.split(":");
 			GenericBuilding building = BuildingData
 					.getBuildingByTag(buildingTagAndPosition[0]);
-			if (yDiff == 0 && building != null)
-			{
-				BuildingEntity ground = tiles_[p_.x + xDiff][p_.y - 1];
-				if (ground == null || !ground.isSupportBlock())
-				{
-					valid = false;
-					break;
-				}
-			}
 
 			if (p_.y + yDiff < 0
 					|| p_.y + yDiff >= (ClayConstants.DEFAULT_MAP_HEIGHT / ClayConstants.TILE_Y))
@@ -245,6 +240,15 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 			{
 				valid = false;
 				break;
+			}
+			if (yDiff == 0 && building != null)
+			{
+				BuildingEntity ground = tiles_[p_.x + xDiff][p_.y - 1];
+				if (ground == null || !ground.isSupportBlock())
+				{
+					valid = false;
+					break;
+				}
 			}
 			BuildingEntity tileBuilding = tiles_[p_.x + xDiff][p_.y + yDiff];
 			if (tileBuilding != null

@@ -196,7 +196,7 @@ public class BehaviorInstructionCalculator
 					executingEntity_,
 					commandAndParams,
 					behaviorParams_))
-				passed = ClayConstants.BEHAVIOR_FAILED_NO_PATH;
+				passed = ClayConstants.BEHAVIOR_FAILED_ASSIGNING_BUILDING_CLAIMED;
 		}
 		else if (com
 				.equals(ClayConstants.BEHAVIOR_COMMAND_CLAIM_GENERIC_BUILDING))
@@ -609,6 +609,7 @@ public class BehaviorInstructionCalculator
 	{
 		BuildingEntity building = (BuildingEntity) behaviorParams_[Integer
 				.parseInt(commandAndParams_[1])];
+		building.repairHeatDamage();
 		return true;
 	}
 

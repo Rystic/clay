@@ -88,6 +88,11 @@ public class Behavior
 	{
 		_invalidEntities.clear();
 	}
+	
+	public boolean isAssigningBuildingClaimed()
+	{
+		return _assigningBuilding != null && _assigningBuilding.isInUse();
+	}
 
 	public int calculateBehaviorWeight(GolemEntity golem_)
 	{
@@ -117,7 +122,8 @@ public class Behavior
 
 	public void failed(GolemEntity _failedGolem, int reason_)
 	{
-		_assignedGolem = null;
+		if (!isPersonalTask())
+			_assignedGolem = null;
 		if (_behaviorProcess == null)
 			return;
 		_invalidEntities.add(_failedGolem);
@@ -149,7 +155,7 @@ public class Behavior
 		return _behavior.isPersonalBehavior();
 	}
 
-	public boolean isHarvestTask()
+	public boolean isHarvestBehavior()
 	{
 		return _isHarvestTask;
 	}

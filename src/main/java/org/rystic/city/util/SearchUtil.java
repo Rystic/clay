@@ -405,7 +405,7 @@ public class SearchUtil
 		if (path_.isEmpty())
 			return ClayConstants.BEHAVIOR_FAILED_NO_PATH;
 		if (path_.equals(EXISTS_BUT_IN_USE))
-			return ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED;
+			return ClayConstants.BEHAVIOR_FAILED_NO_UNOCCUPIED_GENERIC_BUILDING;
 		return ClayConstants.BEHAVIOR_PASSED;
 	}
 

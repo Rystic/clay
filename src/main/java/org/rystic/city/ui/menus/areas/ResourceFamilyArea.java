@@ -95,7 +95,7 @@ public class ResourceFamilyArea extends AbstractArea
 			_components.add(icon);
 
 			_components.add(new TextComponent(6, increment - 3, "(   ) "
-					+ item.getItemName(), ClayConstants.M_AREA_HEADER_COLOR));
+					+ item.getItemName(), ClayConstants.M_CLAY_RELATED));
 			_components.add(new TextComponent(7, increment, "Current Stock: "));
 			_components.add(new TextComponent(7, increment + 3,
 					"Desired Stock: "));

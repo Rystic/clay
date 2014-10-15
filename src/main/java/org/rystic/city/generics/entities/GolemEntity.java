@@ -9,12 +9,14 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import org.bushe.swing.event.EventBus;
 import org.newdawn.slick.opengl.Texture;
 import org.rystic.city.ai.calculators.GolemPersonalityCalculator;
 import org.rystic.city.generics.GenericBehavior;
 import org.rystic.city.generics.GenericGolem;
 import org.rystic.city.generics.objects.Behavior;
 import org.rystic.city.generics.objects.Item;
+import org.rystic.city.util.MapUpdateEvent;
 import org.rystic.main.ClayConstants;
 import org.rystic.models.CityModel;
 import org.rystic.screens.AbstractScreen;
@@ -123,6 +125,9 @@ public class GolemEntity extends AbstractEntity
 			_visible = true;
 			if (_claimedBuilding != null)
 			{
+				Map<Integer, Object> paramMap = new HashMap<Integer, Object>();
+				paramMap.put(ClayConstants.EVENT_BUILDING_UNCLAIMED, _claimedBuilding);
+				EventBus.publish(new MapUpdateEvent(_homeScreen, paramMap));
 				_claimedBuilding.releaseClaimedItems();
 				_claimedBuilding.setClaimingGolem(null);
 				_claimedBuilding = null;
@@ -140,6 +145,9 @@ public class GolemEntity extends AbstractEntity
 		_visible = true;
 		if (_claimedBuilding != null)
 		{
+			Map<Integer, Object> paramMap = new HashMap<Integer, Object>();
+			paramMap.put(ClayConstants.EVENT_BUILDING_UNCLAIMED, _claimedBuilding);
+			EventBus.publish(new MapUpdateEvent(_homeScreen, paramMap));
 			_claimedBuilding.releaseClaimedItems();
 			_claimedBuilding.setClaimingGolem(null);
 			_claimedBuilding = null;

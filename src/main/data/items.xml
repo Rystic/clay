@@ -9,6 +9,9 @@
 	<Item ItemName="Casing" ItemTag="casing" Texture="itemCasing.png"
 		ItemFamily="Clay" Parent="inert-clay"></Item>
 
+	<Item ItemName="Sealant" ItemTag="sealant" Texture="itemSealant.png"
+		ItemFamily="Clay" Parent="inert-clay"></Item>
+
 	<Item ItemName="Saturated Clay" ItemTag="saturated-clay" Texture="itemSaturatedClay.png"
 		ItemFamily="Mana" Parent=""></Item>
 
@@ -16,9 +19,6 @@
 		ItemFamily="Mana" Parent="saturated-clay"></Item>
 
 	<Item ItemName="Pearlclay" ItemTag="pearlclay" Texture="itemPearlclay.png"
-		ItemFamily="Mana" Parent="saturated-clay"></Item>
-
-	<Item ItemName="Sealant" ItemTag="sealant" Texture="itemSealant.png"
 		ItemFamily="Mana" Parent="saturated-clay"></Item>
 
 	<Item ItemName="Earthenware Brick" ItemTag="earthenware-brick"

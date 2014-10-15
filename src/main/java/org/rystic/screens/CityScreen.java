@@ -68,6 +68,7 @@ public class CityScreen extends AbstractScreen
 
 		_controllers.add(new BuildingPlacementController(this));
 		_controllers.add(new CityInterfaceController(this));
+		
 		_processes.add(new GolemBehaviorProcess(this));
 		_processes.add(new GolemMaintenanceProcess(this));
 		_processes.add(new BuildingTickProcess(this));

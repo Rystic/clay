@@ -373,7 +373,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 		_activeBehaviors.clear();
 		_activeConversions.clear();
-		//TODO make sure active conversions map is clearing.
+		// TODO make sure active conversions map is clearing.
 	}
 
 	public void releaseClaimedItems()
@@ -391,8 +391,13 @@ public class BuildingEntity extends AbstractEntity implements
 		{
 			item.release();
 		}
-		_claimingGolem
-				.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM);
+		if (_claimingGolem != null)
+			_claimingGolem
+					.behaviorFailed(ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM);
+		else
+		{
+			System.out.println("Why is the claiming golem null?");
+		}
 	}
 
 	public void setClaimingGolem(GolemEntity claimingGolem_)
@@ -457,6 +462,8 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public void removeActiveBehavior(Behavior behavior_)
 	{
+		if (!_activeBehaviors.contains(behavior_))
+			System.out.println("Building trying to remove active behavior it doesn't have.");
 		_activeBehaviors.remove(behavior_);
 		if (behavior_ instanceof ConversionBehavior)
 			_activeConversions.remove(((ConversionBehavior) behavior_)
@@ -466,11 +473,6 @@ public class BuildingEntity extends AbstractEntity implements
 	public boolean hasActiveConversion(String conversionKey_)
 	{
 		return _activeConversions.contains(conversionKey_);
-	}
-
-	public boolean hasActiveBehavior()
-	{
-		return isBaseTile() && _activeBehaviors.size() > 0;
 	}
 
 	@Override
@@ -686,8 +688,11 @@ public class BuildingEntity extends AbstractEntity implements
 						ClayConstants.DEFAULT_TILE_TYPE))
 		{
 			_heatDamage += heat_;
-			if (_heatDamage > _building.getThirdHeadThreshold() && !isBridge())
+			if (_heatDamage > _building.getThirdHeadThreshold())
+			{
 				deleteBuilding();
+				return;
+			}
 			boolean activeHeatDamageRepair = false;
 			for (Behavior behavior : _activeBehaviors)
 			{
@@ -724,10 +729,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public void repairHeatDamage()
 	{
-		if (_heatDamage < _building.getFirstHeatThreshold())
-			_heatDamage = 0;
-		else if (_heatDamage < _building.getSecondHeatThreshold())
-			_heatDamage = _building.getFirstHeatThreshold();
+		_heatDamage = 0;
 	}
 
 	public boolean isHeatedExcludeHeatDamage()

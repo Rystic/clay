@@ -184,20 +184,22 @@ public class BehaviorWeightCalculator
 	{
 		int weight = 0;
 		CityScreen screen = (CityScreen) golem_.getHomeScreen();
-		int stonewareCount = screen.getModel().getGolemTypeCount(
-				ClayConstants.GOLEM_STONEWARE);
+		int kilnGolemCount = screen.getModel().getGolemTypeCount(
+				ClayConstants.GOLEM_STONEWARE)
+				+ screen.getModel().getGolemTypeCount(
+						ClayConstants.GOLEM_EARTHENWARE);
 		Integer buildingId = BuildingData.getBuildingByTag("kiln")
 				.getBuildingIdentifier();
 		List<BuildingEntity> kilns = screen.getModel().getBuildingMap()
 				.get(buildingId);
-		if (kilns == null || stonewareCount > kilns.size() * 2)
+		if (kilns == null || kilnGolemCount > kilns.size() * 2)
 			weight = Integer.MIN_VALUE;
 		else
 		{
 			int weightMultiplier = 1;
 			if (golem_.getPersonality() == ClayConstants.PERSONALITY_AMBITIOUS)
 				weightMultiplier += 3;
-			weight = ((kilns.size() * 2) - stonewareCount) * 10
+			weight = ((kilns.size() * 2) - kilnGolemCount) * 10
 					* weightMultiplier;
 		}
 		return weight;

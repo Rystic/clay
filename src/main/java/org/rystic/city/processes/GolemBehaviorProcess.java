@@ -1,7 +1,9 @@
 package org.rystic.city.processes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -12,6 +14,7 @@ import org.rystic.city.ai.GolemBrain;
 import org.rystic.city.ai.util.BehaviorTriple;
 import org.rystic.city.ai.util.BehaviorTripleQuickSort;
 import org.rystic.city.generics.data.BehaviorData;
+import org.rystic.city.generics.entities.BuildingEntity;
 import org.rystic.city.generics.entities.GolemEntity;
 import org.rystic.city.generics.objects.Behavior;
 import org.rystic.city.util.MapUpdateEvent;
@@ -27,18 +30,22 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		super(homeScreen_);
 		_golemList = ((CityModel) homeScreen_.getModel()).getGolems();
 		_inactiveGolems = new ArrayList<GolemEntity>();
-		_neededBehaviorsGolems = new ArrayList<GolemEntity>();
+
+		_noUnoccupiedGenericBuildingMap = new HashMap<String, List<Behavior>>();
+		_assigningBuildingClaimedMap = new HashMap<BuildingEntity, List<Behavior>>();
 		_unassignedBehaviors = new ArrayList<Behavior>();
 		_inProgressBehaviors = new ArrayList<Behavior>();
 		_unreachableBehaviors = new ArrayList<Behavior>();
 		_noMaterials = new ArrayList<Behavior>();
 		_noAvailableGolems = new ArrayList<Behavior>();
 		_noStorageAvailable = new ArrayList<Behavior>();
-		_noUnoccupiedBuildings = new ArrayList<Behavior>();
+
+		_neededBehaviorsGolems = new ArrayList<GolemEntity>();
 
 		_failedBehaviors = new ArrayBlockingQueue<FinishedBehavior>(256);
 		_completedBehaviors = new ArrayBlockingQueue<FinishedBehavior>(256);
 		_mapEvents = new ArrayBlockingQueue<MapUpdateEvent>(256);
+		_toBeAssignedQueue = new ArrayBlockingQueue<>(256);
 
 		EventBus.subscribe(MapUpdateEvent.class, this);
 	}
@@ -59,9 +66,17 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		if (_inactiveGolems.size() > 0)
 			calculateBehavior();
 		if (!_failedBehaviors.isEmpty())
+		{
 			handleFailedBehaviors();
+			removeFailedBehaviorsFromUnassigned();
+		}
 		if (!_completedBehaviors.isEmpty())
 			handleCompletedBehaviors();
+		removeHandledBehaviorsFromUnassgined();
+		// a thread for calculate behavior process would require the following
+		// things:
+		// a list for currently unassigned behaviors.
+		// a list for currently inactive golems.
 	}
 
 	private void calculateBehavior()
@@ -84,7 +99,9 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 					{
 						String behaviorTag = golemWantedBehavior._behavior
 								.getBehaviorTag();
-						golemWantedBehavior._behavior.setBehaviorProcess(this);
+						golemWantedBehavior._behavior
+								.setBehaviorProcess(GolemBehaviorProcess.this);
+						golemWantedBehavior._behavior.setAssignedGolem(golem);
 						golemWantedBehavior._weight += golem
 								.getPersonalBehaviorWeight(behaviorTag);
 						golem.addPersonalBehaviorWeight(behaviorTag);
@@ -93,41 +110,50 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				}
 			}
 		}
+
 		_inactiveGolems.removeAll(_neededBehaviorsGolems);
 		_neededBehaviorsGolems.clear();
 		if (_inactiveGolems.isEmpty())
 			return;
-		List<Behavior> toBeAssigned = new ArrayList<Behavior>();
+
 		_unassignedBehaviors.addAll(_noAvailableGolems);
 		_noAvailableGolems.clear();
-		toBeAssigned.addAll(_unassignedBehaviors);
+		_toBeAssignedQueue.addAll(_unassignedBehaviors);
+		if (_toBeAssignedQueue.size() > 50)
+			System.out.println("50+ tasks: " + _toBeAssignedQueue.size());
+		if (_toBeAssignedQueue.size() > 100)
+			System.out.println("100+ tasks: " + _toBeAssignedQueue.size());
 
-		if (!toBeAssigned.isEmpty())
+		while (!_toBeAssignedQueue.isEmpty())
 		{
-			for (Behavior behavior : toBeAssigned)
+			Behavior behavior = _toBeAssignedQueue.poll();
+			if (_clearInvalid)
+				behavior.clearInvalidEntities();
+			if (behavior.isAssigningBuildingClaimed()
+					&& !behavior.isHarvestBehavior())
 			{
-				// TODO everything that fails is being treated as unreachable.
-				// New list is needed to handle buildings with multiple active
-				// behaviors.
-				if (_clearInvalid)
-					behavior.clearInvalidEntities();
-				for (GolemEntity golem : _inactiveGolems)
-				{
-					if (behavior.isInvalid(golem))
-						continue;
-					BehaviorTriple triple = new BehaviorTriple(golem, behavior,
-							behavior.calculateBehaviorWeight(golem)
-									+ behavior.getAddedWeight());
-					if (triple._weight <= 0)
-						triple._behavior.requiredFailed(golem);
-					else
-						behaviorScores.add(triple);
-				}
-				if (behavior.allGolemsInvalid(_golemList))
-					_unreachableBehaviors.add(behavior);
+				// System.out.println("occupado " +
+				// behavior.getBehaviorTag());
+				behaviorFailed(
+						behavior,
+						ClayConstants.BEHAVIOR_FAILED_ASSIGNING_BUILDING_CLAIMED);
+				continue;
 			}
+			for (GolemEntity golem : _inactiveGolems)
+			{
+				if (behavior.isInvalid(golem))
+					continue;
+				BehaviorTriple triple = new BehaviorTriple(golem, behavior,
+						behavior.calculateBehaviorWeight(golem)
+								+ behavior.getAddedWeight());
+				if (triple._weight <= 0)
+					triple._behavior.requiredFailed(golem);
+				else
+					behaviorScores.add(triple);
+			}
+			if (behavior.allGolemsInvalid(_golemList))
+				behaviorFailed(behavior, ClayConstants.BEHAVIOR_FAILED_NO_PATH);
 		}
-		toBeAssigned.removeAll(_unreachableBehaviors);
 
 		if (!behaviorScores.isEmpty())
 		{
@@ -146,71 +172,34 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 					if (requiredComplete == ClayConstants.BEHAVIOR_PASSED)
 					{
 						triple._golem.setBehavior(triple._behavior);
-						triple._behavior.setBehaviorProcess(this);
+						triple._behavior
+								.setBehaviorProcess(GolemBehaviorProcess.this);
 						triple._behavior.setAssignedGolem(triple._golem);
 						_inProgressBehaviors.add(triple._behavior);
 						invalidGolems.add(triple._golem);
 						invalidBehaviors.add(triple._behavior);
 					}
-					else if (!triple._behavior.isPersonalTask())
+					else
 					{
-						if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
+						if (!triple._behavior.isPersonalTask())
 						{
-							_noMaterials.add(triple._behavior);
-							invalidBehaviors.add(triple._behavior);
-						}
-						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
-						{
-							_noStorageAvailable.add(triple._behavior);
-							invalidBehaviors.add(triple._behavior);
-						}
-						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
-						{
-							triple._behavior.requiredFailed(triple._golem);
-							if (triple._behavior.allGolemsInvalid(_golemList))
+							if (requiredComplete != ClayConstants.BEHAVIOR_FAILED_NO_PATH
+									|| !triple._behavior
+											.allGolemsInvalid(_golemList))
 							{
-								_unreachableBehaviors.add(triple._behavior);
+								behaviorFailed(
+										triple._behavior,
+										requiredComplete);
 								invalidBehaviors.add(triple._behavior);
 							}
 						}
-						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
-						{
-							_unreachableBehaviors.add(triple._behavior);
-							invalidBehaviors.add(triple._behavior);
-						}
-					}
-					else
-					{
-						if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
-							triple._golem
-									.addUnreachableBehavior(triple._behavior);
-						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
-							triple._golem
-									.addNoMaterialsBehavior(triple._behavior);
-						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
-							triple._golem
-									.addNoStorageAvailableBehavior(triple._behavior);
-						else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
-							triple._golem
-									.addNoUnoccupiedBuildingsBehavior(triple._behavior);
+						else
+							behaviorFailed(triple._behavior, requiredComplete);
 					}
 				}
 			}
 		}
 		_clearInvalid = false;
-
-		_unassignedBehaviors.removeAll(_unreachableBehaviors);
-		_unassignedBehaviors.removeAll(_inProgressBehaviors);
-		_unassignedBehaviors.removeAll(_noMaterials);
-		_unassignedBehaviors.removeAll(_noStorageAvailable);
-
-		for (Behavior behavior : _unassignedBehaviors)
-		{
-			if (behavior != null)
-				behavior.increaseAddedWeight(ClayConstants.ADDED_WEIGHT_INCREASE);
-		}
-		_noAvailableGolems.addAll(_unassignedBehaviors);
-		_unassignedBehaviors.clear();
 	}
 
 	private void calculateNeededBehaviors(GolemEntity golem_)
@@ -221,26 +210,18 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				true);
 		if (triple != null)
 		{
-			triple._behavior.setBehaviorProcess(this);
+			triple._behavior.setBehaviorProcess(GolemBehaviorProcess.this);
+			triple._behavior.setAssignedGolem(golem_);
 			int requiredComplete = triple._behavior
 					.calculateRequired(triple._golem);
 			if (requiredComplete == ClayConstants.BEHAVIOR_PASSED)
 			{
-				triple._golem.setBehavior(triple._behavior);
-				triple._behavior.setBehaviorProcess(this);
-				triple._behavior.setAssignedGolem(triple._golem);
 				_inProgressBehaviors.add(triple._behavior);
+				golem_.setBehavior(triple._behavior);
 				_neededBehaviorsGolems.add(golem_);
 			}
-			else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
-				triple._golem.addUnreachableBehavior(triple._behavior);
-			else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
-				triple._golem.addNoMaterialsBehavior(triple._behavior);
-			else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
-				triple._golem.addNoStorageAvailableBehavior(triple._behavior);
-			else if (requiredComplete == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
-				triple._golem
-						.addNoUnoccupiedBuildingsBehavior(triple._behavior);
+			else
+				behaviorFailed(triple._behavior, requiredComplete);
 		}
 	}
 
@@ -282,11 +263,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	{
 		_inProgressBehaviors.remove(behavior_);
 		if (behavior_.getAssigningBuilding() != null)
-			behavior_.getAssigningBuilding().removeActiveBehavior(behavior_);
-		if (!_noUnoccupiedBuildings.isEmpty())
 		{
-			_unassignedBehaviors.addAll(_noUnoccupiedBuildings);
-			_noUnoccupiedBuildings.clear();
+			behavior_.getAssigningBuilding().removeActiveBehavior(behavior_);
 		}
 		clearGolemsNoUnoccupiedBuildingsBehaviors();
 	}
@@ -329,7 +307,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM
 					|| reason_ == ClayConstants.BEHAVIOR_FAILED_OBSOLETE)
 			{
-				if (!behavior_.isHarvestTask())
+				if (!behavior_.isHarvestBehavior())
 					System.out.println(behavior_.getBehaviorTag() + " "
 							+ reason_);
 				_unassignedBehaviors.remove(behavior_);
@@ -338,18 +316,34 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 				_noAvailableGolems.remove(behavior_);
 				_noMaterials.remove(behavior_);
 				_noStorageAvailable.remove(behavior_);
-				_noUnoccupiedBuildings.remove(behavior_);
+				if (behavior_.getAssigningBuilding() != null)
+				{
+					List<Behavior> assingningBuildingBehaviors = _assigningBuildingClaimedMap
+							.get(behavior_.getAssigningBuilding());
+					if (assingningBuildingBehaviors != null)
+						assingningBuildingBehaviors.remove(behavior_);
+					List<Behavior> noUnoccupiedGenericBuildingBehaviors = _noUnoccupiedGenericBuildingMap
+							.get(behavior_.getAssigningBuilding()
+									.getBuildingTag());
+					if (noUnoccupiedGenericBuildingBehaviors != null)
+						noUnoccupiedGenericBuildingBehaviors.remove(behavior_);
+
+				}
 			}
-			// TODO maybe make a map event for unoccupied/multi-active task
-			// buildings?
-			if (reason_ == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
+			if (reason_ == ClayConstants.BEHAVIOR_FAILED_ASSIGNING_BUILDING_CLAIMED)
 			{
-				_noUnoccupiedBuildings.add(behavior_);
-			}
-			else
-			{
-				_unassignedBehaviors.addAll(_noUnoccupiedBuildings);
-				_noUnoccupiedBuildings.clear();
+				BuildingEntity assigningBuilding = behavior_
+						.getAssigningBuilding();
+				List<Behavior> assigningBuildingBehaviors = _assigningBuildingClaimedMap
+						.get(assigningBuilding);
+				if (assigningBuildingBehaviors == null)
+				{
+					assigningBuildingBehaviors = new ArrayList<Behavior>();
+					_assigningBuildingClaimedMap.put(
+							assigningBuilding,
+							assigningBuildingBehaviors);
+				}
+				assigningBuildingBehaviors.add(behavior_);
 			}
 		}
 		else
@@ -361,12 +355,10 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
 				behavior_.getAssignedGolem().addNoStorageAvailableBehavior(
 						behavior_);
-			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_BUILDING_OCCUPIED)
+			else if (reason_ == ClayConstants.BEHAVIOR_FAILED_ASSIGNING_BUILDING_CLAIMED)
 				behavior_.getAssignedGolem().addNoUnoccupiedBuildingsBehavior(
 						behavior_);
 		}
-		// TODO if there's ever a failure task for a building being interrupted
-		// mid-task, it needs to clear no unoccupied buildings
 		_inProgressBehaviors.remove(behavior_);
 	}
 
@@ -387,6 +379,8 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	private void updateMapEventLists(MapUpdateEvent event_)
 	{
 		// TODO make sure it's the home screen
+		// TODO main thread is going to have to clear invalid golem personal
+		// behaviors.
 		if (event_.getPoints() != null)
 		{
 			for (GolemEntity golem : _golemList)
@@ -411,6 +405,28 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			_unassignedBehaviors.addAll(_noStorageAvailable);
 			_noStorageAvailable.clear();
 			clearGolemsNoStorageAvailableBehaviors();
+		}
+		if (event_.getUnclaimedBuilding() != null)
+		{
+			List<Behavior> validBehaviors = _assigningBuildingClaimedMap
+					.get(event_.getUnclaimedBuilding());
+			if (validBehaviors != null)
+			{
+				_unassignedBehaviors.addAll(validBehaviors);
+				_assigningBuildingClaimedMap.remove(event_
+						.getUnclaimedBuilding());
+			}
+			else
+			{
+				validBehaviors = _noUnoccupiedGenericBuildingMap.get(event_
+						.getUnclaimedBuilding().getBuildingTag());
+				if (validBehaviors != null)
+				{
+					_unassignedBehaviors.addAll(validBehaviors);
+					_noUnoccupiedGenericBuildingMap.remove(event_
+							.getUnclaimedBuilding());
+				}
+			}
 		}
 	}
 
@@ -446,6 +462,37 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		}
 	}
 
+	private void removeHandledBehaviorsFromUnassgined()
+	{
+		_unassignedBehaviors.removeAll(_inProgressBehaviors);
+		for (Behavior behavior : _unassignedBehaviors)
+		{
+			if (behavior != null)
+				behavior.increaseAddedWeight(ClayConstants.ADDED_WEIGHT_INCREASE);
+		}
+		_noAvailableGolems.addAll(_unassignedBehaviors);
+		_unassignedBehaviors.clear();
+	}
+
+	private void removeFailedBehaviorsFromUnassigned()
+	{
+		_unassignedBehaviors.removeAll(_unreachableBehaviors);
+		_unassignedBehaviors.removeAll(_noMaterials);
+		_unassignedBehaviors.removeAll(_noStorageAvailable);
+
+		for (BuildingEntity key : _assigningBuildingClaimedMap.keySet())
+		{
+			_unassignedBehaviors.removeAll(_assigningBuildingClaimedMap
+					.get(key));
+		}
+
+		for (String key : _noUnoccupiedGenericBuildingMap.keySet())
+		{
+			_unassignedBehaviors.removeAll(_noUnoccupiedGenericBuildingMap
+					.get(key));
+		}
+	}
+
 	private class FinishedBehavior
 	{
 		public FinishedBehavior(Behavior behavior_, int reason_)
@@ -462,19 +509,24 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 
 	private List<GolemEntity> _golemList;
 	private List<GolemEntity> _inactiveGolems;
-	private List<GolemEntity> _neededBehaviorsGolems;
 
 	private Queue<FinishedBehavior> _failedBehaviors;
 	private Queue<FinishedBehavior> _completedBehaviors;
 	private Queue<MapUpdateEvent> _mapEvents;
 
-	private  List<Behavior> _unassignedBehaviors;
+	private Queue<Behavior> _toBeAssignedQueue;
+
+	private volatile List<Behavior> _unassignedBehaviors;
 	private List<Behavior> _inProgressBehaviors;
 	private List<Behavior> _unreachableBehaviors;
 	private List<Behavior> _noMaterials;
 	private List<Behavior> _noAvailableGolems;
 	private List<Behavior> _noStorageAvailable;
-	private List<Behavior> _noUnoccupiedBuildings;
+
+	private List<GolemEntity> _neededBehaviorsGolems;
+
+	private Map<String, List<Behavior>> _noUnoccupiedGenericBuildingMap;
+	private Map<BuildingEntity, List<Behavior>> _assigningBuildingClaimedMap;
 
 	private boolean _clearInvalid;
 
