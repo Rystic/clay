@@ -44,6 +44,6 @@
 		StartingMana="50" StartingClay="50" MaximumMana="75" MaximumClay="75"
 		ManaLostOnMovement=".0001" LowManaThreshold="25" LowClayThreshold="25"
 		PersonalBehaviorChance="0" HeatResistance="10" SpriteSize="30"
-		TextureScaling=".80" DefaultTexture="warrensGolem.png" LowClayTexture="warrensGolemLowClay.png"
-		LowManaTexture="warrensGolemLowMana.png" LowManaLowClayTexture="warrensGolemLowManaLowClay.png"></Golem>
+		TextureScaling=".80" DefaultTexture="warrensGolem.png" LowClayTexture="warrensLowClay.png"
+		LowManaTexture="warrensLowMana.png" LowManaLowClayTexture="warrensLowManaLowClay.png"></Golem>
 </Golems>
