@@ -373,7 +373,7 @@ public class BehaviorInstructionCalculator
 				continue;
 			}
 			Queue<Point> path = SearchUtil.searchItemGoalOnly(
-					building,
+					constructionBuilding,
 					building.getHomeScreen(),
 					searchItem);
 			int pathStatus = SearchUtil.getPathStatus(path);
