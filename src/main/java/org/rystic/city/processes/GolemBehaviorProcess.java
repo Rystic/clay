@@ -164,6 +164,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			List<Behavior> invalidBehaviors = new ArrayList<Behavior>();
 			for (BehaviorTriple triple : topScores)
 			{
+				// buildings shouldn't have claimed items for multiple tasks. On a construct task, the building that needs to be built should claim the items.
 				if (!invalidGolems.contains(triple._golem)
 						&& !invalidBehaviors.contains(triple._behavior))
 				{
@@ -187,6 +188,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 									|| !triple._behavior
 											.allGolemsInvalid(_golemList))
 							{
+								triple._behavior.requiredFailed(triple._golem);
 								behaviorFailed(
 										triple._behavior,
 										requiredComplete);
@@ -398,6 +400,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			_unassignedBehaviors.addAll(_noMaterials);
 			_noMaterials.clear();
 			clearGolemsNoMaterials();
+			_clearInvalid = true;
 		}
 
 		if (event_.isStorageAvailable())

@@ -387,7 +387,7 @@
 		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-,n,-,nn,-,nnn,-"
 		BuildTiles="base" isStorage="false" isSupport="true" StorageCapacity="0"
-		ConstructionItems="stoneware-brick,mana-pipe,mana-pipe"
+		ConstructionItems="saturated-clay,saturated-clay,saturated-clay"
 		PsychologyType="0" PsychologyInfluence="10" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
 		<State StateName="state-default"
