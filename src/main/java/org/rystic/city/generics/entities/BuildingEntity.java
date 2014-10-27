@@ -23,6 +23,7 @@ import org.rystic.city.processes.BuildingTickProcess;
 import org.rystic.city.processes.GolemBehaviorProcess;
 import org.rystic.city.processes.HeatTickProcess;
 import org.rystic.city.processes.StorageInventoryProcess;
+import org.rystic.city.processes.TrafficProcess;
 import org.rystic.city.util.MapUpdateEvent;
 import org.rystic.main.ClayConstants;
 import org.rystic.models.CityModel;
@@ -35,18 +36,18 @@ public class BuildingEntity extends AbstractEntity implements
 			AbstractScreen homeScreen_, String position_)
 	{
 		super(point_, homeScreen_);
-		_building = building_;
+		_genericBuilding = building_;
 		_point = point_;
 		_claimedItems = new ArrayList<Item>();
 		_model = homeScreen_.getModel();
 		_position = position_;
-		_buildTime = _building.getBuildTime();
+		_buildTime = _genericBuilding.getBuildTime();
 		_built = _buildTime == 0;
 		_tickReset = false;
-		_texture = _building.getTexture(
-				_building.calculateTexture(this),
+		_texture = _genericBuilding.getTexture(
+				_genericBuilding.calculateTexture(this),
 				_position);
-		_tickTime = _building.getTickStart();
+		_tickTime = _genericBuilding.getTickStart();
 		_isBase = _position.equals(ClayConstants.DEFAULT_BUILDING_POSITION);
 		_activeBehaviors = new ArrayList<Behavior>();
 		_activeConversions = new HashSet<String>();
@@ -54,12 +55,13 @@ public class BuildingEntity extends AbstractEntity implements
 
 		if (_built
 				&& _isBase
-				&& !_building.getBuildingTag().equals(
+				&& !_genericBuilding.getBuildingTag().equals(
 						ClayConstants.DEFAULT_TILE_TYPE))
 			((CityModel) _model).addToBuildingMap(this);
 
 		_markedForDeletion = false;
 		_heat = 0;
+		_traffic = 0;
 
 		EventBus.subscribe(MapUpdateEvent.class, this);
 	}
@@ -69,15 +71,15 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		if (update.getHomeScreen().equals(_homeScreen))
 		{
-			if (!_building.getTransform().isEmpty())
+			if (!_genericBuilding.getTransform().isEmpty())
 			{
-				GenericBuilding newBuilding = _building.transform(
+				GenericBuilding newBuilding = _genericBuilding.transform(
 						new Point(getGridX(), getGridY()),
 						((CityModel) _model).getTileValues());
-				if (!newBuilding.equals(_building))
+				if (!newBuilding.equals(_genericBuilding))
 				{
-					_building = newBuilding;
-					if (_building.getBuildTime() == 0)
+					_genericBuilding = newBuilding;
+					if (_genericBuilding.getBuildTime() == 0)
 						constructionComplete();
 					List<Point> point = new ArrayList<Point>();
 					point.add(getPoint());
@@ -94,9 +96,9 @@ public class BuildingEntity extends AbstractEntity implements
 	public void calculateTexture()
 	{
 		if (_tickTime == 0)
-			_tickReset = _building.tickReset(this);
-		_state = _building.calculateTexture(this);
-		_texture = _building.getTexture(_state, _position);
+			_tickReset = _genericBuilding.tickReset(this);
+		_state = _genericBuilding.calculateTexture(this);
+		_texture = _genericBuilding.getTexture(_state, _position);
 	}
 
 	public Texture getTexture()
@@ -108,7 +110,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public int getBuildingIdentifier()
 	{
-		return _building.getBuildingIdentifier();
+		return _genericBuilding.getBuildingIdentifier();
 	}
 
 	public int getBuildTime()
@@ -118,37 +120,37 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public String getBuildingName()
 	{
-		return _building.getBuildingName();
+		return _genericBuilding.getBuildingName();
 	}
 
 	public String getBuildingTag()
 	{
-		return _building.getBuildingTag();
+		return _genericBuilding.getBuildingTag();
 	}
 
 	public boolean isSupportBlock()
 	{
-		return _building.isSupport();
+		return _genericBuilding.isSupport();
 	}
 
 	public boolean isBridge()
 	{
-		return isBuilt() && _building.isBridge();
+		return isBuilt() && _genericBuilding.isBridge();
 	}
 
 	public boolean isUpwardScalable()
 	{
-		return isBuilt() && _building.getScalableUpwards(_position);
+		return isBuilt() && _genericBuilding.getScalableUpwards(_position);
 	}
 
 	public boolean isDownwardScalable()
 	{
-		return isBuilt() && _building.getScalableDownards(_position);
+		return isBuilt() && _genericBuilding.getScalableDownards(_position);
 	}
 
 	public boolean isDiagonalScalable()
 	{
-		return isBuilt() && _building.getScalableDiagonal(_position);
+		return isBuilt() && _genericBuilding.getScalableDiagonal(_position);
 	}
 
 	public String getPosition()
@@ -158,7 +160,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public boolean isPassable()
 	{
-		return _building.isPassable();
+		return _genericBuilding.isPassable();
 	}
 
 	public boolean isInUse()
@@ -168,12 +170,12 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public boolean isNatural()
 	{
-		return _building.isNatural();
+		return _genericBuilding.isNatural();
 	}
 
 	public String getExtraWeight()
 	{
-		return _building.getExtraWeightConditions();
+		return _genericBuilding.getExtraWeightConditions();
 	}
 
 	public String getState()
@@ -204,7 +206,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public boolean isHouse()
 	{
-		return _building.isHouse();
+		return _genericBuilding.isHouse();
 	}
 
 	public boolean isBaseTile()
@@ -214,8 +216,8 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public boolean isStorageAvailable()
 	{
-		return _building.isStorage()
-				&& _building.getStorageCapacity() > _heldItems.size();
+		return _genericBuilding.isStorage()
+				&& _genericBuilding.getStorageCapacity() > _heldItems.size();
 	}
 
 	public void constructionComplete()
@@ -225,6 +227,9 @@ public class BuildingEntity extends AbstractEntity implements
 			((BuildingTickProcess) _homeScreen
 					.getProcess(BuildingTickProcess.class)).register(this);
 
+		((TrafficProcess) _homeScreen.getProcess(TrafficProcess.class))
+				.doUpdate();
+
 		List<Point> point = new ArrayList<Point>();
 		point.add(getPoint());
 
@@ -233,7 +238,7 @@ public class BuildingEntity extends AbstractEntity implements
 		if (isStorageAvailable())
 			map.put(ClayConstants.EVENT_STORAGE_AVAILABLE_UPDATE, true);
 		if (_isBase
-				&& !_building.getBuildingTag().equals(
+				&& !_genericBuilding.getBuildingTag().equals(
 						ClayConstants.DEFAULT_TILE_TYPE))
 			((CityModel) _model).addToBuildingMap(this);
 
@@ -248,7 +253,7 @@ public class BuildingEntity extends AbstractEntity implements
 			if (_tickTime == 0
 					&& _position
 							.equals(ClayConstants.DEFAULT_BUILDING_POSITION))
-				_building.tickFinished(this);
+				_genericBuilding.tickFinished(this);
 		}
 	}
 
@@ -264,7 +269,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public void tickReset()
 	{
-		_tickTime = _building.getTickStart();
+		_tickTime = _genericBuilding.getTickStart();
 		_tickReset = false;
 		calculateTexture();
 	}
@@ -276,7 +281,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public String getConstructionItems()
 	{
-		return _building.getConstructionItems();
+		return _genericBuilding.getConstructionItems();
 	}
 
 	public void setAllTiles(List<BuildingEntity> allBuildingTiles_)
@@ -286,7 +291,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public String getBuildingPatternForTile()
 	{
-		return _building.getValidPlacementMap().get(_position);
+		return _genericBuilding.getValidPlacementMap().get(_position);
 	}
 
 	public void markForDeletion(boolean first_)
@@ -308,7 +313,8 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public void deleteBuilding()
 	{
-		if (!_building.getBuildingTag().equals(ClayConstants.DEFAULT_TILE_TYPE))
+		if (!_genericBuilding.getBuildingTag().equals(
+				ClayConstants.DEFAULT_TILE_TYPE))
 		{
 			for (BuildingEntity entity_ : _allBuildingTiles)
 				entity_.removeBuilding(false);
@@ -317,7 +323,8 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public void deconstructBuilding()
 	{
-		if (!_building.getBuildingTag().equals(ClayConstants.DEFAULT_TILE_TYPE))
+		if (!_genericBuilding.getBuildingTag().equals(
+				ClayConstants.DEFAULT_TILE_TYPE))
 		{
 			for (BuildingEntity entity_ : _allBuildingTiles)
 			{
@@ -463,7 +470,8 @@ public class BuildingEntity extends AbstractEntity implements
 	public void removeActiveBehavior(Behavior behavior_)
 	{
 		if (!_activeBehaviors.contains(behavior_))
-			System.out.println("Building trying to remove active behavior it doesn't have.");
+			System.out
+					.println("Building trying to remove active behavior it doesn't have.");
 		_activeBehaviors.remove(behavior_);
 		if (behavior_ instanceof ConversionBehavior)
 			_activeConversions.remove(((ConversionBehavior) behavior_)
@@ -497,7 +505,7 @@ public class BuildingEntity extends AbstractEntity implements
 	public boolean consume(Item item_)
 	{
 		boolean consume;
-		if (_building.isStorage() && !isStorageAvailable())
+		if (_genericBuilding.isStorage() && !isStorageAvailable())
 		{
 			consume = super.consume(item_);
 			if (isStorageAvailable())
@@ -524,7 +532,7 @@ public class BuildingEntity extends AbstractEntity implements
 	public boolean consume(List<Item> items_)
 	{
 		boolean consumed;
-		if (_building.isStorage() && !isStorageAvailable())
+		if (_genericBuilding.isStorage() && !isStorageAvailable())
 		{
 			consumed = super.consume(items_);
 			if (isStorageAvailable())
@@ -551,7 +559,7 @@ public class BuildingEntity extends AbstractEntity implements
 	public List<Item> consumeAllItemType(Item item_)
 	{
 		List<Item> consumed;
-		if (_building.isStorage() && !isStorageAvailable())
+		if (_genericBuilding.isStorage() && !isStorageAvailable())
 		{
 			consumed = super.consumeAllItemType(item_);
 			if (isStorageAvailable())
@@ -633,8 +641,8 @@ public class BuildingEntity extends AbstractEntity implements
 			int heat = rawHeat.get(building);
 			boolean isBuilt = building.isBuilt();
 			int addedHeat = (heat / (prevDegree + 1))
-					- (isBuilt ? _building.getHeatResistance() : 0);
-			if (addedHeat <= (isBuilt ? _building.getInsulation() : 0))
+					- (isBuilt ? _genericBuilding.getHeatResistance() : 0);
+			if (addedHeat <= (isBuilt ? _genericBuilding.getInsulation() : 0))
 				continue;
 			building.addHeat(addedHeat);
 			if (x - 1 >= 0 && tiles[x - 1][y] != null
@@ -684,11 +692,11 @@ public class BuildingEntity extends AbstractEntity implements
 		((HeatTickProcess) _homeScreen.getProcess(HeatTickProcess.class))
 				.register(this);
 		if (isOverheated()
-				&& !_building.getBuildingTag().equals(
+				&& !_genericBuilding.getBuildingTag().equals(
 						ClayConstants.DEFAULT_TILE_TYPE))
 		{
 			_heatDamage += heat_;
-			if (_heatDamage > _building.getThirdHeadThreshold())
+			if (_heatDamage > _genericBuilding.getThirdHeadThreshold())
 			{
 				deleteBuilding();
 				return;
@@ -718,7 +726,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public int getCoolingRate()
 	{
-		return _building.getCoolingRate();
+		return _genericBuilding.getCoolingRate();
 	}
 
 	public void heatTick()
@@ -744,12 +752,12 @@ public class BuildingEntity extends AbstractEntity implements
 
 	public boolean isOverheated()
 	{
-		return _heat >= _building.getFirstHeatThreshold();
+		return _heat >= _genericBuilding.getFirstHeatThreshold();
 	}
 
 	public int getHeatAbsorb()
 	{
-		return _building.getHeatAbsorb();
+		return _genericBuilding.getHeatAbsorb();
 	}
 
 	public void setConstructionBuilding(BuildingEntity constructionBuilding_)
@@ -762,6 +770,26 @@ public class BuildingEntity extends AbstractEntity implements
 		return _constructionBuilding;
 	}
 
+	public void addTraffic(int traffic_)
+	{
+		_traffic += traffic_;
+	}
+
+	public void clearTraffic()
+	{
+		_traffic = 0;
+	}
+
+	public int getNetTrafficWeight()
+	{
+		return _traffic - (_built ? _genericBuilding.getTrafficThreshold() : 0);
+	}
+	
+	public int getTraffic()
+	{
+		return _traffic;
+	}
+
 	@Override
 	public boolean equals(Object o)
 	{
@@ -770,7 +798,7 @@ public class BuildingEntity extends AbstractEntity implements
 		BuildingEntity entity = (BuildingEntity) o;
 		if (entity.getPoint().equals(_point))
 		{
-			if (entity.getBuildingIdentifier() == _building
+			if (entity.getBuildingIdentifier() == _genericBuilding
 					.getBuildingIdentifier())
 			{
 				return true;
@@ -788,10 +816,10 @@ public class BuildingEntity extends AbstractEntity implements
 	@Override
 	public int hashCode()
 	{
-		return _building.hashCode();
+		return _genericBuilding.hashCode();
 	}
 
-	private GenericBuilding _building;
+	private GenericBuilding _genericBuilding;
 
 	private List<BuildingEntity> _allBuildingTiles;
 
@@ -816,6 +844,7 @@ public class BuildingEntity extends AbstractEntity implements
 	private int _tickTime;
 	private int _heat;
 	private int _heatDamage;
+	private int _traffic;
 
 	private boolean _built;
 	private boolean _tickReset;

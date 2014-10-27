@@ -32,6 +32,7 @@ public class GolemMaintenanceProcess extends AbstractProcess
 		{
 			_golemList.addAll(_newGolemList);
 			_newGolemList.clear();
+			((TrafficProcess)_homeScreen.getProcess(TrafficProcess.class)).doUpdate();
 		}
 	}
 	

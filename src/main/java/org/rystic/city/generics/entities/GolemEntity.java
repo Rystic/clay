@@ -16,6 +16,7 @@ import org.rystic.city.generics.GenericBehavior;
 import org.rystic.city.generics.GenericGolem;
 import org.rystic.city.generics.objects.Behavior;
 import org.rystic.city.generics.objects.Item;
+import org.rystic.city.processes.TrafficProcess;
 import org.rystic.city.util.MapUpdateEvent;
 import org.rystic.main.ClayConstants;
 import org.rystic.models.CityModel;
@@ -28,7 +29,7 @@ public class GolemEntity extends AbstractEntity
 	{
 		super(new Point(x_, y_), homeScreen_);
 		_model = (CityModel) homeScreen_.getModel();
-		_golemTemplate = golem_;
+		_genericGolem = golem_;
 		_moveInstructions = new ArrayBlockingQueue<Point>(256);
 		_ignoredPersonalBehaviors = new HashMap<String, Integer>();
 		_claimedBuilding = null;
@@ -38,8 +39,8 @@ public class GolemEntity extends AbstractEntity
 		_noStorageAvailable = new ArrayList<String>();
 		_noUnoccupiedBuildings = new ArrayList<String>();
 
-		_mana = _golemTemplate.getStartingMana();
-		_clay = _golemTemplate.getStartingClay();
+		_mana = _genericGolem.getStartingMana();
+		_clay = _genericGolem.getStartingClay();
 		GolemPersonalityCalculator.buildPersonality(
 				_homeScreen,
 				this,
@@ -48,8 +49,9 @@ public class GolemEntity extends AbstractEntity
 		System.out.println("personality: " + _personality + "   psychology: "
 				+ _psychology + "   golemanity: " + _golemanity);
 
-		_maxSpeed = _golemTemplate.getMoveSpeed();
 		calculateMoveVariation();
+		_horizontalMoveScore = 0;
+		_verticalMoveScore = 0;
 
 		_visible = true;
 		_facingRight = true;
@@ -57,29 +59,30 @@ public class GolemEntity extends AbstractEntity
 
 	private void calculateMoveVariation()
 	{
-		if (_golemTemplate.getMoveVariation() > 0)
+		_maxSpeed = _genericGolem.getMoveSpeed();
+		if (_genericGolem.getMoveVariation() > 0)
 		{
 			Random random = new Random();
 			double decimalModifier = random.nextDouble();
-			if (_golemTemplate.getMoveVariation() < 1)
+			if (_genericGolem.getMoveVariation() < 1)
 			{
-				if (decimalModifier > _golemTemplate.getMoveVariation())
-					_maxSpeed += decimalModifier - _golemTemplate.getMoveVariation();
+				if (decimalModifier > _genericGolem.getMoveVariation())
+					_maxSpeed += decimalModifier
+							- _genericGolem.getMoveVariation();
 				else
 					_maxSpeed += decimalModifier;
 			}
-			else if (_golemTemplate.getMoveVariation() == 1)
+			else if (_genericGolem.getMoveVariation() == 1)
 			{
 				_maxSpeed += decimalModifier;
 			}
 			else
 			{
-				_maxSpeed += random
-						.nextInt((int) (_golemTemplate.getMoveVariation() - 1))
-						+ decimalModifier;
+				_maxSpeed += random.nextInt((int) (_genericGolem
+						.getMoveVariation() - 1)) + decimalModifier;
 			}
-
 		}
+		_currentSpeed = _maxSpeed;
 	}
 
 	public void executeBehavior()
@@ -126,7 +129,9 @@ public class GolemEntity extends AbstractEntity
 			if (_claimedBuilding != null)
 			{
 				Map<Integer, Object> paramMap = new HashMap<Integer, Object>();
-				paramMap.put(ClayConstants.EVENT_BUILDING_UNCLAIMED, _claimedBuilding);
+				paramMap.put(
+						ClayConstants.EVENT_BUILDING_UNCLAIMED,
+						_claimedBuilding);
 				EventBus.publish(new MapUpdateEvent(_homeScreen, paramMap));
 				_claimedBuilding.releaseClaimedItems();
 				_claimedBuilding.setClaimingGolem(null);
@@ -146,14 +151,16 @@ public class GolemEntity extends AbstractEntity
 		if (_claimedBuilding != null)
 		{
 			Map<Integer, Object> paramMap = new HashMap<Integer, Object>();
-			paramMap.put(ClayConstants.EVENT_BUILDING_UNCLAIMED, _claimedBuilding);
+			paramMap.put(
+					ClayConstants.EVENT_BUILDING_UNCLAIMED,
+					_claimedBuilding);
 			EventBus.publish(new MapUpdateEvent(_homeScreen, paramMap));
 			_claimedBuilding.releaseClaimedItems();
 			_claimedBuilding.setClaimingGolem(null);
 			_claimedBuilding = null;
 		}
 	}
-	
+
 	public boolean isActive()
 	{
 		return _currentBehavior != null;
@@ -172,51 +179,93 @@ public class GolemEntity extends AbstractEntity
 		boolean xDone = false;
 		boolean yDone = false;
 
-		double moveSpeed = _maxSpeed;
+		double moveSpeed = _currentSpeed;
+
+		_clay -= .01;
+
 		if (!_heldItems.isEmpty())
-		{
 			moveSpeed /= 1.25;
-			if (_golemTemplate.getMaximumClay() < 200)
-				_clay -= .01;
+
+		if (isLowMana())
+			moveSpeed /= 1.25;
+
+		if (yDestination != _location.y)
+		{
+			if (yDestination > _location.y)
+				_verticalMoveScore += moveSpeed / 1.5;
 			else
-				_clay -= .001;
+				_verticalMoveScore -= moveSpeed / 1.5;
+		}
+		if (xDestination != _location.x)
+		{
+			if (xDestination > _location.x)
+				_horizontalMoveScore += moveSpeed;
+			else
+				_horizontalMoveScore -= moveSpeed;
 		}
 
-		adjustMana(-_golemTemplate.getManaLostOnMovement());
-		if (xDestination > _location.x)
+		if (_verticalMoveScore != 0)
 		{
-			_location.x += moveSpeed;
-			_facingRight = true;
-			if (_location.x > xDestination)
-				_location.setLocation(xDestination, _location.y);
-		}
-		else if (xDestination < _location.x)
-		{
-			_location.x -= moveSpeed;
-			_facingRight = false;
-			if (_location.x < xDestination)
-				_location.setLocation(xDestination, _location.y);
-		}
-		else
-			xDone = true;
-
-		if (yDestination > _location.y)
-		{
-			_location.y += moveSpeed / 1.5;
-			if (_location.y > yDestination)
-				_location.setLocation(_location.x, yDestination);
-		}
-		else if (yDestination < _location.y)
-		{
-			_location.y -= moveSpeed / 1.5;
-			if (_location.y < yDestination)
-				_location.setLocation(_location.x, yDestination);
+			if (_verticalMoveScore > 0)
+			{
+				_location.y += (int) _verticalMoveScore;
+				if (_location.y >= yDestination)
+				{
+					_location.setLocation(_location.x, yDestination);
+					_verticalMoveScore = 0;
+				}
+				else
+					_verticalMoveScore %= 1;
+			}
+			else
+			{
+				_location.y += (int) _verticalMoveScore;
+				if (_location.y <= yDestination)
+				{
+					_location.setLocation(_location.x, yDestination);
+					_verticalMoveScore = 0;
+				}
+				else
+					_verticalMoveScore %= 1;
+			}
 		}
 		else
 			yDone = true;
 
+		if (_horizontalMoveScore != 0)
+		{
+			if (_horizontalMoveScore > 0)
+			{
+				_location.x += (int) _horizontalMoveScore;
+				if (_location.x >= xDestination)
+				{
+					_location.setLocation(xDestination, _location.y);
+					_horizontalMoveScore = 0;
+				}
+				else
+					_horizontalMoveScore %= 1;
+			}
+			else
+			{
+				_location.x += (int) _horizontalMoveScore;
+				if (_location.x <= xDestination)
+				{
+					_location.setLocation(xDestination, _location.y);
+					_horizontalMoveScore = 0;
+				}
+				else
+					_horizontalMoveScore %= 1;
+			}
+		}
+		else
+			xDone = true;
+
 		if (xDone && yDone)
+		{
 			_moveInstructions.poll();
+			((TrafficProcess) _homeScreen.getProcess(TrafficProcess.class))
+					.doUpdate();
+		}
 	}
 
 	public void recalculatePathIfNecessary(List<Point> points_)
@@ -287,13 +336,13 @@ public class GolemEntity extends AbstractEntity
 		{
 			if (isLowMana())
 			{
-				return _golemTemplate.getLowManaLowClayTexture();
+				return _genericGolem.getLowManaLowClayTexture();
 			}
-			return _golemTemplate.getLowClayTexture();
+			return _genericGolem.getLowClayTexture();
 		}
 		else if (isLowMana())
-			return _golemTemplate.getLowManaTexture();
-		return _golemTemplate.getDefaultTexture();
+			return _genericGolem.getLowManaTexture();
+		return _genericGolem.getDefaultTexture();
 	}
 
 	public void adjustMana(double value_)
@@ -305,15 +354,15 @@ public class GolemEntity extends AbstractEntity
 	{
 		return _mana;
 	}
-	
+
 	public double getMaximumMana()
 	{
-		return _golemTemplate.getMaximumMana();
+		return _genericGolem.getMaximumMana();
 	}
 
 	public boolean isLowMana()
 	{
-		return _golemTemplate.getLowManaThreshold() >= _mana;
+		return _genericGolem.getLowManaThreshold() >= _mana;
 	}
 
 	public void adjustClay(double value_)
@@ -328,12 +377,12 @@ public class GolemEntity extends AbstractEntity
 
 	public double getMaximumClay()
 	{
-		return _golemTemplate.getMaximumClay();
+		return _genericGolem.getMaximumClay();
 	}
-	
+
 	public boolean isLowClay()
 	{
-		return _golemTemplate.getLowClayThreshold() >= _clay;
+		return _genericGolem.getLowClayThreshold() >= _clay;
 	}
 
 	public void setVisible(boolean visible_)
@@ -348,7 +397,7 @@ public class GolemEntity extends AbstractEntity
 
 	public int getPersonalBehaviorChance()
 	{
-		return _golemTemplate.getPersonalBehaviorChance();
+		return _genericGolem.getPersonalBehaviorChance();
 	}
 
 	public void setClaimedBuilding(BuildingEntity claimedBuilding_)
@@ -363,12 +412,12 @@ public class GolemEntity extends AbstractEntity
 
 	public String getGolemTag()
 	{
-		return _golemTemplate.getGolemTag();
+		return _genericGolem.getGolemTag();
 	}
 
 	public List<GenericBehavior> getNeededBehaviors()
 	{
-		return _golemTemplate.getNeededBehaviors();
+		return _genericGolem.getNeededBehaviors();
 	}
 
 	public byte getPersonality()
@@ -385,17 +434,17 @@ public class GolemEntity extends AbstractEntity
 	{
 		return _golemanity;
 	}
-	
+
 	public float getTextureScaling()
 	{
-		return (float) _golemTemplate.getTextureScaling();
+		return (float) _genericGolem.getTextureScaling();
 	}
 
 	public int getSpriteSize()
 	{
-		return _golemTemplate.getSpriteSize();
+		return _genericGolem.getSpriteSize();
 	}
-	
+
 	public void setPersonality(byte personality_)
 	{
 		_personality = personality_;
@@ -470,22 +519,45 @@ public class GolemEntity extends AbstractEntity
 	{
 		_noUnoccupiedBuildings.clear();
 	}
-	
+
 	public boolean isFacingRight()
 	{
 		return _facingRight;
 	}
-	
+
+	public int getTrafficWeight()
+	{
+		return _genericGolem.getTrafficWeight()
+				+ (isLowMana() ? _genericGolem.getTrafficWeight() : 0);
+	}
+
+	public void updateMoveSpeed()
+	{
+		_currentSpeed = _maxSpeed;
+		if (_genericGolem.getTrafficWeight() == 0)
+			return;
+		BuildingEntity building = _model.getTileValue(getGridX(), getGridY());
+		if (building != null)
+		{
+			if (building.getTraffic() == _genericGolem.getTrafficWeight()) return;
+			int netTrafficWeight = building.getNetTrafficWeight();
+			if (netTrafficWeight > 0)
+			{
+				_currentSpeed /= netTrafficWeight;
+			}
+		}
+	}
+
 	@Override
 	public CityModel getModel()
 	{
 		return (CityModel) _model;
 	}
 
-	private GenericGolem _golemTemplate;
+	private GenericGolem _genericGolem;
 
 	private Map<String, Integer> _ignoredPersonalBehaviors;
-	
+
 	private CityModel _model;
 	private Behavior _currentBehavior;
 
@@ -501,7 +573,11 @@ public class GolemEntity extends AbstractEntity
 
 	private double _mana;
 	private double _clay;
+
 	private double _maxSpeed;
+	private double _currentSpeed;
+	private double _horizontalMoveScore;
+	private double _verticalMoveScore;
 
 	private int _tickCount;
 	private int _tickCountRate;

@@ -46,6 +46,8 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		_transformCode = eElement.getAttribute("Transform");
 		_constructionItems = eElement.getAttribute("ConstructionItems");
 
+		_trafficThreshold =FieldParser.parseInt(eElement.getAttribute("TrafficThreshold"));
+		
 		_coolingRate = FieldParser.parseInt(eElement
 				.getAttribute("CoolingRate"));
 		_heatAbsorb = FieldParser.parseInt(eElement.getAttribute("HeatAbsorb"));
@@ -689,6 +691,11 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		return _lesserManaCumulativeCost;
 	}
 
+	public int getTrafficThreshold()
+	{
+		return _trafficThreshold;
+	}
+
 	public int getCoolingRate()
 	{
 		return _coolingRate;
@@ -873,6 +880,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	private final int _tickStart;
 	private final int _storageCapacity;
 
+	private final int _trafficThreshold;
 	private final int _coolingRate;
 	private final int _heatAbsorb;
 	private final int _insulation;

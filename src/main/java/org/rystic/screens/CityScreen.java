@@ -22,6 +22,7 @@ import org.rystic.city.processes.GolemMaintenanceProcess;
 import org.rystic.city.processes.HeatTickProcess;
 import org.rystic.city.processes.ResourceManagerProcess;
 import org.rystic.city.processes.StorageInventoryProcess;
+import org.rystic.city.processes.TrafficProcess;
 import org.rystic.city.ui.menus.AbstractMenu;
 import org.rystic.city.ui.menus.BuildingMenu;
 import org.rystic.city.ui.menus.GolemRosterMenu;
@@ -75,6 +76,7 @@ public class CityScreen extends AbstractScreen
 		_processes.add(new ResourceManagerProcess(this));
 		_processes.add(new StorageInventoryProcess(this));
 		_processes.add(new HeatTickProcess(this));
+		_processes.add(new TrafficProcess(this));
 	}
 
 	public void initTerrain()

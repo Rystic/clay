@@ -5,7 +5,7 @@
 		MoveVariation="1" NeededBehaviors="repair-clay,power-obelisk,store-items"
 		StartingMana="100" StartingClay="100" MaximumMana="100" MaximumClay="150"
 		ManaLostOnMovement=".0001" LowManaThreshold="90" LowClayThreshold="60"
-		PersonalBehaviorChance="20" HeatResistance="30" SpriteSize="30"
+		PersonalBehaviorChance="20" TrafficWeight="1" SpriteSize="30"
 		TextureScaling=".6" DefaultTexture="golem.png" LowClayTexture="lowClayGolem.png"
 		LowManaTexture="lowManaGolem.png" LowManaLowClayTexture="lowManaLowClayGolem.png"></Golem>
 
@@ -14,7 +14,7 @@
 		NeededBehaviors="repair-pearlclay,power-obelisk,store-items"
 		StartingMana="250" StartingClay="50" MaximumMana="200" MaximumClay="150"
 		ManaLostOnMovement=".0001" LowManaThreshold="100" LowClayThreshold="25"
-		PersonalBehaviorChance="80" HeatResistance="0" SpriteSize="35"
+		PersonalBehaviorChance="80" TrafficWeight="0" SpriteSize="35"
 		TextureScaling=".8" DefaultTexture="pearlclayGolem.png"
 		LowClayTexture="pearlclayLowClay.png" LowManaTexture="pearlclayLowMana.png"
 		LowManaLowClayTexture="pearlclayLowManaLowClay.png"></Golem>
@@ -24,7 +24,7 @@
 		NeededBehaviors="repair-stoneware,power-obelisk,store-items"
 		StartingMana="50" StartingClay="250" MaximumMana="100" MaximumClay="450"
 		ManaLostOnMovement=".0001" LowManaThreshold="20" LowClayThreshold="150"
-		PersonalBehaviorChance="0" HeatResistance="80" SpriteSize="40"
+		PersonalBehaviorChance="0" TrafficWeight="2" SpriteSize="40"
 		TextureScaling=".80" DefaultTexture="stonewareGolem.png"
 		LowClayTexture="stonewareLowClay.png" LowManaTexture="stonewareLowMana.png"
 		LowManaLowClayTexture="stonewareLowManaLowClay.png"></Golem>
@@ -34,7 +34,7 @@
 		NeededBehaviors="repair-earthenware,power-obelisk,store-items"
 		StartingMana="150" StartingClay="150" MaximumMana="300" MaximumClay="250"
 		ManaLostOnMovement=".0001" LowManaThreshold="100" LowClayThreshold="25"
-		PersonalBehaviorChance="60" HeatResistance="0" SpriteSize="35"
+		PersonalBehaviorChance="60" TrafficWeight="2" SpriteSize="35"
 		TextureScaling=".8" DefaultTexture="earthenwareGolem.png"
 		LowClayTexture="earthenwareLowClay.png" LowManaTexture="earthenwareLowMana.png"
 		LowManaLowClayTexture="earthenwareLowManaLowClay.png"></Golem>
@@ -43,7 +43,7 @@
 		MoveSpeed="2" MoveVariation="0" NeededBehaviors="repair-clay,power-obelisk,store-items"
 		StartingMana="50" StartingClay="50" MaximumMana="75" MaximumClay="75"
 		ManaLostOnMovement=".0001" LowManaThreshold="25" LowClayThreshold="25"
-		PersonalBehaviorChance="0" HeatResistance="10" SpriteSize="30"
+		PersonalBehaviorChance="0" TrafficWeight="1" SpriteSize="30"
 		TextureScaling=".80" DefaultTexture="warrensGolem.png" LowClayTexture="warrensLowClay.png"
 		LowManaTexture="warrensLowMana.png" LowManaLowClayTexture="warrensLowManaLowClay.png"></Golem>
 </Golems>
