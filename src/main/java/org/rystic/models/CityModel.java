@@ -171,7 +171,18 @@ public class CityModel extends AbstractModel
 			{
 				try
 				{
-					if (buildingTagAndPosition[0].equals("none"))
+					if (y_ > 0
+							&& (_tileValues[x_][y_ - 1] != null && !_tileValues[x_][y_ - 1]
+									.isBridge()))
+					{
+						_tileValues[x_][y_] = new BuildingEntity(
+								BuildingData
+										.getBuildingByTag(ClayConstants.DEFAULT_TILE_TYPE),
+								new Point(x_ * ClayConstants.TILE_X, y_
+										* ClayConstants.TILE_Y), _homeScreen,
+								ClayConstants.DEFAULT_BUILDING_POSITION);
+					}
+					else if (buildingTagAndPosition[0].equals("none"))
 						_tileValues[x_][y_] = null;
 					else
 						BuildingData
@@ -184,6 +195,28 @@ public class CityModel extends AbstractModel
 				} catch (Exception e)
 				{
 					e.printStackTrace();
+				}
+			}
+			else
+			{
+				if (buildingTagAndPosition[0].equals("none")
+						|| !BuildingData.getBuildingByTag(
+								buildingTagAndPosition[0]).isSupport())
+				{
+					if (y_ > 0)
+					{
+						if (_tileValues[x_][y_ - 1] != null
+								&& !_tileValues[x_][y_ - 1].isBridge())
+						{
+							_tileValues[x_][y_] = new BuildingEntity(
+									BuildingData
+											.getBuildingByTag(ClayConstants.DEFAULT_TILE_TYPE),
+									new Point(x_ * ClayConstants.TILE_X, y_
+											* ClayConstants.TILE_Y),
+									_homeScreen,
+									ClayConstants.DEFAULT_BUILDING_POSITION);
+						}
+					}
 				}
 			}
 		}

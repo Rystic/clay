@@ -7,7 +7,7 @@ public class BehaviorTripleQuickSort
 		BehaviorTriple[] returnValues = values;
 		_quickSorts = 0;
 		quicksort(returnValues, 0, values.length - 1);
-		System.out.println("Quick sort iterations: " + _quickSorts);
+//		System.out.println("Quick sort iterations: " + _quickSorts);
 		return returnValues;
 	}
 
