@@ -38,11 +38,14 @@ consume-claimed-construction:building-entity - consumes all claimed items the bu
 deconstruct:building-entity - converts the building and all its parts into clay blocks.
 generate-heat:<integer> - generates <integer> heat on all parts of the building, and half heat on adjacent buildings.
 harvest-items-on-building:<building-entity> - queues harvest tasks for all items on a building.
+harvest-items-on-claimed-building - queues harvest tasks for all items on a golem's claimed building.
 hide - Hides the golem until a show command, the behavior finishes, or the behavior fails.
+kill-golem - Kills the executing golem.
 produce-items-on-building:<item-tag,item-tag...item-tag> - Produces items on the executing golem's claimed building.
 produce-item-on-golem:<item-tag> - Produces an item on the executing golem.
 repair-heat-damage:building-entity - Reduces heat by one heat tier on the building.
 seek:abstract-entity - Tells the golem to seek the given parameter on the map.
+seek-claimed-building - Tells the golem to seek the building it has claimed.
 seek-claimed-construction-items - Tells the golem to seek the items for the building under construction.
 seek-claimed-items - Tells the golem to gather the claimed items for the building it has claimed.
 seek-entities:list<abstract-entity> - Tells the golem to seek one of the given parameters.

@@ -52,11 +52,14 @@ public class ClayConstants
 	public static final String BEHAVIOR_COMMAND_ENTITY_NOT_HOLDING_UNNECESSARY_ITEM = "entity-not-holding-unnecessary-item";
 	public static final String BEHAVIOR_COMMAND_GENERATE_HEAT = "generate-heat";
 	public static final String BEHAVIOR_COMMAND_HARVEST_ITEMS_ON_BUILDING = "harvest-items-on-building";
+	public static final String BEHAVIOR_COMMAND_HARVEST_ITEMS_ON_CLAIMED_BUILDING = "harvest-items-on-claimed-building";
 	public static final String BEHAVIOR_COMMAND_HIDE = "hide";
+	public static final String BEHAVIOR_COMMAND_KILL_GOLEM = "kill-golem";
 	public static final String BEHAVIOR_COMMAND_PRODUCE_ITEMS_ON_BUILDING = "produce-items-on-building";
 	public static final String BEHAVIOR_COMMAND_PRODUCE_ITEM_ON_GOLEM = "produce-item-on-golem";
 	public static final String BEHAVIOR_COMMAND_REPAIR_HEAT_DAMAGE = "repair-heat-damage";
 	public static final String BEHAVIOR_COMMAND_SEEK = "seek";
+	public static final String BEHAVIOR_COMMAND_SEEK_CLAIMED_BUILDING = "seek-claimed-building";
 	public static final String BEHAVIOR_COMMAND_SEEK_CLAIMED_CONSTRUCTION_ITEMS = "seek-claimed-construction-items";
 	public static final String BEHAVIOR_COMMAND_SEEK_CLAIMED_ITEMS = "seek-claimed-items";
 	public static final String BEHAVIOR_COMMAND_SEEK_CONSTRUCTION_BUILDING = "seek-construction-building";

@@ -31,6 +31,7 @@ public class CityModel extends AbstractModel
 		_yTileCount = _tileValues[0].length - 1;
 		_golemList = new ArrayList<GolemEntity>();
 		_newGolemList = new ArrayList<GolemEntity>();
+		_deadGolemList = new ArrayList<GolemEntity>();
 		_mana = 0;
 		_buildingMap = new HashMap<Integer, List<BuildingEntity>>();
 		_golemMap = new HashMap<String, List<GolemEntity>>();
@@ -73,6 +74,11 @@ public class CityModel extends AbstractModel
 	{
 		return _newGolemList;
 	}
+	
+	public List<GolemEntity> getDeadGolems()
+	{
+		return _deadGolemList;
+	}
 
 	public int getGolemCount()
 	{
@@ -92,6 +98,12 @@ public class CityModel extends AbstractModel
 		}
 		golemList.add(golem);
 		_newGolemList.add(golem);
+	}
+	
+	public void removeGolem(GolemEntity golem_)
+	{
+		_deadGolemList.add(golem_);
+		_golemMap.get(golem_.getGolemTag()).remove(golem_);
 	}
 
 	public Map<Integer, List<BuildingEntity>> getBuildingMap()
@@ -343,6 +355,7 @@ public class CityModel extends AbstractModel
 	// Golems
 	private List<GolemEntity> _golemList;
 	private List<GolemEntity> _newGolemList;
+	private List<GolemEntity> _deadGolemList;
 
 	private int _mana;
 	private int _menuPointer;

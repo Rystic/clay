@@ -40,8 +40,8 @@
 		LowManaLowClayTexture="earthenwareLowManaLowClay.png"></Golem>
 
 	<Golem GolemName="Warrens Golem" GolemTag="warrens-golem"
-		MoveSpeed="2" MoveVariation="0" NeededBehaviors="repair-clay,power-obelisk,store-items"
-		StartingMana="50" StartingClay="50" MaximumMana="75" MaximumClay="75"
+		MoveSpeed="2" MoveVariation="0" NeededBehaviors="repair-warrens,store-items"
+		StartingMana="75" StartingClay="75" MaximumMana="75" MaximumClay="75"
 		ManaLostOnMovement=".0001" LowManaThreshold="25" LowClayThreshold="25"
 		PersonalBehaviorChance="0" TrafficWeight="1" SpriteSize="30"
 		TextureScaling=".80" DefaultTexture="warrensGolem.png" LowClayTexture="warrensLowClay.png"

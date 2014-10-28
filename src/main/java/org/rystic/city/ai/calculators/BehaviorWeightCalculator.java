@@ -50,7 +50,7 @@ public class BehaviorWeightCalculator
 						params_,
 						finalWeight);
 			if (addedWeight == Integer.MIN_VALUE)
-				return addedWeight;
+				return Integer.MIN_VALUE;
 			finalWeight += addedWeight;
 		}
 		if (finalWeight <= 0)
@@ -298,7 +298,7 @@ public class BehaviorWeightCalculator
 
 	private static int _lowClay(GolemEntity golem_)
 	{
-		int weight = 0;
+		int weight = Integer.MIN_VALUE;
 		if (golem_.isLowClay())
 		{
 			weight += (int) (golem_.getMaximumClay() - golem_.getClay());
@@ -310,7 +310,7 @@ public class BehaviorWeightCalculator
 
 	private static int _lowMana(GolemEntity golem_)
 	{
-		int weight = 0;
+		int weight = Integer.MIN_VALUE;
 		if (golem_.isLowMana())
 		{
 			weight += (int) (golem_.getMaximumMana() - golem_.getMana());

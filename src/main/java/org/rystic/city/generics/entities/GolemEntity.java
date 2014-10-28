@@ -237,6 +237,7 @@ public class GolemEntity extends AbstractEntity
 			if (_horizontalMoveScore > 0)
 			{
 				_location.x += (int) _horizontalMoveScore;
+				_facingRight = true;
 				if (_location.x >= xDestination)
 				{
 					_location.setLocation(xDestination, _location.y);
@@ -248,6 +249,7 @@ public class GolemEntity extends AbstractEntity
 			else
 			{
 				_location.x += (int) _horizontalMoveScore;
+				_facingRight = false;
 				if (_location.x <= xDestination)
 				{
 					_location.setLocation(xDestination, _location.y);

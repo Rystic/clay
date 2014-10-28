@@ -55,6 +55,12 @@
 		require="entity-not-holding-item,claim-generic-building:0,claim-items:saturated-clay:earthenware-brick"
 		code="seek-claimed-items,hide,consume-claimed,tick:80,show,add-clay:80,"></Behavior>
 
+	<Behavior BehaviorName="Repair (Warrens)" BehaviorTag="repair-warrens"
+		weight="low-clay,low-mana" BehaviorDescription="text:Killing itself."
+		defaultParams="warrens,casing" personalBehavior="true" limit="-1"
+		golemCost="mana:-4" require="entity-not-holding-item,claim-generic-building:0"
+		code="seek-claimed-building,hide,tick:125,produce-items-on-building:1,harvest-items-on-claimed-building,kill-golem"></Behavior>
+
 	<Behavior BehaviorName="Build Clay Golem" BehaviorTag="build-clay-golem"
 		BehaviorDescription="text:Constructing a clay golem." weight="can-build-clay-golem"
 		defaultParams="sculptors-studio" personalBehavior="true" limit="1"

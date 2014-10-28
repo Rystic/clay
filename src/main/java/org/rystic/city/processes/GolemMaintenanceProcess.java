@@ -14,8 +14,9 @@ public class GolemMaintenanceProcess extends AbstractProcess
 		_model = (CityModel) homeScreen_.getModel();
 		_golemList = _model.getGolems();
 		_newGolemList = _model.getNewGolems();
+		_deadGolemList = _model.getDeadGolems();
 	}
-	
+
 	@Override
 	public void execute()
 	{
@@ -32,12 +33,25 @@ public class GolemMaintenanceProcess extends AbstractProcess
 		{
 			_golemList.addAll(_newGolemList);
 			_newGolemList.clear();
-			((TrafficProcess)_homeScreen.getProcess(TrafficProcess.class)).doUpdate();
+			TrafficProcess traficProcess = ((TrafficProcess) _homeScreen
+					.getProcess(TrafficProcess.class));
+			if (traficProcess != null)
+				traficProcess.doUpdate();
+		}
+		if (_deadGolemList.size() > 0)
+		{
+			_golemList.removeAll(_deadGolemList);
+			_deadGolemList.clear();
+			TrafficProcess traficProcess = ((TrafficProcess) _homeScreen
+					.getProcess(TrafficProcess.class));
+			if (traficProcess != null)
+				traficProcess.doUpdate();
 		}
 	}
-	
+
 	private CityModel _model;
-	
+
 	private List<GolemEntity> _golemList;
 	private List<GolemEntity> _newGolemList;
+	private List<GolemEntity> _deadGolemList;
 }
