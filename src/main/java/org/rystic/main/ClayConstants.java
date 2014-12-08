@@ -139,6 +139,8 @@ public class ClayConstants
 	public static final String T_STATE_UNNATURAL_LEFT = "state-unnatural-left";
 	public static final String T_STATE_UNNATURAL_RIGHT = "state-unnatural-right";
 	public static final String T_STATE_UNNATURAL_BELOW = "state-unnatural-below";
+	public static final String T_STATE_UNNATURAL_TOP_LEFT = "state-unnatural-top-left";
+	public static final String T_STATE_UNNATURAL_TOP_RIGHT = "state-unnatural-top-right";
 	public static final String T_STATE_ADJACENT = "state-adjacent";
 	public static final String T_STATE_TICK_FINISHED = "state-tick-finished";
 	public static final String T_STATE_STORAGE_FULL = "state-storage-full";

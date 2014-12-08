@@ -104,7 +104,12 @@ public class BuildingEntity extends AbstractEntity implements
 	public Texture getTexture()
 	{
 		if (!_built)
-			return BuildingData._unbuiltTexture;
+		{
+			if (!isSupportBlock())
+			return BuildingData._constructionNonSupportTexture;
+			else
+			return BuildingData._constructionTexture;
+		}
 		return _texture;
 	}
 
@@ -294,17 +299,16 @@ public class BuildingEntity extends AbstractEntity implements
 		return _genericBuilding.getValidPlacementMap().get(_position);
 	}
 
-	public void markForDeletion(boolean first_)
+	public void markForDeletion()
 	{
 		if (_markedForDeletion)
 			return;
 		_markedForDeletion = true;
-		if (!first_)
-			return;
 		for (BuildingEntity building : _allBuildingTiles)
 		{
-			building.markForDeletion(false);
+			building.markForDeletion();
 		}
+		releaseAll();
 		GolemBehaviorProcess behaviorProcess = (GolemBehaviorProcess) _homeScreen
 				.getProcess(GolemBehaviorProcess.class);
 		behaviorProcess.queueBehavior(new Behavior(BehaviorData

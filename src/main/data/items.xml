@@ -15,7 +15,7 @@
 	<Item ItemName="Saturated Clay" ItemTag="saturated-clay" Texture="itemSaturatedClay.png"
 		ItemFamily="Mana" Parent=""></Item>
 
-	<Item ItemName="Mana Pipe" ItemTag="mana-pipe" Texture="itemManaPipes.png"
+	<Item ItemName="Refined Pipe" ItemTag="mana-pipe" Texture="itemManaPipes.png"
 		ItemFamily="Mana" Parent="saturated-clay"></Item>
 
 	<Item ItemName="Pearlclay" ItemTag="pearlclay" Texture="itemPearlclay.png"

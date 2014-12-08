@@ -26,7 +26,7 @@ public class SelectBuildingButton extends AbstractButton
 	@Override
 	public Texture getTexture()
 	{
-		if (_building == null) return BuildingData._unbuiltTexture;
+		if (_building == null) return BuildingData._constructionTexture;
 		return _building.getTexture(ClayConstants.T_STATE_DEFAULT, _position);
 	}
 	

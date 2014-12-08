@@ -22,7 +22,7 @@ public class BackgroundEffect extends AbstractEffect
 		try
 		{
 			_skyTexture = TextureLoader.getTexture("JPG", new FileInputStream(
-					new File("src/main/art/rainy.jpg")));
+					new File("src/main/art/sky3.jpg")));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -32,20 +32,20 @@ public class BackgroundEffect extends AbstractEffect
 	@Override
 	public void executeEffect()
 	{
-		GL11.glColor3f(0.5f, 0.7f, .9f);
+		GL11.glColor3f(.85f, .85f, .95f);
 		// GL11.glColor3f(0.6f, 0.6f, 1.0f); not main
 
 		// GL11.glColor3f(0.45f, 0.45f, .42f);
 
-//		 Draw the sky.
-//		 GL11.glBegin(GL11.GL_POLYGON);
-//		 GL11.glVertex2d(0, ClayConstants.DEFAULT_MAP_HEIGHT);
-//		 GL11.glVertex2d(
-//		 ClayConstants.DEFAULT_MAP_WIDTH,
-//		 ClayConstants.DEFAULT_MAP_HEIGHT);
-//		 GL11.glVertex2d(ClayConstants.DEFAULT_MAP_WIDTH, TILE_Y);
-//		 GL11.glVertex2d(0, TILE_Y);
-//		 GL11.glEnd();
+		// Draw the sky.
+		// GL11.glBegin(GL11.GL_POLYGON);
+		// GL11.glVertex2d(0, ClayConstants.DEFAULT_MAP_HEIGHT);
+		// GL11.glVertex2d(
+		// ClayConstants.DEFAULT_MAP_WIDTH,
+		// ClayConstants.DEFAULT_MAP_HEIGHT);
+		// GL11.glVertex2d(ClayConstants.DEFAULT_MAP_WIDTH, TILE_Y);
+		// GL11.glVertex2d(0, TILE_Y);
+		// GL11.glEnd();
 
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, _skyTexture.getTextureID());
 		// continue;

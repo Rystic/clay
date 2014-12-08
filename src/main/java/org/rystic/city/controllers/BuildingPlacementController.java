@@ -122,7 +122,7 @@ public class BuildingPlacementController extends AbstractProcess
 				if (!building.isBuilt())
 					building.deconstructBuilding();
 				else
-					building.markForDeletion(true);
+					building.markForDeletion();
 			}
 		}
 	}

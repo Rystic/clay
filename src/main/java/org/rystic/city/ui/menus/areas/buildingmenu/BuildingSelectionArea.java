@@ -93,7 +93,7 @@ public class BuildingSelectionArea extends AbstractArea
 			for (final GenericBuilding building : _buildings)
 			{
 				SelectBuildingButton buildingButton = new SelectBuildingButton(
-						5, increment, 30, 30, building)
+						5, increment, 32, 32, building)
 				{
 					@Override
 					public void clicked()
@@ -106,7 +106,7 @@ public class BuildingSelectionArea extends AbstractArea
 						}
 					}
 				};
-				buildingButton.setDrawRatio(.75f);
+				buildingButton.setDrawRatio(1.0f);
 				_components.add(buildingButton);
 				TextComponent textComponent = new TextComponent(20,
 						increment - 3, building.getBuildingName());

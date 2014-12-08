@@ -78,7 +78,8 @@ public class BuildingData
 			}
 			_buildingCategories.addAll(_categoryToBuilding.keySet());
 			Collections.sort(_buildingCategories);
-			_unbuiltTexture = FieldParser.parseTexture("constructionBlock.png");
+			_constructionTexture = FieldParser.parseTexture("constructionBlock32.png");
+			_constructionNonSupportTexture = FieldParser.parseTexture("constructionNonSupportBlock32.png");
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -125,7 +126,8 @@ public class BuildingData
 		BuildingData.init();
 	}
 
-	public static Texture _unbuiltTexture;
+	public static Texture _constructionTexture;
+	public static Texture _constructionNonSupportTexture;
 
 	private static Map<Integer, GenericBuilding> _idToBuilding = new HashMap<Integer, GenericBuilding>();
 	private static Map<String, GenericBuilding> _tagToBuilding = new HashMap<String, GenericBuilding>();

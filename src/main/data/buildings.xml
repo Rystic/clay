@@ -3,16 +3,16 @@
 	<Building BuildingName="Clay Block" BuildingTag="clay-block"
 		BuildingDescription="Clay Blocks can be molded into other buildings."
 		BuildTime="0" BuildingRequirements="base,none:base" MenuCategory="Architecture"
-		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0" Insulation="30"
-		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost="0"
-		GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0"
+		Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost="0" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base"
 		isStorage="false" isSupport="true" StorageCapacity="0"
 		ConstructionItems="" PsychologyType="-1" PsychologyInfluence="0"
 		UnlockedFromStart="true" Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,bigClayBlock.png"></State>
-		<State StateName="state-adjacent:natural-clay" Graphic="base,bigManaClay.png"></State>
+		<State StateName="state-default" Graphic="base,clayBlock32.png"></State>
+		<State StateName="state-adjacent:natural-clay" Graphic="base,clayBlockSaturated32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
@@ -20,28 +20,33 @@
 		BuildingDescription="It's dirt. Dirt is
 		boring." BuildTime="0"
 		BuildingRequirements="base,none:base" MenuCategory="" ExtraWeight=""
-		TrafficThreshold="3" CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
-		HeatThresholds="100,200,400" GreaterManaCost="0"
+		TrafficThreshold="3" CoolingRate="30" HeatAbsorb="0" Insulation="30"
+		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost="0"
 		GreaterManaCumulativeCost="0" LesserManaCost="0"
 		LesserManaCumulativeCost="0" isHouse="false" isNatural="true"
 		isBridge="false" isPassable="false" Scalability="base,-" BuildTiles="base"
 		isStorage="false" isSupport="true" StorageCapacity="0"
 		ConstructionItems="" PsychologyType="-1" PsychologyInfluence="0"
 		UnlockedFromStart="false" Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,bigDirt.png"></State>
-		<State StateName="state-none-above" Graphic="base,bigGrass.png"></State>
-		<State StateName="state-unnatural-above" Graphic="base,bigPackedDirt.png"></State>
-		<State StateName="state-unnatural-left" Graphic="base,bigPackedDirtLeftOnly.png"></State>
-		<State StateName="state-unnatural-right" Graphic="base,bigPackedDirtRightOnly.png"></State>
+		<State StateName="state-default" Graphic="base,dirtBlock32.png"></State>
+		<State StateName="state-none-above" Graphic="base,grassBlock32.png"></State>
+		<State StateName="state-unnatural-top-left" Graphic="base,dirtBlockPackedLeftCorner32.png"></State>
+		<State StateName="state-unnatural-top-right" Graphic="base,dirtBlockPackedRightCorner32.png"></State>
+		<State StateName="state-unnatural-top-left,state-unnatural-top-right" Graphic="base,dirtBlockPackedLeftRightCorner32.png"></State>
+		<State StateName="state-unnatural-above" Graphic="base,dirtBlockPackedTop32.png"></State>
+		<State StateName="state-unnatural-left" Graphic="base,dirtBlockPackedLeft32.png"></State>
+		<State StateName="state-unnatural-right" Graphic="base,dirtBlockPackedRight32.png"></State>
+		<State StateName="state-unnatural-top-right,state-unnatural-left" Graphic="base,dirtBlockPackedRightCornerLeft32.png"></State>
+		<State StateName="state-unnatural-top-left,state-unnatural-right" Graphic="base,dirtBlockPackedLeftCornerRight32.png"></State>
 		<State StateName="state-unnatural-left,state-unnatural-right"
-			Graphic="base,bigPackedDirtLeftRight.png"></State>
+			Graphic="base,dirtBlockPackedLeftRight32.png"></State>
 		<State StateName="state-unnatural-above,state-unnatural-left"
-			Graphic="base,bigPackedDirtLeftTop.png"></State>
+			Graphic="base,dirtBlockPackedTopLeft32.png"></State>
 		<State StateName="state-unnatural-above,state-unnatural-right"
-			Graphic="base,bigPackedDirtRightTop.png"></State>
+			Graphic="base,dirtBlockPackedTopRight32.png"></State>
 		<State
 			StateName="state-unnatural-above,state-unnatural-left,state-unnatural-right"
-			Graphic="base,bigPackedDirtAll.png"></State>
+			Graphic="base,dirtBlockPackedTopLeftRight32.png"></State>
 
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
@@ -49,50 +54,52 @@
 	<Building BuildingName="Natural Clay" BuildingTag="natural-clay"
 		BuildingDescription="Natural clay reduces the mana cost of any adjacent buildings to 0."
 		BuildTime="0" BuildingRequirements="base,none:base" MenuCategory=""
-		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0" Insulation="30"
-		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost="0"
-		GreaterManaCumulativeCost="0" LesserManaCost="0"
+		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0"
+		Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost="0"
 		LesserManaCumulativeCost="0" isHouse="false" isNatural="true"
 		isBridge="false" isPassable="false" Scalability="base,-" BuildTiles="base"
 		isStorage="false" isSupport="true" StorageCapacity="0"
 		ConstructionItems="" PsychologyType="-1" PsychologyInfluence="0"
 		UnlockedFromStart="false" Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,bigClay.png"></State>
+		<State StateName="state-default" Graphic="base,naturalClay32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="House" BuildingTag="house"
 		BuildingDescription="Houses provide a place for golems to repair themselves."
-		BuildTime="125" BuildingRequirements="base,clay-block:base" MenuCategory="Basic Needs"
-		ExtraWeight="low-clay:2" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0" Insulation="30"
-		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost="0"
+		BuildTime="125" BuildingRequirements="base,clay-block:base"
+		MenuCategory="Basic Needs" ExtraWeight="low-clay:2" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
 		GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost=".1" isHouse="true" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base"
 		isStorage="false" isSupport="true" StorageCapacity="0"
 		ConstructionItems="" PsychologyType="-1" PsychologyInfluence="0"
 		UnlockedFromStart="true" Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,bigHouse.png"></State>
-		<State StateName="state-adjacent:natural-clay" Graphic="base,bigHouseMana.png"></State>
+		<State StateName="state-default" Graphic="base,house32.png"></State>
+		<State StateName="state-adjacent:natural-clay" Graphic="base,houseSaturated32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Crucible" BuildingTag="crucible"
 		BuildingDescription="Crucibles are used to siphon mana from the ground, as well as collect natural clay."
-		BuildTime="25" BuildingRequirements="base,clay-block:base" MenuCategory="Basic Needs"
-		ExtraWeight="low-mana:2" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0" Insulation="30"
-		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost="0"
+		BuildTime="25" BuildingRequirements="base,clay-block:base"
+		MenuCategory="Basic Needs" ExtraWeight="low-mana:2" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
 		GreaterManaCumulativeCost="0" LesserManaCost=".2"
 		LesserManaCumulativeCost="0" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base"
 		isStorage="false" isSupport="false" StorageCapacity="0"
 		ConstructionItems="" PsychologyType="2" PsychologyInfluence="1"
 		UnlockedFromStart="true" Transform="" tickStart="300">
-		<State StateName="state-default" Graphic="base,bigManaFarm2.png"></State>
-		<State StateName="state-tick-finished" Graphic="base,bigManaFarmMature.png"></State>
-		<State StateName="state-adjacent:natural-clay" Graphic="base,bigManaFarmMana.png"></State>
+		<State StateName="state-default" Graphic="base,crucible32.png"></State>
+		<State StateName="state-tick-finished" Graphic="base,crucibleSaturated32.png"></State>
+		<State StateName="state-adjacent:natural-clay" Graphic="base,crucibleBig32.png"></State>
 		<State StateName="state-adjacent:natural-clay,state-tick-finished"
-			Graphic="base,bigManaFarmManaMature.png"></State>
+			Graphic="base,crucibleBigSaturated32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete
 			code="item:saturated-clay,queue-harvest-behavior:saturated-clay"
@@ -101,25 +108,25 @@
 	<Building BuildingName="Storage" BuildingTag="storage"
 		BuildingDescription="Storages hold items." BuildTime="10"
 		BuildingRequirements="base,clay-block:base" MenuCategory="Architecture"
-		ExtraWeight="no-storage:8" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0" Insulation="30"
-		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost="0"
-		GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		ExtraWeight="no-storage:8" TrafficThreshold="2" CoolingRate="30"
+		HeatAbsorb="0" Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".2"
 		LesserManaCumulativeCost="0" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base"
 		isStorage="true" isSupport="true" StorageCapacity="40"
 		ConstructionItems="" PsychologyType="-1" PsychologyInfluence="0"
 		UnlockedFromStart="true" Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,bigStorage.png"></State>
-		<State StateName="state-storage-full" Graphic="base,bigStorageFull.png"></State>
+		<State StateName="state-default" Graphic="base,storage32.png"></State>
+		<State StateName="state-storage-full" Graphic="base,storageClosed32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Ramp" BuildingTag="ramp"
 		BuildingDescription="Ramps can be used to ascend floors." BuildTime="10"
 		BuildingRequirements="base,clay-block:base" MenuCategory="Architecture"
-		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0" Insulation="30"
-		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost="0"
-		GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0"
+		Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".2"
 		LesserManaCumulativeCost="0" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,ew" BuildTiles="base"
 		isStorage="false" isSupport="false" StorageCapacity="0"
@@ -127,47 +134,50 @@
 		UnlockedFromStart="true"
 		Transform="flanked-support:clay-block,flanked-non-support:clay-block"
 		tickStart="-1">
-		<State StateName="state-default" Graphic="base,rampRight.png"></State>
-		<State StateName="state-blocked-left-support" Graphic="base,rampLeft.png"></State>
+		<State StateName="state-default" Graphic="base,rampRight32.png"></State>
+		<State StateName="state-blocked-left-support" Graphic="base,rampLeft32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Obelisk" BuildingTag="obelisk"
 		BuildingDescription="Obelisks are used to dissipate mana among your golems."
 		BuildTime="25" BuildingRequirements="base,clay-block:base,n,clay-block:base"
-		MenuCategory="Basic Needs" ExtraWeight="low-mana:5" TrafficThreshold="2" CoolingRate="30"
-		HeatAbsorb="0" Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		MenuCategory="Basic Needs" ExtraWeight="low-mana:5" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".2"
 		LesserManaCumulativeCost=".2" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-,n,-"
 		BuildTiles="base" isStorage="false" isSupport="false" StorageCapacity="0"
 		ConstructionItems="saturated-clay,saturated-clay" PsychologyType="-1"
 		PsychologyInfluence="0" UnlockedFromStart="true" Transform=""
 		tickStart="-1">
-		<State StateName="state-default" Graphic="base,bigObeliskBase.png,n,bigObeliskTip.png"></State>
+		<State StateName="state-default" Graphic="base,obeliskBase32.png,n,obeliskTip32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Ladder" BuildingTag="ladder"
 		BuildingDescription="Ladders are used for vertical movement, but come at a high cost."
-		BuildTime="40" BuildingRequirements="base,clay-block:base" MenuCategory="Architecture"
-		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0" Insulation="30"
-		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost=".1"
+		BuildTime="40" BuildingRequirements="base,clay-block:base"
+		MenuCategory="Architecture" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost=".1"
 		GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost="0" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,ns" BuildTiles="base"
 		isStorage="false" isSupport="true" StorageCapacity="0"
 		ConstructionItems="" PsychologyType="-1" PsychologyInfluence="0"
 		UnlockedFromStart="true" Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,bigLadder.png"></State>
+		<State StateName="state-default" Graphic="base,ladder32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Sculptors' Studio" BuildingTag="sculptors-studio"
 		BuildingDescription="Sculptors' Studios are used to create more golems."
-		BuildTime="125" BuildingRequirements="base,clay-block:base" MenuCategory="Basic Needs"
-		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0" Insulation="30"
-		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost="0"
+		BuildTime="125" BuildingRequirements="base,clay-block:base"
+		MenuCategory="Basic Needs" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
 		GreaterManaCumulativeCost="0" LesserManaCost=".4"
 		LesserManaCumulativeCost=".4" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base"
@@ -175,41 +185,42 @@
 		ConstructionItems="saturated-clay,inert-clay" PsychologyType="3"
 		PsychologyInfluence="5" UnlockedFromStart="true" Transform=""
 		tickStart="-1">
-		<State StateName="state-default" Graphic="base,bigStudio.png"></State>
+		<State StateName="state-default" Graphic="base,sculptorsStudio32-3.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Chute" BuildingTag="chute"
 		BuildingDescription="Chutes are used for upward and downward movement. They're cheaper than ladders, but can only be built from the top down. Their top halves can only be used for descent, and bottom halves only for ascent."
 		BuildTime="40" BuildingRequirements="base,clay-block:base,s,clay-block:base"
-		MenuCategory="Architecture" ExtraWeight="" TrafficThreshold="2" CoolingRate="30"
-		HeatAbsorb="0" Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost="1.0"
+		MenuCategory="Architecture" ExtraWeight="" TrafficThreshold="1"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost="1.0"
 		LesserManaCumulativeCost="1.0" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-,s,ns"
 		BuildTiles="base" isStorage="false" isSupport="true" StorageCapacity="0"
 		ConstructionItems="" PsychologyType="-1" PsychologyInfluence="0"
 		UnlockedFromStart="true" Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,bigChute.png,s,bigChuteBottom.png"></State>
+		<State StateName="state-default" Graphic="base,chuteTop32.png,s,chuteBottom32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Deep Home" BuildingTag="deep-home"
 		BuildingDescription="Deep Homes generate mana so long as they're buried under other blocks."
 		BuildTime="125" BuildingRequirements="base,house:base" MenuCategory="Mana Pool"
-		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0" Insulation="30"
-		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost="0"
-		GreaterManaCumulativeCost="0" LesserManaCost=".2"
+		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0"
+		Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".2"
 		LesserManaCumulativeCost=".2" isHouse="true" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base"
 		isStorage="false" isSupport="true" StorageCapacity="0"
 		ConstructionItems="mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe"
 		PsychologyType="1" PsychologyInfluence="2" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,bigDeepHome1.png"></State>
-		<State StateName="state-buried:4" Graphic="base,bigDeepHome2.png"></State>
-		<State StateName="state-buried:8" Graphic="base,bigDeepHome3.png"></State>
-		<State StateName="state-buried:12" Graphic="base,bigDeepHome4.png"></State>
+		<State StateName="state-default" Graphic="base,deepHome1-32.png"></State>
+		<State StateName="state-buried:4" Graphic="base,deepHome2-32.png"></State>
+		<State StateName="state-buried:8" Graphic="base,deepHome3-32.png"></State>
+		<State StateName="state-buried:12" Graphic="base,deepHome4-32.png"></State>
 		<State StateName="state-adjacent:natural-clay,state-buried:2"
 			Graphic="base,bigDeepHome2.png"></State>
 		<State StateName="state-adjacent:natural-clay,state-buried:4"
@@ -222,39 +233,42 @@
 	<Building BuildingName="Oven" BuildingTag="oven"
 		BuildingDescription="Ovens cook clay into stoneware bricks."
 		BuildTime="125" BuildingRequirements="base,crucible:base,e,crucible:base"
-		MenuCategory="Conversions" ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0"
-		Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		MenuCategory="Conversions" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-,e,-"
 		BuildTiles="base" isStorage="false" isSupport="false" StorageCapacity="0"
 		ConstructionItems="" PsychologyType="2" PsychologyInfluence="3"
 		UnlockedFromStart="true" Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,bigOvenLeft.png,e,bigOvenRight.png"></State>
+		<State StateName="state-default" Graphic="base,ovenLeft32.png,e,ovenRight32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Centre of Understanding" BuildingTag="centre-of-understanding"
 		BuildingDescription="Centres of Understanding are used by your golems to advance their technology."
-		BuildTime="125" BuildingRequirements="base,house:base,e,sculptors-studio:base"
-		MenuCategory="Culture" ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0"
-		Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		BuildTime="125" BuildingRequirements="base,clay-block:base,e,clay-block:base"
+		MenuCategory="Culture" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-,e,-"
 		BuildTiles="base" isStorage="false" isSupport="true" StorageCapacity="0"
 		ConstructionItems="" PsychologyType="0" PsychologyInfluence="3"
 		UnlockedFromStart="true" Transform="" tickStart="-1">
 		<State StateName="state-default"
-			Graphic="base,CentreOfUnderstandingLeft2.png,e,CentreOfUnderstandingRight2.png"></State>
+			Graphic="base,centreOfUnderstandingLeft32.png,e,centreOfUnderstandingRight32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Foundry" BuildingTag="foundry"
 		BuildingDescription="Foundries are used to cast saturated mana into mana pipes. "
-		BuildTime="125" BuildingRequirements="base,clay-block:base" MenuCategory="Conversions"
-		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0" Insulation="30"
-		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost="0"
+		BuildTime="125" BuildingRequirements="base,clay-block:base"
+		MenuCategory="Conversions" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
 		GreaterManaCumulativeCost="0" LesserManaCost=".4"
 		LesserManaCumulativeCost=".4" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base"
@@ -262,15 +276,16 @@
 		ConstructionItems="saturated-clay,saturated-clay,saturated-clay"
 		PsychologyType="2" PsychologyInfluence="2" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,foundry.png"></State>
+		<State StateName="state-default" Graphic="base,foundry32-3.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Pearlery" BuildingTag="pearlery"
 		BuildingDescription="Pearleries are used to over-saturate clay. The result of draining sixteen saturated clay into one is Pearlclay, a very useful resource for mana-related construction."
-		BuildTime="125" BuildingRequirements="base,clay-block:base" MenuCategory="Conversions"
-		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0" Insulation="30"
-		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost="0"
+		BuildTime="125" BuildingRequirements="base,clay-block:base"
+		MenuCategory="Conversions" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
 		GreaterManaCumulativeCost="0" LesserManaCost=".4"
 		LesserManaCumulativeCost=".4" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base"
@@ -278,15 +293,16 @@
 		ConstructionItems="mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe"
 		PsychologyType="2" PsychologyInfluence="2" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,pearlery.png"></State>
+		<State StateName="state-default" Graphic="base,pearlery32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Mana Battery" BuildingTag="mana-battery"
 		BuildingDescription="Mana Batteries increase the amount of greater mana the base produces. They are also used in a number of higher-level building patterns."
-		BuildTime="125" BuildingRequirements="base,clay-block:base" MenuCategory="Mana Pool"
-		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0" Insulation="30"
-		HeatResistance="10" HeatThresholds="100,200,400" GreaterManaCost="0"
+		BuildTime="125" BuildingRequirements="base,clay-block:base"
+		MenuCategory="Mana Pool" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
 		GreaterManaCumulativeCost="0" LesserManaCost=".4"
 		LesserManaCumulativeCost=".4" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base"
@@ -294,138 +310,146 @@
 		ConstructionItems="pearlclay,pearlclay" PsychologyType="1"
 		PsychologyInfluence="3" UnlockedFromStart="true" Transform=""
 		tickStart="-1">
-		<State StateName="state-default" Graphic="base,manaBattery.png"></State>
+		<State StateName="state-default" Graphic="base,manaBattery32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Pearlclay Studio" BuildingTag="pearlclay-studio"
 		BuildingDescription="Pearlclay Studios provide greater mana and can be used to produce pearlclay golems."
-		BuildTime="125" BuildingRequirements="base,mana-battery:base,e,mana-battery:base,w,mana-battery:base"
-		MenuCategory="Basic Needs" ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0"
-		Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".4"
+		BuildTime="125"
+		BuildingRequirements="base,mana-battery:base,e,mana-battery:base,w,mana-battery:base"
+		MenuCategory="Basic Needs" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".4"
 		LesserManaCumulativeCost=".4" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-,e,-,w,-"
 		BuildTiles="base" isStorage="false" isSupport="true" StorageCapacity="0"
 		ConstructionItems="pearlclay" PsychologyType="3" PsychologyInfluence="5"
 		UnlockedFromStart="true" Transform="" tickStart="-1">
 		<State StateName="state-default"
-			Graphic="base,pearlclayStudioMid.png,e,pearlclayStudioRight.png,w,pearlclayStudioLeft.png"></State>
+			Graphic="base,pearlclayStudioCenter32.png,e,pearlclayStudioRight32.png,w,pearlclayStudioLeft32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Kiln" BuildingTag="kiln"
 		BuildingDescription="Kilns are used for firing Earthenware Bricks, and to create Stoneware Golems."
-		BuildTime="125" BuildingRequirements="base,storage:base,e,storage:base,n,oven:base,ne,oven:e"
-		MenuCategory="Conversions" ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0"
-		Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		BuildTime="125" BuildingRequirements="base,clay-block:base,e,clay-block:base,n,clay-block:base,ne,clay-block:base"
+		MenuCategory="Conversions" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-,e,-,n,-,ne,-"
 		BuildTiles="base" isStorage="false" isSupport="true" StorageCapacity="0"
 		ConstructionItems="" PsychologyType="3" PsychologyInfluence="5"
 		UnlockedFromStart="true" Transform="" tickStart="-1">
 		<State StateName="state-default"
-			Graphic="base,kilnBottomLeft.png,e,kilnBottomRight.png,n,kilnTopLeft.png,ne,kilnTopRight.png"></State>
+			Graphic="base,kilnBottomLeft32.png,e,kilnBottomRight32.png,n,kilnTopLeft32.png,ne,kilnTopRight32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Warrens" BuildingTag="warrens"
 		BuildingDescription="Warrens are used for the mass-production of golems. However, golems created out of warrens lack the individuality found in golems created in normal studios."
-		BuildTime="125" BuildingRequirements="base,house:base,e,house:base,n,house:base,ne,house:base"
-		MenuCategory="Culture" ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0"
-		Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		BuildTime="125" BuildingRequirements="base,clay-block:base,e,clay-block:base,n,clay-block:base,ne,clay-block:base"
+		MenuCategory="Culture" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-,e,-,n,-,ne,-"
 		BuildTiles="base" isStorage="false" isSupport="true" StorageCapacity="0"
-		ConstructionItems="mana-pipe,mana-pipe,mana-pipe,mana-pipe"
+		ConstructionItems=""
 		PsychologyType="2" PsychologyInfluence="20" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
 		<State StateName="state-default"
-			Graphic="base,warrensBottomLeft.png,e,warrensBottomRight.png,n,warrensTopLeft.png,ne,warrensTopRight.png"></State>
+			Graphic="base,warrensBottomLeft32.png,e,warrensBottomRight32.png,n,warrensTopLeft32.png,ne,warrensTopRight32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Crèche" BuildingTag="creche"
 		BuildingDescription="Crèches are used to build golems, like Sculptors' Studios. However, the creation time and resource cost are increased, in exchange for higher-quality golems."
 		BuildTime="125" BuildingRequirements="base,sculptors-studio:base"
-		MenuCategory="Culture" ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0"
-		Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		MenuCategory="Culture" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base"
 		isStorage="false" isSupport="true" StorageCapacity="0"
 		ConstructionItems="pearlclay" PsychologyType="0" PsychologyInfluence="10"
 		UnlockedFromStart="true" Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,creche.png"></State>
+		<State StateName="state-default" Graphic="base,creche32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Insulated Clay Block" BuildingTag="insulated-clay-block"
 		BuildingDescription="Insulated clay blocks absorb heat and block it from spreading."
-		BuildTime="125" BuildingRequirements="base,clay-block:base" MenuCategory="Architecture"
-		ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="40" Insulation="90"
-		HeatResistance="70" HeatThresholds="200,400,800" GreaterManaCost="0"
+		BuildTime="125" BuildingRequirements="base,clay-block:base"
+		MenuCategory="Architecture" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="40" Insulation="90" HeatResistance="70"
+		HeatThresholds="200,400,800" GreaterManaCost="0"
 		GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base"
 		isStorage="false" isSupport="true" StorageCapacity="0"
-		ConstructionItems="mana-pipe,mana-pipe,mana-pipe,mana-pipe,stoneware-brick,stoneware-brick"
+		ConstructionItems=""
 		PsychologyType="0" PsychologyInfluence="10" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,insulation.png"></State>
+		<State StateName="state-default" Graphic="base,insulatedClay32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Presser" BuildingTag="presser"
 		BuildingDescription="Pressers are one of the first mechanical structures developed by the golems. They can crush saturated clay into a semi-liquid, Sealant."
-		BuildTime="125" BuildingRequirements="base,clay-block:base,n,clay-block:base,nn,clay-block:base,nnn,clay-block:base"
-		MenuCategory="Conversions" ExtraWeight="" TrafficThreshold="2" CoolingRate="30" HeatAbsorb="0"
-		Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
-		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		BuildTime="125"
+		BuildingRequirements="base,clay-block:base,n,clay-block:base,nn,clay-block:base,nnn,clay-block:base"
+		MenuCategory="Conversions" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
 		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
 		isBridge="false" isPassable="true" Scalability="base,-,n,-,nn,-,nnn,-"
 		BuildTiles="base" isStorage="false" isSupport="true" StorageCapacity="0"
-		ConstructionItems="saturated-clay,saturated-clay,saturated-clay"
+		ConstructionItems=""
 		PsychologyType="0" PsychologyInfluence="10" UnlockedFromStart="true"
 		Transform="" tickStart="-1">
 		<State StateName="state-default"
-			Graphic="base,presser1.png,n,presser2.png,nn,presser3.png,nnn,presser4.png"></State>
+			Graphic="base,presser1-32.png,n,presser2-32.png,nn,presser3-32.png,nnn,presser4-32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
 	<Building BuildingName="Skyway" BuildingTag="skyway"
-	BuildingDescription="Skyways provide a way to build over non-support tiles."
-	BuildTime="125" BuildingRequirements="base,clay-block:base,e,none:base,ee,clay-block:base"
-	MenuCategory="Architecture" ExtraWeight="" TrafficThreshold="2"
-	CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
-	HeatThresholds="100,200,400" GreaterManaCost="0"
-	GreaterManaCumulativeCost="0" LesserManaCost=".1"
-	LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
-	isBridge="true" isPassable="true" Scalability="base,-,e,-,ee,-"
-	BuildTiles="base,ee" isStorage="false" isSupport="true"
-	StorageCapacity="0" ConstructionItems="" PsychologyType="0"
-	PsychologyInfluence="10" UnlockedFromStart="true" Transform=""
-	tickStart="-1">
-		<State StateName="state-default" Graphic="base,skyway1.png,e,skyway2.png,ee,skyway3.png"></State>
+		BuildingDescription="Skyways provide a way to build over non-support tiles."
+		BuildTime="125" BuildingRequirements="base,clay-block:base,e,none:base,ee,clay-block:base"
+		MenuCategory="Architecture" ExtraWeight="" TrafficThreshold="2"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="100,200,400" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
+		isBridge="true" isPassable="true" Scalability="base,-,e,-,ee,-"
+		BuildTiles="base,ee" isStorage="false" isSupport="true"
+		StorageCapacity="0" ConstructionItems="" PsychologyType="0"
+		PsychologyInfluence="10" UnlockedFromStart="true" Transform=""
+		tickStart="-1">
+		<State StateName="state-default" Graphic="base,skywayLeft32.png,e,skywayCenter32.png,ee,skywayRight32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
-	<Building BuildingName="Spinner" BuildingTag="spinner"
-	BuildingDescription="Spinners don't do anything yet, but they will in time."
-	BuildTime="125" BuildingRequirements="base,clay-block:base"
-	MenuCategory="Conversions" ExtraWeight="" TrafficThreshold="3"
-	CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
-	HeatThresholds="200,400,800" GreaterManaCost="0"
-	GreaterManaCumulativeCost="0" LesserManaCost=".1"
-	LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
-	isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base,ee"
-	isStorage="false" isSupport="true" StorageCapacity="0"
-	ConstructionItems="mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe,mana-pipe"
-	PsychologyType="0" PsychologyInfluence="10" UnlockedFromStart="true"
-	Transform="" tickStart="-1">
-		<State StateName="state-default" Graphic="base,spinner.png"></State>
+	<Building BuildingName="Ceramics Workshop" BuildingTag="ceramics-workship"
+		BuildingDescription="Ceramics Workshops produce ceramic gears, as well as provide a place for clay golems to upgrade themselves to ceramic golems."
+		BuildTime="125" BuildingRequirements="base,clay-block:base"
+		MenuCategory="Conversions" ExtraWeight="" TrafficThreshold="3"
+		CoolingRate="30" HeatAbsorb="0" Insulation="30" HeatResistance="10"
+		HeatThresholds="200,400,800" GreaterManaCost="0"
+		GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		LesserManaCumulativeCost=".1" isHouse="false" isNatural="false"
+		isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base,ee"
+		isStorage="false" isSupport="true" StorageCapacity="0"
+		ConstructionItems=""
+		PsychologyType="0" PsychologyInfluence="10" UnlockedFromStart="true"
+		Transform="" tickStart="-1">
+		<State StateName="state-default" Graphic="base,ceramicsWorkshop32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>

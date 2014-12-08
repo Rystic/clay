@@ -46,8 +46,9 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		_transformCode = eElement.getAttribute("Transform");
 		_constructionItems = eElement.getAttribute("ConstructionItems");
 
-		_trafficThreshold =FieldParser.parseInt(eElement.getAttribute("TrafficThreshold"));
-		
+		_trafficThreshold = FieldParser.parseInt(eElement
+				.getAttribute("TrafficThreshold"));
+
 		_coolingRate = FieldParser.parseInt(eElement
 				.getAttribute("CoolingRate"));
 		_heatAbsorb = FieldParser.parseInt(eElement.getAttribute("HeatAbsorb"));
@@ -189,11 +190,13 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 					}
 					else
 					{
-						if (p_.x + xDiff > tiles_.length || p_.y + yDiff > tiles_.length)
+						if (p_.x + xDiff > tiles_.length
+								|| p_.y + yDiff > tiles_.length)
 						{
 							return false;
 						}
-						if (tiles_[p_.x + xDiff][p_.y + yDiff + 1] != null
+						if (!(p_.y + yDiff + 1 >= tiles_[0].length)
+								&& tiles_[p_.x + xDiff][p_.y + yDiff + 1] != null
 								&& !tiles_[p_.x + xDiff][p_.y + yDiff + 1]
 										.isBridge())
 						{
@@ -391,11 +394,27 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 						metConditions++;
 					continue;
 				}
+				else if (stateName.equals(ClayConstants.T_STATE_UNNATURAL_TOP_LEFT))
+				{
+					if (model.getTileValue(point.x - 1, point.y + 1) != null
+							&& !model.getTileValue(point.x - 1, point.y + 1)
+									.isNatural())
+						metConditions++;
+					continue;
+				}
 				else if (stateName
 						.equals(ClayConstants.T_STATE_UNNATURAL_RIGHT))
 				{
 					if (model.getTileValue(point.x + 1, point.y) != null
 							&& !model.getTileValue(point.x + 1, point.y)
+									.isNatural())
+						metConditions++;
+					continue;
+				}
+				else if (stateName.equals(ClayConstants.T_STATE_UNNATURAL_TOP_RIGHT))
+				{
+					if (model.getTileValue(point.x + 1, point.y + 1) != null
+							&& !model.getTileValue(point.x + 1, point.y + 1)
 									.isNatural())
 						metConditions++;
 					continue;

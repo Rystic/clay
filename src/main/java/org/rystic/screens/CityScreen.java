@@ -12,7 +12,6 @@ import org.rystic.city.effects.ArchitectureEffect;
 import org.rystic.city.effects.BackgroundEffect;
 import org.rystic.city.effects.CityInterfaceEffect;
 import org.rystic.city.effects.GolemEffect;
-import org.rystic.city.effects.RainEffect;
 import org.rystic.city.generics.data.BuildingData;
 import org.rystic.city.generics.data.GolemData;
 import org.rystic.city.generics.entities.BuildingEntity;
@@ -55,8 +54,8 @@ public class CityScreen extends AbstractScreen
 		_effects.add(new BackgroundEffect(this));
 		_effects.add(new ArchitectureEffect(this));
 		_effects.add(new GolemEffect(this));
-		if (new Random().nextInt(100) < 10)
-			_effects.add(new RainEffect(this));
+//		if (new Random().nextInt(100) < 10)
+//			_effects.add(new RainEffect(this));
 		_effects.add(new CityInterfaceEffect(this));
 
 		for (AbstractEffect effect : _effects)
