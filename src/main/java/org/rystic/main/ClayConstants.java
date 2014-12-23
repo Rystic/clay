@@ -21,6 +21,8 @@ public class ClayConstants
 	// Default Tile
 
 	public static final String DEFAULT_TILE_TYPE = "clay-block";
+	public static final String FOUNDATION_BLOCK = "clay-block-foundation";
+
 
 	// Golem types
 	public static final String GOLEM_CLAY = "clay-golem";
@@ -158,6 +160,7 @@ public class ClayConstants
 	public static final String TRANSFORM_FLANKED = "flanked";
 	public static final String TRANSFORM_FLANKED_SUPPORT = "flanked-support";
 	public static final String TRANSFORM_FLANKED_NON_SUPPORT = "flanked-non-support";
+	public static final String TRANSFORM_CONSTRUCTION_COMPELTED = "construction-completed";
 
 	// Tick Results
 	public static final String TICK_CODE_PRODUCE_ITEM = "item";

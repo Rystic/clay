@@ -570,6 +570,15 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		for (String form : forms)
 		{
 			String[] commandAndParams = form.split(":");
+			if (commandAndParams[0].equals(ClayConstants.TRANSFORM_CONSTRUCTION_COMPELTED))
+			{
+				if (tiles_[p_.x][p_.y] != null
+						&& tiles_[p_.x][p_.y].isBuilt())
+				{
+					newBuilding = BuildingData
+							.getBuildingByTag(commandAndParams[1]);
+				}
+			}
 			if (commandAndParams[0].equals(ClayConstants.TRANSFORM_FLANKED))
 			{
 				if (tiles_[p_.x - 1][p_.y] != null
@@ -603,6 +612,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 							.getBuildingByTag(commandAndParams[1]);
 				}
 			}
+			
 		}
 		return newBuilding;
 	}

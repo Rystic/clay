@@ -40,7 +40,9 @@ public class BuildingPlacementController extends AbstractProcess
 			{
 				if (!leftClick)
 					_leftClickReleased = true;
-				highlightBuildingForDeletion(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
+				highlightBuildingForDeletion(
+						Mouse.getX() / TILE_X,
+						Mouse.getY() / TILE_Y);
 			}
 
 		}
@@ -71,8 +73,24 @@ public class BuildingPlacementController extends AbstractProcess
 			if (_tileValues[location.x][location.y] == null
 					|| _recentlyCreatedClayBlocks.contains(location))
 			{
-				building = BuildingData
-						.getBuildingByTag(ClayConstants.DEFAULT_TILE_TYPE);
+
+				if ((location.y > 0
+						&& _tileValues[location.x][location.y - 1] != null && _tileValues[location.x][location.y - 1]
+						.isNatural())
+						|| (location.y > 1
+								&& _tileValues[location.x][location.y - 2] != null && _tileValues[location.x][location.y - 2]
+								.isNatural())
+						|| (location.y > 2
+								&& _tileValues[location.x][location.y - 3] != null && _tileValues[location.x][location.y - 3]
+								.isNatural())
+						|| (location.y > 3
+								&& _tileValues[location.x][location.y - 4] != null && _tileValues[location.x][location.y - 4]
+								.isNatural()))
+					building = BuildingData
+							.getBuildingByTag(ClayConstants.DEFAULT_TILE_TYPE);
+				else
+					building = BuildingData
+							.getBuildingByTag(ClayConstants.FOUNDATION_BLOCK);
 				_recentlyCreatedClayBlocks.add(location);
 			}
 			if (building.isValidLocation(
@@ -82,7 +100,11 @@ public class BuildingPlacementController extends AbstractProcess
 			{
 				try
 				{
-					building.placeBuilding(location, _tileValues, _homeScreen, false);
+					building.placeBuilding(
+							location,
+							_tileValues,
+							_homeScreen,
+							false);
 				} catch (Exception e_)
 				{
 					e_.printStackTrace();

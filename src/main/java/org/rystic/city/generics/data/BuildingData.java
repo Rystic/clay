@@ -78,8 +78,13 @@ public class BuildingData
 			}
 			_buildingCategories.addAll(_categoryToBuilding.keySet());
 			Collections.sort(_buildingCategories);
-			_constructionTexture = FieldParser.parseTexture("constructionBlock32.png");
-			_constructionNonSupportTexture = FieldParser.parseTexture("constructionNonSupportBlock32.png");
+			_constructionTexture = FieldParser
+					.parseTexture("constructionBlock32.png");
+			_constructionNonSupportTexture = FieldParser
+					.parseTexture("constructionNonSupportBlock32.png");
+			_clayBlockFoundationTexture = FieldParser
+					.parseTexture("clayBlockFoundation32.png");
+
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -106,9 +111,16 @@ public class BuildingData
 		return _buildingCategories.size();
 	}
 
-	public static List<GenericBuilding> getBuildingsInCategory(String Category_)
+	public static List<GenericBuilding> getBuildingsInCategory(String category_)
 	{
-		return _categoryToBuilding.get(Category_);
+		List<GenericBuilding> availableBuildings = new ArrayList<GenericBuilding>();
+		for (GenericBuilding building : _categoryToBuilding.get(category_))
+		{
+			// TODO update this when techs are introduced.
+			if (building.isUnlockedFromStart())
+				availableBuildings.add(building);
+		}
+		return availableBuildings;
 	}
 
 	public static void main(String[] args)
@@ -128,6 +140,7 @@ public class BuildingData
 
 	public static Texture _constructionTexture;
 	public static Texture _constructionNonSupportTexture;
+	public static Texture _clayBlockFoundationTexture;
 
 	private static Map<Integer, GenericBuilding> _idToBuilding = new HashMap<Integer, GenericBuilding>();
 	private static Map<String, GenericBuilding> _tagToBuilding = new HashMap<String, GenericBuilding>();

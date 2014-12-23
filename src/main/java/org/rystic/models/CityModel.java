@@ -35,8 +35,8 @@ public class CityModel extends AbstractModel
 		_mana = 0;
 		_buildingMap = new HashMap<Integer, List<BuildingEntity>>();
 		_golemMap = new HashMap<String, List<GolemEntity>>();
-		_selectedBuilding = BuildingData.getBuildingByTag("clay-block")
-				.getBuildingIdentifier();
+		_selectedBuilding = BuildingData.getBuildingByTag(
+				ClayConstants.DEFAULT_TILE_TYPE).getBuildingIdentifier();
 		_desiredItemInventory = new HashMap<String, Map<String, Integer>>();
 		_currentItemInventory = new HashMap<String, Map<String, Integer>>();
 		_desiredItemRatios = new HashMap<String, Map<String, Integer>>();
@@ -74,7 +74,7 @@ public class CityModel extends AbstractModel
 	{
 		return _newGolemList;
 	}
-	
+
 	public List<GolemEntity> getDeadGolems()
 	{
 		return _deadGolemList;
@@ -99,7 +99,7 @@ public class CityModel extends AbstractModel
 		golemList.add(golem);
 		_newGolemList.add(golem);
 	}
-	
+
 	public void removeGolem(GolemEntity golem_)
 	{
 		_deadGolemList.add(golem_);
@@ -159,6 +159,12 @@ public class CityModel extends AbstractModel
 			return;
 		BuildingEntity building = _tileValues[x_][y_];
 
+		if (building.getBuildingTag().equals(ClayConstants.FOUNDATION_BLOCK))
+		{
+			_tileValues[x_][y_] = null;
+			return;
+		}
+		
 		if (building != null
 				&& !building.getBuildingTag().equals(
 						ClayConstants.DEFAULT_TILE_TYPE)
@@ -184,8 +190,9 @@ public class CityModel extends AbstractModel
 				try
 				{
 					if (y_ > 0
-							&& (_tileValues[x_][y_ - 1] != null && !_tileValues[x_][y_ - 1]
-									.isBridge()))
+							&& (_tileValues[x_][y_ - 1] != null
+									&& !_tileValues[x_][y_ - 1].isBridge() && _tileValues[x_][y_ - 1]
+									.isSupportBlock()))
 					{
 						_tileValues[x_][y_] = new BuildingEntity(
 								BuildingData
@@ -194,7 +201,8 @@ public class CityModel extends AbstractModel
 										* ClayConstants.TILE_Y), _homeScreen,
 								ClayConstants.DEFAULT_BUILDING_POSITION);
 					}
-					else if (buildingTagAndPosition[0].equals("none"))
+					else if (buildingTagAndPosition[0]
+							.equals(ClayConstants.EMPTY_TILE))
 						_tileValues[x_][y_] = null;
 					else
 						BuildingData
@@ -211,7 +219,7 @@ public class CityModel extends AbstractModel
 			}
 			else
 			{
-				if (buildingTagAndPosition[0].equals("none")
+				if (buildingTagAndPosition[0].equals(ClayConstants.EMPTY_TILE)
 						|| !BuildingData.getBuildingByTag(
 								buildingTagAndPosition[0]).isSupport())
 				{

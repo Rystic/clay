@@ -106,9 +106,15 @@ public class BuildingEntity extends AbstractEntity implements
 		if (!_built)
 		{
 			if (!isSupportBlock())
-			return BuildingData._constructionNonSupportTexture;
+			{
+				if (_genericBuilding.getBuildingTag().equals(
+						ClayConstants.FOUNDATION_BLOCK))
+					return BuildingData._clayBlockFoundationTexture;
+				else
+					return BuildingData._constructionNonSupportTexture;
+			}
 			else
-			return BuildingData._constructionTexture;
+				return BuildingData._constructionTexture;
 		}
 		return _texture;
 	}
@@ -788,7 +794,7 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return _traffic - (_built ? _genericBuilding.getTrafficThreshold() : 0);
 	}
-	
+
 	public int getTraffic()
 	{
 		return _traffic;

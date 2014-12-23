@@ -16,6 +16,21 @@
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
+		<Building BuildingName="Clay Block Foundation" BuildingTag="clay-block-foundation"
+		BuildingDescription="Clay Block foundation needs Inert Clay to be finished."
+		BuildTime="50" BuildingRequirements="base,none:base" MenuCategory="Architecture"
+		ExtraWeight="" TrafficThreshold="1" CoolingRate="30" HeatAbsorb="0"
+		Insulation="30" HeatResistance="10" HeatThresholds="100,200,400"
+		GreaterManaCost="0" GreaterManaCumulativeCost="0" LesserManaCost=".1"
+		LesserManaCumulativeCost="0" isHouse="false" isNatural="false"
+		isBridge="false" isPassable="true" Scalability="base,-" BuildTiles="base"
+		isStorage="false" isSupport="false" StorageCapacity="0"
+		ConstructionItems="inert-clay,inert-clay" PsychologyType="-1" PsychologyInfluence="0"
+		UnlockedFromStart="false" Transform="construction-completed:clay-block" tickStart="-1">
+		<State StateName="state-default" Graphic="base,clayBlockFoundation32.png"></State>
+		<ProducedGreaterMana></ProducedGreaterMana>
+		<TickComplete></TickComplete>
+	</Building>
 	<Building BuildingName="Dirt Block" BuildingTag="dirt-block"
 		BuildingDescription="It's dirt. Dirt is
 		boring." BuildTime="0"
