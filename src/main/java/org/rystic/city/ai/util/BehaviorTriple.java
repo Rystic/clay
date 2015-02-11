@@ -1,6 +1,6 @@
 package org.rystic.city.ai.util;
 
-import org.rystic.city.generics.entities.GolemEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.objects.Behavior;
 
 public 	class BehaviorTriple

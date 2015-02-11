@@ -1,8 +1,8 @@
 package org.rystic.city.generics;
 
+import org.rystic.city.entities.building.BuildingEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.data.ItemData;
-import org.rystic.city.generics.entities.BuildingEntity;
-import org.rystic.city.generics.entities.GolemEntity;
 import org.rystic.city.generics.util.FieldParser;
 import org.rystic.main.ClayConstants;
 import org.w3c.dom.Element;

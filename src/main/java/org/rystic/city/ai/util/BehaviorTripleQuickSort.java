@@ -5,9 +5,7 @@ public class BehaviorTripleQuickSort
 	public static BehaviorTriple[] sort(BehaviorTriple[] values)
 	{
 		BehaviorTriple[] returnValues = values;
-		_quickSorts = 0;
 		quicksort(returnValues, 0, values.length - 1);
-//		System.out.println("Quick sort iterations: " + _quickSorts);
 		return returnValues;
 	}
 
@@ -41,11 +39,8 @@ public class BehaviorTripleQuickSort
 
 	private static void exchange(BehaviorTriple[] values, int i, int j)
 	{
-		_quickSorts++;
 		BehaviorTriple temp = values[i];
 		values[i] = values[j];
 		values[j] = temp;
 	}
-	
-	private static int _quickSorts;
 }

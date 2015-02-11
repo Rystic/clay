@@ -1,8 +1,8 @@
 package org.rystic.city.generics.objects;
 
 import org.newdawn.slick.opengl.Texture;
+import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.city.generics.GenericItem;
-import org.rystic.city.generics.entities.BuildingEntity;
 
 public class Item
 {

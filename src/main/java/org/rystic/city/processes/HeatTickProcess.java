@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import org.rystic.city.generics.entities.BuildingEntity;
+import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.screens.AbstractScreen;
 
 public class HeatTickProcess extends AbstractProcess

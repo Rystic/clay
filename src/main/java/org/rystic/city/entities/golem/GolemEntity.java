@@ -1,4 +1,4 @@
-package org.rystic.city.generics.entities;
+package org.rystic.city.entities.golem;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -12,6 +12,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import org.bushe.swing.event.EventBus;
 import org.newdawn.slick.opengl.Texture;
 import org.rystic.city.ai.calculators.GolemPersonalityCalculator;
+import org.rystic.city.entities.AbstractEntity;
+import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.city.generics.GenericBehavior;
 import org.rystic.city.generics.GenericGolem;
 import org.rystic.city.generics.objects.Behavior;

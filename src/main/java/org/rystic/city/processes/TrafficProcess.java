@@ -1,7 +1,7 @@
 package org.rystic.city.processes;
 
-import org.rystic.city.generics.entities.BuildingEntity;
-import org.rystic.city.generics.entities.GolemEntity;
+import org.rystic.city.entities.building.BuildingEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.models.CityModel;
 import org.rystic.screens.AbstractScreen;
 

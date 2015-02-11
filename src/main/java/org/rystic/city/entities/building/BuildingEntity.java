@@ -1,4 +1,4 @@
-package org.rystic.city.generics.entities;
+package org.rystic.city.entities.building;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -13,6 +13,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
 import org.newdawn.slick.opengl.Texture;
+import org.rystic.city.entities.AbstractEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.GenericBuilding;
 import org.rystic.city.generics.data.BehaviorData;
 import org.rystic.city.generics.data.BuildingData;
@@ -798,6 +800,11 @@ public class BuildingEntity extends AbstractEntity implements
 	public int getTraffic()
 	{
 		return _traffic;
+	}
+	
+	public GenericBuilding getGenericBuilding()
+	{
+		return _genericBuilding;
 	}
 
 	@Override

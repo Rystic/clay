@@ -4,9 +4,9 @@ import java.awt.Point;
 import java.util.List;
 import java.util.Queue;
 
+import org.rystic.city.entities.building.BuildingEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.data.BuildingData;
-import org.rystic.city.generics.entities.BuildingEntity;
-import org.rystic.city.generics.entities.GolemEntity;
 import org.rystic.city.util.SearchUtil;
 import org.rystic.main.ClayConstants;
 import org.rystic.screens.CityScreen;

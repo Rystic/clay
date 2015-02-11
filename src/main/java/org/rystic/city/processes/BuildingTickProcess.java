@@ -3,7 +3,7 @@ package org.rystic.city.processes;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.rystic.city.generics.entities.BuildingEntity;
+import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.screens.AbstractScreen;
 
 public class BuildingTickProcess extends AbstractProcess

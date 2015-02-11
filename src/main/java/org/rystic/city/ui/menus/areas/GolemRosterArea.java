@@ -2,7 +2,7 @@ package org.rystic.city.ui.menus.areas;
 
 import java.util.List;
 
-import org.rystic.city.generics.entities.GolemEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.objects.Behavior;
 import org.rystic.city.ui.menus.components.ImageComponent;
 import org.rystic.city.ui.menus.components.TextComponent;

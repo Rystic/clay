@@ -4,12 +4,12 @@ import java.awt.Point;
 import java.util.List;
 import java.util.Queue;
 
+import org.rystic.city.entities.AbstractEntity;
+import org.rystic.city.entities.building.BuildingEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.data.BehaviorData;
 import org.rystic.city.generics.data.GolemData;
 import org.rystic.city.generics.data.ItemData;
-import org.rystic.city.generics.entities.AbstractEntity;
-import org.rystic.city.generics.entities.BuildingEntity;
-import org.rystic.city.generics.entities.GolemEntity;
 import org.rystic.city.generics.objects.Behavior;
 import org.rystic.city.generics.objects.Item;
 import org.rystic.city.processes.GolemBehaviorProcess;

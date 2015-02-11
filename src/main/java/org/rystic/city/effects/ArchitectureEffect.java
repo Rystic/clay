@@ -1,7 +1,7 @@
 package org.rystic.city.effects;
 
 import org.lwjgl.opengl.GL11;
-import org.rystic.city.generics.entities.BuildingEntity;
+import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.main.ClayConstants;
 import org.rystic.models.CityModel;
 import org.rystic.screens.AbstractScreen;

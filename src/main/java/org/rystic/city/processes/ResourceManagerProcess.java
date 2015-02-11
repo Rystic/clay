@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.city.generics.GenericBuilding;
 import org.rystic.city.generics.GenericConversion;
 import org.rystic.city.generics.data.BehaviorData;
 import org.rystic.city.generics.data.BuildingData;
 import org.rystic.city.generics.data.ConversionData;
-import org.rystic.city.generics.entities.BuildingEntity;
 import org.rystic.city.generics.objects.Behavior;
 import org.rystic.city.generics.objects.ConversionBehavior;
 import org.rystic.main.ClayConstants;

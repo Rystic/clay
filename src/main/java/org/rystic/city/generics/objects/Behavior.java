@@ -7,10 +7,10 @@ import java.util.Set;
 
 import org.rystic.city.ai.calculators.BehaviorInstructionCalculator;
 import org.rystic.city.ai.calculators.BehaviorWeightCalculator;
+import org.rystic.city.entities.building.BuildingEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.GenericBehavior;
 import org.rystic.city.generics.data.ItemData;
-import org.rystic.city.generics.entities.BuildingEntity;
-import org.rystic.city.generics.entities.GolemEntity;
 import org.rystic.city.processes.GolemBehaviorProcess;
 import org.rystic.main.ClayConstants;
 

@@ -1,4 +1,4 @@
-package org.rystic.city.generics.entities;
+package org.rystic.city.entities;
 
 import java.awt.Point;
 import java.util.ArrayList;

@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.rystic.city.ai.calculators.BehaviorWeightCalculator;
 import org.rystic.city.ai.util.BehaviorTriple;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.GenericBehavior;
-import org.rystic.city.generics.entities.GolemEntity;
 import org.rystic.city.generics.objects.Behavior;
 
 public class GolemBrain

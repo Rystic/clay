@@ -11,9 +11,9 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import org.rystic.city.generics.entities.AbstractEntity;
-import org.rystic.city.generics.entities.BuildingEntity;
-import org.rystic.city.generics.entities.GolemEntity;
+import org.rystic.city.entities.AbstractEntity;
+import org.rystic.city.entities.building.BuildingEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.objects.Item;
 import org.rystic.main.ClayConstants;
 import org.rystic.screens.AbstractScreen;

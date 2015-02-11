@@ -3,7 +3,7 @@ package org.rystic.city.effects;
 import java.util.List;
 
 import org.lwjgl.opengl.GL11;
-import org.rystic.city.generics.entities.GolemEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.main.ClayConstants;
 import org.rystic.models.CityModel;
 import org.rystic.screens.AbstractScreen;

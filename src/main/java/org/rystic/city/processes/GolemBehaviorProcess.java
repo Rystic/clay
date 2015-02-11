@@ -13,9 +13,9 @@ import org.bushe.swing.event.EventSubscriber;
 import org.rystic.city.ai.GolemBrain;
 import org.rystic.city.ai.util.BehaviorTriple;
 import org.rystic.city.ai.util.BehaviorTripleQuickSort;
+import org.rystic.city.entities.building.BuildingEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.data.BehaviorData;
-import org.rystic.city.generics.entities.BuildingEntity;
-import org.rystic.city.generics.entities.GolemEntity;
 import org.rystic.city.generics.objects.Behavior;
 import org.rystic.city.util.MapUpdateEvent;
 import org.rystic.main.ClayConstants;
@@ -88,7 +88,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			if (!golem.isActive())
 			{
 				int addPersonalTask = _random.nextInt(100);
-				if (addPersonalTask > golem.getPersonalBehaviorChance())
+				if (addPersonalTask < golem.getPersonalBehaviorChance())
 				{
 					BehaviorTriple golemWantedBehavior = GolemBrain
 							.calculateBestBehavior(

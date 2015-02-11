@@ -2,7 +2,7 @@ package org.rystic.city.processes;
 
 import java.util.List;
 
-import org.rystic.city.generics.entities.GolemEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.models.CityModel;
 import org.rystic.screens.AbstractScreen;
 

@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.rystic.city.entities.building.BuildingEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.GenericBuilding;
 import org.rystic.city.generics.data.BuildingData;
-import org.rystic.city.generics.entities.BuildingEntity;
-import org.rystic.city.generics.entities.GolemEntity;
 import org.rystic.main.ClayConstants;
 import org.rystic.models.CityModel;
 import org.rystic.screens.AbstractScreen;

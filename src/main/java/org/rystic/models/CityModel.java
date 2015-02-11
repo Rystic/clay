@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.rystic.city.entities.building.BuildingEntity;
+import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.GenericBuilding;
 import org.rystic.city.generics.GenericGolem;
 import org.rystic.city.generics.GenericItem;
 import org.rystic.city.generics.data.BuildingData;
 import org.rystic.city.generics.data.ItemData;
-import org.rystic.city.generics.entities.BuildingEntity;
-import org.rystic.city.generics.entities.GolemEntity;
 import org.rystic.city.ui.menus.AbstractMenu;
 import org.rystic.main.ClayConstants;
 import org.rystic.screens.AbstractScreen;

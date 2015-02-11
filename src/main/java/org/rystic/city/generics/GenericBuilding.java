@@ -9,10 +9,10 @@ import java.util.Map;
 
 import org.bushe.swing.event.EventBus;
 import org.newdawn.slick.opengl.Texture;
+import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.city.generics.data.BehaviorData;
 import org.rystic.city.generics.data.BuildingData;
 import org.rystic.city.generics.data.ItemData;
-import org.rystic.city.generics.entities.BuildingEntity;
 import org.rystic.city.generics.objects.Behavior;
 import org.rystic.city.generics.objects.Item;
 import org.rystic.city.generics.util.FieldParser;
@@ -394,7 +394,8 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 						metConditions++;
 					continue;
 				}
-				else if (stateName.equals(ClayConstants.T_STATE_UNNATURAL_TOP_LEFT))
+				else if (stateName
+						.equals(ClayConstants.T_STATE_UNNATURAL_TOP_LEFT))
 				{
 					if (model.getTileValue(point.x - 1, point.y + 1) != null
 							&& !model.getTileValue(point.x - 1, point.y + 1)
@@ -411,7 +412,8 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 						metConditions++;
 					continue;
 				}
-				else if (stateName.equals(ClayConstants.T_STATE_UNNATURAL_TOP_RIGHT))
+				else if (stateName
+						.equals(ClayConstants.T_STATE_UNNATURAL_TOP_RIGHT))
 				{
 					if (model.getTileValue(point.x + 1, point.y + 1) != null
 							&& !model.getTileValue(point.x + 1, point.y + 1)
@@ -570,10 +572,10 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		for (String form : forms)
 		{
 			String[] commandAndParams = form.split(":");
-			if (commandAndParams[0].equals(ClayConstants.TRANSFORM_CONSTRUCTION_COMPELTED))
+			if (commandAndParams[0]
+					.equals(ClayConstants.TRANSFORM_CONSTRUCTION_COMPELTED))
 			{
-				if (tiles_[p_.x][p_.y] != null
-						&& tiles_[p_.x][p_.y].isBuilt())
+				if (tiles_[p_.x][p_.y] != null && tiles_[p_.x][p_.y].isBuilt())
 				{
 					newBuilding = BuildingData
 							.getBuildingByTag(commandAndParams[1]);
@@ -612,7 +614,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 							.getBuildingByTag(commandAndParams[1]);
 				}
 			}
-			
+
 		}
 		return newBuilding;
 	}
@@ -898,12 +900,12 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 	private final String _buildingTag;
 	private final int _buildingIdentifier;
 	private final String _buildingDescription;
-	private String _menuCategory;
+	private final String _menuCategory;
 	private String _tickCompleteCode;
 	private String _tickResetCode;
-	private String _transformCode;
-	private String _extraWeightConditions;
-	private String _constructionItems;
+	private final String _transformCode;
+	private final String _extraWeightConditions;
+	private final String _constructionItems;
 
 	private final int _buildTime;
 	private final int _tickStart;

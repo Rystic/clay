@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.util.Random;
 
 import org.bushe.swing.event.EventBus;
+import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.city.generics.data.BuildingData;
-import org.rystic.city.generics.entities.BuildingEntity;
 import org.rystic.main.ClayConstants;
 import org.rystic.screens.AbstractScreen;
 

@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.city.generics.GenericBuilding;
 import org.rystic.city.generics.data.BuildingData;
-import org.rystic.city.generics.entities.BuildingEntity;
 import org.rystic.city.processes.AbstractProcess;
 import org.rystic.main.ClayConstants;
 import org.rystic.models.CityModel;

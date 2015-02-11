@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.rystic.city.generics.entities.BuildingEntity;
+import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.city.generics.objects.Item;
 import org.rystic.models.CityModel;
 import org.rystic.screens.AbstractScreen;
