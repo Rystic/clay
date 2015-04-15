@@ -16,11 +16,11 @@ import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.city.generics.data.BuildingData;
 import org.rystic.city.generics.data.GolemData;
 import org.rystic.city.processes.BuildingTickProcess;
-import org.rystic.city.processes.GolemBehaviorProcess;
 import org.rystic.city.processes.GolemMaintenanceProcess;
 import org.rystic.city.processes.HeatTickProcess;
 import org.rystic.city.processes.ResourceManagerProcess;
 import org.rystic.city.processes.StorageInventoryProcess;
+import org.rystic.city.processes.GolemBehaviorProcess;
 import org.rystic.city.processes.TrafficProcess;
 import org.rystic.city.ui.menus.AbstractMenu;
 import org.rystic.city.ui.menus.BuildingMenu;
@@ -64,7 +64,6 @@ public class CityScreen extends AbstractScreen
 		}
 
 		initTerrain();
-		initGolems();
 
 		_controllers.add(new BuildingPlacementController(this));
 		_controllers.add(new CityInterfaceController(this));
@@ -76,6 +75,8 @@ public class CityScreen extends AbstractScreen
 		_processes.add(new StorageInventoryProcess(this));
 		_processes.add(new HeatTickProcess(this));
 		_processes.add(new TrafficProcess(this));
+
+		initGolems();
 	}
 
 	public void initTerrain()

@@ -14,6 +14,7 @@ import org.rystic.city.generics.GenericGolem;
 import org.rystic.city.generics.GenericItem;
 import org.rystic.city.generics.data.BuildingData;
 import org.rystic.city.generics.data.ItemData;
+import org.rystic.city.processes.GolemBehaviorProcess;
 import org.rystic.city.ui.menus.AbstractMenu;
 import org.rystic.main.ClayConstants;
 import org.rystic.screens.AbstractScreen;
@@ -97,7 +98,10 @@ public class CityModel extends AbstractModel
 			_golemMap.put(golemTag, golemList);
 		}
 		golemList.add(golem);
+		
 		_newGolemList.add(golem);
+		GolemBehaviorProcess process = ((GolemBehaviorProcess)_homeScreen.getProcess(GolemBehaviorProcess.class));
+		process.addInactiveGolem(golem);
 	}
 
 	public void removeGolem(GolemEntity golem_)
