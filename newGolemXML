@@ -1,0 +1,70 @@
+	<Golem>
+		<GolemName></GolemName>
+		<GolemTag></GolemTag>
+
+		<MoveSpeed></MoveSpeed>
+		<MoveVariation></MoveVariation>
+
+		<LowClayThreshold></LowClayThreshold>
+		<LowManaThreshold></LowManaThreshold>
+		<StartingClay></StartingClay>
+		<StartingMana></StartingMana>
+		<MaximumClay></MaximumClay>
+		<MaximumMana></MaximumMana>
+
+		<ConstructionBuildings></ConstructionBuildings>
+		<ConstructionItems></ConstructionItems>
+		<PopulationBuildings></PopulationBuildings>
+		<SharedPopulation></SharedPopulation>
+
+		<NeededBehaviors></NeededBehaviors>
+		<PersonalBehaviorChance></PersonalBehaviorChance>
+		<TrafficWeight></TrafficWeight>
+
+		<RepairItems></RepairItems>
+		<RepairBuildings></RepairBuildings>
+
+		<DefaultTexture></DefaultTexture>
+		<LowClayTexture></LowClayTexture>
+		<LowManaTexture></LowManaTexture>
+		<LowManaLowClayTexture></LowManaLowClayTexture>
+		<SpriteSize></SpriteSize>
+		<TextureScaling></TextureScaling>
+	</Golem>
+
+	<Golem>
+		<GolemName>Clay Golem</GolemName>
+		<GolemTag>clay-golem</GolemTag>
+
+		<MoveSpeed>2</MoveSpeed>
+		<MoveVariation>1</MoveVariation>
+
+		<LowClayThreshold>60</LowClayThreshold>
+		<LowManaThreshold>90</LowManaThreshold>
+		<StartingClay>100</StartingClay>
+		<StartingMana>100</StartingMana>
+		<MaximumClay>150</MaximumClay>
+		<MaximumMana>150</MaximumMana>
+
+		<ConstructionBuildings>sculptors-studio:creche</ConstructionBuildings>
+		<ConstructionItems>saturated-clay:saturated-clay,saturated-clay,saturated-clay
+		</ConstructionItems>
+		<PopulationBuildings>house,deep-home</PopulationBuildings>
+		<SharedPopulation>ceramic-golem</SharedPopulation>
+
+		<NeededBehaviors>repair-clay,power-obelisk,store-items
+		</NeededBehaviors>
+		<PersonalBehaviorChance>60</PersonalBehaviorChance>
+		<TrafficWeight>1</TrafficWeight>
+
+		<RepairItems>saturated-clay:saturated-clay</RepairItems>
+		<RepairBuildings>house:deep-home</RepairBuildings>
+
+		<DefaultTexture>golem25.png</DefaultTexture>
+		<LowClayTexture>golemLowClay25.png</LowClayTexture>
+		<LowManaTexture>golemLowMana25.png</LowManaTexture>
+		<LowManaLowClayTexture>golemLowManaLowClay25.png
+		</LowManaLowClayTexture>
+		<SpriteSize>32</SpriteSize>
+		<TextureScaling>.78</TextureScaling>
+	</Golem>

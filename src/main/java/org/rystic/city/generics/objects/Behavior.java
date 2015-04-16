@@ -117,7 +117,7 @@ public class Behavior
 		_behavior.calculateGolemCost(golem_);
 		if (_behaviorProcess == null)
 			return;
-		_behaviorProcess.behaviorComplete(this);
+		_behaviorProcess.behaviorComplete(this, golem_);
 	}
 
 	public void failed(GolemEntity _failedGolem, int reason_)

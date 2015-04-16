@@ -2,14 +2,14 @@ package org.rystic.city.ai.util;
 
 public class BehaviorTripleQuickSort
 {
-	public static BehaviorTriple[] sort(BehaviorTriple[] values)
+	public static BehaviorAndWeight[] sort(BehaviorAndWeight[] values)
 	{
-		BehaviorTriple[] returnValues = values;
+		BehaviorAndWeight[] returnValues = values;
 		quicksort(returnValues, 0, values.length - 1);
 		return returnValues;
 	}
 
-	private static void quicksort(BehaviorTriple[] values, int low, int high)
+	private static void quicksort(BehaviorAndWeight[] values, int low, int high)
 	{
 		int i = low, j = high;
 		int pivot = values[low + (high - low) / 2]._weight;
@@ -37,9 +37,9 @@ public class BehaviorTripleQuickSort
 			quicksort(values, i, high);
 	}
 
-	private static void exchange(BehaviorTriple[] values, int i, int j)
+	private static void exchange(BehaviorAndWeight[] values, int i, int j)
 	{
-		BehaviorTriple temp = values[i];
+		BehaviorAndWeight temp = values[i];
 		values[i] = values[j];
 		values[j] = temp;
 	}

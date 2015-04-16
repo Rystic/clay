@@ -157,9 +157,16 @@ public class GolemEntity extends AbstractEntity
 					ClayConstants.EVENT_BUILDING_UNCLAIMED,
 					_claimedBuilding);
 			EventBus.publish(new MapUpdateEvent(_homeScreen, paramMap));
+			try
+			{
 			_claimedBuilding.releaseClaimedItems();
 			_claimedBuilding.setClaimingGolem(null);
 			_claimedBuilding = null;
+			}
+			catch (Exception e)
+			{
+				System.out.println("whatevs");
+			}
 		}
 	}
 
