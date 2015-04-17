@@ -7,14 +7,17 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import org.bushe.swing.event.EventSubscriber;
 import org.rystic.city.ai.GolemBrain;
 import org.rystic.city.ai.util.BehaviorAndWeight;
 import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.objects.Behavior;
+import org.rystic.city.util.MapUpdateEvent;
 import org.rystic.main.ClayConstants;
 import org.rystic.screens.AbstractScreen;
 
-public class GolemBehaviorProcess extends AbstractProcess
+public class GolemBehaviorProcess extends AbstractProcess implements
+		EventSubscriber<MapUpdateEvent>
 {
 
 	public GolemBehaviorProcess(AbstractScreen homeScreen_)
@@ -74,7 +77,7 @@ public class GolemBehaviorProcess extends AbstractProcess
 			List<GolemEntity> inactiveGolems = new ArrayList<GolemEntity>();
 			Queue<Behavior> unassignedBehaviors = new ArrayBlockingQueue<Behavior>(
 					256);
-			
+
 			List<GolemEntity> neededBehaviorGolems = new ArrayList<GolemEntity>();
 
 			GolemEntity golem;
@@ -100,7 +103,8 @@ public class GolemBehaviorProcess extends AbstractProcess
 					{
 						golem = inactiveGolems.get(i);
 						BehaviorAndWeight triple = GolemBrain
-								.calculateBestBehavior(golem,
+								.calculateBestBehavior(
+										golem,
 										golem.getNeededBehaviors(),
 										true);
 						if (triple != null)
@@ -123,16 +127,21 @@ public class GolemBehaviorProcess extends AbstractProcess
 					}
 					inactiveGolems.removeAll(neededBehaviorGolems);
 					neededBehaviorGolems.clear();
-					if (inactiveGolems.isEmpty()) continue;
+					if (inactiveGolems.isEmpty())
+						continue;
 
 					while (!unassignedBehaviors.isEmpty())
 					{
+
 						golem = null;
 						bestScore = null;
 						bestGolem = -1;
 						Behavior behavior = unassignedBehaviors.poll();
+						if (_clearInvalid)
+							behavior.clearInvalidEntities();
 						for (int i = 0; i < inactiveGolems.size(); i++)
 						{
+
 							golem = inactiveGolems.get(i);
 							if (behavior.isInvalid(golem))
 								continue;
@@ -184,6 +193,7 @@ public class GolemBehaviorProcess extends AbstractProcess
 						}
 					}
 					assignedBehaviorMap.clear();
+					_clearInvalid = false;
 					// calculate needed behaviors
 					// calculate personal behaviors
 
@@ -196,6 +206,8 @@ public class GolemBehaviorProcess extends AbstractProcess
 
 		private Queue<GolemEntity> _pendingInactiveGolems;
 		private Queue<Behavior> _pendingBehaviors;
+
+		private boolean _clearInvalid;
 	}
 
 	public int getBehaviorCount(String behaviorTag)
@@ -203,21 +215,33 @@ public class GolemBehaviorProcess extends AbstractProcess
 		return 0;
 	}
 
+	public void behaviorFailed(Behavior behavior, int behaviorFailedObsolete)
+	{
+		System.out.println("FAILED");
+		_behaviorAssignmentRunnable._pendingBehaviors.add(behavior);
+	}
+
 	public void behaviorComplete(Behavior behavior_, GolemEntity golem_)
 	{
 		_behaviorAssignmentRunnable._pendingInactiveGolems.add(golem_);
 	}
+
+	@Override
+	public void onEvent(MapUpdateEvent event_)
+	{
+		if (event_.getPoints() != null)
+		{
+			System.out.println("wallow");
+			_behaviorAssignmentRunnable._clearInvalid = true;
+		}
+	}
+
+	//
 
 	private Thread _behaviorAssignmentThread;
 	private BehaviorAssignmentRunnable _behaviorAssignmentRunnable;
 
 	private Queue<GolemEntity> _pendingActiveGolems;
 	private List<GolemEntity> _activeGolems;
-
-	public void behaviorFailed(Behavior behavior, int behaviorFailedObsolete)
-	{
-		// TODO Auto-generated method stub
-
-	}
 
 }
