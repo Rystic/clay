@@ -87,14 +87,14 @@ public class GolemEntity extends AbstractEntity
 		_currentSpeed = _maxSpeed;
 	}
 
-	public void executeBehavior()
+	public boolean executeBehavior()
 	{
 		_mana -= .001;
 		_clay -= .001;
 		if (!_moveInstructions.isEmpty())
 		{
 			updatePosition();
-			return;
+			return true;
 		}
 		else if (_tickCount > 0)
 		{
@@ -102,10 +102,13 @@ public class GolemEntity extends AbstractEntity
 			if (_tickCount <= 0)
 				_tickComplete = true;
 			else
-				return;
+				return true;
 		}
 		else if (_currentBehavior != null)
 			_currentBehavior.executeBehavior(this, _commands.get(0));
+		else
+			return false;
+		return true;
 	}
 
 	public void setBehavior(Behavior behavior_)
@@ -147,6 +150,7 @@ public class GolemEntity extends AbstractEntity
 		if (_currentBehavior != null)
 		{
 			_currentBehavior.failed(this, reason_);
+			_commands.clear();
 			_currentBehavior = null;
 		}
 		_visible = true;

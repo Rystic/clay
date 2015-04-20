@@ -18,12 +18,12 @@ public class ClayTerrainGenerator
 
 	public void buildTerrain(BuildingEntity[][] tiles_, int iterations_, int x_, Point prevPoints_)
 	{
-		createBumpyTerrain(tiles_, iterations_, x_, prevPoints_);
-		placeClayChunks(tiles_, _random.nextInt(_xCells), _yCells - 1, 6, 0);
-		placeClayChunks(tiles_, _random.nextInt(_xCells), _yCells - 1, 6, 0);
-		placeClayChunks(tiles_, _random.nextInt(_xCells), _yCells - 1, 6, 0);
-		placeClayChunks(tiles_, _random.nextInt(_xCells), _yCells - 1, 6, 0);
-		placeClayChunks(tiles_, _random.nextInt(_xCells), _yCells - 1, 6, 0);
+//		createBumpyTerrain(tiles_, iterations_, x_, prevPoints_);
+//		placeClayChunks(tiles_, _random.nextInt(_xCells), _yCells - 1, 6, 0);
+//		placeClayChunks(tiles_, _random.nextInt(_xCells), _yCells - 1, 6, 0);
+//		placeClayChunks(tiles_, _random.nextInt(_xCells), _yCells - 1, 6, 0);
+//		placeClayChunks(tiles_, _random.nextInt(_xCells), _yCells - 1, 6, 0);
+//		placeClayChunks(tiles_, _random.nextInt(_xCells), _yCells - 1, 6, 0);
 		EventBus.publish(new MapUpdateEvent(_homeScreen));
 	}
 
