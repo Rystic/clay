@@ -120,14 +120,14 @@ public class Behavior
 		_behaviorProcess.behaviorComplete(this, golem_);
 	}
 
-	public void failed(GolemEntity _failedGolem, int reason_)
+	public void failed(GolemEntity failedGolem_, int reason_)
 	{
 		if (!isPersonalTask())
 			_assignedGolem = null;
 		if (_behaviorProcess == null)
 			return;
-		_invalidEntities.add(_failedGolem);
-		_behaviorProcess.behaviorFailed(this, reason_);
+		_invalidEntities.add(failedGolem_);
+		_behaviorProcess.behaviorFailed(this, reason_, failedGolem_);
 	}
 
 	public void requiredFailed(GolemEntity _failedGolem)
@@ -232,7 +232,7 @@ public class Behavior
 		else
 			_behaviorProcess.behaviorFailed(
 					this,
-					ClayConstants.BEHAVIOR_FAILED_OBSOLETE);
+					ClayConstants.BEHAVIOR_FAILED_OBSOLETE, _assignedGolem);
 	}
 
 	@Override

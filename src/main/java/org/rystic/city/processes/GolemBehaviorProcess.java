@@ -3,6 +3,7 @@ package org.rystic.city.processes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -27,8 +28,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	{
 		super(homeScreen_);
 
-		_behaviorCountMap = new HashMap<Integer, Integer>();
-
 		_behaviorAssignmentRunnable = new BehaviorAssignmentRunnable();
 		_behaviorAssignmentThread = new Thread(_behaviorAssignmentRunnable);
 		_behaviorAssignmentThread.setDaemon(true);
@@ -40,9 +39,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 
 		EventBus.subscribe(MapUpdateEvent.class, this);
 	}
-	
-	private Iterator<GolemEntity> iterator;
-	
+
 	@Override
 	public void execute()
 	{
@@ -50,10 +47,12 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		{
 			_activeGolems.add(_pendingActiveGolems.poll());
 		}
-		iterator = _activeGolems.iterator();
-		for (Iterator<GolemEntity> iterator = _activeGolems.iterator(); iterator.hasNext();)
+		_iterator = _activeGolems.iterator();
+		for (Iterator<GolemEntity> iterator = _activeGolems.iterator(); iterator
+				.hasNext();)
 		{
-			if (!iterator.next().executeBehavior()) iterator.remove();
+			if (!iterator.next().executeBehavior())
+				iterator.remove();
 		}
 	}
 
@@ -73,10 +72,13 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		return 0;
 	}
 
-	public void behaviorFailed(Behavior behavior_, int failureReason_)
+	public void behaviorFailed(Behavior behavior_, int failureReason_, GolemEntity failedGolem_)
 	{
+		System.out.println("failed: " + failureReason_ + " " + behavior_.getBehaviorTag());
 		CityModel model = (CityModel) _homeScreen.getModel();
-
+		if (failedGolem_ != null)
+			_behaviorAssignmentRunnable._pendingInactiveGolems
+					.add(failedGolem_);
 		switch (failureReason_)
 		{
 		case ClayConstants.BEHAVIOR_FAILED_NO_PATH:
@@ -95,9 +97,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		if (!behavior_.isPersonalTask())
 			_behaviorAssignmentRunnable._failedBehaviorMap.get(failureReason_)
 					.add(behavior_);
-		if (behavior_.getAssignedGolem() != null)
-			_behaviorAssignmentRunnable._pendingInactiveGolems.add(behavior_
-					.getAssignedGolem());
 	}
 
 	public void behaviorComplete(Behavior behavior_, GolemEntity golem_)
@@ -144,7 +143,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		@Override
 		public void run()
 		{
-			Map<Integer, BehaviorAndWeight> assignedBehaviorMap = new HashMap<Integer, BehaviorAndWeight>();
+			Map<Integer, BehaviorAndWeight> assignedBehaviorMap = new LinkedHashMap<Integer, BehaviorAndWeight>();
 
 			List<GolemEntity> inactiveGolems = new ArrayList<GolemEntity>();
 			Queue<Behavior> unassignedBehaviors = new ArrayBlockingQueue<Behavior>(
@@ -196,7 +195,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 							else
 								behaviorFailed(
 										triple._behavior,
-										requiredComplete);
+										requiredComplete, null);
 						}
 					}
 					inactiveGolems.removeAll(neededBehaviorGolems);
@@ -252,7 +251,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 						else
 							behaviorFailed(
 									behavior,
-									ClayConstants.BEHAVIOR_FAILED_NO_PATH);
+									ClayConstants.BEHAVIOR_FAILED_NO_PATH, null);
 					}
 
 					for (Integer i : assignedBehaviorMap.keySet())
@@ -272,7 +271,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 						else
 							behaviorFailed(
 									behaviorAndWeight._behavior,
-									requiredComplete);
+									requiredComplete, null);
 					}
 					assignedBehaviorMap.clear();
 				}
@@ -332,5 +331,5 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	private Queue<GolemEntity> _pendingActiveGolems;
 	private List<GolemEntity> _activeGolems;
 
-	private Map<Integer, Integer> _behaviorCountMap;
+	private Iterator<GolemEntity> _iterator;
 }

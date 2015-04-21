@@ -163,13 +163,12 @@ public class GolemEntity extends AbstractEntity
 			EventBus.publish(new MapUpdateEvent(_homeScreen, paramMap));
 			try
 			{
-			_claimedBuilding.releaseClaimedItems();
-			_claimedBuilding.setClaimingGolem(null);
-			_claimedBuilding = null;
-			}
-			catch (Exception e)
+				_claimedBuilding.releaseClaimedItems();
+				_claimedBuilding.setClaimingGolem(null);
+				_claimedBuilding = null;
+			} catch (Exception e)
 			{
-				System.out.println("whatevs");
+				e.printStackTrace();
 			}
 		}
 	}
@@ -554,7 +553,8 @@ public class GolemEntity extends AbstractEntity
 		BuildingEntity building = _model.getTileValue(getGridX(), getGridY());
 		if (building != null)
 		{
-			if (building.getTraffic() == _genericGolem.getTrafficWeight()) return;
+			if (building.getTraffic() == _genericGolem.getTrafficWeight())
+				return;
 			int netTrafficWeight = building.getNetTrafficWeight();
 			if (netTrafficWeight > 0)
 			{
