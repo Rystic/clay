@@ -48,8 +48,8 @@ public class GolemEntity extends AbstractEntity
 				this,
 				parentGolem_);
 
-		System.out.println("personality: " + _personality + "   psychology: "
-				+ _psychology + "   golemanity: " + _golemanity);
+		System.out.println("personality: " + (_personality == 0 ? "ambitious" : _personality == 1 ? "ingenious" : "creative") + "   psychology: "
+				+ (_psychology == 0 ? "role model" : _psychology == 1 ? "elitist" : _psychology == 2 ? "hard-working" : "influential") + "   golemanity: " + _golemanity);
 
 		calculateMoveVariation();
 		_horizontalMoveScore = 0;

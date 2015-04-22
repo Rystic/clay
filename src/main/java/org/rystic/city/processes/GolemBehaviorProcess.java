@@ -74,8 +74,11 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 
 	public void behaviorFailed(Behavior behavior_, int failureReason_, GolemEntity failedGolem_)
 	{
-		System.out.println("failed: " + failureReason_ + " " + behavior_.getBehaviorTag());
+		System.out.println("failed: " + failureReason_ + " "
+				+ behavior_.getBehaviorTag());
+		
 		CityModel model = (CityModel) _homeScreen.getModel();
+		
 		if (failedGolem_ != null)
 			_behaviorAssignmentRunnable._pendingInactiveGolems
 					.add(failedGolem_);
@@ -84,7 +87,9 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		case ClayConstants.BEHAVIOR_FAILED_NO_PATH:
 			if (!behavior_.allGolemsInvalid(model.getGolems()))
 			{
-				_behaviorAssignmentRunnable._pendingBehaviors.add(behavior_);
+				if (!behavior_.isPersonalTask())
+					_behaviorAssignmentRunnable._pendingBehaviors
+							.add(behavior_);
 				return;
 			}
 			break;
@@ -150,6 +155,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 					256);
 
 			List<GolemEntity> neededBehaviorGolems = new ArrayList<GolemEntity>();
+			List<GolemEntity> newActiveGolems = new ArrayList<GolemEntity>();
 
 			GolemEntity golem;
 			int bestGolem;
@@ -193,9 +199,13 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 								neededBehaviorGolems.add(golem);
 							}
 							else
+							{
+								System.out.println("needed behavior failed");
 								behaviorFailed(
 										triple._behavior,
-										requiredComplete, null);
+										requiredComplete,
+										null);
+							}
 						}
 					}
 					inactiveGolems.removeAll(neededBehaviorGolems);
@@ -214,6 +224,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 
 						// all possible failure conditions should be checked
 						// before reaching this point.
+						boolean behaviorSucceeded = false;
 						for (int i = 0; i < inactiveGolems.size(); i++)
 						{
 
@@ -229,6 +240,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 										.requiredFailed(golem);
 							else
 							{
+								behaviorSucceeded = true;
 								BehaviorAndWeight oldBehaviorAndWeight = assignedBehaviorMap
 										.get(i);
 								if ((oldBehaviorAndWeight == null || oldBehaviorAndWeight._weight < behaviorAndWeight._weight)
@@ -248,12 +260,14 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 										.add(oldBehaviorAndWeight._behavior);
 							assignedBehaviorMap.put(bestGolem, bestScore);
 						}
-						else
+						else if (!behaviorSucceeded)
 							behaviorFailed(
 									behavior,
-									ClayConstants.BEHAVIOR_FAILED_NO_PATH, null);
+									ClayConstants.BEHAVIOR_FAILED_NO_PATH,
+									null);
+						else
+							_pendingBehaviors.add(behavior);
 					}
-
 					for (Integer i : assignedBehaviorMap.keySet())
 					{
 						BehaviorAndWeight behaviorAndWeight = assignedBehaviorMap
@@ -265,14 +279,17 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 						{
 							golem.setBehavior(behaviorAndWeight._behavior);
 							behaviorAndWeight._behavior.setAssignedGolem(golem);
-							inactiveGolems.remove(golem);
+							newActiveGolems.add(golem);
 							_pendingActiveGolems.add(golem);
 						}
 						else
 							behaviorFailed(
 									behaviorAndWeight._behavior,
-									requiredComplete, null);
+									requiredComplete,
+									null);
 					}
+					inactiveGolems.removeAll(newActiveGolems);
+					newActiveGolems.clear();
 					assignedBehaviorMap.clear();
 				}
 			}
