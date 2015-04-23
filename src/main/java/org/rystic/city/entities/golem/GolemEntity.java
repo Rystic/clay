@@ -36,10 +36,11 @@ public class GolemEntity extends AbstractEntity
 		_ignoredPersonalBehaviors = new HashMap<String, Integer>();
 		_claimedBuilding = null;
 
-		_unreachableBehaviors = new ArrayList<String>();
-		_noMaterials = new ArrayList<String>();
-		_noStorageAvailable = new ArrayList<String>();
-		_noUnoccupiedBuildings = new ArrayList<String>();
+		_failedBehaviorsMap = new HashMap<Integer, List<String>>();
+		_failedBehaviorsMap.put(ClayConstants.BEHAVIOR_FAILED_NO_PATH, new ArrayList<String>());
+		_failedBehaviorsMap.put(ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS, new ArrayList<String>());
+		_failedBehaviorsMap.put(ClayConstants.BEHAVIOR_FAILED_NO_STORAGE, new ArrayList<String>());
+		_failedBehaviorsMap.put(ClayConstants.BEHAVIOR_FAILED_NO_UNOCCUPIED_GENERIC_BUILDING, new ArrayList<String>());
 
 		_mana = _genericGolem.getStartingMana();
 		_clay = _genericGolem.getStartingClay();
@@ -476,62 +477,62 @@ public class GolemEntity extends AbstractEntity
 
 	public List<String> getUnreachableBehaviors()
 	{
-		return _unreachableBehaviors;
+		return _failedBehaviorsMap.get(ClayConstants.BEHAVIOR_FAILED_NO_PATH);
 	}
 
 	public List<String> getNoMaterials()
 	{
-		return _noMaterials;
+		return _failedBehaviorsMap.get(ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS);
 	}
 
 	public List<String> getNoStorageAvailable()
 	{
-		return _noStorageAvailable;
+		return _failedBehaviorsMap.get(ClayConstants.BEHAVIOR_FAILED_NO_STORAGE);
 	}
 
 	public List<String> getNoUnoccupiedBuildings()
 	{
-		return _noUnoccupiedBuildings;
+		return _failedBehaviorsMap.get(ClayConstants.BEHAVIOR_FAILED_NO_UNOCCUPIED_GENERIC_BUILDING);
 	}
 
 	public void addUnreachableBehavior(Behavior behavior_)
 	{
-		_unreachableBehaviors.add(behavior_.getBehaviorTag());
+		_failedBehaviorsMap.get(ClayConstants.BEHAVIOR_FAILED_NO_PATH).add(behavior_.getBehaviorTag());
 	}
 
 	public void addNoMaterialsBehavior(Behavior behavior_)
 	{
-		_noMaterials.add(behavior_.getBehaviorTag());
+		_failedBehaviorsMap.get(ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS).add(behavior_.getBehaviorTag());
 	}
 
 	public void addNoStorageAvailableBehavior(Behavior behavior_)
 	{
-		_noStorageAvailable.add(behavior_.getBehaviorTag());
+		_failedBehaviorsMap.get(ClayConstants.BEHAVIOR_FAILED_NO_STORAGE).add(behavior_.getBehaviorTag());
 	}
 
 	public void addNoUnoccupiedBuildingsBehavior(Behavior behavior_)
 	{
-		_noUnoccupiedBuildings.add(behavior_.getBehaviorTag());
+		_failedBehaviorsMap.get(ClayConstants.BEHAVIOR_FAILED_NO_UNOCCUPIED_GENERIC_BUILDING).add(behavior_.getBehaviorTag());
 	}
 
 	public void clearUnreachableBehaviors()
 	{
-		_unreachableBehaviors.clear();
+		_failedBehaviorsMap.get(ClayConstants.BEHAVIOR_FAILED_NO_PATH).clear();
 	}
 
 	public void clearNoMaterialsBehaviors()
 	{
-		_noMaterials.clear();
+		_failedBehaviorsMap.get(ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS).clear();
 	}
 
 	public void clearNoStorageAvailableBehaviors()
 	{
-		_noStorageAvailable.clear();
+		_failedBehaviorsMap.get(ClayConstants.BEHAVIOR_FAILED_NO_STORAGE).clear();
 	}
 
 	public void clearNoUnoccupiedBuildingsBehaviors()
 	{
-		_noUnoccupiedBuildings.clear();
+		_failedBehaviorsMap.get(ClayConstants.BEHAVIOR_FAILED_NO_UNOCCUPIED_GENERIC_BUILDING).clear();
 	}
 
 	public boolean isFacingRight()
@@ -576,10 +577,7 @@ public class GolemEntity extends AbstractEntity
 	private CityModel _model;
 	private Behavior _currentBehavior;
 
-	private List<String> _unreachableBehaviors;
-	private List<String> _noMaterials;
-	private List<String> _noStorageAvailable;
-	private List<String> _noUnoccupiedBuildings;
+	private Map<Integer, List<String>> _failedBehaviorsMap;
 
 	private List<String> _commands;
 	private Queue<Point> _moveInstructions;

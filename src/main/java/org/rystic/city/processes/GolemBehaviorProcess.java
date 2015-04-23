@@ -47,13 +47,15 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		{
 			_activeGolems.add(_pendingActiveGolems.poll());
 		}
-		_iterator = _activeGolems.iterator();
+		_activeGolems.iterator();
 		for (Iterator<GolemEntity> iterator = _activeGolems.iterator(); iterator
 				.hasNext();)
 		{
 			if (!iterator.next().executeBehavior())
 				iterator.remove();
 		}
+		if (_update)
+			doUpdate();
 	}
 
 	public void addInactiveGolem(GolemEntity golem_)
@@ -75,33 +77,48 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	public void behaviorFailed(Behavior behavior_, int failureReason_, GolemEntity failedGolem_)
 	{
 		System.out.println("failed: " + failureReason_ + " "
-				+ behavior_.getBehaviorTag());
-		
+				+ behavior_.getBehaviorTag() + " " + failedGolem_);
+
 		CityModel model = (CityModel) _homeScreen.getModel();
-		
+
 		if (failedGolem_ != null)
 			_behaviorAssignmentRunnable._pendingInactiveGolems
 					.add(failedGolem_);
-		switch (failureReason_)
+
+		if (!behavior_.isPersonalTask())
 		{
-		case ClayConstants.BEHAVIOR_FAILED_NO_PATH:
-			if (!behavior_.allGolemsInvalid(model.getGolems()))
+			switch (failureReason_)
 			{
-				if (!behavior_.isPersonalTask())
+			case ClayConstants.BEHAVIOR_FAILED_NO_PATH:
+				if (!behavior_.allGolemsInvalid(model.getGolems()))
+				{
 					_behaviorAssignmentRunnable._pendingBehaviors
 							.add(behavior_);
+					return;
+				}
+				break;
+			case ClayConstants.BEHAVIOR_FAILED_OBSOLETE:
+			case ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM:
 				return;
+			default:
+				break;
 			}
-			break;
-		case ClayConstants.BEHAVIOR_FAILED_OBSOLETE:
-		case ClayConstants.BEHAVIOR_FAILED_MISSING_ITEM:
-			return;
-		default:
-			break;
-		}
-		if (!behavior_.isPersonalTask())
 			_behaviorAssignmentRunnable._failedBehaviorMap.get(failureReason_)
 					.add(behavior_);
+		}
+		else
+		{
+			if (failureReason_ == ClayConstants.BEHAVIOR_FAILED_NO_PATH)
+				behavior_.getAssignedGolem().addUnreachableBehavior(behavior_);
+			else if (failureReason_ == ClayConstants.BEHAVIOR_FAILED_NO_MATERIALS)
+				behavior_.getAssignedGolem().addNoMaterialsBehavior(behavior_);
+			else if (failureReason_ == ClayConstants.BEHAVIOR_FAILED_NO_STORAGE)
+				behavior_.getAssignedGolem().addNoStorageAvailableBehavior(
+						behavior_);
+			else if (failureReason_ == ClayConstants.BEHAVIOR_FAILED_ASSIGNING_BUILDING_CLAIMED)
+				behavior_.getAssignedGolem().addNoUnoccupiedBuildingsBehavior(
+						behavior_);
+		}
 	}
 
 	public void behaviorComplete(Behavior behavior_, GolemEntity golem_)
@@ -116,10 +133,68 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	@Override
 	public void onEvent(MapUpdateEvent event_)
 	{
+		_update = true;
 		if (event_.getPoints() != null)
+		{
+			_mapUpdate = true;
 			_behaviorAssignmentRunnable._mapUpdate = true;
+		}
 		if (event_.isItemUpdate())
+		{
+			_itemUpdate = true;
 			_behaviorAssignmentRunnable._itemUpdate = true;
+		}
+		if (event_.isStorageAvailable())
+		{
+			_storageUpdate = true;
+			_behaviorAssignmentRunnable._storageUpdate = true;
+		}
+	}
+
+	private void doUpdate()
+	{
+		_update = false;
+		List<GolemEntity> golems = ((CityModel) _homeScreen.getModel())
+				.getGolems();
+		if (_mapUpdate)
+		{
+			clearGolemsUnreachableBehaviors(golems);
+			_mapUpdate = false;
+		}
+		if (_itemUpdate)
+		{
+			clearGolemsNoMaterials(golems);
+			_itemUpdate = false;
+		}
+		if (_storageUpdate)
+		{
+			clearGolemsNoStorageAvailableBehaviors(golems);
+			_storageUpdate = false;
+		}
+	}
+
+	private void clearGolemsUnreachableBehaviors(List<GolemEntity> golems_)
+	{
+		for (GolemEntity golem : golems_)
+		{
+			golem.clearUnreachableBehaviors();
+		}
+	}
+
+	private void clearGolemsNoMaterials(List<GolemEntity> golems_)
+	{
+		for (GolemEntity golem : golems_)
+		{
+			golem.clearNoMaterialsBehaviors();
+		}
+	}
+
+	private void clearGolemsNoStorageAvailableBehaviors(List<GolemEntity> golems_)
+	{
+		for (GolemEntity golem : golems_)
+		{
+			golem.clearNoStorageAvailableBehaviors();
+		}
 	}
 
 	private class BehaviorAssignmentRunnable implements Runnable
@@ -204,7 +279,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 								behaviorFailed(
 										triple._behavior,
 										requiredComplete,
-										null);
+										golem);
 							}
 						}
 					}
@@ -348,5 +423,9 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 	private Queue<GolemEntity> _pendingActiveGolems;
 	private List<GolemEntity> _activeGolems;
 
-	private Iterator<GolemEntity> _iterator;
+	private boolean _update;
+	private boolean _mapUpdate;
+	private boolean _itemUpdate;
+	private boolean _storageUpdate;
+
 }

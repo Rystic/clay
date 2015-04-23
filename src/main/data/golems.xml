@@ -5,7 +5,7 @@
 		MoveVariation="1" NeededBehaviors="repair-clay,power-obelisk,store-items"
 		StartingMana="100" StartingClay="100" MaximumMana="100" MaximumClay="150"
 		ManaLostOnMovement=".0001" LowManaThreshold="90" LowClayThreshold="60"
-		PersonalBehaviorChance="20" TrafficWeight="1" SpriteSize="32"
+		PersonalBehaviorChance="60" TrafficWeight="1" SpriteSize="32"
 		TextureScaling=".78" DefaultTexture="golem25.png" LowClayTexture="golemLowClay25.png"
 		LowManaTexture="golemLowMana25.png" LowManaLowClayTexture="golemLowManaLowClay25.png"></Golem>
 
@@ -43,7 +43,16 @@
 		MoveSpeed="2" MoveVariation="0" NeededBehaviors="repair-warrens,store-items"
 		StartingMana="75" StartingClay="75" MaximumMana="75" MaximumClay="75"
 		ManaLostOnMovement=".0001" LowManaThreshold="25" LowClayThreshold="25"
-		PersonalBehaviorChance="0" TrafficWeight="1" SpriteSize="30"
+		PersonalBehaviorChance="0" TrafficWeight="0" SpriteSize="25"
 		TextureScaling=".80" DefaultTexture="warrensGolem.png" LowClayTexture="warrensLowClay.png"
 		LowManaTexture="warrensLowMana.png" LowManaLowClayTexture="warrensLowManaLowClay.png"></Golem>
+
+	<Golem GolemName="Broken Golem" GolemTag="broken-golem" MoveSpeed="2"
+		MoveVariation="1" NeededBehaviors="store-items"
+		StartingMana="100" StartingClay="100" MaximumMana="100" MaximumClay="100"
+		ManaLostOnMovement=".0001" LowManaThreshold="35" LowClayThreshold="35"
+		PersonalBehaviorChance="60" TrafficWeight="3" SpriteSize="32"
+		TextureScaling=".94" DefaultTexture="brokenGolem.png" LowClayTexture="brokenGolemLowClay.png"
+		LowManaTexture="brokenGolemLowMana.png" LowManaLowClayTexture="brokenGolemLowManaLowClay.png"></Golem>
+
 </Golems>

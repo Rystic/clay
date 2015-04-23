@@ -30,7 +30,8 @@ public class ClayConstants
 	public static final String GOLEM_STONEWARE = "stoneware-golem";
 	public static final String GOLEM_EARTHENWARE = "earthenware-golem";
 	public static final String GOLEM_WARRENS = "warrens-golem";
-
+	public static final String GOLEM_BROKEN = "broken-golem";
+	
 	// --Behavior Constants--
 	// Behavior Commands
 	public static final String BEHAVIOR_COMMAND_ADD_CLAY = "add-clay";

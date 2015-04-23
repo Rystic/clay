@@ -237,11 +237,11 @@
 		<State StateName="state-buried:8" Graphic="base,deepHome3-32.png"></State>
 		<State StateName="state-buried:12" Graphic="base,deepHome4-32.png"></State>
 		<State StateName="state-adjacent:natural-clay,state-buried:2"
-			Graphic="base,bigDeepHome2.png"></State>
+			Graphic="base,deepHome2-32.png"></State>
 		<State StateName="state-adjacent:natural-clay,state-buried:4"
-			Graphic="base,bigDeepHome3.png"></State>
+			Graphic="base,deepHome3-32.png"></State>
 		<State StateName="state-adjacent:natural-clay,state-buried:6"
-			Graphic="base,bigDeepHome4.png"></State>
+			Graphic="base,deepHome4-32.png"></State>
 		<ProducedGreaterMana></ProducedGreaterMana>
 		<TickComplete></TickComplete>
 	</Building>
