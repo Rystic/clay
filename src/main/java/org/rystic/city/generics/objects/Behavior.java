@@ -16,9 +16,10 @@ import org.rystic.main.ClayConstants;
 
 public class Behavior
 {
-	public Behavior(GenericBehavior behavior_, Object... params_)
+	public Behavior(GenericBehavior behavior_, GolemBehaviorProcess behaviorProcess_, Object... params_)
 	{
 		_behavior = behavior_;
+		_behaviorProcess = behaviorProcess_;
 		_params = params_;
 		_invalidEntities = new HashSet<GolemEntity>();
 		_requiredCompleted = _behavior.getRequired().isEmpty();
@@ -67,11 +68,6 @@ public class Behavior
 					_params);
 		}
 		return passed;
-	}
-
-	public void setBehaviorProcess(GolemBehaviorProcess behaviorProcess_)
-	{
-		_behaviorProcess = behaviorProcess_;
 	}
 
 	public boolean isInvalid(GolemEntity golem_)

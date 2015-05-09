@@ -320,7 +320,7 @@ public class BuildingEntity extends AbstractEntity implements
 		GolemBehaviorProcess behaviorProcess = (GolemBehaviorProcess) _homeScreen
 				.getProcess(GolemBehaviorProcess.class);
 		behaviorProcess.queueBehavior(new Behavior(BehaviorData
-				.getBehavior("deconstruct-building"), this));
+				.getBehavior("deconstruct-building"), behaviorProcess, this));
 	}
 
 	public void deleteBuilding()
@@ -727,7 +727,8 @@ public class BuildingEntity extends AbstractEntity implements
 				GolemBehaviorProcess gbp = (GolemBehaviorProcess) _homeScreen
 						.getProcess(GolemBehaviorProcess.class);
 				Behavior behavior = new Behavior(
-						BehaviorData.getBehavior("repair-heat-damage"), this);
+						BehaviorData.getBehavior("repair-heat-damage"), gbp,
+						this);
 				behavior.setAssigningBuilding(this);
 				_activeBehaviors.add(behavior);
 				gbp.queueBehavior(behavior);
@@ -801,7 +802,7 @@ public class BuildingEntity extends AbstractEntity implements
 	{
 		return _traffic;
 	}
-	
+
 	public GenericBuilding getGenericBuilding()
 	{
 		return _genericBuilding;

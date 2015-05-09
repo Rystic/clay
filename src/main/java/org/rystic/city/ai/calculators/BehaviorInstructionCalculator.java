@@ -606,7 +606,7 @@ public class BehaviorInstructionCalculator
 		for (Item item : building.getCopyOfHeldItems())
 		{
 			Behavior behavior = new Behavior(
-					BehaviorData.getBehavior(ClayConstants.BEHAVIOR_HARVEST),
+					BehaviorData.getBehavior(ClayConstants.BEHAVIOR_HARVEST), behaviorProcess,
 					building, item.getTag());
 			behavior.setAssigningBuilding(building);
 			building.addActiveBehavior(behavior);
@@ -623,7 +623,7 @@ public class BehaviorInstructionCalculator
 		for (Item item : building.getCopyOfHeldItems())
 		{
 			Behavior behavior = new Behavior(
-					BehaviorData.getBehavior(ClayConstants.BEHAVIOR_HARVEST),
+					BehaviorData.getBehavior(ClayConstants.BEHAVIOR_HARVEST), behaviorProcess,
 					building, item.getTag());
 			behavior.setAssigningBuilding(building);
 			building.addActiveBehavior(behavior);

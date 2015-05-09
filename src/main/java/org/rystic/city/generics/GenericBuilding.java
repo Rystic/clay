@@ -327,7 +327,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 			for (BuildingEntity entity : newBuildings)
 			{
 				Behavior constructionBehavior = new Behavior(
-						BehaviorData.getBehavior("construct-building"), entity,
+						BehaviorData.getBehavior("construct-building"), behaviorProcess, entity,
 						buildableLocations);
 				entity.addActiveBehavior(constructionBehavior);
 				constructionBehavior.setAssigningBuilding(entity);
@@ -644,7 +644,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 
 				Behavior behavior = new Behavior(
 						BehaviorData
-								.getBehavior(ClayConstants.BEHAVIOR_HARVEST),
+								.getBehavior(ClayConstants.BEHAVIOR_HARVEST), behaviorProcess,
 						building_, commandAndParams[1]);
 				behavior.setAssigningBuilding(building_);
 				building_.addActiveBehavior(behavior);

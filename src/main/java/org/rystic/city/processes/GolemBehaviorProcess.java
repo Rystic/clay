@@ -65,7 +65,6 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 
 	public void queueBehavior(Behavior behavior_)
 	{
-		behavior_.setBehaviorProcess(this);
 		_behaviorAssignmentRunnable._pendingBehaviors.add(behavior_);
 	}
 
@@ -129,6 +128,11 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 		}
 		_behaviorAssignmentRunnable._pendingInactiveGolems.add(golem_);
 	}
+	
+	private void finishedBehaviorCleanup()
+	{
+		
+	}
 
 	@Override
 	public void onEvent(MapUpdateEvent event_)
@@ -171,6 +175,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 			clearGolemsNoStorageAvailableBehaviors(golems);
 			_storageUpdate = false;
 		}
+		
 	}
 
 	private void clearGolemsUnreachableBehaviors(List<GolemEntity> golems_)
@@ -260,11 +265,10 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 								.calculateBestBehavior(
 										golem,
 										golem.getNeededBehaviors(),
+										GolemBehaviorProcess.this,
 										true);
 						if (triple != null)
 						{
-							triple._behavior
-									.setBehaviorProcess(GolemBehaviorProcess.this);
 							triple._behavior.setAssignedGolem(golem);
 							int requiredComplete = triple._behavior
 									.calculateRequired(golem);
