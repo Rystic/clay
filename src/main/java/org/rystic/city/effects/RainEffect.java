@@ -29,7 +29,7 @@ public class RainEffect extends AbstractEffect
 				_existingDroplets.add(new Droplet());
 				if (_existingDroplets.size() == _maxDroplets)
 				{
-					break; // test commit
+					break;
 				}
 			}
 		}
