@@ -1,9 +1,9 @@
 package org.rystic.city.ui.menus.components;
 
+import java.awt.Color;
 import java.awt.Rectangle;
+import java.nio.ByteBuffer;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
 import org.rystic.main.ClayConstants;
 
 public abstract class AbstractComponent
@@ -15,12 +15,12 @@ public abstract class AbstractComponent
 		_bounds = new Rectangle(getConvertedX(x_), getConvertedY(y_), width_, height_);
 	}
 	
-	public void setTexture(Texture texture_)
+	public void setTexture(ByteBuffer texture_)
 	{
 		_texture = texture_;
 	}
 
-	public Texture getTexture()
+	public ByteBuffer getTexture()
 	{
 		return _texture;
 	}
@@ -109,7 +109,7 @@ public abstract class AbstractComponent
 	
 	protected Rectangle _bounds;
 
-	protected Texture _texture;
+	protected ByteBuffer _texture;
 	protected Color _color;
 	protected float _drawRatio;
 	

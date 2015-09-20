@@ -1,6 +1,7 @@
 package org.rystic.city.generics;
 
 import java.awt.Point;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -8,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.bushe.swing.event.EventBus;
-import org.newdawn.slick.opengl.Texture;
 import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.city.generics.data.BehaviorData;
 import org.rystic.city.generics.data.BuildingData;
@@ -24,6 +24,8 @@ import org.rystic.screens.AbstractScreen;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import com.sun.prism.Texture;
 
 public final class GenericBuilding implements Comparator<GenericBuilding>
 {
@@ -108,7 +110,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 			{
 				Element subChild = (Element) children.item(i);
 				String state = subChild.getAttribute("StateName");
-				HashMap<String, Texture> textureMap = new HashMap<String, Texture>();
+				HashMap<String, ByteBuffer> textureMap = new HashMap<String, ByteBuffer>();
 				_stateMap.put(state, textureMap);
 
 				String[] textures = subChild.getAttribute("Graphic").split(",");
@@ -671,7 +673,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		return false;
 	}
 
-	public Texture getTexture(String textureKey_, String position_)
+	public ByteBuffer getTexture(String textureKey_, String position_)
 	{
 		return _stateMap.get(textureKey_).get(position_);
 	}
@@ -888,7 +890,7 @@ public final class GenericBuilding implements Comparator<GenericBuilding>
 		return _buildingIdentifier;
 	}
 
-	private final Map<String, Map<String, Texture>> _stateMap = new HashMap<String, Map<String, Texture>>();
+	private final Map<String, Map<String, ByteBuffer>> _stateMap = new HashMap<String, Map<String, ByteBuffer>>();
 
 	private final Map<String, String> _validPlacementMap = new HashMap<String, String>();
 	private final Map<String, String> _scalabilityMap = new HashMap<String, String>();

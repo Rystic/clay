@@ -1,6 +1,6 @@
 package org.rystic.city.ui.menus.components;
 
-import org.newdawn.slick.opengl.Texture;
+import java.nio.ByteBuffer;
 
 public class ImageComponent extends AbstractComponent
 {
@@ -9,7 +9,7 @@ public class ImageComponent extends AbstractComponent
 		super(x_, y_, width_, height_);
 	}
 
-	public ImageComponent(int x_, int y_, int width_, int height_, Texture texture_)
+	public ImageComponent(int x_, int y_, int width_, int height_, ByteBuffer texture_)
 	{
 		super(x_, y_, width_, height_);
 		setTexture(texture_);

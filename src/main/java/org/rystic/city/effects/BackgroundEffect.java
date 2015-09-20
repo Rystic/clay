@@ -1,11 +1,9 @@
 package org.rystic.city.effects;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.nio.ByteBuffer;
 
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
+import org.rystic.city.generics.util.FieldParser;
 import org.rystic.main.ClayConstants;
 import org.rystic.screens.AbstractScreen;
 
@@ -21,8 +19,7 @@ public class BackgroundEffect extends AbstractEffect
 	{
 		try
 		{
-			_skyTexture = TextureLoader.getTexture("JPG", new FileInputStream(
-					new File("src/main/art/sky3.jpg")));
+			_skyTexture = FieldParser.parseTexture("sky4.png");
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -47,7 +44,8 @@ public class BackgroundEffect extends AbstractEffect
 		// GL11.glVertex2d(0, TILE_Y);
 		// GL11.glEnd();
 
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, _skyTexture.getTextureID());
+//		GL11.glBindTexture(GL11.GL_TEXTURE_2D, _skyTexture.getTexture//ID());
+		GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA8, ClayConstants.DEFAULT_MAP_WIDTH, ClayConstants.DEFAULT_MAP_HEIGHT, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, _skyTexture);
 		// continue;
 
 		GL11.glBegin(GL11.GL_POLYGON);
@@ -65,5 +63,5 @@ public class BackgroundEffect extends AbstractEffect
 		GL11.glEnd();
 	}
 
-	private static Texture _skyTexture;
+	private static ByteBuffer _skyTexture;
 }

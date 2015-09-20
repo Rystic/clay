@@ -1,10 +1,11 @@
 package org.rystic.city.ui.menus;
 
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.glfw.GLFW;
 import org.rystic.city.ui.menus.areas.buildingmenu.BuildResourceCostArea;
 import org.rystic.city.ui.menus.areas.buildingmenu.BuildingAttributeArea;
 import org.rystic.city.ui.menus.areas.buildingmenu.BuildingDescriptionArea;
@@ -40,13 +41,13 @@ public class BuildingMenu extends AbstractMenu
 		_areas.add(_buildingSelectionArea);
 
 		_hotKeys.addAll(DEFAULT_HOTKEYS.keySet());
-		_hotKeys.add(Keyboard.KEY_TAB);
+		_hotKeys.add(GLFW.GLFW_KEY_TAB);
 	}
 
 	@Override
 	public void handleKeyEvent(Integer key_)
 	{
-		if (Keyboard.KEY_TAB == key_)
+		if (GLFW.GLFW_KEY_TAB == key_)
 		{
 			if (!_buildingAttribute)
 				_buildingInfo = !_buildingInfo;
@@ -82,7 +83,7 @@ public class BuildingMenu extends AbstractMenu
 				_categoryDescriptionArea.updateSelection(key_);
 				_buildingSelectionArea.updateCategorySelection(key_);
 			}
-			else if (Keyboard.KEY_A == key_ && !_buildingAttribute)
+			else if (GLFW.GLFW_KEY_A == key_ && !_buildingAttribute)
 			{
 				_areas.remove(_buildingPatternArea);
 				_areas.remove(_buildingResourceCostArea);
@@ -113,11 +114,11 @@ public class BuildingMenu extends AbstractMenu
 		DEFAULT_CATEGORY_LABELS.put("(R) Culture", "Culture");
 		DEFAULT_CATEGORY_LABELS.put("(E) Mana Pool", "Mana Pool");
 
-		DEFAULT_HOTKEYS.put(Keyboard.KEY_A, "Architecture");
-		DEFAULT_HOTKEYS.put(Keyboard.KEY_S, "Basic Needs");
-		DEFAULT_HOTKEYS.put(Keyboard.KEY_C, "Conversions");
-		DEFAULT_HOTKEYS.put(Keyboard.KEY_R, "Culture");
-		DEFAULT_HOTKEYS.put(Keyboard.KEY_E, "Mana Pool");
+		DEFAULT_HOTKEYS.put(GLFW.GLFW_KEY_A, "Architecture");
+		DEFAULT_HOTKEYS.put(GLFW.GLFW_KEY_S, "Basic Needs");
+		DEFAULT_HOTKEYS.put(GLFW.GLFW_KEY_C, "Conversions");
+		DEFAULT_HOTKEYS.put(GLFW.GLFW_KEY_R, "Culture");
+		DEFAULT_HOTKEYS.put(GLFW.GLFW_KEY_E, "Mana Pool");
 	}
 
 	private BuildingSelectionArea _buildingSelectionArea;

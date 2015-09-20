@@ -1,6 +1,7 @@
 package org.rystic.city.generics;
 
-import org.newdawn.slick.opengl.Texture;
+import java.nio.ByteBuffer;
+
 import org.rystic.city.generics.util.FieldParser;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,7 +28,7 @@ public class GenericItem
 		return _itemTag;
 	}
 
-	public Texture getTexture()
+	public ByteBuffer getTexture()
 	{
 		return _texture;
 	}
@@ -47,7 +48,7 @@ public class GenericItem
 		return _parent;
 	}
 
-	private final Texture _texture;
+	private final ByteBuffer _texture;
 
 	private final String _itemName;
 	private final String _itemTag;

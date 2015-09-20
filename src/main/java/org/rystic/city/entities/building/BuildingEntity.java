@@ -1,6 +1,7 @@
 package org.rystic.city.entities.building;
 
 import java.awt.Point;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,7 +13,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
-import org.newdawn.slick.opengl.Texture;
 import org.rystic.city.entities.AbstractEntity;
 import org.rystic.city.entities.golem.GolemEntity;
 import org.rystic.city.generics.GenericBuilding;
@@ -30,6 +30,8 @@ import org.rystic.city.util.MapUpdateEvent;
 import org.rystic.main.ClayConstants;
 import org.rystic.models.CityModel;
 import org.rystic.screens.AbstractScreen;
+
+import com.sun.prism.Texture;
 
 public class BuildingEntity extends AbstractEntity implements
 		EventSubscriber<MapUpdateEvent>
@@ -103,7 +105,7 @@ public class BuildingEntity extends AbstractEntity implements
 		_texture = _genericBuilding.getTexture(_state, _position);
 	}
 
-	public Texture getTexture()
+	public ByteBuffer getTexture()
 	{
 		if (!_built)
 		{
@@ -847,7 +849,7 @@ public class BuildingEntity extends AbstractEntity implements
 
 	private final Point _point;
 
-	private Texture _texture;
+	private ByteBuffer _texture;
 
 	private GolemEntity _claimingGolem;
 

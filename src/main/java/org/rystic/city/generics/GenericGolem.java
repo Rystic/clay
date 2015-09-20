@@ -1,9 +1,9 @@
 package org.rystic.city.generics;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.newdawn.slick.opengl.Texture;
 import org.rystic.city.generics.data.BehaviorData;
 import org.rystic.city.generics.util.FieldParser;
 import org.w3c.dom.Element;
@@ -74,22 +74,22 @@ public class GenericGolem
 		return _neededBehaviors;
 	}
 	
-	public Texture getDefaultTexture()
+	public ByteBuffer getDefaultTexture()
 	{
 		return _defaultTexture;
 	}
 	
-	public Texture getLowClayTexture()
+	public ByteBuffer getLowClayTexture()
 	{
 		return _lowClayTexture;
 	}
 	
-	public Texture getLowManaTexture()
+	public ByteBuffer getLowManaTexture()
 	{
 		return _lowManaTexture;
 	}
 	
-	public Texture getLowManaLowClayTexture()
+	public ByteBuffer getLowManaLowClayTexture()
 	{
 		return _lowManaLClayTexture;
 	}
@@ -162,10 +162,10 @@ public class GenericGolem
 	private final String _golemName;
 	private final String _golemTag;
 	
-	private final Texture _defaultTexture;
-	private final Texture _lowClayTexture;
-	private final Texture _lowManaTexture;
-	private final Texture _lowManaLClayTexture;
+	private final ByteBuffer _defaultTexture;
+	private final ByteBuffer _lowClayTexture;
+	private final ByteBuffer _lowManaTexture;
+	private final ByteBuffer _lowManaLClayTexture;
 	
 	private final List<GenericBehavior> _neededBehaviors;
 

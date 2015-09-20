@@ -1,8 +1,8 @@
 package org.rystic.city.ui.menus.components;
 
+import java.nio.ByteBuffer;
 import java.util.Map;
 
-import org.newdawn.slick.opengl.Texture;
 import org.rystic.city.generics.GenericItem;
 import org.rystic.city.generics.data.ItemData;
 import org.rystic.city.generics.util.FieldParser;
@@ -121,8 +121,8 @@ public class AdjustItemRatioButton extends AbstractButton
 
 	}
 
-	private static Texture _plusIcon = FieldParser.parseTexture("plusIcon.png");
-	private static Texture _minusIcon = FieldParser
+	private static ByteBuffer _plusIcon = FieldParser.parseTexture("plusIcon.png");
+	private static ByteBuffer _minusIcon = FieldParser
 			.parseTexture("minusIcon.png");
 
 	private CityModel _model;

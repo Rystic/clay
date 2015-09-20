@@ -52,11 +52,11 @@ public class CityScreen extends AbstractScreen
 		_cityModel.setSelectedMenu(_menus.get(0));
 
 		_effects.add(new BackgroundEffect(this));
-		_effects.add(new ArchitectureEffect(this));
-		_effects.add(new GolemEffect(this));
+//		_effects.add(new ArchitectureEffect(this));
+//		_effects.add(new GolemEffect(this));
 //		if (new Random().nextInt(100) < 10)
 //			_effects.add(new RainEffect(this));
-		_effects.add(new CityInterfaceEffect(this));
+//		_effects.add(new CityInterfaceEffect(this));
 
 		for (AbstractEffect effect : _effects)
 		{

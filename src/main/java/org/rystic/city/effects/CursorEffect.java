@@ -1,11 +1,7 @@
 package org.rystic.city.effects;
 
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.opengl.Texture;
-import org.rystic.city.generics.GenericBuilding;
-import org.rystic.city.generics.data.BuildingData;
+import java.nio.ByteBuffer;
+
 import org.rystic.main.ClayConstants;
 import org.rystic.models.CityModel;
 import org.rystic.screens.AbstractScreen;
@@ -23,41 +19,41 @@ public class CursorEffect extends AbstractEffect
 	@Override
 	public void executeEffect()
 	{
-		if (Mouse.getX() < Display.getWidth()
-				- ClayConstants.DEFAULT_INTERFACE_WIDTH)
-		{
-			int selectedBuilding = _model.getSelectedBuilding();
-			if (selectedBuilding != _selectedBuilding)
-			{
-				_selectedBuilding = selectedBuilding;
-				GenericBuilding building = BuildingData
-						.getBuildingById(_selectedBuilding);
-				_cursorTexture = building.getTexture(
-						ClayConstants.T_STATE_DEFAULT,
-						ClayConstants.DEFAULT_BUILDING_POSITION);
-			}
-
-			int x = Mouse.getX() - 10;
-			int y = Mouse.getY() - 10;
-			GL11.glBindTexture(
-					GL11.GL_TEXTURE_2D,
-					_cursorTexture.getTextureID());
-			GL11.glBegin(GL11.GL_POLYGON);
-			GL11.glTexCoord2f(0, 0);
-			GL11.glVertex2d(x, y + _cursorSize);
-			GL11.glTexCoord2f(.77f, 0);
-			GL11.glVertex2d(x + _cursorSize, y + _cursorSize);
-			GL11.glTexCoord2f(.77f, .77f);
-			GL11.glVertex2d(x + _cursorSize, y);
-			GL11.glTexCoord2f(0, .77f);
-			GL11.glVertex2d(x, y);
-			GL11.glEnd();
-		}
+//		if (Mouse.getX() < Display.getWidth()
+//				- ClayConstants.DEFAULT_INTERFACE_WIDTH)
+//		{
+//			int selectedBuilding = _model.getSelectedBuilding();
+//			if (selectedBuilding != _selectedBuilding)
+//			{
+//				_selectedBuilding = selectedBuilding;
+//				GenericBuilding building = BuildingData
+//						.getBuildingById(_selectedBuilding);
+//				_cursorTexture = building.getTexture(
+//						ClayConstants.T_STATE_DEFAULT,
+//						ClayConstants.DEFAULT_BUILDING_POSITION);
+//			}
+//
+//			int x = Mouse.getX() - 10;
+//			int y = Mouse.getY() - 10;
+//			GL11.glBindTexture(
+//					GL11.GL_TEXTURE_2D,
+//					_cursorTexture.getTextureID());
+//			GL11.glBegin(GL11.GL_POLYGON);
+//			GL11.glTexCoord2f(0, 0);
+//			GL11.glVertex2d(x, y + _cursorSize);
+//			GL11.glTexCoord2f(.77f, 0);
+//			GL11.glVertex2d(x + _cursorSize, y + _cursorSize);
+//			GL11.glTexCoord2f(.77f, .77f);
+//			GL11.glVertex2d(x + _cursorSize, y);
+//			GL11.glTexCoord2f(0, .77f);
+//			GL11.glVertex2d(x, y);
+//			GL11.glEnd();
+//		}
 	}
 
 	private CityModel _model;
 
-	private Texture _cursorTexture;
+	private ByteBuffer _cursorTexture;
 
 	private int _selectedBuilding;
 

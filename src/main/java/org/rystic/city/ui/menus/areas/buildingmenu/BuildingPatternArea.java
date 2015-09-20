@@ -1,10 +1,10 @@
 package org.rystic.city.ui.menus.areas.buildingmenu;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.newdawn.slick.Color;
 import org.rystic.city.generics.GenericBuilding;
 import org.rystic.city.generics.data.BuildingData;
 import org.rystic.city.ui.menus.areas.AbstractArea;

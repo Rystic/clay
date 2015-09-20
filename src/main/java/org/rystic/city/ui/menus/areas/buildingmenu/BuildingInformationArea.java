@@ -1,6 +1,7 @@
 package org.rystic.city.ui.menus.areas.buildingmenu;
 
-import org.newdawn.slick.Color;
+import java.awt.Color;
+
 import org.rystic.city.generics.GenericBehavior;
 import org.rystic.city.generics.GenericBuilding;
 import org.rystic.city.generics.data.BehaviorData;

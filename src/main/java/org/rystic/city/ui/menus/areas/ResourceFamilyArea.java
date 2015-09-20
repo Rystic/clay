@@ -1,12 +1,12 @@
 package org.rystic.city.ui.menus.areas;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.newdawn.slick.Color;
 import org.rystic.city.generics.GenericItem;
 import org.rystic.city.generics.data.ItemData;
 import org.rystic.city.ui.menus.components.ImageComponent;

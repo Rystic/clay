@@ -42,7 +42,7 @@ public class ArchitectureEffect extends AbstractEffect
 						else
 							GL11.glColor3f(0.75f, 0.50f, .50f);
 					}
-					int textureId = tile.getTexture().getTextureID();
+					int textureId = 0;//tile.getTexture().getTextureID();
 					if (textureId != prevTexture)
 						GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureId);
 					prevTexture = textureId;

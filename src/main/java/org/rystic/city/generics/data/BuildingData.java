@@ -1,6 +1,7 @@
 package org.rystic.city.generics.data;
 
 import java.io.File;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,10 +12,6 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
-import org.newdawn.slick.opengl.Texture;
 import org.rystic.city.generics.GenericBuilding;
 import org.rystic.city.generics.util.FieldParser;
 import org.w3c.dom.Document;
@@ -123,24 +120,9 @@ public class BuildingData
 		return availableBuildings;
 	}
 
-	public static void main(String[] args)
-	{
-		// for testing only
-		try
-		{
-			Display.setDisplayMode(new DisplayMode(200, 200));
-			Display.create();
-		} catch (LWJGLException e)
-		{
-			e.printStackTrace();
-			System.exit(0);
-		}
-		BuildingData.init();
-	}
-
-	public static Texture _constructionTexture;
-	public static Texture _constructionNonSupportTexture;
-	public static Texture _clayBlockFoundationTexture;
+	public static ByteBuffer _constructionTexture;
+	public static ByteBuffer _constructionNonSupportTexture;
+	public static ByteBuffer _clayBlockFoundationTexture;
 
 	private static Map<Integer, GenericBuilding> _idToBuilding = new HashMap<Integer, GenericBuilding>();
 	private static Map<String, GenericBuilding> _tagToBuilding = new HashMap<String, GenericBuilding>();

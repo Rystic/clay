@@ -1,7 +1,6 @@
 package org.rystic.city.ui.menus.components;
 
-import org.newdawn.slick.Color;
-
+import java.awt.Color;
 
 public class TextComponent extends AbstractComponent
 {

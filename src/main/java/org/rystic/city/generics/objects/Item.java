@@ -1,6 +1,7 @@
 package org.rystic.city.generics.objects;
 
-import org.newdawn.slick.opengl.Texture;
+import java.nio.ByteBuffer;
+
 import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.city.generics.GenericItem;
 
@@ -64,7 +65,7 @@ public class Item
 		return _item.getParentTag();
 	}
 	
-	public Texture getTexture()
+	public ByteBuffer getTexture()
 	{
 		return _item.getTexture();
 	}

@@ -299,7 +299,7 @@ public class GolemBehaviorProcess extends AbstractProcess implements
 						bestGolem = -1;
 						Behavior behavior = unassignedBehaviors.poll();
 
-						// check if behavior can claim it's materials
+						// check if behavior can claim its materials
 
 						// all possible failure conditions should be checked
 						// before reaching this point.

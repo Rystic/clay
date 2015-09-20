@@ -1,6 +1,7 @@
 package org.rystic.city.ui.menus.components;
 
-import org.newdawn.slick.Color;
+import java.awt.Color;
+
 import org.rystic.main.ClayConstants;
 
 public class HorizontalLineComponent extends AbstractComponent

@@ -1,6 +1,7 @@
 package org.rystic.city.ui.menus.areas.buildingmenu;
 
-import org.newdawn.slick.Color;
+import java.awt.Color;
+
 import org.rystic.city.generics.data.BuildingData;
 import org.rystic.city.ui.menus.areas.AbstractArea;
 import org.rystic.city.ui.menus.components.HorizontalLineComponent;

@@ -1,6 +1,7 @@
 package org.rystic.city.ui.menus.components;
 
-import org.newdawn.slick.opengl.Texture;
+import java.nio.ByteBuffer;
+
 import org.rystic.city.generics.GenericBuilding;
 import org.rystic.city.generics.data.BuildingData;
 import org.rystic.main.ClayConstants;
@@ -24,7 +25,7 @@ public class SelectBuildingButton extends AbstractButton
 	}
 	
 	@Override
-	public Texture getTexture()
+	public ByteBuffer getTexture()
 	{
 		if (_building == null) return BuildingData._constructionTexture;
 		return _building.getTexture(ClayConstants.T_STATE_DEFAULT, _position);

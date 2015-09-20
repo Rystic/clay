@@ -2,14 +2,15 @@
 
 package org.rystic.city.ui.menus.components;
 
-import org.newdawn.slick.opengl.Texture;
+import java.nio.ByteBuffer;
+
 import org.rystic.screens.AbstractScreen;
 import org.rystic.screens.CityScreen;
 
 public class SelectMenuButton extends AbstractButton
 {
 	public SelectMenuButton(AbstractScreen homeScreen_, int x_, int y_, int width_, int height_,
-			Texture texture_, boolean leftArrow_)
+			ByteBuffer texture_, boolean leftArrow_)
 	{
 		super(x_, y_, width_, height_);
 		_homeScreen = homeScreen_;

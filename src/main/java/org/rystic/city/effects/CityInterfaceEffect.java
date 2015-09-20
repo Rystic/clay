@@ -1,7 +1,8 @@
 package org.rystic.city.effects;
 
+import java.awt.Color;
+
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.Color;
 import org.rystic.city.ui.menus.AbstractMenu;
 import org.rystic.city.ui.menus.components.AbstractButton;
 import org.rystic.city.ui.menus.components.AbstractComponent;
@@ -42,14 +43,14 @@ public class CityInterfaceEffect extends AbstractEffect
 			}
 			else if (component.getTexture() != null)
 			{
-				GL11.glBindTexture(GL11.GL_TEXTURE_2D, component.getTexture()
-						.getTextureID());
+//				GL11.glBindTexture(GL11.GL_TEXTURE_2D, component.getTexture()
+//						.getTextureID());
 				if (component.getColor() != null)
 				{
 					GL11.glColor3f(
-							component.getColor().r,
-							component.getColor().g,
-							component.getColor().b);
+							component.getColor().getRed(),
+							component.getColor().getGreen(),
+							component.getColor().getBlue());
 				}
 				else
 					GL11.glColor3f(1f, 1f, 1f);
@@ -88,7 +89,7 @@ public class CityInterfaceEffect extends AbstractEffect
 			else if (component.getColor() != null)
 			{
 				Color color = component.getColor();
-				GL11.glColor3f(color.r, color.g, color.b);
+				GL11.glColor3f(color.getRed(), color.getGreen(), color.getBlue());
 				GL11.glBegin(GL11.GL_POLYGON);
 				GL11.glVertex2d(
 						component.getX() + ClayConstants.DEFAULT_MAP_WIDTH,

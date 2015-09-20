@@ -19,6 +19,9 @@ public class GolemEffect extends AbstractEffect
 	@Override
 	public void executeEffect()
 	{
+		
+		int textureID = GL11.glGenTextures();
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID); //Bind texture ID
 		for (GolemEntity golem : _golemList)
 		{
 			if (!golem.isVisible())
@@ -29,7 +32,7 @@ public class GolemEffect extends AbstractEffect
 				GL11.glColor3f(manaVal, manaVal, clayVal);
 			else
 				GL11.glColor3f(1f, 1f, 1f);
-				GL11.glBindTexture(GL11.GL_TEXTURE_2D, golem.getCurrentTexture().getTextureID());
+			//	GL11.glBindTexture(GL11.GL_TEXTURE_2D, golem.getCurrentTexture().getTextureID());
 			double x = golem.getX();
 			double y = golem.getY();
 			float drawRatio = golem.getTextureScaling();
@@ -66,9 +69,9 @@ public class GolemEffect extends AbstractEffect
 
 			if (!golem.getCopyOfHeldItems().isEmpty())
 			{
-				GL11.glBindTexture(GL11.GL_TEXTURE_2D, golem
-						.getCopyOfHeldItems().get(0).getTexture()
-						.getTextureID());
+//				GL11.glBindTexture(GL11.GL_TEXTURE_2D, golem
+//						.getCopyOfHeldItems().get(0).getTexture()
+//						.getTextureID());
 				GL11.glBegin(GL11.GL_POLYGON);
 				GL11.glTexCoord2f(0, 0);
 				GL11.glVertex2d(x, ClayConstants.DEFAULT_MAP_HEIGHT - y

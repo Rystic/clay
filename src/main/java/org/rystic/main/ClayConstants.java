@@ -1,9 +1,8 @@
 package org.rystic.main;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.newdawn.slick.Color;
 
 public class ClayConstants
 {

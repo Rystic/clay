@@ -1,6 +1,7 @@
 package org.rystic.city.entities.golem;
 
 import java.awt.Point;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +11,6 @@ import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import org.bushe.swing.event.EventBus;
-import org.newdawn.slick.opengl.Texture;
 import org.rystic.city.ai.calculators.GolemPersonalityCalculator;
 import org.rystic.city.entities.AbstractEntity;
 import org.rystic.city.entities.building.BuildingEntity;
@@ -345,7 +345,7 @@ public class GolemEntity extends AbstractEntity
 		return _tickComplete;
 	}
 
-	public Texture getCurrentTexture()
+	public ByteBuffer getCurrentTexture()
 	{
 		if (isLowClay())
 		{

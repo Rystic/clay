@@ -4,13 +4,15 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
+import org.lwjgl.glfw.GLFW;
 import org.rystic.city.entities.building.BuildingEntity;
 import org.rystic.city.generics.GenericBuilding;
 import org.rystic.city.generics.data.BuildingData;
 import org.rystic.city.processes.AbstractProcess;
+import org.rystic.city.util.KeyboardHandler;
+import org.rystic.city.util.MouseHandler;
 import org.rystic.main.ClayConstants;
+import org.rystic.main.ClayMain;
 import org.rystic.models.CityModel;
 import org.rystic.screens.AbstractScreen;
 
@@ -29,33 +31,32 @@ public class BuildingPlacementController extends AbstractProcess
 	public void execute()
 	{
 
-		boolean leftClick = Mouse.isButtonDown(0);
+		boolean leftClick = GLFW.glfwGetMouseButton(ClayMain._mainDisplay, GLFW.GLFW_MOUSE_BUTTON_1) == GLFW.GLFW_PRESS;
 
-		if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)
-				|| Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+		if (KeyboardHandler.isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT) || KeyboardHandler.isKeyDown(GLFW.GLFW_KEY_RIGHT_SHIFT))
 		{
 			if (_leftClickReleased && leftClick)
-				destroyBuilding(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
+				destroyBuilding(MouseHandler.x / TILE_X, MouseHandler.y / TILE_Y);
 			else
 			{
 				if (!leftClick)
 					_leftClickReleased = true;
 				highlightBuildingForDeletion(
-						Mouse.getX() / TILE_X,
-						Mouse.getY() / TILE_Y);
+						MouseHandler.x / TILE_X,
+						MouseHandler.y / TILE_Y);
 			}
 
 		}
 		else if (leftClick)
 		{
-			placeBuilding(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
+			placeBuilding(MouseHandler.x / TILE_X, MouseHandler.y / TILE_Y);
 		}
 		else
 		{
 			_leftClickReleased = true;
 			_recentlyCreatedClayBlocks.clear();
-			if (Mouse.isButtonDown(1))
-				copyBuilding(Mouse.getX() / TILE_X, Mouse.getY() / TILE_Y);
+			if (GLFW.glfwGetMouseButton(ClayMain._mainDisplay, GLFW.GLFW_MOUSE_BUTTON_2) == GLFW.GLFW_PRESS)
+				copyBuilding(MouseHandler.x / TILE_X, MouseHandler.y / TILE_Y);
 		}
 
 	}
