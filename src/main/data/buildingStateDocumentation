@@ -57,7 +57,7 @@ show - Reveals a golem made invisible with 'hide'
 store-all - Takes all items from the executing entity and puts them in the building the executing entity is on.
 store-item:item-tag - Takes the item from the executing entity and puts it in the building the executing entity is on.
 take-item:item-tag:abstract-entity - Takes the given item from the from the abstract entity and gives it to the executing entity.
-
+tick:integer - waits for <integer> cycles to pass.
 
 **Behavior Weight:
 closest-to-point - higher weight for being closer to the given point.
