@@ -25,7 +25,7 @@ no-held-items-- signals that the tick should restart if the entity is holding no
 
 
 **Behavior Commands:
-add-clay:int - Tells the golem to increase it's clay by the given amount.
+add-clay:int - Tells the golem to increase its clay by the given amount.
 add-mana:int - Tells the golem to increase the city's mana by the given amount.
 build:building-entity,building-entity - Tells the golem to move to the first parameter, and start construction on the second parameter.
 create-clay-golem:abstract-entity - creates a clay golem at the given entity.
